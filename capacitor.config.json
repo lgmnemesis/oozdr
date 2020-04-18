@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "reconnect",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

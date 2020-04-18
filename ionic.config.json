@@ -1,0 +1,7 @@
+{
+  "name": "reconnect",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
