@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "reconnect-i": {
+      "hosting": {
+        "app": [
+          "reconnect-i"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "production": "reconnect-i"
+  }
+}
