@@ -4,6 +4,8 @@ ion-content {
 
 #start-header {
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #start-header ion-item {
@@ -18,6 +20,20 @@ ion-content {
   justify-content: center;
 }
 
+#bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../../assets/images/reconnect.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  opacity: 0.5;
+}
+
 #bt-signin {
   --padding-start: 15px;
   --padding-end: 15px;
@@ -28,4 +44,13 @@ ion-content {
 #bt-signup {
   --padding-start: 70px;
   --padding-end: 70px;
+}
+
+ion-text {
+  text-align: center;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 4em;
 }

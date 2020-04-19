@@ -7,6 +7,8 @@ const routes: Routes = [
     path: 'start',
     loadChildren: () => import('./pages/start/start.module').then( m => m.StartPageModule)
   },
+  // Default redirect route rule if non of the above matches
+  { path: '**', redirectTo: 'start', pathMatch: 'full' }
 ];
 
 @NgModule({
