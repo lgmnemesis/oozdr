@@ -21,6 +21,11 @@ ion-content {
 #start-header ion-item {
   width: 100vw;
   --background: transparent;
+  --inner-padding-end: 0;
+}
+
+#start-header ion-button {
+  margin-inline-start: 2px;
 }
 
 .flex-container {
@@ -41,7 +46,7 @@ ion-content {
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 #bt-signin {
