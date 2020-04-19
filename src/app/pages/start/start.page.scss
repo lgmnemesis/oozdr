@@ -1,11 +1,31 @@
-.frame {
+ion-content {
+  position: relative;
+}
+
+#start-header {
+  position: absolute;
+}
+
+#start-header ion-item {
+  width: 100vw;
+  --background: transparent;
+}
+
+.flex-container {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-#bt-si {
+#bt-signin {
+  --padding-start: 15px;
+  --padding-end: 15px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+}
+
+#bt-signup {
   --padding-start: 70px;
   --padding-end: 70px;
 }

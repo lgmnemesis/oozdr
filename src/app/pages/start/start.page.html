@@ -1,12 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>start</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
 
-  <div class="frame">
+  <div id="start-header">
+    <ion-item lines="none">
+      <ion-button
+        id="bt-signin"
+        slot="end"
+        color="primary">
+        Sign In
+      </ion-button>
+      <ion-button
+        slot="end"
+        size="large"
+        fill="clear"
+        color="primary">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </div>
+
+  <div class="flex-container">
     <ion-grid>
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="auto">
@@ -17,9 +29,16 @@
       </ion-row>
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="auto">
-          <ion-button id="bt-si" size="large" shape="round" color="primary">SIGN UP</ion-button>
+          <ion-button 
+            id="bt-signup" 
+            size="large" 
+            shape="round" 
+            color="primary">
+            SIGN UP
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
+
 </ion-content>
