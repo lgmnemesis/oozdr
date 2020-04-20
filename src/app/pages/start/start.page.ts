@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
 
@@ -6,6 +6,7 @@ import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-m
   selector: 'app-start',
   templateUrl: './start.page.html',
   styleUrls: ['./start.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StartPage implements OnInit {
 
