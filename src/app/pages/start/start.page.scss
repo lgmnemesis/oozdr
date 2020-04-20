@@ -1,8 +1,14 @@
 @import '../../styles/global-styles';
+@import '../../styles/fonts-text';
+@import '../../styles/animation';
 
 @media only screen and (max-width: $MEDIUM_WINDOW_WIDTH) {
   h1 {
     font-size: 2em !important;
+  }
+
+  ion-text {
+    font-size: 16px;
   }
 }
 
@@ -46,7 +52,7 @@ ion-content {
   background-position: center center;
   background-attachment: fixed;
   background-size: cover;
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 #bt-signin {
@@ -62,10 +68,12 @@ ion-content {
 }
 
 ion-text {
+  @extend .larger-text;
   text-align: center;
 }
 
 h1 {
   text-transform: uppercase;
-  font-size: 4em;
+  font-size: 2em;
+  font-weight: 100;
 }
