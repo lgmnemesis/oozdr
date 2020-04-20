@@ -5,7 +5,8 @@
       <ion-button
         id="bt-signin"
         slot="end"
-        color="main">
+        color="main"
+        (click)="signUp()">
         Sign In
       </ion-button>
       <ion-button
@@ -31,7 +32,7 @@
               <p>Find Out if they are looking for you as well!</p>
               <p>Maybe it meant to be!</p>
             </div>
-            <div class="animated delay-3s jackInTheBox">
+            <div class="animated delay-3s slideInRight">
               <h1>RECONNECT IS YOUR WAY TO FIND OUT YOUR SOULMATE</h1>
               <p>Simple sign up and find out!</p>
               <p>Everything is private, secured and simple.</p>
@@ -46,7 +47,8 @@
             id="bt-signup" 
             size="large" 
             shape="round" 
-            color="main">
+            color="main"
+            (click)="signUp()">
             SIGN UP
           </ion-button>
         </ion-col>
