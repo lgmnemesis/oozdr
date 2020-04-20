@@ -2,13 +2,13 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
-@media only screen and (max-width: $MEDIUM_WINDOW_WIDTH) {
-  h1 {
-    font-size: 2em !important;
+@media only screen and (max-height: 570px) {
+  .margin-height {
+    padding: 10px 0 !important;
   }
 
-  ion-text {
-    font-size: 16px;
+  h1 {
+    font-size: 1em !important;
   }
 }
 
@@ -69,7 +69,7 @@ ion-content {
 }
 
 ion-text {
-  @extend .larger-text;
+  @extend .large-text;
   text-align: center;
   font-weight: 300;
 }
@@ -81,5 +81,10 @@ h1 {
 }
 
 .margin-height {
-  margin: 50px 0;
+  margin: 0;
+  padding: 15px 0;
+}
+
+.margin-0 {
+  margin: 0;
 }

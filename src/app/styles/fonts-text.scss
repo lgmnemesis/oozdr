@@ -13,3 +13,8 @@
   @extend .font-params;
   font-size: 20px;
 }
+
+.large-text {
+  @extend .font-params;
+  font-size: 22px;
+}

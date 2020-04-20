@@ -27,17 +27,11 @@ export class StartPage implements OnInit {
   async presentSignUp() {
     const modal = await this.modalCtrl.create({
       component: SignInModalComponent,
-      componentProps: {
-        'firstName': 'Douglas',
-        'lastName': 'Adams',
-        'middleInitial': 'N'
-      },
       cssClass: 'present-modal-properties'
     });
 
     modal.onDidDismiss().finally(() => {
       this.isSignUpButtonActive = false;
-      console.log('dismiss:');
     })
     return await modal.present();
   }
