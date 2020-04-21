@@ -10,16 +10,16 @@ import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-m
 })
 export class StartPage implements OnInit {
 
-  private isSignUpButtonActive = false;
+  private isSignInButtonActive = false;
 
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
-  signUp() {
-    if (!this.isSignUpButtonActive) {
-      this.isSignUpButtonActive = true;
+  signIn() {
+    if (!this.isSignInButtonActive) {
+      this.isSignInButtonActive = true;
       this.presentSignUp();
     }
   }
@@ -32,7 +32,7 @@ export class StartPage implements OnInit {
     });
 
     modal.onDidDismiss().finally(() => {
-      this.isSignUpButtonActive = false;
+      this.isSignInButtonActive = false;
     })
     return await modal.present();
   }

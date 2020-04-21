@@ -6,7 +6,7 @@
         id="bt-signin"
         slot="end"
         color="main"
-        (click)="signUp()">
+        (click)="signIn()">
         Sign In
       </ion-button>
       <ion-button
@@ -48,7 +48,8 @@
             size="large" 
             shape="round" 
             color="main"
-            (click)="signUp()">
+            routerLink="/welcome"
+            routerDirection="forward">
             LET'S START
           </ion-button>
         </ion-col>
