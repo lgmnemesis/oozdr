@@ -2,18 +2,72 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <p>moshe 1</p>
+        <p>First Name</p>
+        <ion-item lines="none" class="item-input">
+          <ion-input placeholder="First Name">
+            <ion-icon name="person"></ion-icon>
+          </ion-input>
+        </ion-item>
       </ion-col>
+
+      <ion-col size="auto">
+        <p>Gender</p>
+        <ion-item lines="none" class="item">
+          <ion-button [class.bt-gender-active]="selectedGender === 'man'"
+            size="large" fill="outline" class="bt-gender" (click)="setGender('man')">
+            Man
+          </ion-button>
+          <ion-button [class.bt-gender-active]="selectedGender === 'woman'"
+            size="large" fill="outline" class="bt-gender" (click)="setGender('woman')">
+            Woman
+          </ion-button>
+          <ion-button [class.bt-gender-active]="selectedGender === 'other'"
+            size="large" fill="outline" class="bt-gender" (click)="setGender('other')">
+            Other
+          </ion-button>
+        </ion-item>
+      </ion-col>
+
     </ion-row>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <p>moshe 2</p>
+        <p>Email</p>
+        <ion-item lines="none" class="item-input">
+          <ion-input placeholder="Your Email Address">
+            <ion-icon name="mail"></ion-icon>
+          </ion-input>
+        </ion-item>
       </ion-col>
+
+      <ion-col size="auto">
+        <p>Mobile Number</p>
+        <ion-item lines="none" class="item-input">
+          <ion-input placeholder="Your Mobile Number">
+            <ion-icon name="mail"></ion-icon>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+
     </ion-row>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <p>moshe 3</p>
+        <p>Birthday</p>
+        <ion-item lines="none" class="item-input">
+          <ion-input placeholder="Optional">
+            <ion-icon name="mail"></ion-icon>
+          </ion-input>
+        </ion-item>
       </ion-col>
+
+      <ion-col size="auto">
+        <p>Profile Photo</p>
+        <ion-item lines="none" class="item-input">
+          <ion-input placeholder="Optional">
+            <ion-icon name="mail"></ion-icon>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 </div>

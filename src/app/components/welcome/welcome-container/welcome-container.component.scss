@@ -1,6 +1,44 @@
+@import '../../../styles/global-styles';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .item-input {
+    min-width: 0 !important;
+  }
+}
+
+ion-grid {
+  margin: auto;
+}
+
 .flex-container {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+ion-col {
+  padding: 15px 30px;
+}
+
+.item-input {
+  --background: var(--ion-color-light);
+  --border-radius: 10px;
+  min-width: 350px;
+}
+
+.item-input ion-input {
+  --padding-start: 10px !important;
+}
+
+.bt-gender {
+  --border-radius: 10px;
+  text-transform: capitalize;
+  --border-color: var(--ion-color-medium);
+  --color: var(--ion-color-medium);
+}
+
+.bt-gender-active {
+  --border-color: var(--ion-color-primary);
+  --color: var(--ion-color-dark);
 }
