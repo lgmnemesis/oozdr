@@ -27,6 +27,7 @@ export class StartPage implements OnInit {
   async presentSignUp() {
     const modal = await this.modalCtrl.create({
       component: SignInModalComponent,
+      backdropDismiss: false,
       cssClass: 'present-modal-properties'
     });
 
