@@ -4,10 +4,11 @@
       <ion-col size="auto">
         <p>First Name</p>
         <ion-item lines="none" class="item-input">
-          <ion-input placeholder="First Name">
+          <ion-input autofocus placeholder="First Name">
             <ion-icon name="person"></ion-icon>
           </ion-input>
         </ion-item>
+        <p class="p-error" [class.p-error-active]="true">invalid name</p>
       </ion-col>
 
       <ion-col size="auto">
@@ -26,6 +27,7 @@
             Other
           </ion-button>
         </ion-item>
+        <p class="p-error">invalid gender</p>
       </ion-col>
 
     </ion-row>
@@ -33,10 +35,14 @@
       <ion-col size="auto">
         <p>Email</p>
         <ion-item lines="none" class="item-input">
-          <ion-input placeholder="Your Email Address">
+          <ion-input 
+            type="email" 
+            inputmode="email" 
+            placeholder="Your Email Address">
             <ion-icon name="mail"></ion-icon>
           </ion-input>
         </ion-item>
+        <p class="p-error">invalid email address</p>
       </ion-col>
 
       <ion-col size="auto">
@@ -46,28 +52,38 @@
             <ion-icon name="mail"></ion-icon>
           </ion-input>
         </ion-item>
+        <p class="p-error">invalid mobile number</p>
       </ion-col>
 
     </ion-row>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <p>Birthday</p>
+        <p>Birthday (optional)</p>
         <ion-item lines="none" class="item-input">
           <ion-input placeholder="Optional">
             <ion-icon name="mail"></ion-icon>
           </ion-input>
         </ion-item>
+        <p class="p-error">invalid birthday</p>
       </ion-col>
 
       <ion-col size="auto">
-        <p>Profile Photo</p>
+        <p>Profile Photo (optional)</p>
         <ion-item lines="none" class="item-input">
           <ion-input placeholder="Optional">
             <ion-icon name="mail"></ion-icon>
           </ion-input>
         </ion-item>
+        <p class="p-error">invalid photo</p>
       </ion-col>
 
     </ion-row>
+
+    <ion-row class="row-padding ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <ion-button shape="round" (click)="nextStep()">Continue</ion-button>
+      </ion-col>
+    </ion-row>
+    
   </ion-grid>
 </div>

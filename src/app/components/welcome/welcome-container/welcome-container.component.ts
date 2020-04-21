@@ -8,6 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class WelcomeContainerComponent implements OnInit {
 
+  name = '';
+  email = '';
   selectedGender = '';
 
   constructor() { }
@@ -18,4 +20,14 @@ export class WelcomeContainerComponent implements OnInit {
     this.selectedGender = gender;
   }
 
+  nextStep() {
+    if (this.isValidatedForm()) {
+
+    }
+  }
+
+  isValidatedForm() {
+    const isValidated = false;
+    return isValidated;
+  }
 }

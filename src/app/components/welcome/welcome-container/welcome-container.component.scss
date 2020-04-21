@@ -42,3 +42,19 @@ ion-col {
   --border-color: var(--ion-color-primary);
   --color: var(--ion-color-dark);
 }
+
+.row-padding {
+  padding: 50px 0;
+}
+
+.p-error {
+  visibility: hidden;
+  color: var(--ion-color-danger);
+  margin: 0;
+  margin-top: 2px;
+  padding-inline-start: 20px;
+}
+
+.p-error-active {
+  visibility: visible;
+}
