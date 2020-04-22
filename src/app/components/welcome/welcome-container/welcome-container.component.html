@@ -67,13 +67,17 @@
     </ion-row>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <p>Birthday (optional)</p>
+        <p>Birthday</p>
         <ion-item lines="none" class="item-input">
-          <ion-input placeholder="Optional">
-            <ion-icon name="mail"></ion-icon>
-          </ion-input>
+          <ion-datetime 
+            displayFormat="MM DD YY" 
+            placeholder="Select Date"
+            min="1900" max="2007"
+            [value]="birthday"
+            (ionChange)="setBirthday($event)">
+          </ion-datetime>
         </ion-item>
-        <p class="p-error">invalid birthday</p>
+        <p class="p-error" [class.p-error-active]="isBirthdayError">{{ birthdayError }}</p>
       </ion-col>
 
       <ion-col size="auto">

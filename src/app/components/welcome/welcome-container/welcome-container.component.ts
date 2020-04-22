@@ -11,6 +11,7 @@ export class WelcomeContainerComponent implements OnInit {
   name = '';
   gender = '';
   email = '';
+  birthday = '';
 
   nameError = 'no errors';
   isNameError = false;
@@ -18,10 +19,13 @@ export class WelcomeContainerComponent implements OnInit {
   isGenderError = false;
   emailError = 'no errors';
   isEmailError = false;
+  birthdayError = 'no errors';
+  isBirthdayError = false;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   setName(event) {
     this.name = event.detail.value;
@@ -37,6 +41,11 @@ export class WelcomeContainerComponent implements OnInit {
   setEmail(event) {
     this.email = event.detail.value;
     this.isValidEmail();
+  }
+
+  setBirthday(event) {
+    this.birthday = event.detail.value;
+    this.isValidBirthday();
   }
 
   nextStep() {
@@ -65,7 +74,7 @@ export class WelcomeContainerComponent implements OnInit {
     this.genderError = 'no errors';
     this.isGenderError = false;
     if (this.gender === '') {
-      this.genderError = 'Please selecet a gender';
+      this.genderError = 'Please select a gender';
       this.isGenderError = true;
     }
   }
@@ -83,11 +92,22 @@ export class WelcomeContainerComponent implements OnInit {
     }
   }
 
+  isValidBirthday() {
+    this.birthdayError = 'no errors';
+    this.isBirthdayError = false;
+    const birthday = this.birthday.trim();
+    if (!birthday) {
+      this.birthdayError = 'Please enter your birthday';
+      this.isBirthdayError = true;   
+    }
+  }
+
   isValidatedForm() {
     this.isValidName();
     this.isValidGender();
     this.isValidEmail();
-    const isValidated = !this.isNameError && !this.isGenderError && !this.isEmailError;
+    this.isValidBirthday();
+    const isValidated = !this.isNameError && !this.isGenderError && !this.isEmailError && !this.isBirthdayError;
     console.log('isValidated:', isValidated);
     return isValidated;
   }
