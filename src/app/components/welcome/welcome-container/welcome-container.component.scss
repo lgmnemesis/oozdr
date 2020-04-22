@@ -3,7 +3,7 @@
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .item-input {
-    min-width: 0 !important;
+    min-width: 300px !important;
   }
 }
 
@@ -24,6 +24,10 @@ ion-grid {
 
 ion-col {
   padding: 15px 30px;
+}
+
+.item-gender {
+  --background: var(--ion-color-minor) !important;
 }
 
 .item-input {
@@ -62,4 +66,9 @@ ion-col {
 
 .p-error-active {
   visibility: visible;
+}
+
+#load-photo p {
+  padding: 0 10px;
+  text-transform: capitalize;
 }

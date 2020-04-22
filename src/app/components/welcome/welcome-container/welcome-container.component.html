@@ -11,7 +11,7 @@
             debounce="300" 
             [value]="name" 
             (ionChange)="setName($event)">
-            <ion-icon name="person"></ion-icon>
+            <ion-icon name="person-outline"></ion-icon>
           </ion-input>
         </ion-item>
         <p class="p-error" [class.p-error-active]="isNameError">{{ nameError }}</p>
@@ -19,18 +19,18 @@
 
       <ion-col size="auto">
         <p>Gender</p>
-        <ion-item lines="none" class="item">
+        <ion-item lines="none" class="item-input item-gender">
           <ion-button [class.bt-gender-active]="gender === 'man'"
             size="large" fill="outline" class="bt-gender" (click)="setGender('man')">
             <p>Man</p>
           </ion-button>
           <ion-button [class.bt-gender-active]="gender === 'woman'"
             size="large" fill="outline" class="bt-gender" (click)="setGender('woman')">
-            Woman
+            <p>Woman</p>
           </ion-button>
           <ion-button [class.bt-gender-active]="gender === 'other'"
             size="large" fill="outline" class="bt-gender" (click)="setGender('other')">
-            Other
+            <p>Other</p>
           </ion-button>
         </ion-item>
         <p class="p-error"[class.p-error-active]="isGenderError">{{ genderError }}</p>
@@ -48,27 +48,16 @@
             debounce="300" 
             [value]="email" 
             (ionChange)="setEmail($event)">
-            <ion-icon name="mail"></ion-icon>
+            <ion-icon name="mail-outline"></ion-icon>
           </ion-input>
         </ion-item>
         <p class="p-error"[class.p-error-active]="isEmailError">{{ emailError }}</p>
       </ion-col>
 
       <ion-col size="auto">
-        <p>Mobile Number</p>
-        <ion-item lines="none" class="item-input">
-          <ion-input placeholder="Your Mobile Number">
-            <ion-icon name="mail"></ion-icon>
-          </ion-input>
-        </ion-item>
-        <p class="p-error">invalid mobile number</p>
-      </ion-col>
-
-    </ion-row>
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="auto">
         <p>Birthday</p>
         <ion-item lines="none" class="item-input">
+          <ion-icon size="small" name="calendar-outline"></ion-icon>
           <ion-datetime 
             displayFormat="MM DD YY" 
             placeholder="Select Date"
@@ -80,13 +69,14 @@
         <p class="p-error" [class.p-error-active]="isBirthdayError">{{ birthdayError }}</p>
       </ion-col>
 
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
         <p>Profile Photo (optional)</p>
-        <ion-item lines="none" class="item-input">
-          <ion-input placeholder="Optional">
-            <ion-icon name="mail"></ion-icon>
-          </ion-input>
-        </ion-item>
+        <ion-button id="load-photo" color="medium" fill="outline">
+          <ion-icon name="image-outline"></ion-icon>
+          <p>Select Photo</p>
+        </ion-button>
         <p class="p-error">invalid photo</p>
       </ion-col>
 
