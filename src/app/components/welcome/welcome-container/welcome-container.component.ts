@@ -52,6 +52,9 @@ export class WelcomeContainerComponent implements OnInit {
     if (!name) {
       this.nameError = 'Please enter your name';
       this.isNameError = true;      
+    } else if (!name.match(/^[a-zA-Z ]+$/)) {
+      this.nameError = 'Only Letters please';
+      this.isNameError = true;
     } else if (name.length < 2) {
       this.nameError = 'Sorry, name is too short';
       this.isNameError = true;
