@@ -1,4 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { BasicInfo } from 'src/app/interfaces/registration';
+import { WelcomeService } from 'src/app/services/welcome.service';
 
 @Component({
   selector: 'app-welcome-info',
@@ -8,10 +10,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class WelcomeInfoComponent implements OnInit {
 
-  name = '';
-  gender = '';
-  email = '';
-  birthday = '';
+  basicInfo: BasicInfo = this.welcomeService.getInfo();
 
   nameError = 'no errors';
   isNameError = false;
@@ -22,28 +21,28 @@ export class WelcomeInfoComponent implements OnInit {
   birthdayError = 'no errors';
   isBirthdayError = false;
 
-  constructor() { }
+  constructor(private welcomeService: WelcomeService) { }
 
   ngOnInit() {}
 
   setName(event) {
-    this.name = event.detail.value;
+    this.basicInfo.name = event.detail.value;
     this.isValidName();
   }
 
   setGender(gender: string) {
-    this.gender = gender;
+    this.basicInfo.gender = gender;
     this.genderError = 'no errors';
     this.isGenderError = false;
   }
 
   setEmail(event) {
-    this.email = event.detail.value;
+    this.basicInfo.email = event.detail.value;
     this.isValidEmail();
   }
 
   setBirthday(event) {
-    this.birthday = event.detail.value;
+    this.basicInfo.birthday = event.detail.value;
     this.isValidBirthday();
   }
 
@@ -56,7 +55,7 @@ export class WelcomeInfoComponent implements OnInit {
   isValidName() {
     this.nameError = 'no errors';
     this.isNameError = false;
-    const name = this.name.trim();
+    const name = this.basicInfo.name.trim();
     if (!name) {
       this.nameError = 'Please enter your name';
       this.isNameError = true;      
@@ -72,7 +71,7 @@ export class WelcomeInfoComponent implements OnInit {
   isValidGender() {
     this.genderError = 'no errors';
     this.isGenderError = false;
-    if (this.gender === '') {
+    if (this.basicInfo.gender === '') {
       this.genderError = 'Please select a gender';
       this.isGenderError = true;
     }
@@ -81,7 +80,7 @@ export class WelcomeInfoComponent implements OnInit {
   isValidEmail() {
     this.emailError = 'no errors';
     this.isEmailError = false;
-    const email = this.email.trim();
+    const email = this.basicInfo.email.trim();
     if (!email) {
       this.emailError = 'Please enter your email';
       this.isEmailError = true;      
@@ -94,7 +93,7 @@ export class WelcomeInfoComponent implements OnInit {
   isValidBirthday() {
     this.birthdayError = 'no errors';
     this.isBirthdayError = false;
-    const birthday = this.birthday.trim();
+    const birthday = this.basicInfo.birthday.trim();
     if (!birthday) {
       this.birthdayError = 'Please enter your birthday';
       this.isBirthdayError = true;   

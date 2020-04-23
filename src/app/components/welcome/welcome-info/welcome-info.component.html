@@ -1,14 +1,14 @@
 <ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <p>First Name</p>
+      <p>Name</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
           autofocus 
-          placeholder="First Name" 
+          placeholder="Your Name" 
           maxLength="20" 
           debounce="300" 
-          [value]="name" 
+          [value]="basicInfo?.name" 
           (ionChange)="setName($event)">
           <ion-icon name="person-outline"></ion-icon>
         </ion-input>
@@ -19,15 +19,15 @@
     <ion-col size="auto">
       <p>Gender</p>
       <ion-item lines="none" class="item-input item-gender">
-        <ion-button [class.bt-gender-active]="gender === 'man'"
+        <ion-button [class.bt-gender-active]="basicInfo?.gender === 'man'"
           size="large" fill="outline" class="bt-gender" (click)="setGender('man')">
           <p>Man</p>
         </ion-button>
-        <ion-button [class.bt-gender-active]="gender === 'woman'"
+        <ion-button [class.bt-gender-active]="basicInfo?.gender === 'woman'"
           size="large" fill="outline" class="bt-gender" (click)="setGender('woman')">
           <p>Woman</p>
         </ion-button>
-        <ion-button [class.bt-gender-active]="gender === 'other'"
+        <ion-button [class.bt-gender-active]="basicInfo?.gender === 'other'"
           size="large" fill="outline" class="bt-gender" (click)="setGender('other')">
           <p>Other</p>
         </ion-button>
@@ -45,7 +45,7 @@
           inputmode="email" 
           placeholder="Your Email Address"
           debounce="300" 
-          [value]="email" 
+          [value]="basicInfo?.email" 
           (ionChange)="setEmail($event)">
           <ion-icon name="mail-outline"></ion-icon>
         </ion-input>
@@ -61,7 +61,7 @@
           displayFormat="MM DD YY" 
           placeholder="Select Date"
           min="1900" max="2007"
-          [value]="birthday"
+          [value]="basicInfo?.birthday"
           (ionChange)="setBirthday($event)">
         </ion-datetime>
       </ion-item>
