@@ -1,5 +1,10 @@
 <div class="flex-container">
   <div class="flex-inner">
-    <app-welcome-info></app-welcome-info>
+    <app-welcome-info 
+      (backEvent)="back()" (nextEvent)="next()" *ngIf="step === 1">
+    </app-welcome-info>
+    <app-welcome-mobile-verification 
+      (backEvent)="back()" (nextEvent)="next()" *ngIf="step === 2">
+    </app-welcome-mobile-verification>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { BasicInfo } from 'src/app/interfaces/registration';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import * as Croppie from 'croppie';
@@ -10,6 +10,9 @@ import * as Croppie from 'croppie';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WelcomeInfoComponent implements OnInit {
+
+  @Output() backEvent = new EventEmitter();
+  @Output() nextEvent = new EventEmitter();
 
   basicInfo: BasicInfo = this.welcomeService.getInfo();
   croppie: Croppie;
@@ -128,7 +131,7 @@ export class WelcomeInfoComponent implements OnInit {
   }
 
   async nextStep() {
-    // if (this.isValidatedForm()) {
+    if (this.isValidatedForm()) {
       if (this.croppie) {
         const res = await this.croppie.result({ type: 'base64' });
         if (res) {
@@ -137,7 +140,8 @@ export class WelcomeInfoComponent implements OnInit {
         this.croppie.destroy();
         this.croppie = null;
       }
-    // }
+      this.nextEvent.next(true);
+    }
   }
 
   isValidName() {
@@ -188,14 +192,12 @@ export class WelcomeInfoComponent implements OnInit {
     }
   }
 
-  isValidatedForm() {
+  isValidatedForm(): boolean {
     this.isValidName();
     this.isValidGender();
     this.isValidEmail();
     this.isValidBirthday();
-    const isValidated = !this.isNameError && !this.isGenderError && !this.isEmailError && !this.isBirthdayError;
-    console.log('isValidated:', isValidated);
-    return isValidated;
+    return !this.isNameError && !this.isGenderError && !this.isEmailError && !this.isBirthdayError;
   }
 
 }

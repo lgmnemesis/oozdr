@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { WelcomeService } from 'src/app/services/welcome.service';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-welcome-container',
@@ -9,9 +8,26 @@ import { WelcomeService } from 'src/app/services/welcome.service';
 })
 export class WelcomeContainerComponent implements OnInit {
 
-  constructor(private welcomeService: WelcomeService) { }
+  step = 1;
+
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+
+  markForCheck() {
+    this.cd.markForCheck();
+  }
+
+  back() {
+    this.step--;
+    this.markForCheck();
+  }
+
+  next() {
+    this.step++;
+    console.log('moshe next:', this.step);
+    this.markForCheck();
   }
 
 }
