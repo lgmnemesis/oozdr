@@ -89,6 +89,10 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto" id="col-photo">
+      <ion-button *ngIf="basicInfo?.profilePhoto"
+        color="medium" fill="clear" shape="round" (click)="removeProfilePhoto()">
+        <ion-icon size="large" name="close-circle-outline"></ion-icon>
+      </ion-button>
     </ion-col>
   </ion-row>
 

@@ -108,6 +108,14 @@ export class WelcomeInfoComponent implements OnInit {
     }
   }
 
+  removeProfilePhoto() {
+    if (this.croppie) {
+      this.croppie.destroy();
+      this.croppie = null;
+    }
+    this.basicInfo.profilePhoto = '';
+  }
+  
   selectPhotoButton() {
     try {
       const el = document.getElementById('file-chip');
