@@ -29,7 +29,8 @@ export class WelcomeService {
       gender: '',
       email: '',
       birthday: '',
-      profilePhoto: ''
+      profilePhoto: '',
+      profilePhotoOrg: ''
     }
     return this.infoStore;
   }

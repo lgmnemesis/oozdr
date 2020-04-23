@@ -4,4 +4,5 @@ export interface BasicInfo {
   email: string;
   birthday: string;
   profilePhoto: string;
+  profilePhotoOrg: string;
 }

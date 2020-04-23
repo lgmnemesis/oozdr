@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input, AfterViewInit } from '@angular/core';
 import { BasicInfo } from 'src/app/interfaces/registration';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import * as Croppie from 'croppie';
@@ -9,7 +9,7 @@ import * as Croppie from 'croppie';
   styleUrls: ['./welcome-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WelcomeInfoComponent implements OnInit {
+export class WelcomeInfoComponent implements OnInit, AfterViewInit {
 
   @Input() isNext = false;
   @Input() isBack = false;
@@ -31,6 +31,13 @@ export class WelcomeInfoComponent implements OnInit {
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    if (this.basicInfo.profilePhoto) {
+      this.basicInfo.profilePhoto = this.basicInfo.profilePhotoOrg;
+      this.cropPhoto();
+    }
   }
 
   markForCheck() {
@@ -79,6 +86,7 @@ export class WelcomeInfoComponent implements OnInit {
     });
     const readerAsDataURLEvent: any = await readerAsDataURLAsync;
     this.basicInfo.profilePhoto = readerAsDataURLEvent.target.result;
+    this.basicInfo.profilePhotoOrg = this.basicInfo.profilePhoto;
 
     this.cropPhoto();
     this.markForCheck();
