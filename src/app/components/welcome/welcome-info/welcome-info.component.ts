@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BasicInfo } from 'src/app/interfaces/registration';
 import { WelcomeService } from 'src/app/services/welcome.service';
 
@@ -21,9 +21,14 @@ export class WelcomeInfoComponent implements OnInit {
   birthdayError = 'no errors';
   isBirthdayError = false;
 
-  constructor(private welcomeService: WelcomeService) { }
+  constructor(private welcomeService: WelcomeService,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {}
+
+  markForCheck() {
+    this.cd.markForCheck();
+  }
 
   setName(event) {
     this.basicInfo.name = event.detail.value;
@@ -44,6 +49,41 @@ export class WelcomeInfoComponent implements OnInit {
   setBirthday(event) {
     this.basicInfo.birthday = event.detail.value;
     this.isValidBirthday();
+  }
+
+  async selectPhoto(files: File[]) {
+    console.log('moshe:', files);
+    const file = files[0];
+
+    if (file.type.split('/')[0] !== 'image') {
+      console.error('unsupported file type');
+      return;
+    }
+
+    const readerAsDataURLAsync = new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        resolve(event);
+      };
+      reader.onerror = reject;
+
+      reader.readAsDataURL(file);
+    });
+    const readerAsDataURLEvent: any = await readerAsDataURLAsync;
+    this.basicInfo.profilePhoto = readerAsDataURLEvent.target.result;
+
+    this.markForCheck();
+  }
+
+  selectPhotoButton() {
+    try {
+      const el = document.getElementById('file-chip');
+      if (el) {
+        el.click();
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   nextStep() {

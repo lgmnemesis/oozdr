@@ -34,8 +34,8 @@
       </ion-item>
       <p class="p-error"[class.p-error-active]="isGenderError">{{ genderError }}</p>
     </ion-col>
-
   </ion-row>
+
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p>Email</p>
@@ -67,18 +67,30 @@
       </ion-item>
       <p class="p-error" [class.p-error-active]="isBirthdayError">{{ birthdayError }}</p>
     </ion-col>
-
   </ion-row>
+
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
+      
       <p>Profile Photo (optional)</p>
-      <ion-button id="load-photo" color="medium" fill="outline">
+      <ion-button id="load-photo" color="medium" fill="outline" (click)="selectPhotoButton()">
         <ion-icon name="image-outline"></ion-icon>
         <p>Select Photo</p>
       </ion-button>
-      <p class="p-error">invalid photo</p>
-    </ion-col>
+      <p class="p-error">Invalid photo</p>
+      <input
+        id="file-chip" 
+        type="file" 
+        class="input-select-photo" 
+        (change)="selectPhoto($event?.target?.files)">
 
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="basicInfo?.profilePhoto">
+    <ion-col size="auto">
+      <img [src]="basicInfo?.profilePhoto"> 
+    </ion-col>
   </ion-row>
 
   <ion-row class="row-padding ion-justify-content-center ion-align-items-center">
