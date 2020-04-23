@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input } from '@angular/core';
 import { BasicInfo } from 'src/app/interfaces/registration';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import * as Croppie from 'croppie';
@@ -11,7 +11,8 @@ import * as Croppie from 'croppie';
 })
 export class WelcomeInfoComponent implements OnInit {
 
-  @Output() backEvent = new EventEmitter();
+  @Input() isNext = false;
+  @Input() isBack = false;
   @Output() nextEvent = new EventEmitter();
 
   basicInfo: BasicInfo = this.welcomeService.getInfo();

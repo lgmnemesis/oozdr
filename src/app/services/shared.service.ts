@@ -6,6 +6,8 @@ import { environment } from '../../environments/environment';
 })
 export class SharedService {
 
+  shouldAnimateStartPage = true;
+
   constructor() { }
 
   showInfo() {

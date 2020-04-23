@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome-container',
@@ -9,8 +10,11 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 export class WelcomeContainerComponent implements OnInit {
 
   step = 1;
+  isBack = false;
+  isNext = false;
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef,
+    private navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -21,13 +25,28 @@ export class WelcomeContainerComponent implements OnInit {
 
   back() {
     this.step--;
+    this.isBack = true;
+    this.isNext = false;
+    if (this.step < 1) {
+      // goto start
+      this.gotoStart();
+    }
     this.markForCheck();
   }
 
   next() {
     this.step++;
+    this.isBack = false;
+    this.isNext = true;
     console.log('moshe next:', this.step);
     this.markForCheck();
+  }
+
+  gotoStart() {
+    this.navCtrl.navigateRoot('/start')
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
 }

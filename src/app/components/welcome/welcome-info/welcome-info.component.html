@@ -1,4 +1,6 @@
-<ion-grid>
+<ion-grid class="animated"
+  [class.slideInRight]="isNext"
+  [class.slideInLeft]="isBack">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p>Name</p>

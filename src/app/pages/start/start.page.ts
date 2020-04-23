@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-start',
@@ -10,9 +11,11 @@ import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-m
 })
 export class StartPage implements OnInit {
 
+  shouldAnimate = this.sharedService.shouldAnimateStartPage;
   private isSignInButtonActive = false;
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
   }
@@ -35,6 +38,11 @@ export class StartPage implements OnInit {
       this.isSignInButtonActive = false;
     })
     return await modal.present();
+  }
+
+  disableAnimation() {
+    this.sharedService.shouldAnimateStartPage = false;
+    this.shouldAnimate = false;
   }
 
 }
