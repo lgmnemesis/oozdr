@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BasicInfo } from 'src/app/interfaces/registration';
 import { WelcomeService } from 'src/app/services/welcome.service';
+import * as Croppie from 'croppie';
 
 @Component({
   selector: 'app-welcome-info',
@@ -11,6 +12,7 @@ import { WelcomeService } from 'src/app/services/welcome.service';
 export class WelcomeInfoComponent implements OnInit {
 
   basicInfo: BasicInfo = this.welcomeService.getInfo();
+  croppie: Croppie;
 
   nameError = 'no errors';
   isNameError = false;
@@ -24,7 +26,8 @@ export class WelcomeInfoComponent implements OnInit {
   constructor(private welcomeService: WelcomeService,
     private cd: ChangeDetectorRef) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   markForCheck() {
     this.cd.markForCheck();
@@ -52,10 +55,11 @@ export class WelcomeInfoComponent implements OnInit {
   }
 
   async selectPhoto(files: File[]) {
-    console.log('moshe:', files);
     const file = files[0];
 
-    if (file.type.split('/')[0] !== 'image') {
+    if (!file) {
+      return;
+    } else if (file.type.split('/')[0] !== 'image') {
       console.error('unsupported file type');
       return;
     }
@@ -72,7 +76,36 @@ export class WelcomeInfoComponent implements OnInit {
     const readerAsDataURLEvent: any = await readerAsDataURLAsync;
     this.basicInfo.profilePhoto = readerAsDataURLEvent.target.result;
 
+    this.cropPhoto();
     this.markForCheck();
+  }
+
+
+  cropPhoto() {
+    try {
+      if (this.croppie) {
+        this.croppie.destroy();
+        this.croppie = null;
+      }
+
+      const el = document.getElementById('col-photo');
+      this.croppie = new Croppie(el, {
+          viewport: { width: 200, height: 200, type: 'circle' },
+          boundary: { width: 350, height: 350 },
+          showZoomer: true,
+          enableOrientation: false
+      });
+
+      this.croppie.bind({
+          url: this.basicInfo.profilePhoto
+      }).then(() => {
+        const elc = <HTMLElement>document.getElementsByClassName('cr-boundary')[0];
+        elc.style.borderRadius = '15px';
+        this.markForCheck();
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   selectPhotoButton() {
@@ -86,10 +119,17 @@ export class WelcomeInfoComponent implements OnInit {
     }
   }
 
-  nextStep() {
-    if (this.isValidatedForm()) {
-
-    }
+  async nextStep() {
+    // if (this.isValidatedForm()) {
+      if (this.croppie) {
+        const res = await this.croppie.result({ type: 'base64' });
+        if (res) {
+          this.basicInfo.profilePhoto = res;
+        }
+        this.croppie.destroy();
+        this.croppie = null;
+      }
+    // }
   }
 
   isValidName() {

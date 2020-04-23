@@ -39,9 +39,14 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "node_modules/croppie/croppie.css"
               }
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/croppie/croppie.min.js"
+            ]
           },
           "configurations": {
             "production": {
