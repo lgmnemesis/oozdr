@@ -29,6 +29,8 @@
     "core-js": "^3.6.5",
     "croppie": "^2.6.4",
     "firebase": "^7.14.1",
+    "intl-tel-input": "^17.0.0",
+    "ng2-tel-input": "^2.3.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

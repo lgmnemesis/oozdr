@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { environment } from '../../../environments/environment';
 
 export class PhoneNumber {
   country: string;
@@ -21,20 +20,43 @@ export class PhoneNumber {
   selector: 'app-phone-login',
   templateUrl: './phone-login.component.html',
   styleUrls: ['./phone-login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PhoneLoginComponent implements OnInit {
+export class PhoneLoginComponent implements OnInit, OnDestroy {
 
   phoneNumber = new PhoneNumber();
   appVerifier: any;
   verificationCode: string;
   confirmationResult: firebase.auth.ConfirmationResult;
   user: any;
+  telInputObj: any
 
-  constructor(private afAuth: AngularFireAuth) { }
+  constructor(private afAuth: AngularFireAuth,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.initRecaptcha();
+  }
+
+  markForCheck() {
+    this.cd.markForCheck();
+  }
+
+  sendLoginCode() {
+    this.phoneNumber.country = '972';
+    this.phoneNumber.area = '054';
+    this.phoneNumber.prefix = '';
+    this.phoneNumber.line = '3989404';
+    const num = this.phoneNumber.e164;
+    console.log('moshe in sendLoginCode to:', num);
+
+    this.afAuth.signInWithPhoneNumber(num, this.appVerifier)
+      .then(result => {
+        console.log('moshe confirmationResult');
+        this.confirmationResult = result;
+      })
+      .catch(error => console.error(error));
   }
 
   async initRecaptcha() {
@@ -49,29 +71,39 @@ export class PhoneLoginComponent implements OnInit {
     }, app);
   }
 
-  sendLoginCode() {
-    this.phoneNumber.country = '972';
-    this.phoneNumber.area = '054';
-    this.phoneNumber.prefix = '';
-    this.phoneNumber.line = '3989404';
-    const num = this.phoneNumber.e164;
-    console.log('moshe in sendLoginCode to:', num);
-    this.afAuth.signInWithPhoneNumber(num, this.appVerifier)
-      .then(result => {
-        console.log('moshe confirmationResult id:', result.verificationId);
-        this.confirmationResult = result;
-      })
-      .catch(error => console.error(error));
-  }
-
   verifyLoginCode() {
     this.confirmationResult.confirm(this.verificationCode)
       .then(result => {
         this.user = result.user;
+        console.log('authenticated:', this.user);
       })
       .catch(error => {
         console.error(error);
       });
+  }
+
+  telHasError(event) {
+    console.log('telHasError:', event);
+  }
+
+  telInputObject(obj) {
+    console.log('telInputObject:', obj);
+    obj.setCountry('il');
+    setInterval(() => {
+      console.log('number:', obj.getNumber());
+      console.log('isValid:', obj.isValidNumber());
+    }, 4000);
+    this.telInputObj = obj;
+  }
+
+  ngOnDestroy() {
+    if (this.telInputObj) {
+      try {
+        this.telInputObj.destroy();
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
 }

@@ -42,10 +42,14 @@
               },
               {
                 "input": "node_modules/croppie/croppie.css"
+              },
+              {
+                "input": "node_modules/intl-tel-input/build/css/intlTelInput.min.css"
               }
             ],
             "scripts": [
-              "node_modules/croppie/croppie.min.js"
+              "node_modules/croppie/croppie.min.js",
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
             ]
           },
           "configurations": {

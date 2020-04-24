@@ -18,3 +18,8 @@
   @extend .font-params;
   font-size: 22px;
 }
+
+.small-text {
+  @extend .font-params;
+  font-size: 14px;
+}

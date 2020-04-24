@@ -24,7 +24,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
-    AngularFireAuthModule,
+    AngularFireAuthModule
   ],
   providers: [
     StatusBar,

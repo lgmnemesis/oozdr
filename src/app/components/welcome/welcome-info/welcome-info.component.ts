@@ -160,7 +160,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
     if (!name) {
       this.nameError = 'Please enter your name';
       this.isNameError = true;      
-    } else if (!name.match(/^[a-zA-Z ]+$/)) {
+    } else if (!name.match(/^[\u0590-\u05FF\w ]+$/)) {
       this.nameError = 'Only Letters please';
       this.isNameError = true;
     } else if (name.length < 2) {

@@ -1,5 +1,50 @@
+@import '../../styles/global-styles';
+@import '../../styles/fonts-text';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  #tel-input {
+    min-width: 300px !important;
+  }
+}
+
 #sign-in-button {
   visibility: hidden;
   z-index: -1;
   opacity: 0;
+}
+
+#tel-input {
+  height: 50px;
+  border: 0;
+  border-radius: 10px;
+  background:  var(--ion-color-light);
+  min-width: 350px;
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  opacity: 0.6;
+}
+
+.col-txt {
+  max-width: 400px;
+}
+
+.col-txt p {
+  color: var(--ion-color-medium);
+}
+
+.p-error {
+  visibility: hidden;
+  color: var(--ion-color-danger);
+  margin: 0;
+  margin-top: 2px;
+  padding-inline-start: 20px;
+}
+
+.p-error-active {
+  visibility: visible;
 }

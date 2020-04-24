@@ -51,4 +51,7 @@ if [[ $version =~ $reg ]] ; then
   echo "Removing all locales but EN from moment module"
   rm -f `find node_modules/moment/locale/*.js|grep -v en-`
 
+  echo "copying node_modules/intl-tel-input/build/js/utils.js to src/assets/js/intl-tel-input"
+  cp -f node_modules/intl-tel-input/build/js/utils.js src/assets/js/intl-tel-input/
+
 fi

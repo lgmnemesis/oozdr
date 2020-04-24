@@ -9,7 +9,7 @@ import { NavController } from '@ionic/angular';
 })
 export class WelcomeContainerComponent implements OnInit {
 
-  step = 1;
+  step = 2;
   isBack = false;
   isNext = false;
 
