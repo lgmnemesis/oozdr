@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestro
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { SharedService } from 'src/app/services/shared.service';
 
 export class PhoneNumber {
   country: string;
@@ -17,8 +18,6 @@ export class PhoneNumber {
 
 export class PhoneLoginComponent implements OnInit, OnDestroy {
 
-  @Input() countryCode = 'il';
-
   phoneNumber = new PhoneNumber();
   appVerifier: any;
   verificationCode: string;
@@ -28,9 +27,11 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   phoneError = 'no errors';
   isPhoneError = false;
   isContinueButtonDisabled = false;
+  countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
 
   constructor(private afAuth: AngularFireAuth,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.initRecaptcha();

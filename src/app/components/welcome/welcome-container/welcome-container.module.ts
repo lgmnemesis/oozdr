@@ -4,9 +4,10 @@ import { WelcomeInfoModule } from '../welcome-info/welcome-info.module';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { WelcomeMobileVerificationModule } from '../welcome-mobile-verification/welcome-mobile-verification.module';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [CommonModule, WelcomeInfoModule, WelcomeMobileVerificationModule],
+  imports: [CommonModule, WelcomeInfoModule, WelcomeMobileVerificationModule, HttpClientModule],
   providers: [WelcomeService],
   declarations: [WelcomeContainerComponent],
   exports: [WelcomeContainerComponent],

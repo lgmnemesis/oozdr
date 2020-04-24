@@ -6,7 +6,11 @@ import { environment } from '../../environments/environment';
 })
 export class SharedService {
 
+  INITIAL_PHONE_COUNTRY_CODE = 'us';
+
+  defaultPhoneCountryCode: string = null;
   shouldAnimateStartPage = true;
+  ipInfoUrl = 'https://ipinfo.io/json';
 
   constructor() { }
 
@@ -16,5 +20,9 @@ export class SharedService {
 
   getClientVersion() {
     return environment.clientVersion;
+  }
+
+  setDefaultPhoneCountryCode() {
+
   }
 }
