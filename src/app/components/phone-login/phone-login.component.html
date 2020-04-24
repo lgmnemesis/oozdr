@@ -10,10 +10,10 @@
     <ion-col size="auto">
       <input id="tel-input"
         type="text" ng2TelInput
-        [ng2TelInputOptions]="{initialCountry: 'de', utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
+        [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 
         (intlTelInputObject)="telInputObject($event)"/>
-        <p class="basic-text p-error">no errors</p>
+        <p class="basic-text p-error" [class.p-error-active]="isPhoneError">{{ phoneError }}</p>
     </ion-col>
   </ion-row>
   
@@ -29,11 +29,11 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-button (click)="sendLoginCode()">Continue</ion-button>
+      <ion-button [disabled]="isContinueButtonDisabled" (click)="sendLoginCode()">Continue</ion-button>
     </ion-col>
   </ion-row>
 
-  <ng-container *ngIf="false">
+  <ng-container *ngIf="confirmationResult">
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
         <p>Enter Your Verification Code</p>

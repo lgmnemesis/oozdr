@@ -1,19 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, Input } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 export class PhoneNumber {
   country: string;
-  area: string;
-  prefix: string;
   line: string;  
-  
-  // format phone numbers as E.164
-  get e164() {
-    const num = this.country + this.area + this.prefix + this.line;
-    return `+${num}`;
-  }
 }
 
 @Component({
@@ -25,12 +17,17 @@ export class PhoneNumber {
 
 export class PhoneLoginComponent implements OnInit, OnDestroy {
 
+  @Input() countryCode = 'il';
+
   phoneNumber = new PhoneNumber();
   appVerifier: any;
   verificationCode: string;
   confirmationResult: firebase.auth.ConfirmationResult;
   user: any;
   telInputObj: any
+  phoneError = 'no errors';
+  isPhoneError = false;
+  isContinueButtonDisabled = false;
 
   constructor(private afAuth: AngularFireAuth,
     private cd: ChangeDetectorRef) { }
@@ -44,19 +41,29 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   sendLoginCode() {
-    this.phoneNumber.country = '972';
-    this.phoneNumber.area = '054';
-    this.phoneNumber.prefix = '';
-    this.phoneNumber.line = '3989404';
-    const num = this.phoneNumber.e164;
-    console.log('moshe in sendLoginCode to:', num);
+    this.isContinueButtonDisabled = true;
+    this.phoneError = 'no errors';
+    this.isPhoneError = false;
+    if (!this.getAndVerifyNumber()) {
+      this.phoneError = !this.phoneNumber.line  ? 'Please Enter Your Mobile Number' : 'Invalid Number';
+      this.isPhoneError = true;
+      this.isContinueButtonDisabled = false;
+      this.markForCheck();
+      return;
+    }
+    console.log('moshe in sendLoginCode to:', this.phoneNumber.line);
 
-    this.afAuth.signInWithPhoneNumber(num, this.appVerifier)
+    this.afAuth.signInWithPhoneNumber(this.phoneNumber.line, this.appVerifier)
       .then(result => {
         console.log('moshe confirmationResult');
         this.confirmationResult = result;
+        this.markForCheck();
       })
-      .catch(error => console.error(error));
+      .catch(error => { 
+        console.error(error);
+        this.isContinueButtonDisabled = false;
+        this.markForCheck();
+      });
   }
 
   async initRecaptcha() {
@@ -82,18 +89,25 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       });
   }
 
-  telHasError(event) {
-    console.log('telHasError:', event);
+  getAndVerifyNumber(): boolean {
+    try {
+      const isValid = this.telInputObj.isValidNumber();
+      this.phoneNumber.line = this.telInputObj.getNumber();
+      console.log('isvalid:', isValid);
+      return isValid;
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
   }
 
   telInputObject(obj) {
-    console.log('telInputObject:', obj);
-    obj.setCountry('il');
-    setInterval(() => {
-      console.log('number:', obj.getNumber());
-      console.log('isValid:', obj.isValidNumber());
-    }, 4000);
     this.telInputObj = obj;
+  }
+
+  telHasError(event) {
+    console.log('telHasError:', event);
+    console.log('detailed error:', this.telInputObj.getValidationError());
   }
 
   ngOnDestroy() {
