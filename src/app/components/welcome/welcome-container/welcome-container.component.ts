@@ -28,37 +28,39 @@ export class WelcomeContainerComponent implements OnInit {
     this.cd.markForCheck();
   }
 
-  setDefaultPhoneCountryCode() {
+  async setDefaultPhoneCountryCode() {
+    const storeKey = 'country_code';
     if (this.sharedService.defaultPhoneCountryCode) {
       return;
     }
+    
     // First, Check if exists in local storage and get it
     try {
-      const store = localStorage.getItem('country_code');
-      if (store) {
-        this.sharedService.defaultPhoneCountryCode = store;
-        console.log('moshe: got countryCode from store:', store);
+      const storeValue = localStorage.getItem(storeKey);
+      if (storeValue) {
+        this.sharedService.defaultPhoneCountryCode = storeValue;
+        console.log('moshe: got countryCode from store:', storeValue);
         return;
       }
     } catch (error) {
       console.error(error);
     }
-    const json = this.httpClient.request('GET', this.sharedService.ipInfoUrl, {responseType:'json'});
-    json.toPromise()
-      .then((res) => {
-        console.log('moshe:', res);
-        // this.sharedService.defaultPhoneCountryCode = res.
-        // Save code to local storage
-        try {
-          // localStorage.setItem('country_code', '');
-        } catch (error) {
-          console.error(error);
-        }
-      })
+
+    const json:any = await this.httpClient.request('GET', this.sharedService.ipInfoUrl, {responseType:'json'}).toPromise()
       .catch(error => { 
         console.error(error);
         this.sharedService.defaultPhoneCountryCode = this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
       });
+
+    console.log('moshe:', json);
+    if (json && json.country) {
+      this.sharedService.defaultPhoneCountryCode = json.country;
+      try {
+        localStorage.setItem(storeKey, json.country);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   back() {

@@ -1,5 +1,5 @@
 <div id="sign-in-button"></div>
-<ion-grid>
+<ion-grid *ngIf="!confirmationResult"> <!-- !confirmationResult -->
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p class="larger-text">Enter Your Mobile Number</p>
@@ -10,6 +10,7 @@
     <ion-col size="auto">
       <input id="tel-input"
         type="text" ng2TelInput
+        [disabled]="isContinueButtonDisabled"
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 
         (intlTelInputObject)="telInputObject($event)"/>
@@ -32,18 +33,31 @@
       <ion-button [disabled]="isContinueButtonDisabled" (click)="sendLoginCode()">Continue</ion-button>
     </ion-col>
   </ion-row>
+</ion-grid>
 
-  <ng-container *ngIf="confirmationResult">
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="auto">
-        <p>Enter Your Verification Code</p>
-      </ion-col>
-    </ion-row>
-    
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="auto">
-        <ion-button (click)="verifyLoginCode()">Verify</ion-button>
-      </ion-col>
-    </ion-row>
-  </ng-container>
+<ion-grid *ngIf="confirmationResult"> <!-- confirmationResult -->
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <p class="larger-text ion-text-center">Enter Your Verification Code</p>
+      <ion-item lines="none" class="item-input">
+        <ion-input 
+          type="text" 
+          inputmode="text" 
+          placeholder="Verivication Code"
+          debounce="300"
+          maxlength="20"
+          [value]="verificationCode" 
+          (ionChange)="setVerificationInput($event)">
+          <ion-icon name="keypad-outline"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p class="p-error"[class.p-error-active]="isVerificationError">{{ verificationError }}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <ion-button (click)="verifyLoginCode()">Verify</ion-button>
+    </ion-col>
+  </ion-row>
 </ion-grid>

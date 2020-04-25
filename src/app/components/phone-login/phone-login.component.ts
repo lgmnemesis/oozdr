@@ -26,6 +26,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   telInputObj: any
   phoneError = 'no errors';
   isPhoneError = false;
+  verificationError = 'no errors';
+  isVerificationError = false;
   isContinueButtonDisabled = false;
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
 
@@ -80,12 +82,25 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   verifyLoginCode() {
+    this.isVerificationError = false;
+    this.verificationError = 'no errors';
+    if (!this.confirmationResult) {
+      return;
+    }
+    if (!this.verificationCode) {
+      this.isVerificationError = true;
+      this.verificationError = 'Please Enter Your Verification Code';
+      return;
+    }
     this.confirmationResult.confirm(this.verificationCode)
       .then(result => {
         this.user = result.user;
-        console.log('authenticated:', this.user);
+        console.log('moshe authenticated:', this.user);
       })
       .catch(error => {
+        this.isVerificationError = true;
+        this.verificationError = 'Wrong Verification Code';
+        this.markForCheck();
         console.error(error);
       });
   }
@@ -109,6 +124,10 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   telHasError(event) {
     console.log('telHasError:', event);
     console.log('detailed error:', this.telInputObj.getValidationError());
+  }
+
+  setVerificationInput(event) {
+    this.verificationCode = event.detail.value;
   }
 
   ngOnDestroy() {
