@@ -11,7 +11,7 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class WelcomeContainerComponent implements OnInit {
 
-  step = 2;
+  step = 1;
   isBack = false;
   isNext = false;
 
@@ -52,7 +52,7 @@ export class WelcomeContainerComponent implements OnInit {
         this.sharedService.defaultPhoneCountryCode = this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
       });
 
-    console.log('moshe:', json);
+    console.log('moshe json:', json);
     if (json && json.country) {
       this.sharedService.defaultPhoneCountryCode = json.country;
       try {

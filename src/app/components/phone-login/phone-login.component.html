@@ -64,7 +64,7 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-button (click)="verifyLoginCode()">Verify</ion-button>
+      <ion-button [disabled]="isVerifing" (click)="verifyLoginCode()">Verify</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

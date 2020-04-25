@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
+import { WelcomeGuard } from './core/welcome.guard';
+import { HomeGuard } from './core/home.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
@@ -12,12 +14,12 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, HomeGuard]
   },
   {
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, WelcomeGuard]
   },
   // Default redirect route rule if non of the above matches
   { path: '**', redirectTo: 'start', pathMatch: 'full' }

@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,8 +18,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private sharedService: SharedService,
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
+    private authService: AuthService
   ) {
+    this.authService.init();
     this.initializeApp();
   }
 

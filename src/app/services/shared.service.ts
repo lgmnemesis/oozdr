@@ -11,6 +11,8 @@ export class SharedService {
   defaultPhoneCountryCode: string = null;
   shouldAnimateStartPage = true;
   ipInfoUrl = 'https://ipinfo.io/json';
+  canEnterWelcome = false;
+  canEnterHome = false;
 
   constructor() { }
 

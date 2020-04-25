@@ -22,12 +22,12 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   appVerifier: any;
   verificationCode: string;
   confirmationResult: firebase.auth.ConfirmationResult;
-  user: any;
   telInputObj: any
   phoneError = 'no errors';
   isPhoneError = false;
   verificationError = 'no errors';
   isVerificationError = false;
+  isVerifing = false;
   isContinueButtonDisabled = false;
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
 
@@ -76,7 +76,6 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       'callback': function() {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
         console.log('moshe callback:');
-        // this.sendLoginCode();
       }
     }, app);
   }
@@ -92,14 +91,17 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       this.verificationError = 'Please Enter Your Verification Code';
       return;
     }
+
+    this.isVerifing = true;
     this.confirmationResult.confirm(this.verificationCode)
       .then(result => {
-        this.user = result.user;
-        console.log('moshe authenticated:', this.user);
+        console.log('moshe authenticated:', result);
+        // Go to homePage - loader indication?
       })
       .catch(error => {
         this.isVerificationError = true;
         this.verificationError = 'Wrong Verification Code';
+        this.isVerifing = false;
         this.markForCheck();
         console.error(error);
       });
@@ -109,7 +111,6 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     try {
       const isValid = this.telInputObj.isValidNumber();
       this.phoneNumber.line = this.telInputObj.getNumber();
-      console.log('isvalid:', isValid);
       return isValid;
     } catch (error) {
       console.error(error);
