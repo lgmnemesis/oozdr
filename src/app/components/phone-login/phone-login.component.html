@@ -15,6 +15,7 @@
         (hasError)="telHasError($event)" 
         (intlTelInputObject)="telInputObject($event)"/>
         <p class="basic-text p-error" [class.p-error-active]="isPhoneError">{{ phoneError }}</p>
+        <ion-spinner color="primary" name="dots" *ngIf="isContinueButtonDisabled"></ion-spinner>
     </ion-col>
   </ion-row>
   
@@ -35,7 +36,7 @@
   </ion-row>
 </ion-grid>
 
-<ion-grid *ngIf="confirmationResult"> <!-- confirmationResult -->
+<ion-grid class="animated fadeIn" *ngIf="confirmationResult"> <!-- confirmationResult -->
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p class="larger-text ion-text-center">Enter Your Verification Code</p>

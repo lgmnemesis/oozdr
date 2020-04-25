@@ -1,5 +1,6 @@
 @import '../../styles/global-styles';
 @import '../../styles/fonts-text';
+@import '../../styles/animation';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   #tel-input {
@@ -13,6 +14,14 @@
   .item-input {
     min-width: 300px !important;
   }
+}
+
+ion-spinner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 #sign-in-button {
@@ -35,12 +44,6 @@ input:focus {
 
 ::placeholder {
   opacity: 0.6;
-}
-
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
 }
 
 .col-txt {
