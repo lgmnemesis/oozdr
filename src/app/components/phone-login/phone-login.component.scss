@@ -75,3 +75,11 @@ input:focus {
 .item-input ion-input {
   --padding-start: 10px !important;
 }
+
+.item-resend {
+  --padding-end: 0;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  color: var(ion-color-medium);
+}

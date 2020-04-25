@@ -23,3 +23,8 @@
   @extend .font-params;
   font-size: 14px;
 }
+
+.small-12-text {
+  @extend .font-params;
+  font-size: 12px;
+}

@@ -1,5 +1,5 @@
 <div id="sign-in-button"></div>
-<ion-grid *ngIf="!confirmationResult"> <!-- !confirmationResult -->
+<ion-grid *ngIf="!confirmationResult">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p class="larger-text">Enter Your Mobile Number</p>
@@ -36,15 +36,21 @@
   </ion-row>
 </ion-grid>
 
-<ion-grid class="animated fadeIn" *ngIf="confirmationResult"> <!-- confirmationResult -->
+<ion-grid class="animated fadeIn" *ngIf="confirmationResult">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p class="larger-text ion-text-center">Enter Your Verification Code</p>
+      <!-- <ion-item class="item-resend" lines="none">
+        <p class="small-text">Code Sent to {{ phoneNumber?.line }}</p>
+        <ion-button size="small" slot="end" fill="clear" color="primary">
+          <p class="small-12-text">Resend</p>
+        </ion-button>
+      </ion-item> -->
       <ion-item lines="none" class="item-input">
         <ion-input 
           type="text" 
           inputmode="text" 
-          placeholder="Verivication Code"
+          placeholder="Verification Code"
           debounce="300"
           maxlength="20"
           [value]="verificationCode" 
