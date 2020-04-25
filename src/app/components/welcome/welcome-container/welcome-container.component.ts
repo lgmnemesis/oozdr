@@ -21,7 +21,7 @@ export class WelcomeContainerComponent implements OnInit {
     public sharedService: SharedService) { }
 
   ngOnInit() {
-    this.setDefaultPhoneCountryCode();
+    // this.setDefaultPhoneCountryCode();
   }
 
   markForCheck() {
