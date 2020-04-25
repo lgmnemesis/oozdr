@@ -1,3 +1,33 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-split-pane when="md" contentId="main" [disabled]="!showSplitPane">
+    <!--  our side menu  -->
+    <ion-menu contentId="main">
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <ion-segment>
+            <ion-segment-button value="friends">
+              <ion-label>Friends</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="enemies">
+              <ion-label>Enemies</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <!-- the main content -->
+    <ion-router-outlet id="main"></ion-router-outlet>
+  </ion-split-pane>
+
 </ion-app>

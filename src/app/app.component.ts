@@ -11,8 +11,12 @@ import { AuthService } from './services/auth.service';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
+
 })
 export class AppComponent {
+
+  showSplitPane = false;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -23,6 +27,7 @@ export class AppComponent {
   ) {
     this.authService.init();
     this.initializeApp();
+    this.subscribeToSplitPaneEvents();
   }
 
   initializeApp() {
@@ -42,5 +47,12 @@ export class AppComponent {
         );
       });
     }
+  }
+
+  subscribeToSplitPaneEvents() {
+    this.sharedService.splitPane$.subscribe((isShow) => {
+      this.showSplitPane = isShow;
+      console.log('moshe isShow:', isShow);
+    })
   }
 }
