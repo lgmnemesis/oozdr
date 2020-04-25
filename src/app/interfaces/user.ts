@@ -10,6 +10,5 @@ export interface User {
 
 export interface Roles {
   subscriber?: boolean;
-  admin?: boolean;
-  betaTester: boolean;
+  admin: boolean;
 }

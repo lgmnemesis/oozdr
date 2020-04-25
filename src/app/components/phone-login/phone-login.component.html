@@ -59,12 +59,13 @@
         </ion-input>
       </ion-item>
       <p class="p-error"[class.p-error-active]="isVerificationError">{{ verificationError }}</p>
+      <ion-spinner color="primary" name="dots" *ngIf="isVerifyButtonDisabled"></ion-spinner>
     </ion-col>
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-button [disabled]="isVerifing" (click)="verifyLoginCode()">Verify</ion-button>
+      <ion-button [disabled]="isVerifyButtonDisabled" (click)="verifyLoginCode()">Verify</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

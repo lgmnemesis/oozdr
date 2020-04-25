@@ -3,6 +3,9 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { SharedService } from 'src/app/services/shared.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interfaces/user';
+import { WelcomeService } from 'src/app/services/welcome.service';
 
 export class PhoneNumber {
   country: string;
@@ -27,13 +30,15 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   isPhoneError = false;
   verificationError = 'no errors';
   isVerificationError = false;
-  isVerifing = false;
+  isVerifyButtonDisabled = false;
   isContinueButtonDisabled = false;
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
 
   constructor(private afAuth: AngularFireAuth,
     private cd: ChangeDetectorRef,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private authService: AuthService,
+    private welcomeService: WelcomeService) { }
 
   ngOnInit() {
     this.initRecaptcha();
@@ -58,7 +63,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
 
     this.afAuth.signInWithPhoneNumber(this.phoneNumber.line, this.appVerifier)
       .then(result => {
-        console.log('moshe confirmationResult');
+        console.log('moshe confirmationResult:', result);
         this.confirmationResult = result;
         this.markForCheck();
       })
@@ -92,16 +97,27 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isVerifing = true;
+    this.isVerifyButtonDisabled = true;
     this.confirmationResult.confirm(this.verificationCode)
       .then(result => {
-        console.log('moshe authenticated:', result);
+        console.log('moshe authenticated:', result.user);
+        const info = this.welcomeService.getInfo();
+        const user: User = {
+          user_id: result.user.uid,
+          display_name: info.name,
+          email: info.email,
+          roles: {
+            admin: false
+          }
+        }
+        console.log('updating user:', user);
+        this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
         // Go to homePage - loader indication?
       })
       .catch(error => {
         this.isVerificationError = true;
         this.verificationError = 'Wrong Verification Code';
-        this.isVerifing = false;
+        this.isVerifyButtonDisabled = false;
         this.markForCheck();
         console.error(error);
       });
