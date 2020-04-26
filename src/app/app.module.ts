@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { TopMenuModule } from './components/top-menu/top-menu.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    TopMenuModule
   ],
   providers: [
     StatusBar,

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
 import { WelcomeGuard } from './core/welcome.guard';
-import { HomeGuard } from './core/home.guard';
+import { DashboardGuard } from './core/dashboard.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
@@ -12,14 +12,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
-    canActivate: [AuthGuard, HomeGuard]
-  },
-  {
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule),
     canActivate: [AuthGuard, WelcomeGuard]
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
+    canActivate: [AuthGuard, DashboardGuard]
   },
   // Default redirect route rule if non of the above matches
   { path: '**', redirectTo: 'start', pathMatch: 'full' }

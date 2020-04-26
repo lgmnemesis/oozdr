@@ -15,7 +15,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
 
-  showSplitPane = false;
+  useSplitPane = false;
 
   constructor(
     private platform: Platform,
@@ -50,9 +50,14 @@ export class AppComponent {
   }
 
   subscribeToSplitPaneEvents() {
-    this.sharedService.splitPane$.subscribe((isShow) => {
-      this.showSplitPane = isShow;
-      console.log('moshe isShow:', isShow);
+    this.sharedService.useSplitPane$.subscribe((isUsed) => {
+      this.useSplitPane = isUsed;
+      console.log('moshe isShow:', isUsed);
     })
   }
+
+  ionSplitPaneOutputEvent(event) {
+    console.log('moshe isVisible:', event.detail.visible);
+    this.sharedService.isVisibleSplitPaneSubject.next(event.detail.visible);
+  } 
 }

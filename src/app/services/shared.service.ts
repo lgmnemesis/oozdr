@@ -15,8 +15,10 @@ export class SharedService {
   canEnterWelcome = false;
   canEnterHome = false;
 
-  splitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  splitPane$ = this.splitPaneSubject.asObservable();
+  useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  useSplitPane$ = this.useSplitPaneSubject.asObservable();
+  isVisibleSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isVisibleSplitPane$ = this.isVisibleSplitPaneSubject.asObservable();
 
   constructor() { }
 
