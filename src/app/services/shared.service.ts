@@ -14,6 +14,8 @@ export class SharedService {
   ipInfoUrl = 'https://ipinfo.io/json';
   canEnterWelcome = false;
   canEnterHome = false;
+  activeTopMenu = '2';
+  activeMenu = 'matches';
 
   useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   useSplitPane$ = this.useSplitPaneSubject.asObservable();

@@ -1,9 +1,8 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
+    <app-top-menu [showChat]="true" [isLarge]="false" *ngIf="!isVisibleSplitPane"></app-top-menu>
   </ion-toolbar>
 </ion-header>
-  <app-top-menu *ngIf="!isVisibleSplitPane"></app-top-menu>
 <ion-content>
 
 </ion-content>

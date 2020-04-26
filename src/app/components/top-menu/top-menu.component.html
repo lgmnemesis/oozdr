@@ -1,11 +1,16 @@
-<ion-item lines="none">
-  <ion-button fill="clear">
-    <ion-icon slot="icon-only" name="mail"></ion-icon>
-  </ion-button>
-  <ion-button fill="clear">
-    <ion-icon slot="icon-only" name="mail"></ion-icon>
-  </ion-button>
-  <ion-button fill="clear">
-    <ion-icon slot="icon-only" name="mail"></ion-icon>
-  </ion-button>
-</ion-item>
+<div id="top-menu">
+  <ion-item lines="none">
+    <ion-button [class.isActive]="sharedService?.activeTopMenu === '1'" (click)="clickedOn('1')"
+      [size]="isLarge ? 'large' : 'default'" fill="clear">
+      <ion-icon name="person-outline"></ion-icon>
+    </ion-button>
+    <ion-button [class.isActive]="sharedService?.activeTopMenu === '2'" (click)="clickedOn('2')"
+      [size]="isLarge ? 'large' : 'default'" fill="clear">
+      <ion-icon name="fitness-outline"></ion-icon>
+    </ion-button>
+    <ion-button [class.isActive]="sharedService?.activeTopMenu === '3'" (click)="clickedOn('3')"
+      [size]="isLarge ? 'large' : 'default'" fill="clear" *ngIf="showChat">
+      <ion-icon name="chatbubbles-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+</div>

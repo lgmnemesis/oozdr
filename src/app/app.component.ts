@@ -21,7 +21,7 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private sharedService: SharedService,
+    public sharedService: SharedService,
     private swUpdate: SwUpdate,
     private authService: AuthService
   ) {
@@ -60,4 +60,8 @@ export class AppComponent {
     console.log('moshe isVisible:', event.detail.visible);
     this.sharedService.isVisibleSplitPaneSubject.next(event.detail.visible);
   } 
+
+  matchesCklicked() {
+
+  }
 }
