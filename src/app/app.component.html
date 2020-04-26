@@ -5,14 +5,28 @@
     <ion-menu contentId="main">
       <ion-header class="ion-no-border">
         <ion-toolbar>
-          <ion-segment>
+
+          <ion-item lines="none">
+            <ion-button fill="clear"> <!-- each button need margin: auto to make it center-->
+              <ion-icon slot="icon-only" name="mail"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear">
+              <ion-icon slot="icon-only" name="mail"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear">
+              <ion-icon slot="icon-only" name="mail"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <!-- <ion-segment>
             <ion-segment-button value="friends">
               <ion-label>Friends</ion-label>
             </ion-segment-button>
             <ion-segment-button value="enemies">
               <ion-label>Enemies</ion-label>
             </ion-segment-button>
-          </ion-segment>
+          </ion-segment> -->
+          
         </ion-toolbar>
       </ion-header>
       <ion-content>
