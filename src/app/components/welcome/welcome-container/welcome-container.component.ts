@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -17,50 +16,14 @@ export class WelcomeContainerComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef,
     private navCtrl: NavController,
-    private httpClient: HttpClient,
     public sharedService: SharedService) { }
 
   ngOnInit() {
-    // this.setDefaultPhoneCountryCode();
+    // this.sharedService.setDefaultPhoneCountryCode();
   }
 
   markForCheck() {
     this.cd.markForCheck();
-  }
-
-  async setDefaultPhoneCountryCode() {
-    const storeKey = 'country_code';
-    if (this.sharedService.defaultPhoneCountryCode) {
-      return;
-    }
-    
-    // First, Check if exists in local storage and get it
-    try {
-      const storeValue = localStorage.getItem(storeKey);
-      if (storeValue) {
-        this.sharedService.defaultPhoneCountryCode = storeValue;
-        console.log('moshe: got countryCode from store:', storeValue);
-        return;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-
-    const json:any = await this.httpClient.request('GET', this.sharedService.ipInfoUrl, {responseType:'json'}).toPromise()
-      .catch(error => { 
-        console.error(error);
-        this.sharedService.defaultPhoneCountryCode = this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
-      });
-
-    console.log('moshe json:', json);
-    if (json && json.country) {
-      this.sharedService.defaultPhoneCountryCode = json.country;
-      try {
-        localStorage.setItem(storeKey, json.country);
-      } catch (error) {
-        console.error(error);
-      }
-    }
   }
 
   back() {

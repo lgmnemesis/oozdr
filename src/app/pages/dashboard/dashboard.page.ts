@@ -21,6 +21,7 @@ export class DashboardPage implements OnInit, OnDestroy {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });
+    // this.sharedService.setDefaultPhoneCountryCode();
   }
 
   markForCheck() {

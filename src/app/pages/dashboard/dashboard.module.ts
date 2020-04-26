@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { DashboardPageRoutingModule } from './dashboard-routing.module';
 import { DashboardPage } from './dashboard.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
+import { MatchesModule } from 'src/app/components/matches/matches.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
     FormsModule,
     IonicModule,
     DashboardPageRoutingModule,
-    TopMenuModule
+    TopMenuModule,
+    MatchesModule
   ],
   declarations: [DashboardPage]
 })

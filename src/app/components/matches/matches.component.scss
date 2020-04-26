@@ -1,0 +1,71 @@
+@import '../../styles/global-styles';
+@import '../../styles/fonts-text';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .item-input {
+    min-width: 300px !important;
+  }
+
+  #tel-input {
+    min-width: 300px !important;
+  }
+}
+
+.flex-container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-inner {
+  margin: auto;
+}
+
+p {
+  @extend .basic-text;
+}
+
+ion-col {
+  padding: 15px 30px;
+}
+
+.item-input {
+  --background: var(--ion-color-light);
+  --background-focused: transparent;
+  --border-radius: 10px;
+  min-width: 350px;
+}
+
+.item-input ion-input {
+  --padding-start: 10px !important;
+}
+
+.p-error {
+  visibility: hidden;
+  color: var(--ion-color-danger);
+  margin: 0;
+  margin-top: 2px;
+  padding-inline-start: 20px;
+}
+
+.p-error-active {
+  visibility: visible;
+}
+
+#tel-input {
+  height: 50px;
+  border: 0;
+  border-radius: 10px;
+  background:  var(--ion-color-light);
+  min-width: 350px;
+}
+
+input:focus {
+  outline: none;
+}
+
+::placeholder {
+  opacity: 0.6;
+}
