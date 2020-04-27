@@ -1,18 +1,27 @@
 <ion-card>
   <ion-item>
-    <ion-icon name="pin" slot="start"></ion-icon>
-    <ion-label class="basic-text bold-text ion-text-wrap">ion-item in a card, icon left, button right</ion-label>
+    <ion-icon name="pin" slot="start" color="success"></ion-icon>
+    <ion-label class="bold-text ion-text-wrap">Sitvanit Avivi</ion-label>
   </ion-item>
 
-  <ion-card-content>
-    This is content, without any paragraph or header tags,
-    within an ion-card-content element.
-  </ion-card-content>
-  <ion-item line="none">
+  <div class="card-content">
+    <ion-item lines="none">
+      <ion-icon name="time-outline" slot="start" color="success"></ion-icon>
+      <ion-label class="ion-text-wrap">Added on 11.12.2020</ion-label>
+    </ion-item>
+
+  </div>
+
+  <ion-item lines="none">
     <ion-chip
-      color="tertiary" slot="start" class="animated slideInRight">
-      <ion-icon name="pulse-outline"></ion-icon>
-      <ion-label class="basic-text">Like</ion-label>
+      color="main" slot="start">
+      <ion-icon name="heart-dislike-outline"></ion-icon>
+      <ion-label>Disconnect</ion-label>
+    </ion-chip>
+    <ion-chip
+      color="tertiary" slot="end">
+      <ion-icon name="create-outline"></ion-icon>
+      <ion-label>Edit</ion-label>
     </ion-chip>
   </ion-item>
 </ion-card>
