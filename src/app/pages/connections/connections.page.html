@@ -3,6 +3,15 @@
     <app-top-menu [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
 </ion-header>
+
+<ion-item lines="none">
+  <ion-chip color="tertiary" slot="start" class="animated slideInRight">
+    <ion-icon name="pulse-outline"></ion-icon>
+    <ion-label>Add New Connection</ion-label>
+  </ion-chip>
+</ion-item>
+
+
 <ion-content>
   <app-connections></app-connections>
 </ion-content>

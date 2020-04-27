@@ -13,6 +13,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
+  items = [1, 2, 3, 4, 5];
 
   constructor(private sharedStatesService: SharedStatesService,
     private cd: ChangeDetectorRef) { }
