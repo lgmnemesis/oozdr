@@ -1,11 +1,13 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
+import { SharedStatesService } from 'src/app/services/shared-states.service';
 
 @Component({
   selector: 'app-connections-page',
   templateUrl: './connections.page.html',
   styleUrls: ['./connections.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConnectionsPage implements OnInit, OnDestroy {
 
@@ -13,11 +15,12 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
 
   constructor(private sharedService: SharedService,
+    private sharedStatesService: SharedStatesService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.sharedService.useSplitPaneSubject.next(true);
-    this._isVisibleSplitPane = this.sharedService.isVisibleSplitPane$.subscribe((isVisible) => {
+    this.sharedStatesService.useSplitPaneSubject.next(true);
+    this._isVisibleSplitPane = this.sharedStatesService.isVisibleSplitPane$.subscribe((isVisible) => {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });
@@ -29,7 +32,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sharedService.useSplitPaneSubject.next(false);
+    this.sharedStatesService.useSplitPaneSubject.next(false);
     if (this._isVisibleSplitPane) {
       this._isVisibleSplitPane.unsubscribe();
     }

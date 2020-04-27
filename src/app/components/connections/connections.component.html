@@ -1,9 +1,17 @@
 <div class="flex-container">
   <div class="flex-inner">
     <ion-grid>
-      <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-row *ngIf="connectionsState?.state === 'add'"
+        class="ion-justify-content-center ion-align-items-center">
         <ion-col size="auto">
           <app-manage-connection></app-manage-connection>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="connectionsState?.state === 'view'"
+        class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="auto">
+          <app-connection></app-connection>
         </ion-col>
       </ion-row>
     </ion-grid>

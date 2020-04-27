@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
+import { SharedStatesService } from './services/shared-states.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    public sharedService: SharedService,
+    private sharedService: SharedService,
+    public sharedStatesService: SharedStatesService,
     private swUpdate: SwUpdate,
     private authService: AuthService
   ) {
@@ -50,7 +52,7 @@ export class AppComponent {
   }
 
   subscribeToSplitPaneEvents() {
-    this.sharedService.useSplitPane$.subscribe((isUsed) => {
+    this.sharedStatesService.useSplitPane$.subscribe((isUsed) => {
       this.useSplitPane = isUsed;
       console.log('moshe isShow:', isUsed);
     })
@@ -58,7 +60,7 @@ export class AppComponent {
 
   ionSplitPaneOutputEvent(event) {
     console.log('moshe isVisible:', event.detail.visible);
-    this.sharedService.isVisibleSplitPaneSubject.next(event.detail.visible);
+    this.sharedStatesService.isVisibleSplitPaneSubject.next(event.detail.visible);
   } 
 
   matchesCklicked() {

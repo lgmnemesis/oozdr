@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
-import { SharedService } from 'src/app/services/shared.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
+import { SharedStatesService } from 'src/app/services/shared-states.service';
 
 @Component({
   selector: 'app-start',
@@ -14,26 +14,26 @@ import { Subscription } from 'rxjs';
 export class StartPage implements OnInit, OnDestroy {
 
   private isSignInButtonActive = false;
-  shouldAnimate = this.sharedService.shouldAnimateStartPage;
+  shouldAnimate = this.sharedStatesService.shouldAnimateStartPage;
   _user: Subscription;
   canShowPage = false;
 
   constructor(private modalCtrl: ModalController,
-    private sharedService: SharedService,
+    private sharedStatesService: SharedStatesService,
     private authService: AuthService,
     private navCtrl: NavController,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.sharedService.canEnterWelcome = true;
-    this.sharedService.canEnterHome = false;
+    this.sharedStatesService.canEnterWelcome = true;
+    this.sharedStatesService.canEnterHome = false;
     this._user = this.authService.getUser().subscribe((user) => {
       console.log('moshe start:', user);
       this.canShowPage = true;
       if (user) {
         this.canShowPage = false;
-        this.sharedService.canEnterWelcome = false;
-        this.sharedService.canEnterHome = true;
+        this.sharedStatesService.canEnterWelcome = false;
+        this.sharedStatesService.canEnterHome = true;
         this.gotoHome();
       }
       this.markForCheck();
@@ -72,7 +72,7 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   disableAnimation() {
-    this.sharedService.shouldAnimateStartPage = false;
+    this.sharedStatesService.shouldAnimateStartPage = false;
     this.shouldAnimate = false;
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 
 export class Q {
@@ -11,6 +11,7 @@ export class Q {
   selector: 'app-manage-connection',
   templateUrl: './manage-connection.component.html',
   styleUrls: ['./manage-connection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ManageConnectionComponent implements OnInit, OnDestroy {
 
@@ -22,9 +23,14 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   isPhoneError = false;
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedService: SharedService,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {}
+
+  markForCheck() {
+    this.cd.markForCheck();
+  }
 
   setName(event) {
     this.Q.name = event.detail.value;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/services/shared.service';
+import { SharedStatesService } from 'src/app/services/shared-states.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -14,7 +14,7 @@ export class TopMenuComponent implements OnInit {
   @Output() menuEvent = new EventEmitter();
 
   constructor(private cd: ChangeDetectorRef,
-    public sharedService: SharedService) { }
+    public sharedStatesService: SharedStatesService) { }
 
   ngOnInit() {
   }
@@ -24,8 +24,8 @@ export class TopMenuComponent implements OnInit {
   }
 
   clickedOn(on: string) {
-    if (this.sharedService.activeTopMenu !== on) {
-      this.sharedService.activeTopMenu = on;
+    if (this.sharedStatesService.activeTopMenu !== on) {
+      this.sharedStatesService.activeTopMenu = on;
       this.menuEvent.next({selected: on});
     }
   }

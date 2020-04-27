@@ -11,13 +11,13 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list *ngIf="sharedService.activeTopMenu === '2'">
-          <ion-item [class.item-active]="sharedService.activeMenu === 'connections'"
+        <ion-list *ngIf="sharedStatesService?.activeTopMenu === '2'">
+          <ion-item [class.item-active]="sharedStatesService.activeMenu === 'connections'"
             lines="none" detail button (click)="matchesCklicked()">
             <ion-icon slot="start" name="pulse-outline"></ion-icon>
             <ion-label class="basic-text">Reconnect</ion-label>
           </ion-item>
-          <ion-item [class.item-active]="sharedService.activeMenu === 'matches'"
+          <ion-item [class.item-active]="sharedStatesService.activeMenu === 'matches'"
             lines="none" detail button (click)="matchesCklicked()">
             <ion-icon slot="start" name="fitness-outline"></ion-icon>
             <ion-label class="basic-text">Matches</ion-label>
