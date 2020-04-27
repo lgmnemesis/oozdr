@@ -34,8 +34,8 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.statusBar.styleDefault();
+      // this.splashScreen.hide();
       this.sharedService.showInfo();
       this.subscribeToVersionUpdate();
     });
