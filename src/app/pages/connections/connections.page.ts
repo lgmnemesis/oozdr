@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.page.html',
-  styleUrls: ['./dashboard.page.scss'],
+  selector: 'app-connections',
+  templateUrl: './connections.page.html',
+  styleUrls: ['./connections.page.scss'],
 })
-export class DashboardPage implements OnInit, OnDestroy {
+export class ConnectionsPage implements OnInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;

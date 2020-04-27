@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/auth.guard';
 import { WelcomeGuard } from './core/welcome.guard';
-import { DashboardGuard } from './core/dashboard.guard';
+import { ConnectionsGuard } from './core/connections.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
@@ -17,9 +17,9 @@ const routes: Routes = [
     canActivate: [AuthGuard, WelcomeGuard]
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule),
-    canActivate: [AuthGuard, DashboardGuard]
+    path: 'connections',
+    loadChildren: () => import('./pages/connections/connections.module').then( m => m.ConnectionsPageModule),
+    canActivate: [AuthGuard, ConnectionsGuard]
   },
   // Default redirect route rule if non of the above matches
   { path: '**', redirectTo: 'start', pathMatch: 'full' }

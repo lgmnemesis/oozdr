@@ -45,7 +45,7 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   gotoHome() {
-    this.navCtrl.navigateRoot('/dashboard')
+    this.navCtrl.navigateRoot('/connections')
     .catch((error) => {
       console.error(error);
     });
