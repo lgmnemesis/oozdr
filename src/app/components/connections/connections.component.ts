@@ -22,7 +22,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     this._connectionsState = this.sharedStatesService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
       this.markForCheck();
-    }); 
+    });
   }
 
   markForCheck() {

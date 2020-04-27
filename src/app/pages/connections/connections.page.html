@@ -4,10 +4,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-item lines="none">
-  <ion-chip color="tertiary" slot="start" class="animated slideInRight">
+<ion-item lines="none" *ngIf="connectionsState.state === 'view'">
+  <ion-chip (click)="addConnectionButton()"
+    color="tertiary" slot="start" class="animated slideInRight">
     <ion-icon name="pulse-outline"></ion-icon>
-    <ion-label>Add New Connection</ion-label>
+    <ion-label class="basic-text">Add New Connection</ion-label>
   </ion-chip>
 </ion-item>
 

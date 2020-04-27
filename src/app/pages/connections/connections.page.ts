@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SharedService } from 'src/app/services/shared.service';
 import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { ConnectionsState } from 'src/app/interfaces/connections-state';
 
 @Component({
   selector: 'app-connections-page',
@@ -13,9 +13,10 @@ export class ConnectionsPage implements OnInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
+  connectionsState: ConnectionsState;
+  _connectionsState: Subscription;
 
-  constructor(private sharedService: SharedService,
-    private sharedStatesService: SharedStatesService,
+  constructor(private sharedStatesService: SharedStatesService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -24,6 +25,14 @@ export class ConnectionsPage implements OnInit, OnDestroy {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });
+
+    this._connectionsState = this.sharedStatesService.connectionsState$.subscribe((state) => {
+      this.connectionsState = state;
+      this.markForCheck();
+    });
+
+    this.sharedStatesService.connectionsStateSubject.next({state: 'view'});
+
     // this.sharedService.setDefaultPhoneCountryCode();
   }
 
@@ -31,10 +40,17 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
+  addConnectionButton() {
+    this.sharedStatesService.connectionsStateSubject.next({state: 'add'});
+  }
+
   ngOnDestroy() {
     this.sharedStatesService.useSplitPaneSubject.next(false);
     if (this._isVisibleSplitPane) {
       this._isVisibleSplitPane.unsubscribe();
+    }
+    if (this._connectionsState) {
+      this._connectionsState.unsubscribe();
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
+import { SharedStatesService } from 'src/app/services/shared-states.service';
 
 export class Q {
   name = '';
@@ -24,7 +25,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
 
   constructor(private sharedService: SharedService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private sharedStateService: SharedStatesService) { }
 
   ngOnInit() {}
 
@@ -63,6 +65,10 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   addConnection() {
 
+  }
+
+  close() {
+    this.sharedStateService.connectionsStateSubject.next({state: 'view'});
   }
 
   ngOnDestroy() {

@@ -1,13 +1,13 @@
 <ion-grid>
   <ion-row *ngIf="connectionsState?.state === 'add'"
-    class="ion-justify-content-center ion-align-items-center">
+    class="ion-justify-content-center ion-align-items-center animated zoomIn">
     <ion-col size="auto">
       <app-manage-connection></app-manage-connection>
     </ion-col>
   </ion-row>
 
   <ion-row *ngIf="connectionsState?.state === 'view'"
-    class="ion-justify-content-center ion-align-items-center">
+    class="ion-justify-content-center ion-align-items-center animated fadeIn">
     <ion-col size="auto" *ngFor="let i of items">
       <app-connection></app-connection>
     </ion-col>

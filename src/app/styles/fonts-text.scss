@@ -4,6 +4,10 @@
   font-weight: 300;
 }
 
+.bold-text {
+  font-weight: 500 !important;
+}
+
 .basic-text {
   @extend .font-params;
   font-size: 16px;
