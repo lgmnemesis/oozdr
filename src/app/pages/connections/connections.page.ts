@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-connections',
+  selector: 'app-connections-page',
   templateUrl: './connections.page.html',
   styleUrls: ['./connections.page.scss'],
 })

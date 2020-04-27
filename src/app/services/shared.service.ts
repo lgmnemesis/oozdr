@@ -16,7 +16,7 @@ export class SharedService {
   canEnterWelcome = false;
   canEnterHome = false;
   activeTopMenu = '2';
-  activeMenu = 'matches';
+  activeMenu = 'connections';
   countryCodeStoreKeyName = 'country_code';
 
   useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);

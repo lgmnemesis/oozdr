@@ -1,0 +1,46 @@
+<ion-grid>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <p>Name</p>
+      <ion-item lines="none" class="item-input">
+        <ion-input 
+          autofocus 
+          placeholder="Her Name" 
+          maxLength="20" 
+          debounce="300" 
+          (ionChange)="setName($event)">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p class="p-error" [class.p-error-active]="isNameError">{{ nameError }}</p>
+    </ion-col>
+    
+    <ion-col size="auto">
+      <p>Mobile Number</p>
+      <input id="tel-input"
+        type="text" ng2TelInput
+        [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
+        (hasError)="telHasError($event)" 
+        (intlTelInputObject)="telInputObject($event)"/>
+        <p class="basic-text p-error" [class.p-error-active]="isPhoneError">{{ phoneError }}</p>
+    </ion-col>
+  </ion-row>
+
+  <!-- <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <ion-list>
+        <ion-item lines="none">
+          <ion-toggle (ionChange)="toggleLetThemKnow($event)" color="success"></ion-toggle>
+          <ion-label class="basic-text ion-text-wrap">Let them know you were looking for them</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row> -->
+
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <ion-button (click)="addConnection()">Make Your Move</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

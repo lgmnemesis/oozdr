@@ -12,7 +12,7 @@
       </ion-header>
       <ion-content>
         <ion-list *ngIf="sharedService.activeTopMenu === '2'">
-          <ion-item [class.item-active]="sharedService.activeMenu === 'reconnect'"
+          <ion-item [class.item-active]="sharedService.activeMenu === 'connections'"
             lines="none" detail button (click)="matchesCklicked()">
             <ion-icon slot="start" name="pulse-outline"></ion-icon>
             <ion-label class="basic-text">Reconnect</ion-label>

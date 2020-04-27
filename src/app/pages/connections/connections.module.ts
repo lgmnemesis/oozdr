@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { ConnectionsPageRoutingModule } from './connections-routing.module';
 import { ConnectionsPage } from './connections.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
+import { ConnectionsModule } from 'src/app/components/connections/connections.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
     FormsModule,
     IonicModule,
     ConnectionsPageRoutingModule,
-    TopMenuModule
+    TopMenuModule,
+    ConnectionsModule
   ],
   declarations: [ConnectionsPage]
 })
