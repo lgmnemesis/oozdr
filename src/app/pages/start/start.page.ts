@@ -57,7 +57,6 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   testAuthForProductionInput(event) {
-    console.log('moshe123');
     if (event.detail.value === '12gin21') {
       this.testAuthForProduction = true;
       this.markForCheck();
