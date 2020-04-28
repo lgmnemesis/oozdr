@@ -7,6 +7,7 @@ import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
 import { SharedStatesService } from './services/shared-states.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ import { SharedStatesService } from './services/shared-states.service';
 export class AppComponent {
 
   useSplitPane = false;
+  isVisibleSplitPane = false;
 
   constructor(
     private platform: Platform,
@@ -25,7 +27,8 @@ export class AppComponent {
     private sharedService: SharedService,
     public sharedStatesService: SharedStatesService,
     private swUpdate: SwUpdate,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.authService.init();
     this.initializeApp();
@@ -58,10 +61,22 @@ export class AppComponent {
   }
 
   ionSplitPaneOutputEvent(event) {
-    this.sharedStatesService.isVisibleSplitPaneSubject.next(event.detail.visible);
+    this.isVisibleSplitPane = event.detail.visible;
+    this.sharedStatesService.isVisibleSplitPaneSubject.next(this.isVisibleSplitPane);
   } 
 
-  matchesCklicked() {
+  connectionsClicked() {
+    this.sharedStatesService.activeMenu = 'connections';
+    this.gotoActiveMenu();
+  }
 
+  matchesClicked() {
+    this.sharedStatesService.activeMenu = 'matches';
+    this.gotoActiveMenu();
+  }
+
+  gotoActiveMenu() {
+    const url = this.sharedStatesService.activeMenu;
+    this.router.navigate([url]).catch(error => console.error(error));
   }
 }

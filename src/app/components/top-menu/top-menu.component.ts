@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-menu',
@@ -9,12 +10,31 @@ import { SharedStatesService } from 'src/app/services/shared-states.service';
 })
 export class TopMenuComponent implements OnInit {
 
+  @Input()
+  set visible(is: boolean) {
+    if (is) {
+      if (this.sharedStatesService.activeTopMenu === this.menu3) {
+        this.sharedStatesService.activeMenu = this.menu3;
+        this.sharedStatesService.activeTopMenu = this.menu2;
+      }
+    } else {
+      if (this.sharedStatesService.activeMenu === this.menu3) {
+        this.sharedStatesService.activeTopMenu = this.menu3;
+      }
+    }
+    this.markForCheck();
+  }
+
   @Input() showChat = true;
   @Input() isLarge = true;
-  @Output() menuEvent = new EventEmitter();
+
+  menu1 = 'profile';
+  menu2 = 'connections';
+  menu3 = 'matches';
 
   constructor(private cd: ChangeDetectorRef,
-    public sharedStatesService: SharedStatesService) { }
+    public sharedStatesService: SharedStatesService,
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -23,10 +43,15 @@ export class TopMenuComponent implements OnInit {
     this.cd.markForCheck();
   }
 
-  clickedOn(on: string) {
-    if (this.sharedStatesService.activeTopMenu !== on) {
-      this.sharedStatesService.activeTopMenu = on;
-      this.menuEvent.next({selected: on});
+  clickedOn(url: string) {
+    if (this.sharedStatesService.activeTopMenu !== url) {
+      this.sharedStatesService.activeTopMenu = url;
+      this.sharedStatesService.activeMenu = url;
+      this.goto(url);
     }
+  }
+
+  goto(url) {
+    this.router.navigate([url]).catch(error => console.error(error));
   }
 }

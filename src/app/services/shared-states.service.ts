@@ -9,7 +9,7 @@ export class SharedStatesService {
 
   canEnterWelcome = false;
   canEnterHome = false;
-  activeTopMenu = '2';
+  activeTopMenu = 'connections';
   activeMenu = 'connections';
   shouldAnimateStartPage = true;
 

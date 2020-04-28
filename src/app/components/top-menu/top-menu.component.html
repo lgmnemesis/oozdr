@@ -1,14 +1,14 @@
 <div id="top-menu">
   <ion-item lines="none">
-    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === '1'" (click)="clickedOn('1')"
+    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === menu1" (click)="clickedOn(menu1)"
       [size]="isLarge ? 'large' : 'default'" fill="clear">
       <ion-icon name="person-outline"></ion-icon>
     </ion-button>
-    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === '2'" (click)="clickedOn('2')"
+    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === menu2" (click)="clickedOn(menu2)"
       [size]="isLarge ? 'large' : 'default'" fill="clear">
       <ion-icon name="leaf-outline"></ion-icon>
     </ion-button>
-    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === '3'" (click)="clickedOn('3')"
+    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === menu3" (click)="clickedOn(menu3)"
       [size]="isLarge ? 'large' : 'default'" fill="clear" *ngIf="showChat">
       <ion-icon name="fitness-outline"></ion-icon>
     </ion-button>

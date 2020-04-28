@@ -1,12 +1,12 @@
 <ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
   <ion-toolbar>
-    <app-top-menu [showChat]="true" [isLarge]="false"></app-top-menu>
+    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
 </ion-header>
 
 <ion-item lines="none" *ngIf="connectionsState.state === 'view'">
   <ion-chip (click)="addConnectionButton()"
-    color="primary" slot="start" class="animated slideInRight">
+    color="primary" slot="start" class="animated fadeIn">
     <ion-icon name="pulse-outline"></ion-icon>
     <ion-label class="basic-text">Add Connection</ion-label>
   </ion-chip>

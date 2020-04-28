@@ -32,6 +32,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     });
 
     this.sharedStatesService.connectionsStateSubject.next({state: 'view'});
+    this.sharedStatesService.activeMenu = 'connections';
 
     // this.sharedService.setDefaultPhoneCountryCode();
   }
@@ -45,7 +46,6 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sharedStatesService.useSplitPaneSubject.next(false);
     if (this._isVisibleSplitPane) {
       this._isVisibleSplitPane.unsubscribe();
     }
