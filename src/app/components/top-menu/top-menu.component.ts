@@ -12,6 +12,7 @@ export class TopMenuComponent implements OnInit {
 
   @Input()
   set visible(is: boolean) {
+    this.isVisible = is;
     if (is) {
       if (this.sharedStatesService.activeTopMenu === this.menu3) {
         this.sharedStatesService.activeMenu = this.menu3;
@@ -28,6 +29,8 @@ export class TopMenuComponent implements OnInit {
   @Input() showChat = true;
   @Input() isLarge = true;
 
+  isVisible = false;
+  
   menu1 = 'profile';
   menu2 = 'connections';
   menu3 = 'matches';

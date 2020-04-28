@@ -1,8 +1,24 @@
+.visible-item {
+  --background: var(--ion-color-main);
+}
+
 ion-button {
   margin: auto;
+}
+
+.passive {
   --color: var(--ion-color-medium);
 }
 
-.isActive {
+.active {
   --color: var(--ion-color-primary);
+}
+
+.passive-visible {
+  --color: var(--ion-color-dark);
+}
+
+.active-visible {
+  background: var(--ion-color-minor);
+  border-radius: 10px;
 }

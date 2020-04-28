@@ -1,15 +1,30 @@
 <div id="top-menu">
-  <ion-item lines="none">
-    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === menu1" (click)="clickedOn(menu1)"
-      [size]="isLarge ? 'large' : 'default'" fill="clear">
+  <ion-item lines="none" [class.visible-item]="isVisible">
+    <ion-button 
+      [class.passive]="!isVisible && sharedStatesService?.activeTopMenu !== menu1"
+      [class.active]="!isVisible && sharedStatesService?.activeTopMenu === menu1"
+      [class.passive-visible]="isVisible && sharedStatesService?.activeTopMenu !== menu1"
+      [class.active-visible]="isVisible && sharedStatesService?.activeTopMenu === menu1"
+      [size]="isLarge ? 'large' : 'default'" fill="clear"
+      (click)="clickedOn(menu1)">
       <ion-icon name="person-outline"></ion-icon>
     </ion-button>
-    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === menu2" (click)="clickedOn(menu2)"
-      [size]="isLarge ? 'large' : 'default'" fill="clear">
+    <ion-button 
+      [class.passive]="!isVisible && sharedStatesService?.activeTopMenu !== menu2"
+      [class.active]="!isVisible && sharedStatesService?.activeTopMenu === menu2"
+      [class.passive-visible]="isVisible && sharedStatesService?.activeTopMenu !== menu2"
+      [class.active-visible]="isVisible && sharedStatesService?.activeTopMenu === menu2"
+      [size]="isLarge ? 'large' : 'default'" fill="clear"
+      (click)="clickedOn(menu2)">
       <ion-icon name="leaf-outline"></ion-icon>
     </ion-button>
-    <ion-button [class.isActive]="sharedStatesService?.activeTopMenu === menu3" (click)="clickedOn(menu3)"
-      [size]="isLarge ? 'large' : 'default'" fill="clear" *ngIf="showChat">
+    <ion-button 
+      [class.passive]="!isVisible && sharedStatesService?.activeTopMenu !== menu3"
+      [class.active]="!isVisible && sharedStatesService?.activeTopMenu === menu3"
+      [class.passive-visible]="isVisible && sharedStatesService?.activeTopMenu !== menu3"
+      [class.active-visible]="isVisible && sharedStatesService?.activeTopMenu === menu3"
+      [size]="isLarge ? 'large' : 'default'" fill="clear" *ngIf="showChat"
+      (click)="clickedOn(menu3)">
       <ion-icon name="fitness-outline"></ion-icon>
     </ion-button>
   </ion-item>
