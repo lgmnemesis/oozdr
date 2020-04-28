@@ -33,4 +33,10 @@ ion-label {
 
 .i-title {
   --background: rgba(var(--ion-color-primary-rgb), 0.08);
+  --inner-padding-bottom: 10px;
+  --inner-padding-top: 10px;
+}
+
+ion-chip {
+  margin: 0;
 }

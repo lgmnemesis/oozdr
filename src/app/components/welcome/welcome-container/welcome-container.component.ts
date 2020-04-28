@@ -41,7 +41,6 @@ export class WelcomeContainerComponent implements OnInit {
     this.step++;
     this.isBack = false;
     this.isNext = true;
-    console.log('moshe next:', this.step);
     this.markForCheck();
   }
 
