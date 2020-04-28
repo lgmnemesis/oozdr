@@ -2,6 +2,10 @@
 @import '../../styles/fonts-text';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  ion-col {
+    padding: 15px 0px !important;
+  }
+  
   .item-input {
     min-width: 300px !important;
   }
