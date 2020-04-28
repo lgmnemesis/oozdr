@@ -30,6 +30,7 @@ export class TopMenuComponent implements OnInit {
   @Input() isLarge = true;
 
   isVisible = false;
+  useToggle = false;
   
   menu1 = 'profile';
   menu2 = 'connections';
@@ -52,6 +53,17 @@ export class TopMenuComponent implements OnInit {
       this.sharedStatesService.activeMenu = url;
       this.goto(url);
     }
+  }
+
+  toggleMenus() {
+    console.log('active1:', this.sharedStatesService.activeTopMenu);
+    if (this.sharedStatesService.activeTopMenu === this.menu1) {
+      this.sharedStatesService.activeTopMenu = this.menu2;
+    } else {
+      this.sharedStatesService.activeTopMenu = this.menu1
+    }
+    console.log('active2:', this.sharedStatesService.activeTopMenu);
+    this.goto(this.sharedStatesService.activeTopMenu);
   }
 
   goto(url) {

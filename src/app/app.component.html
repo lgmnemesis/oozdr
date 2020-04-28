@@ -11,7 +11,7 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
+        <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
           <ion-item [class.item-active]="sharedStatesService.activeMenu === 'connections'"
             lines="none" detail button (click)="connectionsClicked()">
             <ion-icon slot="start" name="pulse-outline"></ion-icon>
@@ -22,7 +22,7 @@
             <ion-icon slot="start" name="fitness-outline"></ion-icon>
             <ion-label class="basic-text">Matches</ion-label>
           </ion-item>
-        </ion-list>
+        </ng-container>
       </ion-content>
     </ion-menu>
 

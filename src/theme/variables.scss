@@ -93,6 +93,9 @@
 
   // Global font family
   --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
+
+  // Side Menu background color
+  --visible-split-pane-color: rgba(var(--ion-color-primary-rgb), 0.2);
 }
 
 .ion-color-main {

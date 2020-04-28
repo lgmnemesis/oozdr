@@ -7,11 +7,8 @@ ion-split-pane {
   --border: 1px solid var(--ion-color-light);
 }
 
-ion-content,
-ion-list,
-ion-item {
-  background: var(--ion-color-main);
-  --background: var(--ion-color-main);
+ion-content {
+  --background: var(--visible-split-pane-color);
 }
 
 ion-item {

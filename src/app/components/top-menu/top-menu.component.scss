@@ -1,9 +1,14 @@
-.visible-item {
-  --background: var(--ion-color-main);
+ion-item {
+  --padding-bottom: 5px;
+  --padding-top: 5px;
 }
 
 ion-button {
   margin: auto;
+}
+
+.visible-item {
+  --background: var(--visible-split-pane-color);
 }
 
 .passive {
@@ -19,6 +24,6 @@ ion-button {
 }
 
 .active-visible {
-  background: var(--ion-color-minor);
+  // background: var(--ion-color-minor);
   border-radius: 10px;
 }
