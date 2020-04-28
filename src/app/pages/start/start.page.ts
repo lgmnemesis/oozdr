@@ -4,6 +4,7 @@ import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-m
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-start',
@@ -17,6 +18,9 @@ export class StartPage implements OnInit, OnDestroy {
   shouldAnimate = this.sharedStatesService.shouldAnimateStartPage;
   _user: Subscription;
   canShowPage = false;
+  isLoggedIn = false;
+  testAuthForProduction = false;
+  isProduction = false;
 
   constructor(private modalCtrl: ModalController,
     private sharedStatesService: SharedStatesService,
@@ -25,12 +29,15 @@ export class StartPage implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+    // Test auth for production
+    this.checkTestAuthForProduction();
+
     this.sharedStatesService.canEnterWelcome = true;
     this.sharedStatesService.canEnterHome = false;
     this._user = this.authService.getUser().subscribe((user) => {
-      console.log('moshe start:', user);
       this.canShowPage = true;
       if (user) {
+        this.isLoggedIn = true;
         this.canShowPage = false;
         this.sharedStatesService.canEnterWelcome = false;
         this.sharedStatesService.canEnterHome = true;
@@ -38,6 +45,23 @@ export class StartPage implements OnInit, OnDestroy {
       }
       this.markForCheck();
     })
+  }
+
+  checkTestAuthForProduction() {
+    if (environment.production) {
+      this.isProduction = true;
+    } else {
+      this.testAuthForProduction = true;
+    }
+    this.markForCheck();
+  }
+
+  testAuthForProductionInput(event) {
+    console.log('moshe123');
+    if (event.detail.value === '12gin21') {
+      this.testAuthForProduction = true;
+      this.markForCheck();
+    }
   }
 
   markForCheck() {
@@ -77,7 +101,6 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('moshe start on destroy');
     if (this._user) {
       this._user.unsubscribe();
     }

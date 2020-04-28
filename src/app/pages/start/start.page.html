@@ -1,5 +1,15 @@
 <ion-spinner color="main" name="dots" *ngIf="!canShowPage"></ion-spinner>
-<ion-content *ngIf="canShowPage">
+
+<!-- Test Auth For Production -->
+<ion-item *ngIf="isProduction && !testAuthForProduction">
+  <ion-label>Label</ion-label>
+  <ion-input
+    debounce="5000"
+    (ionChange)="testAuthForProductionInput($event)">
+  </ion-input>
+</ion-item>
+
+<ion-content *ngIf="canShowPage && testAuthForProduction">
 
   <div id="start-header">
     <ion-item lines="none">

@@ -54,7 +54,6 @@ export class AuthService {
       }));
   
       this._userInternal = this.userInternal$.subscribe((user: User) => {
-        console.log('moshe in user sub:', user);
         this.userSubject.next(user);
       });
     }

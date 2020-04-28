@@ -30,3 +30,7 @@ p,
 ion-label {
   @extend .basic-text;
 }
+
+.i-title {
+  --background: rgba(var(--ion-color-primary-rgb), 0.08);
+}

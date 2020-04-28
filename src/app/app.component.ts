@@ -54,12 +54,10 @@ export class AppComponent {
   subscribeToSplitPaneEvents() {
     this.sharedStatesService.useSplitPane$.subscribe((isUsed) => {
       this.useSplitPane = isUsed;
-      console.log('moshe isShow:', isUsed);
     })
   }
 
   ionSplitPaneOutputEvent(event) {
-    console.log('moshe isVisible:', event.detail.visible);
     this.sharedStatesService.isVisibleSplitPaneSubject.next(event.detail.visible);
   } 
 
