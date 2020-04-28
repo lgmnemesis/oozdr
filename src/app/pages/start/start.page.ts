@@ -19,8 +19,8 @@ export class StartPage implements OnInit, OnDestroy {
   _user: Subscription;
   canShowPage = false;
   isLoggedIn = false;
-  testAuthForProduction = false;
-  isProduction = false;
+  testAuthForProduction = false; // temp for now
+  isProduction = false; // temp for now
 
   constructor(private modalCtrl: ModalController,
     private sharedStatesService: SharedStatesService,
