@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class SharedService {
   countryCodeStoreKeyName = 'country_code';
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private platform: Platform) { }
 
   showInfo() {
     console.log(`Client Version: ${this.getClientVersion()}`);
@@ -56,6 +58,46 @@ export class SharedService {
       } catch (error) {
         console.error(error);
       }
+    }
+  }
+
+  isMobileApp() {
+    if (this.platform.is('mobile') || this.platform.is('mobileweb') ) {
+      return true;
+    }
+    return false;
+  }
+
+  styleIonScrollbars(element: any) {
+    if (this.isMobileApp()) {
+      return;
+    }
+    try {
+      const stylesheet = `
+        ::-webkit-scrollbar {
+          width: 8px;
+          background: var(--ion-color-minor);
+        }
+        ::-webkit-scrollbar,
+        ::-webkit-scrollbar-thumb {
+          overflow: visible;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: var(--ion-color-light-shade);
+        }
+      `;
+
+      const styleElement = element.shadowRoot.querySelector('style');
+
+      if (styleElement) {
+        styleElement.append(stylesheet);
+      } else {
+        const barStyle = document.createElement('style');
+        barStyle.append(stylesheet);
+        element.shadowRoot.appendChild(barStyle);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }

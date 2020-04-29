@@ -19,7 +19,7 @@
         </ion-item>
       </ng-container>
 
-      <ion-content>
+      <ion-content id="split-pane-content">
         <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
           <ion-item (click)="toggleMatches()"
             class="i-match-title" button lines="none">
@@ -37,7 +37,7 @@
               </ion-avatar>
               <ion-label>
                 <h2>Chip Avatar</h2>
-                <p>last message</p>
+                <p>last message {{ t }}</p>
               </ion-label>
             </ion-item>
           </ng-container>
