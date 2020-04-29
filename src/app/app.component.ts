@@ -20,7 +20,7 @@ export class AppComponent implements AfterViewInit {
   useSplitPane = false;
   isVisibleSplitPane = false;
 
-  tmps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  tmps = [1, 2, 3, 4, 5, 6];
 
   constructor(
     private platform: Platform,

@@ -21,8 +21,8 @@
 
       <ion-content id="split-pane-content">
         <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
-          <ion-item (click)="toggleMatches()"
-            class="i-match-title" button lines="none">
+          <ion-item button [lines]="sharedStatesService?.isMatchesOpen ? 'inset' : 'none'"
+            class="i-title" (click)="toggleMatches()">
             <ion-icon 
               slot="start" 
               [name]="sharedStatesService?.isMatchesOpen ? 'chevron-down-outline' : 'chevron-forward-outline'">
