@@ -114,7 +114,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
         const elc = <HTMLElement>document.getElementsByClassName('cr-boundary')[0];
         elc.style.borderRadius = '15px';
         this.markForCheck();
-      });
+      }).catch((error => console.error(error)));
     } catch (error) {
       console.error(error);
     }

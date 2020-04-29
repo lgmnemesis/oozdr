@@ -19,7 +19,7 @@ export class WelcomeGuard implements CanActivate {
     if (canEnter) {
       return true;
     }
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).catch((error => console.error(error)));
     return false;
   }
   

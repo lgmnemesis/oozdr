@@ -15,6 +15,7 @@ export class SharedStatesService {
 
   useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   useSplitPane$ = this.useSplitPaneSubject.asObservable();
+  
   isVisibleSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isVisibleSplitPane$ = this.isVisibleSplitPaneSubject.asObservable();
 
@@ -22,4 +23,16 @@ export class SharedStatesService {
   connectionsState$ = this.connectionsStateSubject.asObservable();
 
   constructor() { }
+
+  resetStore() {
+    this.canEnterWelcome = false;
+    this.canEnterHome = false;
+    this.activeTopMenu = 'connections';
+    this.activeMenu = 'connections';
+    this.shouldAnimateStartPage = false;
+
+    this.useSplitPaneSubject.next(false);
+    this.isVisibleSplitPaneSubject.next(false);
+    this.connectionsStateSubject.next({state: 'view'});
+  }
 }

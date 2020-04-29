@@ -5,6 +5,9 @@ import { User } from '../interfaces/user';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { SharedStatesService } from './shared-states.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,74 +22,115 @@ export class AuthService {
   signingOut$ = this.signingOutSubject.asObservable();
 
   constructor(private afAuth: AngularFireAuth,
-    private afs: AngularFirestore) { }
+    private afs: AngularFirestore,
+    private alertCtrl: AlertController,
+    private router: Router,
+    private sharedStatesService: SharedStatesService) { }
 
-    init() {
-      this.subscribeUser();
-      this.signingOut$.subscribe((isSiningOut) => {
-        if (isSiningOut) {
-          this.signOut();
-        }
-      });
-    }
-
-    subscribeUser() {
-      this.unsubscribeUser();
-      this.userInternal$ = this.afAuth.authState.pipe(switchMap(user => {
-        if (!environment.production && user) {
-          console.log('[DEBUG] Auth user:', user);
-        }
-        if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
-          .pipe(
-            retryWhen(errors => {
-              return errors.pipe(
-                take(5),
-                delayWhen(() => timer(5000))
-              );
-            })
-          );
-        } else {
-          return of(null);
-        }
-      }));
-  
-      this._userInternal = this.userInternal$.subscribe((user: User) => {
-        this.userSubject.next(user);
-      });
-    }
-
-    async updateUserData(data: User, onlyIfNotExists = false): Promise<void> {
-      const userDoc = `users/${data.user_id}`;
-
-      let userDocExists = false;
-      if (onlyIfNotExists) {
-        const doc = await this.afs.doc(userDoc).valueChanges().pipe(first())
-        .toPromise().catch((error) => {});
-        if (doc) {
-          userDocExists = true;
-        }
+  init() {
+    this.subscribeUser();
+    this.signingOut$.subscribe((isSiningOut) => {
+      if (isSiningOut) {
+        this.signOut();
       }
-  
-      if (userDocExists) {
-        return Promise.resolve();
+    });
+  }
+
+  subscribeUser() {
+    this.unsubscribeUser();
+    this.userInternal$ = this.afAuth.authState.pipe(switchMap(user => {
+      if (!environment.production && user) {
+        console.log('[DEBUG] Auth user:', user);
+      }
+      if (user) {
+        return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+        .pipe(
+          retryWhen(errors => {
+            return errors.pipe(
+              take(5),
+              delayWhen(() => timer(5000))
+            );
+          })
+        );
       } else {
-        return this.afs.doc(userDoc).set(data, {merge: true});
+        return of(null);
+      }
+    }));
+
+    this._userInternal = this.userInternal$.subscribe((user: User) => {
+      this.userSubject.next(user);
+    });
+  }
+
+  async updateUserData(data: User, onlyIfNotExists = false): Promise<void> {
+    const userDoc = `users/${data.user_id}`;
+
+    let userDocExists = false;
+    if (onlyIfNotExists) {
+      const doc = await this.afs.doc(userDoc).valueChanges().pipe(first())
+      .toPromise().catch((error) => {});
+      if (doc) {
+        userDocExists = true;
       }
     }
 
-    unsubscribeUser() {
-      if (this._userInternal) {
-        this._userInternal.unsubscribe();
-      }
+    if (userDocExists) {
+      return Promise.resolve();
+    } else {
+      return this.afs.doc(userDoc).set(data, {merge: true});
     }
-  
-    async signOut() {
-      await this.afAuth.signOut().catch((error => console.error(error)));
-      this.unsubscribeUser();
-    }
+  }
 
-    getUser(): Observable<firebase.User> {
-      return this.afAuth.user;
+  unsubscribeUser() {
+    if (this._userInternal) {
+      this._userInternal.unsubscribe();
     }
+  }
+
+  async signOut() {
+    this.afAuth.signOut()
+    .then(() => {
+      this.sharedStatesService.resetStore();
+      this.router.navigate(['/']).catch((error => console.error(error)));;
+    })
+    .catch((error => console.error(error)));
+    
+    this.unsubscribeUser();
+  }
+
+  getUser(): Observable<firebase.User> {
+    return this.afAuth.user;
+  }
+
+  async presentLogoutConfirm() {
+    const alert = await this.alertCtrl.create({
+      header: 'Are you sure you want to log out?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        }, {
+          text: 'Log out',
+          handler: () => {
+            console.log('starting sign out process');
+            this.signOut();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async logout(withConfirmation = true) {
+    if (withConfirmation) {
+      await this.presentLogoutConfirm();
+    } else {
+      console.log('starting sign out process directly');
+      this.signOut();
+    }
+  }
 }

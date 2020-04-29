@@ -75,6 +75,20 @@ export class AppComponent {
     this.gotoActiveMenu();
   }
 
+  profileClicked() {
+    this.sharedStatesService.activeMenu = 'profile';
+    this.gotoActiveMenu();
+  }
+
+  settingsClicked() {
+    this.sharedStatesService.activeMenu = 'settings';
+    this.gotoActiveMenu();
+  }
+
+  logoutClicked() {
+    this.authService.logout(true);
+  }
+
   gotoActiveMenu() {
     const url = this.sharedStatesService.activeMenu;
     this.router.navigate([url]).catch(error => console.error(error));
