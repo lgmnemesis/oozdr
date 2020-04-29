@@ -19,6 +19,9 @@ export class AppComponent {
 
   useSplitPane = false;
   isVisibleSplitPane = false;
+  isMatchesOpen = true;
+
+  tmps = [1, 2, 3, 4, 5, 6];
 
   constructor(
     private platform: Platform,
@@ -92,5 +95,9 @@ export class AppComponent {
   gotoActiveMenu() {
     const url = this.sharedStatesService.activeMenu;
     this.router.navigate([url]).catch(error => console.error(error));
+  }
+
+  toggleMatches() {
+    this.isMatchesOpen = !this.isMatchesOpen;
   }
 }
