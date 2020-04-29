@@ -20,6 +20,7 @@ export class AuthService {
   private _userInternal: Subscription;
   signingOutSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   signingOut$ = this.signingOutSubject.asObservable();
+  inLogoutProcess = false;
 
   constructor(private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
@@ -91,9 +92,19 @@ export class AuthService {
     this.afAuth.signOut()
     .then(() => {
       this.sharedStatesService.resetStore();
-      this.router.navigate(['/']).catch((error => console.error(error)));;
+      this.router.navigate(['/'])
+      .then(() => {
+        this.inLogoutProcess = false;
+      })
+      .catch((error => {
+        console.error(error);
+        this.inLogoutProcess = false;
+      }));
     })
-    .catch((error => console.error(error)));
+    .catch((error => {
+      console.error(error);
+      this.inLogoutProcess = false;
+    }));
     
     this.unsubscribeUser();
   }
@@ -111,11 +122,11 @@ export class AuthService {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
+            this.inLogoutProcess = false;
           }
         }, {
           text: 'Log out',
           handler: () => {
-            console.log('starting sign out process');
             this.signOut();
           }
         }
@@ -126,10 +137,13 @@ export class AuthService {
   }
 
   async logout(withConfirmation = true) {
+    if (this.inLogoutProcess) {
+      return;
+    }
+    this.inLogoutProcess = true;
     if (withConfirmation) {
       await this.presentLogoutConfirm();
     } else {
-      console.log('starting sign out process directly');
       this.signOut();
     }
   }
