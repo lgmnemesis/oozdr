@@ -12,6 +12,7 @@ export class SharedStatesService {
   activeTopMenu = 'connections';
   activeMenu = 'connections';
   shouldAnimateStartPage = true;
+  isMatchesOpen = true;
 
   useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   useSplitPane$ = this.useSplitPaneSubject.asObservable();
@@ -30,6 +31,7 @@ export class SharedStatesService {
     this.activeTopMenu = 'connections';
     this.activeMenu = 'connections';
     this.shouldAnimateStartPage = false;
+    this.isMatchesOpen = true;
 
     this.useSplitPaneSubject.next(false);
     this.isVisibleSplitPaneSubject.next(false);

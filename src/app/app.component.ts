@@ -19,7 +19,6 @@ export class AppComponent {
 
   useSplitPane = false;
   isVisibleSplitPane = false;
-  isMatchesOpen = true;
 
   tmps = [1, 2, 3, 4, 5, 6];
 
@@ -98,6 +97,6 @@ export class AppComponent {
   }
 
   toggleMatches() {
-    this.isMatchesOpen = !this.isMatchesOpen;
+    this.sharedStatesService.isMatchesOpen = !this.sharedStatesService.isMatchesOpen;
   }
 }

@@ -23,11 +23,14 @@
         <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
           <ion-item (click)="toggleMatches()"
             class="i-match-title" button lines="none">
-            <ion-icon slot="start" [name]="isMatchesOpen ? 'chevron-down-outline' : 'chevron-forward-outline'"></ion-icon>
+            <ion-icon 
+              slot="start" 
+              [name]="sharedStatesService?.isMatchesOpen ? 'chevron-down-outline' : 'chevron-forward-outline'">
+            </ion-icon>
             <ion-label class="basic-text">Matches</ion-label>
           </ion-item>
 
-          <ng-container *ngIf="isMatchesOpen">
+          <ng-container *ngIf="sharedStatesService?.isMatchesOpen">
             <ion-item class="i-match" button lines="none" *ngFor="let t of tmps">
               <ion-avatar slot="start">
                 <ion-icon name="person"></ion-icon>
