@@ -92,6 +92,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       user_id: profile.user_id
     }
     this.sharedStoreService.addConnection(profile, connection).catch(error => console.error(error));
+    this.close();
   }
 
   close() {
