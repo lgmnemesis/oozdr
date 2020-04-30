@@ -26,6 +26,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
   isEmailError = false;
   birthdayError = 'no errors';
   isBirthdayError = false;
+  isDisableNextButton = false;
 
   constructor(private welcomeService: WelcomeService,
     private cd: ChangeDetectorRef) { }
@@ -149,7 +150,9 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
         this.croppie.destroy();
         this.croppie = null;
       }
+      this.isDisableNextButton = true;
       this.nextEvent.next(true);
+      this.markForCheck();
     }
   }
 

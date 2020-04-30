@@ -10,7 +10,7 @@ export class SharedService {
 
   INITIAL_PHONE_COUNTRY_CODE = 'us';
 
-  ipInfoUrl = 'https://ipinfo.io/json';
+  ipInfoUrl = 'https://ipapi.co/json';
   defaultPhoneCountryCode: string = null;
   countryCodeStoreKeyName = 'country_code';
 
@@ -37,7 +37,6 @@ export class SharedService {
       const storeValue = localStorage.getItem(storeKey);
       if (storeValue) {
         this.defaultPhoneCountryCode = storeValue;
-        console.log('moshe: got countryCode from store:', storeValue);
         return;
       }
     } catch (error) {
@@ -50,14 +49,14 @@ export class SharedService {
         this.defaultPhoneCountryCode = this.INITIAL_PHONE_COUNTRY_CODE;
       });
 
-    console.log('moshe json:', json);
-    if (json && json.country) {
-      this.defaultPhoneCountryCode = json.country;
-      try {
-        localStorage.setItem(storeKey, json.country);
-      } catch (error) {
-        console.error(error);
+    try {
+      if (json && json.country) {
+        const country = json.country;
+        this.defaultPhoneCountryCode = country;
+        localStorage.setItem(storeKey, country);
       }
+    } catch (error) {
+      console.error(error);
     }
   }
 

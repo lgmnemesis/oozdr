@@ -1,7 +1,10 @@
 <div class="flex-container">
   <div id="bt-back">
-    <ion-button fill="clear" (click)="back()">
+    <ion-button fill="clear" (click)="back()" *ngIf="!sharedStoreService?.needToFinishInfoRegistration">
       <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-button color="main" (click)="signOut()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">
+      Sign Out
     </ion-button>
   </div>
   <div class="flex-inner">

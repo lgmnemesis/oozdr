@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, Output, EventEmitter } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -22,6 +22,8 @@ export class PhoneNumber {
 })
 
 export class PhoneLoginComponent implements OnInit, OnDestroy {
+
+  @Output() processDone = new EventEmitter();
 
   phoneNumber = new PhoneNumber();
   appVerifier: any;
@@ -125,10 +127,12 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
           console.log('updating user:', user);
           this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
           this.sharedStoreService.updateProfile(profile).then(() => {
+            this.processDone.next(true);
             this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
           }).catch(error => console.error(error));
         } {
           console.log('moshe: existing user signing in');
+          this.processDone.next(true);
         }
       })
       .catch(error => {

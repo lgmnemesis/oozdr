@@ -17,6 +17,7 @@ export class SharedStoreService {
   activeMenu = 'connections';
   shouldAnimateStartPage = true;
   isMatchesOpen = true;
+  needToFinishInfoRegistration = false;
 
   useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   useSplitPane$ = this.useSplitPaneSubject.asObservable();
@@ -40,6 +41,7 @@ export class SharedStoreService {
     this.activeMenu = 'connections';
     this.shouldAnimateStartPage = false;
     this.isMatchesOpen = true;
+    this.needToFinishInfoRegistration = false;
 
     this.useSplitPaneSubject.next(false);
     this.isVisibleSplitPaneSubject.next(false);

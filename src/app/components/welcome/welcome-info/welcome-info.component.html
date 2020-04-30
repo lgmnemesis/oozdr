@@ -100,7 +100,7 @@
 
   <ion-row class="row-padding ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-button (click)="nextStep()">Continue</ion-button>
+      <ion-button [disabled]="isDisableNextButton" (click)="nextStep()">Continue</ion-button>
     </ion-col>
   </ion-row>
   

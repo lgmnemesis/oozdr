@@ -1,6 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { SharedService } from 'src/app/services/shared.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { WelcomeService } from 'src/app/services/welcome.service';
+import { Profile } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-welcome-container',
@@ -16,14 +20,23 @@ export class WelcomeContainerComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef,
     private navCtrl: NavController,
-    public sharedService: SharedService) { }
+    public sharedService: SharedService,
+    public sharedStoreService: SharedStoreService,
+    private authService: AuthService,
+    private welcomeService: WelcomeService) { }
 
   ngOnInit() {
-    // this.sharedService.setDefaultPhoneCountryCode();
+    this.sharedService.setDefaultPhoneCountryCode();
   }
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  signOut() {
+    this.sharedStoreService.needToFinishInfoRegistration = false;
+    this.welcomeService.deleteInfoFromStore();
+    this.authService.signOut();
   }
 
   back() {
@@ -38,6 +51,11 @@ export class WelcomeContainerComponent implements OnInit {
   }
 
   next() {
+    if (this.sharedStoreService.needToFinishInfoRegistration) {
+      this.finishInfoRegistration();
+      return;
+    }
+  
     this.step++;
     this.isBack = false;
     this.isNext = true;
@@ -51,4 +69,24 @@ export class WelcomeContainerComponent implements OnInit {
     });
   }
 
+  finishInfoRegistration() {
+    const info = this.welcomeService.getInfo();
+    const user = this.authService.getUser();
+    if (user) {
+      user.display_name = info.name;
+      user.email = info.email;
+
+      const profile: Profile = {
+        user_id: user.user_id,
+        basicInfo: info,
+        connections: [],
+        timestamp: this.sharedStoreService.timestamp
+      }
+      this.authService.updateUserData(user, false).catch((error) => { console.error(error)});
+      this.sharedStoreService.updateProfile(profile).then(() => {
+        this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
+        this.gotoStart();
+      }).catch(error => console.error(error));
+    }
+  }
 }

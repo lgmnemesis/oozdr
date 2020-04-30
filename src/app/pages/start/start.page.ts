@@ -34,8 +34,8 @@ export class StartPage implements OnInit, OnDestroy {
 
     this.sharedStoreService.canEnterWelcome = true;
     this.sharedStoreService.canEnterHome = false;
+    this.sharedStoreService.needToFinishInfoRegistration = false;
     this._user = this.authService.user$.subscribe((user) => {
-      console.log('moshe1 user:', user);
       this.canShowPage = false;
       if (user) {
         this.isLoggedIn = true;
@@ -46,10 +46,10 @@ export class StartPage implements OnInit, OnDestroy {
           this.sharedStoreService.canEnterHome = true;
           this.gotoHome();
         } else {
-          console.log('goto welcome info to fill info');
+          this.sharedStoreService.needToFinishInfoRegistration = true;
+          this.gotoWelcome();
         }
       } else if (user === null) {
-        console.log('moshe 2');
         this.canShowPage = true;
       }
       this.markForCheck();
@@ -77,7 +77,15 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   gotoHome() {
-    this.navCtrl.navigateRoot('/connections')
+    this.goto('/connections');
+  }
+
+  gotoWelcome() {
+    this.goto('/welcome');
+  }
+
+  goto(url) {
+    this.navCtrl.navigateRoot(url)
     .catch((error) => {
       console.error(error);
     });
@@ -113,7 +121,6 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('start on destroy')
     if (this._user) {
       this._user.unsubscribe();
     }

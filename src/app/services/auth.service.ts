@@ -14,6 +14,7 @@ import { SharedStoreService } from './shared-store.service';
 })
 export class AuthService {
 
+  private user: User = null;
   userSubject: BehaviorSubject<User> = new BehaviorSubject(undefined);
   user$ = this.userSubject.asObservable();
   private userInternal$: Observable<User>;
@@ -59,6 +60,7 @@ export class AuthService {
     }));
 
     this._userInternal = this.userInternal$.subscribe((user: User) => {
+      this.user = user;
       this.userSubject.next(user);
     });
   }
@@ -89,6 +91,7 @@ export class AuthService {
   }
 
   async signOut() {
+    this.userSubject.next(undefined);
     this.afAuth.signOut()
     .then(() => {
       this.sharedStoreService.resetStore();
@@ -105,12 +108,10 @@ export class AuthService {
       console.error(error);
       this.inLogoutProcess = false;
     }));
-    
-    this.unsubscribeUser();
   }
 
-  getUser(): Observable<firebase.User> {
-    return this.afAuth.user;
+  getUser(): User {
+    return this.user;
   }
 
   async presentLogoutConfirm() {
