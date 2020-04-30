@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { ConnectionsState } from '../interfaces/connections-state';
 import { DatabaseService } from './database.service';
-import { Profile } from '../interfaces/profile';
+import { Profile, Connection } from '../interfaces/profile';
 import { User } from 'firebase';
+import { first } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -70,8 +71,24 @@ export class SharedStoreService {
     return this.databaseService.updateProfile(profile);
   }
 
+  addConnection(profile: Profile, connection: Connection): Promise<void> {
+    return this.databaseService.addConnection(profile, connection);
+  }
+
+  async getProfile(): Promise<Profile> {
+    try {
+      return this.profile$.pipe(first()).toPromise();
+    }
+    catch (error) {
+      console.error(error);
+     }
+  }
+
   get timestamp(): number {
     return this.databaseService.timestamp;
   }
 
+  createId(): string {
+    return this.databaseService.createId();
+  }
 }

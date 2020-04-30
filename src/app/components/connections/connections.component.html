@@ -2,7 +2,7 @@
   <ion-row *ngIf="connectionsState?.state === 'add'"
     class="ion-justify-content-center ion-align-items-center animated zoomIn">
     <ion-col size="auto">
-      <app-manage-connection></app-manage-connection>
+      <app-manage-connection [action]="'add'"></app-manage-connection>
     </ion-col>
   </ion-row>
 

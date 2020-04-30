@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { Connection } from 'src/app/interfaces/profile';
 
 export class Q {
   name = '';
@@ -16,6 +17,8 @@ export class Q {
 })
 export class ManageConnectionComponent implements OnInit, OnDestroy {
 
+  @Input() action: 'add' | 'edit' = null;
+
   Q = new Q();
   isNameError = false;
   nameError = 'no errors';
@@ -26,9 +29,10 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private sharedStateService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   markForCheck() {
     this.cd.markForCheck();
@@ -63,12 +67,35 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.Q.letThemKnow = event.detail.value;
   }
 
-  addConnection() {
-
+  async addConnection() {
+    const isValid = this.getAndVerifyNumber();
+    if (!isValid) {
+      console.log('not valid');
+      return;
+    }
+    const profile = await this.sharedStoreService.getProfile();
+    console.log('moshe add: profile:', profile);
+    const connection: Connection = {
+      id: this.sharedStoreService.createId(),
+      info: {
+        name: this.Q.name,
+        mobile: this.Q.phoneNumber,
+        birthday: '',
+        email: '',
+        gender: '',
+        profilePhoto: '',
+        profilePhotoOrg: ''
+      },
+      timestamp: this.sharedStoreService.timestamp,
+      isMatched: false,
+      matchId: '',
+      user_id: profile.user_id
+    }
+    this.sharedStoreService.addConnection(profile, connection).catch(error => console.error(error));
   }
 
   close() {
-    this.sharedStateService.connectionsStateSubject.next({state: 'view'});
+    this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
   }
 
   ngOnDestroy() {
