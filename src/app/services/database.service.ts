@@ -37,6 +37,12 @@ export class DatabaseService {
       .update({connections: firebase.firestore.FieldValue.arrayUnion(connection)});
   }
 
+  removeConnection(profile: Profile, connection: Connection): Promise<void> {
+    const path = 'profiles/';
+    return this.afs.collection(path).doc(profile.user_id)
+      .update({connections: firebase.firestore.FieldValue.arrayRemove(connection)});
+  }
+
   createId(): string {
     return this.afs.createId();
   }

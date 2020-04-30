@@ -75,6 +75,10 @@ export class SharedStoreService {
     return this.databaseService.addConnection(profile, connection);
   }
 
+  removeConnection(profile: Profile, connection: Connection): Promise<void> {
+    return this.databaseService.removeConnection(profile, connection);
+  }
+
   async getProfile(): Promise<Profile> {
     try {
       return this.profile$.pipe(first()).toPromise();
