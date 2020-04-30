@@ -53,6 +53,7 @@ export class StartPage implements OnInit, OnDestroy {
         }
       } else if (user === null) {
         this.canShowPage = true;
+        this.sharedService.setDefaultPhoneCountryCode();
       }
       this.markForCheck();
     })
@@ -96,7 +97,6 @@ export class StartPage implements OnInit, OnDestroy {
   signIn() {
     if (!this.isSignInButtonActive) {
       this.isSignInButtonActive = true;
-      this.sharedService.setDefaultPhoneCountryCode();
       this.presentSignIn();
     }
   }

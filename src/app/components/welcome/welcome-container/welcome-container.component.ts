@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { SharedService } from 'src/app/services/shared.service';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
@@ -20,13 +19,11 @@ export class WelcomeContainerComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef,
     private navCtrl: NavController,
-    public sharedService: SharedService,
     public sharedStoreService: SharedStoreService,
     private authService: AuthService,
     private welcomeService: WelcomeService) { }
 
   ngOnInit() {
-    this.sharedService.setDefaultPhoneCountryCode();
   }
 
   markForCheck() {
