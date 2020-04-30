@@ -58,15 +58,11 @@ export class SharedStoreService {
   }
 
   async registerToProfile(userId: string) {
-    console.log('moshe register 1:', userId);
-    console.log('moshe register 2');
     if (userId && (!this._profileDB || this._profileDB.closed)) {
-      console.log('moshe register 3 in');
       this._profileDB = this.databaseService.getProfileAsObservable(userId).subscribe((profile) => {
         this.profileSubject.next(profile);
       });
     }
-    console.log('moshe register 4');
   }
 
   updateProfile(profile: Profile): Promise<void> {

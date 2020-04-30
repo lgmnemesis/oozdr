@@ -58,23 +58,18 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   telHasError(event) {
-    console.log('telHasError:', event);
-    console.log('detailed error:', this.telInputObj.getValidationError());
   }
 
   toggleLetThemKnow(event) {
-    console.log(event);
     this.Q.letThemKnow = event.detail.value;
   }
 
   async addConnection() {
     const isValid = this.getAndVerifyNumber();
     if (!isValid) {
-      console.log('not valid');
       return;
     }
     const profile = await this.sharedStoreService.getProfile();
-    console.log('moshe add: profile:', profile);
     const connection: Connection = {
       id: this.sharedStoreService.createId(),
       info: {

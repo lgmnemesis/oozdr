@@ -64,11 +64,9 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       this.markForCheck();
       return;
     }
-    console.log('moshe in sendLoginCode to:', this.phoneNumber.line);
 
     this.afAuth.signInWithPhoneNumber(this.phoneNumber.line, this.appVerifier)
       .then(result => {
-        console.log('moshe confirmationResult:', result);
         this.confirmationResult = result;
         this.markForCheck();
       })
@@ -85,7 +83,6 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       'size': 'invisible',
       'callback': function() {
         // reCAPTCHA solved, allow signInWithPhoneNumber.
-        console.log('moshe callback:');
       }
     }, app);
   }
@@ -105,11 +102,9 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.isVerifyButtonDisabled = true;
     this.confirmationResult.confirm(this.verificationCode)
       .then(result => {
-        console.log('moshe authenticated:', result.user);
         const info = this.welcomeService.getInfo();
         const isNewUser = result.additionalUserInfo.isNewUser;
         if (isNewUser) {
-          console.log('moshe: new user flow. info:', info);
            const user: User = {
             user_id: result.user.uid,
             display_name: info.name,
@@ -124,14 +119,12 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
             connections: [],
             timestamp: this.sharedStoreService.timestamp
           }
-          console.log('updating user:', user);
           this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
           this.sharedStoreService.updateProfile(profile).then(() => {
             this.processDone.next(true);
             this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
           }).catch(error => console.error(error));
         } {
-          console.log('moshe: existing user signing in');
           this.processDone.next(true);
         }
       })
@@ -160,8 +153,6 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   telHasError(event) {
-    console.log('telHasError:', event);
-    console.log('detailed error:', this.telInputObj.getValidationError());
   }
 
   setVerificationInput(event) {

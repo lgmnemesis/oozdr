@@ -56,13 +56,11 @@ export class TopMenuComponent implements OnInit {
   }
 
   toggleMenus() {
-    console.log('active1:', this.sharedStoreService.activeTopMenu);
     if (this.sharedStoreService.activeTopMenu === this.menu1) {
       this.sharedStoreService.activeTopMenu = this.menu2;
     } else {
       this.sharedStoreService.activeTopMenu = this.menu1
     }
-    console.log('active2:', this.sharedStoreService.activeTopMenu);
     this.goto(this.sharedStoreService.activeTopMenu);
   }
 

@@ -47,12 +47,9 @@ export class MatchesComponent implements OnInit, OnDestroy {
   }
 
   telHasError(event) {
-    console.log('telHasError:', event);
-    console.log('detailed error:', this.telInputObj.getValidationError());
   }
 
   toggleLetThemKnow(event) {
-    console.log(event);
     this.Q.letThemKnow = event.detail.value;
   }
 
