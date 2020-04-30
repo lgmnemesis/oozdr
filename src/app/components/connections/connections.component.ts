@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { Profile } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-connections',
@@ -11,9 +12,11 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 })
 export class ConnectionsComponent implements OnInit, OnDestroy {
 
+  profile: Profile;
+
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
-  items = [1, 2, 3, 4, 5];
+  _profile: Subscription;
 
   constructor(private sharedStatesService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
@@ -23,15 +26,27 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       this.connectionsState = state;
       this.markForCheck();
     });
+
+    this._profile = this.sharedStatesService.profile$.subscribe((profile) => {
+      this.profile = profile;
+      this.markForCheck();
+    });
   }
 
   markForCheck() {
     this.cd.markForCheck();
   }
 
+  trackById(i, connection) {
+    return connection.id;
+  }
+
   ngOnDestroy() {
     if (this._connectionsState) {
       this._connectionsState.unsubscribe();
+    }
+    if (this._profile) {
+      this._profile.unsubscribe();
     }
   }
 

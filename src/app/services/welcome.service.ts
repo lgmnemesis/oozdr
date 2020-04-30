@@ -29,6 +29,7 @@ export class WelcomeService {
       gender: '',
       email: '',
       birthday: '',
+      mobile: '',
       profilePhoto: '',
       profilePhotoOrg: ''
     }

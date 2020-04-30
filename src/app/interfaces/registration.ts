@@ -3,6 +3,7 @@ export interface BasicInfo {
   gender: string;
   email: string;
   birthday: string;
+  mobile: string;
   profilePhoto: string;
   profilePhotoOrg: string;
 }

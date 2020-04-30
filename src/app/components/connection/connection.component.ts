@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Connection } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-connection',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./connection.component.scss'],
 })
 export class ConnectionComponent implements OnInit {
+
+  @Input() connection: Connection = null;
 
   constructor() { }
 
