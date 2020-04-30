@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy, ChangeDetectionStrateg
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-connections-page',
@@ -17,7 +18,8 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   _connectionsState: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -34,7 +36,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
     this.sharedStoreService.activeMenu = 'connections';
 
-    // this.sharedService.setDefaultPhoneCountryCode();
+    this.sharedService.setDefaultPhoneCountryCode();
   }
 
   markForCheck() {

@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { environment } from '../../../environments/environment';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-start',
@@ -24,6 +25,7 @@ export class StartPage implements OnInit, OnDestroy {
 
   constructor(private modalCtrl: ModalController,
     private sharedStoreService: SharedStoreService,
+    private sharedService: SharedService,
     private authService: AuthService,
     private navCtrl: NavController,
     private cd: ChangeDetectorRef) { }
@@ -94,6 +96,7 @@ export class StartPage implements OnInit, OnDestroy {
   signIn() {
     if (!this.isSignInButtonActive) {
       this.isSignInButtonActive = true;
+      this.sharedService.setDefaultPhoneCountryCode();
       this.presentSignIn();
     }
   }
