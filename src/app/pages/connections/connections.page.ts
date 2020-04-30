@@ -16,23 +16,23 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
 
-  constructor(private sharedStatesService: SharedStoreService,
+  constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.sharedStatesService.useSplitPaneSubject.next(true);
-    this._isVisibleSplitPane = this.sharedStatesService.isVisibleSplitPane$.subscribe((isVisible) => {
+    this.sharedStoreService.useSplitPaneSubject.next(true);
+    this._isVisibleSplitPane = this.sharedStoreService.isVisibleSplitPane$.subscribe((isVisible) => {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });
 
-    this._connectionsState = this.sharedStatesService.connectionsState$.subscribe((state) => {
+    this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
       this.markForCheck();
     });
 
-    this.sharedStatesService.connectionsStateSubject.next({state: 'view'});
-    this.sharedStatesService.activeMenu = 'connections';
+    this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
+    this.sharedStoreService.activeMenu = 'connections';
 
     // this.sharedService.setDefaultPhoneCountryCode();
   }
@@ -42,7 +42,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   }
 
   addConnectionButton() {
-    this.sharedStatesService.connectionsStateSubject.next({state: 'add'});
+    this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
   }
 
   ngOnDestroy() {

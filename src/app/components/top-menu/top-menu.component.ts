@@ -14,13 +14,13 @@ export class TopMenuComponent implements OnInit {
   set visible(is: boolean) {
     this.isVisible = is;
     if (is) {
-      if (this.sharedStatesService.activeTopMenu === this.menu3) {
-        this.sharedStatesService.activeMenu = this.menu3;
-        this.sharedStatesService.activeTopMenu = this.menu2;
+      if (this.sharedStoreService.activeTopMenu === this.menu3) {
+        this.sharedStoreService.activeMenu = this.menu3;
+        this.sharedStoreService.activeTopMenu = this.menu2;
       }
     } else {
-      if (this.sharedStatesService.activeMenu === this.menu3) {
-        this.sharedStatesService.activeTopMenu = this.menu3;
+      if (this.sharedStoreService.activeMenu === this.menu3) {
+        this.sharedStoreService.activeTopMenu = this.menu3;
       }
     }
     this.markForCheck();
@@ -37,7 +37,7 @@ export class TopMenuComponent implements OnInit {
   menu3 = 'matches';
 
   constructor(private cd: ChangeDetectorRef,
-    public sharedStatesService: SharedStoreService,
+    public sharedStoreService: SharedStoreService,
     private router: Router) { }
 
   ngOnInit() {
@@ -48,22 +48,22 @@ export class TopMenuComponent implements OnInit {
   }
 
   clickedOn(url: string) {
-    if (this.sharedStatesService.activeTopMenu !== url) {
-      this.sharedStatesService.activeTopMenu = url;
-      this.sharedStatesService.activeMenu = url;
+    if (this.sharedStoreService.activeTopMenu !== url) {
+      this.sharedStoreService.activeTopMenu = url;
+      this.sharedStoreService.activeMenu = url;
       this.goto(url);
     }
   }
 
   toggleMenus() {
-    console.log('active1:', this.sharedStatesService.activeTopMenu);
-    if (this.sharedStatesService.activeTopMenu === this.menu1) {
-      this.sharedStatesService.activeTopMenu = this.menu2;
+    console.log('active1:', this.sharedStoreService.activeTopMenu);
+    if (this.sharedStoreService.activeTopMenu === this.menu1) {
+      this.sharedStoreService.activeTopMenu = this.menu2;
     } else {
-      this.sharedStatesService.activeTopMenu = this.menu1
+      this.sharedStoreService.activeTopMenu = this.menu1
     }
-    console.log('active2:', this.sharedStatesService.activeTopMenu);
-    this.goto(this.sharedStatesService.activeTopMenu);
+    console.log('active2:', this.sharedStoreService.activeTopMenu);
+    this.goto(this.sharedStoreService.activeTopMenu);
   }
 
   goto(url) {

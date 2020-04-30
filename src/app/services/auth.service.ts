@@ -26,7 +26,7 @@ export class AuthService {
     private afs: AngularFirestore,
     private alertCtrl: AlertController,
     private router: Router,
-    private sharedStatesService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService) { }
 
   init() {
     this.subscribeUser();
@@ -91,7 +91,7 @@ export class AuthService {
   async signOut() {
     this.afAuth.signOut()
     .then(() => {
-      this.sharedStatesService.resetStore();
+      this.sharedStoreService.resetStore();
       this.router.navigate(['/'])
       .then(() => {
         this.inLogoutProcess = false;

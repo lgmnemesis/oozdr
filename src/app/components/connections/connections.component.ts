@@ -18,16 +18,16 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   _connectionsState: Subscription;
   _profile: Subscription;
 
-  constructor(private sharedStatesService: SharedStoreService,
+  constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this._connectionsState = this.sharedStatesService.connectionsState$.subscribe((state) => {
+    this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
       this.markForCheck();
     });
 
-    this._profile = this.sharedStatesService.profile$.subscribe((profile) => {
+    this._profile = this.sharedStoreService.profile$.subscribe((profile) => {
       this.profile = profile;
       this.markForCheck();
     });

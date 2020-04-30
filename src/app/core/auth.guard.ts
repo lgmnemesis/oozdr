@@ -8,14 +8,14 @@ import { SharedStoreService } from '../services/shared-store.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private sharedStatesService: SharedStoreService,
+  constructor(private sharedStoreService: SharedStoreService,
     private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    const canEnter = this.sharedStatesService.canEnterHome;
+    const canEnter = this.sharedStoreService.canEnterHome;
     if (canEnter) {
       return true;
     }

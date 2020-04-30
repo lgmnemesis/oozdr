@@ -15,7 +15,7 @@ import { environment } from '../../../environments/environment';
 export class StartPage implements OnInit, OnDestroy {
 
   private isSignInButtonActive = false;
-  shouldAnimate = this.sharedStatesService.shouldAnimateStartPage;
+  shouldAnimate = this.sharedStoreService.shouldAnimateStartPage;
   _user: Subscription;
   canShowPage = false;
   isLoggedIn = false;
@@ -23,7 +23,7 @@ export class StartPage implements OnInit, OnDestroy {
   isProduction = false; // temp for now
 
   constructor(private modalCtrl: ModalController,
-    private sharedStatesService: SharedStoreService,
+    private sharedStoreService: SharedStoreService,
     private authService: AuthService,
     private navCtrl: NavController,
     private cd: ChangeDetectorRef) { }
@@ -32,17 +32,25 @@ export class StartPage implements OnInit, OnDestroy {
     // Test auth for production
     this.checkTestAuthForProduction();
 
-    this.sharedStatesService.canEnterWelcome = true;
-    this.sharedStatesService.canEnterHome = false;
-    this._user = this.authService.getUser().subscribe((user) => {
-      this.canShowPage = true;
+    this.sharedStoreService.canEnterWelcome = true;
+    this.sharedStoreService.canEnterHome = false;
+    this._user = this.authService.user$.subscribe((user) => {
+      console.log('moshe1 user:', user);
+      this.canShowPage = false;
       if (user) {
         this.isLoggedIn = true;
         this.canShowPage = false;
-        this.sharedStatesService.canEnterWelcome = false;
-        this.sharedStatesService.canEnterHome = true;
-        this.sharedStatesService.registerToProfile(user.uid);
-        this.gotoHome();
+        this.sharedStoreService.registerToProfile(user.user_id);
+        if (user.display_name) {
+          this.sharedStoreService.canEnterWelcome = false;
+          this.sharedStoreService.canEnterHome = true;
+          this.gotoHome();
+        } else {
+          console.log('goto welcome info to fill info');
+        }
+      } else if (user === null) {
+        console.log('moshe 2');
+        this.canShowPage = true;
       }
       this.markForCheck();
     })
@@ -78,11 +86,11 @@ export class StartPage implements OnInit, OnDestroy {
   signIn() {
     if (!this.isSignInButtonActive) {
       this.isSignInButtonActive = true;
-      this.presentSignUp();
+      this.presentSignIn();
     }
   }
 
-  async presentSignUp() {
+  async presentSignIn() {
     const modal = await this.modalCtrl.create({
       component: SignInModalComponent,
       backdropDismiss: false,
@@ -95,12 +103,17 @@ export class StartPage implements OnInit, OnDestroy {
     return await modal.present();
   }
 
+  signUp() {
+    this.disableAnimation();
+  }
+
   disableAnimation() {
-    this.sharedStatesService.shouldAnimateStartPage = false;
+    this.sharedStoreService.shouldAnimateStartPage = false;
     this.shouldAnimate = false;
   }
 
   ngOnDestroy() {
+    console.log('start on destroy')
     if (this._user) {
       this._user.unsubscribe();
     }

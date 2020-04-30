@@ -27,7 +27,7 @@ export class AppComponent implements AfterViewInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private sharedService: SharedService,
-    public sharedStatesService: SharedStoreService,
+    public sharedStoreService: SharedStoreService,
     private swUpdate: SwUpdate,
     private authService: AuthService,
     private router: Router
@@ -66,33 +66,33 @@ export class AppComponent implements AfterViewInit {
   }
 
   subscribeToSplitPaneEvents() {
-    this.sharedStatesService.useSplitPane$.subscribe((isUsed) => {
+    this.sharedStoreService.useSplitPane$.subscribe((isUsed) => {
       this.useSplitPane = isUsed;
     })
   }
 
   ionSplitPaneOutputEvent(event) {
     this.isVisibleSplitPane = event.detail.visible;
-    this.sharedStatesService.isVisibleSplitPaneSubject.next(this.isVisibleSplitPane);
+    this.sharedStoreService.isVisibleSplitPaneSubject.next(this.isVisibleSplitPane);
   } 
 
   connectionsClicked() {
-    this.sharedStatesService.activeMenu = 'connections';
+    this.sharedStoreService.activeMenu = 'connections';
     this.gotoActiveMenu();
   }
 
   matchesClicked() {
-    this.sharedStatesService.activeMenu = 'matches';
+    this.sharedStoreService.activeMenu = 'matches';
     this.gotoActiveMenu();
   }
 
   profileClicked() {
-    this.sharedStatesService.activeMenu = 'profile';
+    this.sharedStoreService.activeMenu = 'profile';
     this.gotoActiveMenu();
   }
 
   settingsClicked() {
-    this.sharedStatesService.activeMenu = 'settings';
+    this.sharedStoreService.activeMenu = 'settings';
     this.gotoActiveMenu();
   }
 
@@ -101,11 +101,11 @@ export class AppComponent implements AfterViewInit {
   }
 
   gotoActiveMenu() {
-    const url = this.sharedStatesService.activeMenu;
+    const url = this.sharedStoreService.activeMenu;
     this.router.navigate([url]).catch(error => console.error(error));
   }
 
   toggleMatches() {
-    this.sharedStatesService.isMatchesOpen = !this.sharedStatesService.isMatchesOpen;
+    this.sharedStoreService.isMatchesOpen = !this.sharedStoreService.isMatchesOpen;
   }
 }

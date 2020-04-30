@@ -8,14 +8,14 @@ import { SharedStoreService } from '../services/shared-store.service';
 })
 export class WelcomeGuard implements CanActivate {
 
-  constructor(private sharedStatesService: SharedStoreService,
+  constructor(private sharedStoreService: SharedStoreService,
     private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
-    const canEnter = this.sharedStatesService.canEnterWelcome;
+    const canEnter = this.sharedStoreService.canEnterWelcome;
     if (canEnter) {
       return true;
     }

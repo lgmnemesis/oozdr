@@ -13,12 +13,12 @@ export class ProfilePage implements OnInit, OnDestroy {
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
 
-  constructor(private sharedStatesService: SharedStoreService,
+  constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.sharedStatesService.useSplitPaneSubject.next(true);
-    this._isVisibleSplitPane = this.sharedStatesService.isVisibleSplitPane$.subscribe((isVisible) => {
+    this.sharedStoreService.useSplitPaneSubject.next(true);
+    this._isVisibleSplitPane = this.sharedStoreService.isVisibleSplitPane$.subscribe((isVisible) => {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });

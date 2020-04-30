@@ -105,25 +105,31 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       .then(result => {
         console.log('moshe authenticated:', result.user);
         const info = this.welcomeService.getInfo();
-        const user: User = {
-          user_id: result.user.uid,
-          display_name: info.name,
-          email: info.email,
-          roles: {
-            admin: false
+        const isNewUser = result.additionalUserInfo.isNewUser;
+        if (isNewUser) {
+          console.log('moshe: new user flow. info:', info);
+           const user: User = {
+            user_id: result.user.uid,
+            display_name: info.name,
+            email: info.email,
+            roles: {
+              admin: false
+            }
           }
+          const profile: Profile = {
+            user_id: user.user_id,
+            basicInfo: info,
+            connections: [],
+            timestamp: this.sharedStoreService.timestamp
+          }
+          console.log('updating user:', user);
+          this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
+          this.sharedStoreService.updateProfile(profile).then(() => {
+            this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
+          }).catch(error => console.error(error));
+        } {
+          console.log('moshe: existing user signing in');
         }
-        const profile: Profile = {
-          user_id: user.user_id,
-          basicInfo: info,
-          connections: [],
-          timestamp: this.sharedStoreService.timestamp
-        }
-        console.log('updating user:', user);
-        this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
-        this.sharedStoreService.updateProfile(profile).then(() => {
-          this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
-        }).catch(error => console.error(error));
       })
       .catch(error => {
         this.isVerificationError = true;

@@ -11,8 +11,8 @@
         </ion-toolbar>
       </ion-header>
 
-      <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
-        <ion-item class="i-title" [class.item-active]="sharedStatesService.activeMenu === 'connections'"
+      <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections'">
+        <ion-item class="i-title" [class.item-active]="sharedStoreService.activeMenu === 'connections'"
           lines="none" detail button (click)="connectionsClicked()">
           <ion-icon slot="start" name="pulse-outline"></ion-icon>
           <ion-label class="basic-text">Connections</ion-label>
@@ -20,17 +20,17 @@
       </ng-container>
 
       <ion-content id="split-pane-content">
-        <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'connections'">
-          <ion-item button [lines]="sharedStatesService?.isMatchesOpen ? 'inset' : 'none'"
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections'">
+          <ion-item button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
             class="i-title" (click)="toggleMatches()">
             <ion-icon 
               slot="start" 
-              [name]="sharedStatesService?.isMatchesOpen ? 'chevron-down-outline' : 'chevron-forward-outline'">
+              [name]="sharedStoreService?.isMatchesOpen ? 'chevron-down-outline' : 'chevron-forward-outline'">
             </ion-icon>
             <ion-label class="basic-text">Matches</ion-label>
           </ion-item>
 
-          <ng-container *ngIf="sharedStatesService?.isMatchesOpen">
+          <ng-container *ngIf="sharedStoreService?.isMatchesOpen">
             <ion-item class="i-match" button lines="none" *ngFor="let t of tmps">
               <ion-avatar slot="start">
                 <ion-icon name="person"></ion-icon>
@@ -43,13 +43,13 @@
           </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="sharedStatesService?.activeTopMenu === 'profile'">
-          <ion-item class="i-title" [class.item-active]="sharedStatesService.activeMenu === 'profile'"
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'profile'">
+          <ion-item class="i-title" [class.item-active]="sharedStoreService.activeMenu === 'profile'"
             lines="none" detail button (click)="profileClicked()">
             <ion-icon slot="start" name="person-outline"></ion-icon>
             <ion-label class="basic-text">Profile</ion-label>
           </ion-item>
-          <ion-item class="i-title" [class.item-active]="sharedStatesService.activeMenu === 'settings'"
+          <ion-item class="i-title" [class.item-active]="sharedStoreService.activeMenu === 'settings'"
             lines="none" detail button (click)="settingsClicked()">
             <ion-icon slot="start" name="settings-outline"></ion-icon>
             <ion-label class="basic-text">Settings</ion-label>
