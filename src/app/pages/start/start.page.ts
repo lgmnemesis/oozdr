@@ -3,7 +3,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription } from 'rxjs';
-import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -23,7 +23,7 @@ export class StartPage implements OnInit, OnDestroy {
   isProduction = false; // temp for now
 
   constructor(private modalCtrl: ModalController,
-    private sharedStatesService: SharedStatesService,
+    private sharedStatesService: SharedStoreService,
     private authService: AuthService,
     private navCtrl: NavController,
     private cd: ChangeDetectorRef) { }
@@ -41,6 +41,7 @@ export class StartPage implements OnInit, OnDestroy {
         this.canShowPage = false;
         this.sharedStatesService.canEnterWelcome = false;
         this.sharedStatesService.canEnterHome = true;
+        this.sharedStatesService.registerToProfile(user.uid);
         this.gotoHome();
       }
       this.markForCheck();

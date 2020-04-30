@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
-import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 export class Q {
   name = '';
@@ -26,7 +26,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private sharedStateService: SharedStatesService) { }
+    private sharedStateService: SharedStoreService) { }
 
   ngOnInit() {}
 

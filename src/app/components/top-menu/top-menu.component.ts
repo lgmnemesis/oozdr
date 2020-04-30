@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -37,7 +37,7 @@ export class TopMenuComponent implements OnInit {
   menu3 = 'matches';
 
   constructor(private cd: ChangeDetectorRef,
-    public sharedStatesService: SharedStatesService,
+    public sharedStatesService: SharedStoreService,
     private router: Router) { }
 
   ngOnInit() {

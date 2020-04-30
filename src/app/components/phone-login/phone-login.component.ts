@@ -6,6 +6,8 @@ import { SharedService } from 'src/app/services/shared.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/user';
 import { WelcomeService } from 'src/app/services/welcome.service';
+import { Profile } from 'src/app/interfaces/profile';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 export class PhoneNumber {
   country: string;
@@ -38,7 +40,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
     private authService: AuthService,
-    private welcomeService: WelcomeService) { }
+    private welcomeService: WelcomeService,
+    private sharedStoreService: SharedStoreService) { }
 
   ngOnInit() {
     this.initRecaptcha();
@@ -110,9 +113,17 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
             admin: false
           }
         }
+        const profile: Profile = {
+          user_id: user.user_id,
+          basicInfo: info,
+          connections: [],
+          timestamp: this.sharedStoreService.timestamp
+        }
         console.log('updating user:', user);
         this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
-        // Go to homePage - loader indication?
+        this.sharedStoreService.updateProfile(profile).then(() => {
+          this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
+        }).catch(error => console.error(error));
       })
       .catch(error => {
         this.isVerificationError = true;

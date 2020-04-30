@@ -6,7 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
-import { SharedStatesService } from './services/shared-states.service';
+import { SharedStoreService } from './services/shared-store.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,7 +27,7 @@ export class AppComponent implements AfterViewInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private sharedService: SharedService,
-    public sharedStatesService: SharedStatesService,
+    public sharedStatesService: SharedStoreService,
     private swUpdate: SwUpdate,
     private authService: AuthService,
     private router: Router

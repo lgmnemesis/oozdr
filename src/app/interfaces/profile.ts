@@ -4,5 +4,10 @@ export interface Profile {
   user_id: string,
   timestamp: number,
   basicInfo: BasicInfo;
-  connections: string; // should be an object
+  connections: {
+    user_id: string,
+    info: BasicInfo,
+    isMatched: boolean,
+    matchId: string
+  }[]
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 @Component({
   selector: 'app-matches',
@@ -13,7 +13,7 @@ export class MatchesPage implements OnInit, OnDestroy {
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
 
-  constructor(private sharedStatesService: SharedStatesService,
+  constructor(private sharedStatesService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
-import { SharedStatesService } from 'src/app/services/shared-states.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 @Component({
   selector: 'app-connections',
@@ -15,7 +15,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   _connectionsState: Subscription;
   items = [1, 2, 3, 4, 5];
 
-  constructor(private sharedStatesService: SharedStatesService,
+  constructor(private sharedStatesService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {

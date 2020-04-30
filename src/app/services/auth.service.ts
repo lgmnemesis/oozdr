@@ -7,7 +7,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '../../environments/environment';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { SharedStatesService } from './shared-states.service';
+import { SharedStoreService } from './shared-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class AuthService {
     private afs: AngularFirestore,
     private alertCtrl: AlertController,
     private router: Router,
-    private sharedStatesService: SharedStatesService) { }
+    private sharedStatesService: SharedStoreService) { }
 
   init() {
     this.subscribeUser();
