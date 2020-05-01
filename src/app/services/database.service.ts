@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Profile, Connection, Connections } from '../interfaces/profile';
+import { Profile, Connection } from '../interfaces/profile';
 import * as firebase from 'firebase/app'; 
 import 'firebase/firestore';
 
@@ -31,31 +31,15 @@ export class DatabaseService {
     return this.afs.collection(path).doc(profile.user_id).set(profile, { merge: true });
   }
 
-  getConnectionsAsObservable(userId: string): Observable<Connections> {
-    const path = 'connections/' + userId;
-    return this.afs.doc(path).valueChanges()
-    .pipe(catchError((error) => {
-      if (!environment.production) {
-        console.error(error);
-      }
-      return of(null);
-    }));
-  }
-
-  updateConnections(connections: Connections): Promise<void> {
-    const path = 'connections/';
-    return this.afs.collection(path).doc(connections.user_id).set(connections, { merge: true });
-  }
-
-  addConnection(userId: string, connection: Connection): Promise<void> {
-    const path = 'connections/';
-    return this.afs.collection(path).doc(userId)
+  addConnection(profile: Profile, connection: Connection): Promise<void> {
+    const path = 'profiles/';
+    return this.afs.collection(path).doc(profile.user_id)
       .update({connections: firebase.firestore.FieldValue.arrayUnion(connection)});
   }
 
-  removeConnection(userId: string, connection: Connection): Promise<void> {
-    const path = 'connections/';
-    return this.afs.collection(path).doc(userId)
+  removeConnection(profile: Profile, connection: Connection): Promise<void> {
+    const path = 'profiles/';
+    return this.afs.collection(path).doc(profile.user_id)
       .update({connections: firebase.firestore.FieldValue.arrayRemove(connection)});
   }
 

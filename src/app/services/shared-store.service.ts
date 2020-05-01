@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { ConnectionsState } from '../interfaces/connections-state';
 import { DatabaseService } from './database.service';
-import { Profile, Connection, Connections } from '../interfaces/profile';
+import { Profile, Connection } from '../interfaces/profile';
 import { first } from 'rxjs/operators';
 
 @Injectable({
@@ -31,10 +31,6 @@ export class SharedStoreService {
   profileSubject: BehaviorSubject<Profile> = new BehaviorSubject(null);
   profile$: Observable<Profile> = this.profileSubject.asObservable();
 
-  _connectionsDB: Subscription;
-  connectionsSubject: BehaviorSubject<Connections> = new BehaviorSubject(null);
-  connections$: Observable<Connections> = this.connectionsSubject.asObservable();
-
   constructor(private databaseService: DatabaseService) { }
 
   resetStore() {
@@ -58,9 +54,6 @@ export class SharedStoreService {
     if (this._profileDB) {
       this._profileDB.unsubscribe();
     }
-    if (this._connectionsDB) {
-      this._connectionsDB.unsubscribe();
-    }
   }
 
   async registerToProfile(userId: string) {
@@ -71,28 +64,16 @@ export class SharedStoreService {
     }
   }
 
-  async registerToConnections(userId: string) {
-    if (userId && (!this._connectionsDB || this._connectionsDB.closed)) {
-      this._connectionsDB = this.databaseService.getConnectionsAsObservable(userId).subscribe((connections) => {
-        this.connectionsSubject.next(connections);
-      });
-    }
-  }
-
   updateProfile(profile: Profile): Promise<void> {
     return this.databaseService.updateProfile(profile);
   }
 
-  updateConnections(connections: Connections): Promise<void> {
-    return this.databaseService.updateConnections(connections);
-  }
-
   addConnection(profile: Profile, connection: Connection): Promise<void> {
-    return this.databaseService.addConnection(profile.user_id, connection);
+    return this.databaseService.addConnection(profile, connection);
   }
 
   removeConnection(profile: Profile, connection: Connection): Promise<void> {
-    return this.databaseService.removeConnection(profile.user_id, connection);
+    return this.databaseService.removeConnection(profile, connection);
   }
 
   async getProfile(): Promise<Profile> {

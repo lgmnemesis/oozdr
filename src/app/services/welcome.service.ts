@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BasicInfo } from '../interfaces/registration';
+import { BasicInfo } from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'

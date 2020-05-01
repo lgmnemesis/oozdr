@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input, AfterViewInit } from '@angular/core';
-import { BasicInfo } from 'src/app/interfaces/registration';
+import { BasicInfo } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import * as Croppie from 'croppie';
 

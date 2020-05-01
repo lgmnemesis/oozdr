@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { Connections } from 'src/app/interfaces/profile';
+import { Profile } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-connections',
@@ -12,11 +12,11 @@ import { Connections } from 'src/app/interfaces/profile';
 })
 export class ConnectionsComponent implements OnInit, OnDestroy {
 
-  connections: Connections;
+  profile: Profile;
 
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
-  _connections: Subscription;
+  _profile: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
@@ -27,8 +27,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       this.markForCheck();
     });
 
-    this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
-      this.connections = connections;
+    this._profile = this.sharedStoreService.profile$.subscribe((profile) => {
+      this.profile = profile;
       this.markForCheck();
     });
   }
@@ -45,8 +45,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     if (this._connectionsState) {
       this._connectionsState.unsubscribe();
     }
-    if (this._connections) {
-      this._connections.unsubscribe();
+    if (this._profile) {
+      this._profile.unsubscribe();
     }
   }
 

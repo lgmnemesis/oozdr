@@ -46,7 +46,6 @@ export class StartPage implements OnInit, OnDestroy {
         this.isLoggedIn = true;
         this.canShowPage = false;
         this.sharedStoreService.registerToProfile(user.user_id);
-        this.sharedStoreService.registerToConnections(user.user_id);
         try {
           this.modalCtrl.dismiss().catch(error => {});
         } catch (error) {
@@ -59,6 +58,7 @@ export class StartPage implements OnInit, OnDestroy {
           if (info && info.name && info.mobile) {
             const profile: Profile = {
               basicInfo: info,
+              connections: [],
               timestamp: this.sharedStoreService.timestamp,
               user_id: user.user_id
             }
