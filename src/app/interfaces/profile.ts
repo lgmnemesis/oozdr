@@ -13,6 +13,7 @@ export interface Connections {
 
 export interface Connection {
   id: string;
+  user_id: string,
   match_user_id: string,
   match_id: string,
   info: BasicInfo,

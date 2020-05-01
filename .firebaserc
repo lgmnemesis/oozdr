@@ -9,6 +9,7 @@
     }
   },
   "projects": {
-    "production": "reconnect-i"
+    "production": "reconnect-i",
+    "default": "reconnect-i"
   }
 }
