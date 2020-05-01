@@ -43,6 +43,7 @@ export class StartPage implements OnInit, OnDestroy {
         this.isLoggedIn = true;
         this.canShowPage = false;
         this.sharedStoreService.registerToProfile(user.user_id);
+        this.sharedStoreService.registerToConnections(user.user_id);
         if (user.display_name) {
           this.sharedStoreService.canEnterWelcome = false;
           this.sharedStoreService.canEnterHome = true;

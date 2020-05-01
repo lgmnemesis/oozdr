@@ -6,7 +6,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/user';
 import { WelcomeService } from 'src/app/services/welcome.service';
-import { Profile } from 'src/app/interfaces/profile';
+import { Profile, Connections } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 export class PhoneNumber {
@@ -103,6 +103,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.confirmationResult.confirm(this.verificationCode)
       .then(result => {
         const info = this.welcomeService.getInfo();
+        info.mobile = this.phoneNumber.line;
         const isNewUser = result.additionalUserInfo.isNewUser;
         if (isNewUser) {
            const user: User = {
@@ -116,13 +117,19 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
           const profile: Profile = {
             user_id: user.user_id,
             basicInfo: info,
-            connections: [],
             timestamp: this.sharedStoreService.timestamp
+          }
+          const connections: Connections = {
+            user_id: user.user_id,
+            connections: []
           }
           this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
           this.sharedStoreService.updateProfile(profile).then(() => {
             this.processDone.next(true);
             this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
+          }).catch(error => console.error(error));
+          this.sharedStoreService.updateConnections(connections).then(() => {
+            this.sharedStoreService.registerToConnections(connections.user_id).catch(error => console.error(error));
           }).catch(error => console.error(error));
         } {
           this.processDone.next(true);
