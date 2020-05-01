@@ -121,18 +121,18 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
           }
           const connections: Connections = {
             user_id: user.user_id,
+            mobile: info.mobile,
             connections: []
           }
           this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
           this.sharedStoreService.updateProfile(profile).then(() => {
-            this.processDone.next(true);
             this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
           }).catch(error => console.error(error));
           this.sharedStoreService.updateConnections(connections).then(() => {
             this.sharedStoreService.registerToConnections(connections.user_id).catch(error => console.error(error));
           }).catch(error => console.error(error));
-        } {
-          this.processDone.next(true);
+        } else {
+          this.processDone.next({disableBackButton: true});
         }
       })
       .catch(error => {

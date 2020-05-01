@@ -6,6 +6,8 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { environment } from '../../../environments/environment';
 import { SharedService } from 'src/app/services/shared.service';
+import { WelcomeService } from 'src/app/services/welcome.service';
+import { Profile } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-start',
@@ -28,7 +30,8 @@ export class StartPage implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private authService: AuthService,
     private navCtrl: NavController,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private welcomeService: WelcomeService) { }
 
   ngOnInit() {
     // Test auth for production
@@ -44,13 +47,30 @@ export class StartPage implements OnInit, OnDestroy {
         this.canShowPage = false;
         this.sharedStoreService.registerToProfile(user.user_id);
         this.sharedStoreService.registerToConnections(user.user_id);
+        try {
+          this.modalCtrl.dismiss().catch(error => {});
+        } catch (error) {
+        }
         if (user.display_name) {
-          this.sharedStoreService.canEnterWelcome = false;
-          this.sharedStoreService.canEnterHome = true;
           this.gotoHome();
         } else {
-          this.sharedStoreService.needToFinishInfoRegistration = true;
-          this.gotoWelcome();
+          // if there is info object, fill it, update and go home
+          const info = this.welcomeService.getInfo();
+          if (info && info.name && info.mobile) {
+            const profile: Profile = {
+              basicInfo: info,
+              timestamp: this.sharedStoreService.timestamp,
+              user_id: user.user_id
+            }
+            user.display_name = info.name;
+            user.email = info.email;
+            this.authService.updateUserData(user).catch((error) => { console.error(error)});
+            this.sharedStoreService.updateProfile(profile).catch(error => console.error(error));
+            this.gotoHome();
+          } else {
+            this.sharedStoreService.needToFinishInfoRegistration = true;
+            this.gotoWelcome();
+          }
         }
       } else if (user === null) {
         this.canShowPage = true;
@@ -81,6 +101,8 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   gotoHome() {
+    this.sharedStoreService.canEnterWelcome = false;
+    this.sharedStoreService.canEnterHome = true;
     this.goto('/connections');
   }
 

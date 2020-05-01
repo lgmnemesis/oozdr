@@ -1,6 +1,7 @@
 <div class="flex-container">
   <div id="bt-back">
-    <ion-button fill="clear" (click)="back()" *ngIf="!sharedStoreService?.needToFinishInfoRegistration">
+    <ion-button *ngIf="!sharedStoreService?.needToFinishInfoRegistration"
+      fill="clear" [disabled]="disableBackButton" (click)="back()">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button>
     <ion-button color="main" (click)="signOut()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">
@@ -11,8 +12,9 @@
     <app-welcome-info
       [isBack]="isBack" [isNext]="isNext" (nextEvent)="next()" *ngIf="step === 1">
     </app-welcome-info>
-    <app-welcome-mobile-verification
-      [isBack]="isBack" [isNext]="isNext" (nextEvent)="next()" *ngIf="step === 2">
+    <app-welcome-mobile-verification *ngIf="step === 2"
+      [isBack]="isBack" [isNext]="isNext" 
+      (nextEvent)="next()" (processDone)="processDone($event)">
     </app-welcome-mobile-verification>
   </div>
 </div>

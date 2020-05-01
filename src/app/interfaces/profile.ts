@@ -8,6 +8,7 @@ export interface Profile {
 
 export interface Connections {
   user_id: string;
+  mobile: string; // need for the match comperation
   connections: Connection[];
 }
 
