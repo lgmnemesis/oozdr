@@ -23,3 +23,8 @@ export interface BasicInfo {
   profilePhoto: string;
   profilePhotoOrg: string;
 }
+
+export interface Match {
+  party1: Profile,
+  party2: Profile
+}
