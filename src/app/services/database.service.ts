@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -31,16 +31,52 @@ export class DatabaseService {
     return this.afs.collection(path).doc(profile.user_id).set(profile, { merge: true });
   }
 
-  addConnection(profile: Profile, connection: Connection): Promise<void> {
-    const path = 'profiles/';
-    return this.afs.collection(path).doc(profile.user_id)
-      .update({connections: firebase.firestore.FieldValue.arrayUnion(connection)});
+  private getConnectionsDbRef(userId: string, batchSize = 100): AngularFirestoreCollection<Connection[]> {
+    const path = 'connections/';
+    return this.afs.collection(path, ref => {
+      return ref.where('user_id', '==', userId)
+      .limit(batchSize);
+    });
   }
 
-  removeConnection(profile: Profile, connection: Connection): Promise<void> {
-    const path = 'profiles/';
-    return this.afs.collection(path).doc(profile.user_id)
-      .update({connections: firebase.firestore.FieldValue.arrayRemove(connection)});
+  getConnectionsAsObservable(userId: string): Observable<Connection[]> {
+    return this.getConnectionsDbRef(userId).valueChanges()
+    .pipe(catchError((error) => {
+      if (!environment.production) {
+        console.error(error);
+      }
+      return of(null);
+    }));
+  }
+
+  async addConnection(connection: Connection): Promise<void> {
+    const path = 'connections/';
+    try {
+      return this.afs.collection(path).doc(connection.id).set(connection);
+    }
+    catch (error) {
+      return console.error(error);
+    }
+  }
+
+  async removeConnection(connection: Connection): Promise<void> {
+    const path = 'connections/';
+    try {
+      return this.afs.collection(path).doc(connection.id).delete();
+    }
+    catch (error) {
+      return console.error(error);
+    }
+  }
+
+  async updateConnectionData(connection: Connection, data: any) {
+    const path = 'connections/';
+    try {
+      return this.afs.collection(path).doc(connection.id).update(data);
+    }
+    catch (error) {
+      return console.error(error);
+    }
   }
 
   createId(): string {

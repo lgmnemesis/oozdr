@@ -2,14 +2,15 @@ export interface Profile {
   user_id: string,
   timestamp: number,
   basicInfo: BasicInfo;
-  connections: Connection[];
 }
 
 export interface Connection {
   id: string;
+  user_id: string
   match_user_id: string,
   match_id: string,
-  info: BasicInfo,
+  user_mobile: string, // the user that open the connection (user_id)
+  basicInfo: BasicInfo,
   timestamp: number,
   isMatched: boolean
 }
@@ -22,9 +23,4 @@ export interface BasicInfo {
   mobile: string;
   profilePhoto: string;
   profilePhotoOrg: string;
-}
-
-export interface Match {
-  party1: Profile,
-  party2: Profile
 }

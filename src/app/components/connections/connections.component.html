@@ -8,7 +8,7 @@
 
   <ion-row *ngIf="connectionsState?.state === 'view'"
     class="ion-justify-content-center ion-align-items-center animated fadeIn">
-    <ion-col size="auto" *ngFor="let connection of profile?.connections; trackBy: trackById">
+    <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
       <app-connection [connection]="connection"></app-connection>
     </ion-col>
   </ion-row>

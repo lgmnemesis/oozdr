@@ -77,7 +77,6 @@ export class WelcomeContainerComponent implements OnInit {
       const profile: Profile = {
         user_id: user.user_id,
         basicInfo: info,
-        connections: [],
         timestamp: this.sharedStoreService.timestamp
       }
     

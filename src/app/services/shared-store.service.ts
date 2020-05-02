@@ -31,6 +31,10 @@ export class SharedStoreService {
   profileSubject: BehaviorSubject<Profile> = new BehaviorSubject(null);
   profile$: Observable<Profile> = this.profileSubject.asObservable();
 
+  _connectionsDB: Subscription;
+  connectionsSubject: BehaviorSubject<Connection[]> = new BehaviorSubject(null);
+  connections$: Observable<Connection[]> = this.connectionsSubject.asObservable();
+
   constructor(private databaseService: DatabaseService) { }
 
   resetStore() {
@@ -54,6 +58,9 @@ export class SharedStoreService {
     if (this._profileDB) {
       this._profileDB.unsubscribe();
     }
+    if (this._connectionsDB) {
+      this._connectionsDB.unsubscribe();
+    }
   }
 
   async registerToProfile(userId: string) {
@@ -64,16 +71,24 @@ export class SharedStoreService {
     }
   }
 
+  async registerToConnections(userId: string) {
+    if (userId && (!this._connectionsDB || this._connectionsDB.closed)) {
+      this._connectionsDB = this.databaseService.getConnectionsAsObservable(userId).subscribe((connections) => {
+        this.connectionsSubject.next(connections);
+      });
+    }
+  }
+
   updateProfile(profile: Profile): Promise<void> {
     return this.databaseService.updateProfile(profile);
   }
 
-  addConnection(profile: Profile, connection: Connection): Promise<void> {
-    return this.databaseService.addConnection(profile, connection);
+  addConnection(connection: Connection): Promise<void> {
+    return this.databaseService.addConnection(connection);
   }
 
-  removeConnection(profile: Profile, connection: Connection): Promise<void> {
-    return this.databaseService.removeConnection(profile, connection);
+  removeConnection(connection: Connection): Promise<void> {
+    return this.databaseService.removeConnection(connection);
   }
 
   async getProfile(): Promise<Profile> {

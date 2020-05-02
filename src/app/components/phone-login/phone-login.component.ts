@@ -117,7 +117,6 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
           const profile: Profile = {
             user_id: user.user_id,
             basicInfo: info,
-            connections: [],
             timestamp: this.sharedStoreService.timestamp
           }
           this.authService.updateUserData(user, true).catch((error) => { console.error(error)});

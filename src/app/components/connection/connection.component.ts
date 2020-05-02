@@ -22,7 +22,7 @@ export class ConnectionComponent implements OnInit {
 
   async disconnect() {
     const profile = await this.sharedStoreService.getProfile();
-    this.sharedStoreService.removeConnection(profile, this.connection)
+    this.sharedStoreService.removeConnection(this.connection)
       .catch(error => console.error(error));
   }
 
@@ -33,7 +33,7 @@ export class ConnectionComponent implements OnInit {
     this.inDisconnectProcess = true;
 
     const alert = await this.alertCtrl.create({
-      header: `Are you sure you want to disconnect from ${this.connection.info.name}?`,
+      header: `Are you sure you want to disconnect from ${this.connection.basicInfo.name}?`,
       mode: 'ios',
       buttons: [
         {

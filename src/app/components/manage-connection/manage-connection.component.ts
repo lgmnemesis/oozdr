@@ -72,7 +72,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     const profile = await this.sharedStoreService.getProfile();
     const connection: Connection = {
       id: this.sharedStoreService.createId(),
-      info: {
+      basicInfo: {
         name: this.Q.name,
         mobile: this.Q.phoneNumber,
         birthday: '',
@@ -84,9 +84,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       timestamp: this.sharedStoreService.timestamp,
       isMatched: false,
       match_id: '',
-      match_user_id: ''
+      match_user_id: '',
+      user_id: profile.user_id,
+      user_mobile: profile.basicInfo.mobile
     }
-    this.sharedStoreService.addConnection(profile, connection).catch(error => console.error(error));
+    this.sharedStoreService.addConnection(connection).catch(error => console.error(error));
     this.close();
   }
 
