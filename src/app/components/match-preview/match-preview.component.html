@@ -1,16 +1,17 @@
 <ion-item class="i-match" button lines="none" *ngIf="inViewMode">
   <ion-avatar slot="start">
-    <ion-icon name="person"></ion-icon>
+    <ion-icon color="secondary" name="person-outline" *ngIf="!connection?.user_profle_img_url"></ion-icon>
+    <img [src]="connection?.user_profle_img_url" alt="profile image" *ngIf="connection?.user_profle_img_url">
   </ion-avatar>
   <ion-label>
-    <h2>Name: {{ connection?.basicInfo?.name }}</h2>
+    <h2>{{ connection?.basicInfo?.name }}</h2>
     <p>last message</p>
   </ion-label>
 </ion-item>
 
 <ion-card *ngIf="!inViewMode">
   <ion-label>
-    <h2>Name: {{ connection?.basicInfo?.name }}</h2>
+    <h2>{{ connection?.basicInfo?.name }}</h2>
     <p>last message</p>
   </ion-label>
 </ion-card>

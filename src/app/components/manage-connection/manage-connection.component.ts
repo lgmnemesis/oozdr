@@ -78,15 +78,16 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
         birthday: '',
         email: '',
         gender: '',
-        profilePhoto: '',
-        profilePhotoOrg: ''
+        profile_img_url: '',
+        profile_img_url_org: ''
       },
       timestamp: this.sharedStoreService.timestamp,
       isMatched: false,
       match_id: '',
       match_user_id: '',
       user_id: profile.user_id,
-      user_mobile: profile.basicInfo.mobile
+      user_mobile: profile.basicInfo.mobile,
+      user_profle_img_url: ''
     }
     this.sharedStoreService.addConnection(connection).catch(error => console.error(error));
     this.close();

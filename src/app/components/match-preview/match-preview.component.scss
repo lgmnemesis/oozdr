@@ -11,3 +11,9 @@ ion-item {
 .item-active {
   --background: var(--ion-color-light);
 }
+
+ion-icon {
+  font-size: 37px;
+  border-radius: 100%;
+  border: 1px solid;
+}

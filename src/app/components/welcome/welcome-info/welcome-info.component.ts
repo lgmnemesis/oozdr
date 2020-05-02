@@ -35,8 +35,8 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.basicInfo.profilePhoto) {
-      this.basicInfo.profilePhoto = this.basicInfo.profilePhotoOrg;
+    if (this.basicInfo.profile_img_url) {
+      this.basicInfo.profile_img_url = this.basicInfo.profile_img_url_org;
       this.cropPhoto();
     }
   }
@@ -86,8 +86,8 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
       reader.readAsDataURL(file);
     });
     const readerAsDataURLEvent: any = await readerAsDataURLAsync;
-    this.basicInfo.profilePhoto = readerAsDataURLEvent.target.result;
-    this.basicInfo.profilePhotoOrg = this.basicInfo.profilePhoto;
+    this.basicInfo.profile_img_url = readerAsDataURLEvent.target.result;
+    this.basicInfo.profile_img_url_org = this.basicInfo.profile_img_url;
 
     this.cropPhoto();
     this.markForCheck();
@@ -110,7 +110,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
       });
 
       this.croppie.bind({
-          url: this.basicInfo.profilePhoto
+          url: this.basicInfo.profile_img_url
       }).then(() => {
         const elc = <HTMLElement>document.getElementsByClassName('cr-boundary')[0];
         elc.style.borderRadius = '15px';
@@ -126,7 +126,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
       this.croppie.destroy();
       this.croppie = null;
     }
-    this.basicInfo.profilePhoto = '';
+    this.basicInfo.profile_img_url = '';
   }
   
   selectPhotoButton() {
@@ -145,7 +145,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
       if (this.croppie) {
         const res = await this.croppie.result({ type: 'base64' });
         if (res) {
-          this.basicInfo.profilePhoto = res;
+          this.basicInfo.profile_img_url = res;
         }
         this.croppie.destroy();
         this.croppie = null;

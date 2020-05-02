@@ -10,6 +10,7 @@ export interface Connection {
   match_user_id: string,
   match_id: string,
   user_mobile: string, // the user that open the connection (user_id)
+  user_profle_img_url: string,
   basicInfo: BasicInfo,
   timestamp: number,
   isMatched: boolean
@@ -21,8 +22,8 @@ export interface BasicInfo {
   email: string;
   birthday: string;
   mobile: string;
-  profilePhoto: string;
-  profilePhotoOrg: string;
+  profile_img_url: string;
+  profile_img_url_org: string;
 }
 
 export interface Match {
@@ -36,4 +37,5 @@ export interface Match {
 export interface Party {
   user_id: string;
   user_mobile: string;
+  profile_img_url: string;
 }

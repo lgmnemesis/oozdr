@@ -30,8 +30,8 @@ export class WelcomeService {
       email: '',
       birthday: '',
       mobile: '',
-      profilePhoto: '',
-      profilePhotoOrg: ''
+      profile_img_url: '',
+      profile_img_url_org: ''
     }
     return this.infoStore;
   }

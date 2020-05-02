@@ -14,7 +14,6 @@ export class SharedService {
   defaultPhoneCountryCode: string = null;
   countryCodeStoreKeyName = 'country_code';
 
-
   constructor(private httpClient: HttpClient,
     private platform: Platform) { }
 
