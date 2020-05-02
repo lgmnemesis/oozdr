@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Connection } from 'src/app/interfaces/profile';
 
 @Component({
@@ -9,14 +9,28 @@ import { Connection } from 'src/app/interfaces/profile';
 })
 export class MatchPreviewComponent implements OnInit {
 
+  @Input() 
+  set isActive(is: boolean) {
+    this.isActiveMatch = is;
+    this.markForCheck();
+  }
   @Input() connection: Connection;
   @Input() inViewMode = false;
+  @Output() buttonEvent = new EventEmitter;
 
+  isActiveMatch = false;
   defaultProfileImg =  '../../../assets/images/profile-def.png';
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
   }
 
+  markForCheck() {
+    this.cd.markForCheck();
+  }
+
+  selectedMatchButton() {
+    this.buttonEvent.next(true);
+  }
 }

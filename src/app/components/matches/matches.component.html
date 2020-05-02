@@ -1,13 +1,22 @@
 <ion-grid *ngIf="!inViewMode">
   <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
     <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
-      <app-match-preview [connection]="connection" *ngIf="connection.isMatched"></app-match-preview>
+      <app-match-preview *ngIf="connection?.isMatched"
+        [connection]="connection"
+        [isActive]="activeMatch?.id === connection?.id"
+        (buttonEvent)="matchButtonClicked(connection)">
+      </app-match-preview>
     </ion-col>
   </ion-row>
 </ion-grid>
 
 <ng-container *ngIf="inViewMode">
   <ng-container *ngFor="let connection of connections; trackBy: trackById">
-    <app-match-preview [inViewMode]="inViewMode" [connection]="connection" *ngIf="connection.isMatched"></app-match-preview>
+    <app-match-preview *ngIf="connection?.isMatched"
+      [isActive]="activeMatch?.id === connection?.id"
+      [inViewMode]="inViewMode" 
+      [connection]="connection" 
+      (buttonEvent)="matchButtonClicked(connection)">
+    </app-match-preview>
   </ng-container>
 </ng-container>

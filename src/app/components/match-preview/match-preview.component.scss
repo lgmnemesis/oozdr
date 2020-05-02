@@ -17,3 +17,7 @@ ion-icon {
   border-radius: 100%;
   border: 1px solid;
 }
+
+.isActive {
+  --background: var(--ion-color-light);
+}

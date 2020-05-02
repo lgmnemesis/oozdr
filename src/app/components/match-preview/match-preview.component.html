@@ -1,4 +1,7 @@
-<ion-item class="i-match" button lines="none" *ngIf="inViewMode">
+<ion-item *ngIf="inViewMode"
+  class="i-match" 
+  [class.isActive]="isActiveMatch" 
+  button lines="none" (click)="selectedMatchButton()">
   <ion-avatar slot="start">
     <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image">
   </ion-avatar>
@@ -8,7 +11,7 @@
   </ion-label>
 </ion-item>
 
-<ion-card *ngIf="!inViewMode">
+<ion-card [class.isActive]="isActiveMatch" *ngIf="!inViewMode">
   <ion-label>
     <h2>{{ connection?.basicInfo?.name }}</h2>
     <p>last message</p>
