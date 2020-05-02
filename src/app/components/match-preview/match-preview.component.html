@@ -1,7 +1,6 @@
 <ion-item class="i-match" button lines="none" *ngIf="inViewMode">
   <ion-avatar slot="start">
-    <ion-icon color="secondary" name="person-outline" *ngIf="!connection?.user_profle_img_url"></ion-icon>
-    <img [src]="connection?.user_profle_img_url" alt="profile image" *ngIf="connection?.user_profle_img_url">
+    <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image">
   </ion-avatar>
   <ion-label>
     <h2>{{ connection?.basicInfo?.name }}</h2>

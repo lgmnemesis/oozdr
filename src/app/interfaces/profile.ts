@@ -37,5 +37,4 @@ export interface Match {
 export interface Party {
   user_id: string;
   user_mobile: string;
-  profile_img_url: string;
 }
