@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 @Component({
-  selector: 'app-matches',
+  selector: 'app-matches-page',
   templateUrl: './matches.page.html',
   styleUrls: ['./matches.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,10 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatchesComponent } from './matches.component';
-import { Ng2TelInputModule } from 'ng2-tel-input';
+import { ConnectionModule } from '../connection/connection.module';
 
 @NgModule({
-  imports: [CommonModule, Ng2TelInputModule],
+  imports: [CommonModule, ConnectionModule],
   declarations: [MatchesComponent],
   exports: [MatchesComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -1,11 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { SharedService } from 'src/app/services/shared.service';
-
-export class Q {
-  name = '';
-  phoneNumber = '';
-  letThemKnow = false;  
-}
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { Connection } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-matches',
@@ -15,55 +11,30 @@ export class Q {
 })
 export class MatchesComponent implements OnInit, OnDestroy {
 
-  Q = new Q();
-  isNameError = false;
-  nameError = 'no errors';
-  telInputObj: any
-  phoneError = 'no errors';
-  isPhoneError = false;
-  countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
+  connections: Connection[];
+  _connections: Subscription;
 
-  constructor(private sharedService: SharedService) { }
+  constructor(private sharedStoreService: SharedStoreService,
+    private cd: ChangeDetectorRef) {}
 
-  ngOnInit() {}
-
-  setName(event) {
-    this.Q.name = event.detail.value;
+  ngOnInit() {
+    this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
+      this.connections = connections;
+      this.markForCheck();
+    });
   }
 
-  getAndVerifyNumber(): boolean {
-    try {
-      const isValid = this.telInputObj.isValidNumber();
-      this.Q.phoneNumber = this.telInputObj.getNumber();
-      return isValid;
-    } catch (error) {
-      console.error(error);
-    }
-    return false;
+  markForCheck() {
+    this.cd.markForCheck();
   }
 
-  telInputObject(obj) {
-    this.telInputObj = obj;
-  }
-
-  telHasError(event) {
-  }
-
-  toggleLetThemKnow(event) {
-    this.Q.letThemKnow = event.detail.value;
-  }
-
-  addConnection() {
-
+  trackById(i, connection) {
+    return connection.id;
   }
 
   ngOnDestroy() {
-    if (this.telInputObj) {
-      try {
-        this.telInputObj.destroy();
-      } catch (error) {
-        console.error(error);
-      }
+    if (this._connections) {
+      this._connections.unsubscribe();
     }
   }
 }

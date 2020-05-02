@@ -87,7 +87,7 @@ export class DatabaseService {
     return new Date().getTime();
   }
 
-  async tmp(connection: Connection) {
+  async moshe_tmp(connection: Connection) {
     const db = firebase.firestore();
 
     // Find new connection to work on

@@ -108,7 +108,7 @@ export class SharedStoreService {
     return this.databaseService.createId();
   }
 
-  tmp(connection: Connection) {
-    this.databaseService.tmp(connection);
+  moshe_tmp(connection: Connection) {
+    this.databaseService.moshe_tmp(connection);
   }
 }

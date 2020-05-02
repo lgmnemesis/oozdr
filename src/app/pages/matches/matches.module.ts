@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { MatchesPageRoutingModule } from './matches-routing.module';
 import { MatchesPage } from './matches.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
+import { MatchesModule } from 'src/app/components/matches/matches.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
     FormsModule,
     IonicModule,
     MatchesPageRoutingModule,
-    TopMenuModule
+    TopMenuModule,
+    MatchesModule
   ],
   declarations: [MatchesPage]
 })
