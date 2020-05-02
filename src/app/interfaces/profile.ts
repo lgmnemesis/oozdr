@@ -24,3 +24,16 @@ export interface BasicInfo {
   profilePhoto: string;
   profilePhotoOrg: string;
 }
+
+export interface Match {
+  id: string;
+  firstParty: Party;
+  secondParty: Party;
+  participates: string[];
+  messages: string[];
+}
+
+export interface Party {
+  user_id: string;
+  user_mobile: string;
+}

@@ -86,4 +86,76 @@ export class DatabaseService {
   get timestamp(): number {
     return new Date().getTime();
   }
-}
+
+  async tmp(connection: Connection) {
+    const db = firebase.firestore();
+
+    // Find new connection to work on
+    let secondPartyConnection: any = null;
+    const connectionsRef = db.collection('connections');
+    const query = connectionsRef
+      .where('basicInfo.mobile', '==' , connection.user_mobile)
+      .where('user_mobile', '==', connection.basicInfo.mobile);
+    try {
+      const qSnap = await query.get();
+      qSnap.forEach((doc) => {
+        const docData = doc.data();
+        console.log('match1:', docData);
+        if (docData.user_id !== connection.user_id) {
+          secondPartyConnection = docData;
+        }
+      });
+    } catch (error) {
+      console.error("Error getting documents: ", error);
+    }
+
+    if (secondPartyConnection) {
+      console.log('final match', ' myParty:', connection, ' secondParty:', secondPartyConnection);
+
+      const myConnectionDocRef = db.doc(`connections/${connection.id}`);
+      const secondConnectionDocRef = db.doc(`connections/${secondPartyConnection.id}`);
+      const matchId = db.collection('matchid').doc().id;
+      const matchDocRef = db.doc(`matches/${matchId}`);
+      const timestamp = new Date().getTime();
+      const myConnectionParams = {
+        isMatched: true,
+        timestamp: timestamp,
+        match_user_id: secondPartyConnection.user_id,
+        match_id: matchId
+      }
+      const secondConnectionParams = {
+        isMatched: true,
+        timestamp: timestamp,
+        match_user_id: connection.user_id,
+        match_id: matchId
+      }
+      const matchParams = {
+        id: matchId,
+        firstParty: {
+          user_id: connection.user_id,
+          user_mobile: connection.user_mobile
+        },
+        secondParty: {
+          user_id: secondPartyConnection.user_id,
+          user_mobile: secondPartyConnection.user_mobile
+        },
+        participates: [connection.user_id, secondPartyConnection.user_id]
+      }
+      console.log('preparing batch write');
+      const batch = db.batch();
+      batch.set(myConnectionDocRef, myConnectionParams, { merge: true });
+      batch.set(secondConnectionDocRef, secondConnectionParams, { merge: true });
+      batch.set(matchDocRef, matchParams, { merge: true });
+      try {
+        console.log('before commit');
+        await batch.commit();
+        console.log('after commit');
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    console.log('last');
+
+  }
+
+} 

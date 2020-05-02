@@ -107,4 +107,8 @@ export class SharedStoreService {
   createId(): string {
     return this.databaseService.createId();
   }
+
+  tmp(connection: Connection) {
+    this.databaseService.tmp(connection);
+  }
 }
