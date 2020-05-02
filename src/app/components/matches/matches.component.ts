@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
@@ -11,6 +11,8 @@ import { Connection } from 'src/app/interfaces/profile';
 })
 export class MatchesComponent implements OnInit, OnDestroy {
 
+  @Input() inViewMode = false;
+
   connections: Connection[];
   _connections: Subscription;
 
@@ -22,6 +24,7 @@ export class MatchesComponent implements OnInit, OnDestroy {
       this.connections = connections;
       this.markForCheck();
     });
+    console.log('moshe inViewMode:', this.inViewMode);
   }
 
   markForCheck() {

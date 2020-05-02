@@ -23,8 +23,8 @@ service cloud.firestore {
     
     match /connections/{userId} {
     	allow read: if isOwner();
-    	allow create: if isSignedIn() && isValid();
-    	allow update: if isOwner() && isValid();
+    	allow create: if isSignedIn() && isValidForConnectionDoc();
+    	allow update: if isOwner() && isValidForConnectionDoc();
     	allow delete: if isOwner();
     }
     
@@ -42,6 +42,10 @@ service cloud.firestore {
   
   function isValidForUserDocUpdate() {
   	return isValid() && incomingData().roles == existingData().roles;
+  }
+  
+  function isValidForConnectionDoc() {
+  	return isValid() && incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
   }
   
   function isValid() {
@@ -85,4 +89,3 @@ service cloud.firestore {
   	return request.resource.data;
   }
 }
-  

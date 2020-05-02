@@ -1,0 +1,13 @@
+.i-match {
+  --background: var(--ion-color-minor);
+}
+
+ion-item {
+  --min-height: 70px;
+  --background: var(--ion-color-minor);
+  background: var(--ion-color-minor);
+}
+
+.item-active {
+  --background: var(--ion-color-light);
+}

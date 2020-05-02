@@ -31,15 +31,7 @@
           </ion-item>
 
           <ng-container *ngIf="sharedStoreService?.isMatchesOpen">
-            <ion-item class="i-match" button lines="none" *ngFor="let t of tmps">
-              <ion-avatar slot="start">
-                <ion-icon name="person"></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h2>Chip Avatar</h2>
-                <p>last message {{ t }}</p>
-              </ion-label>
-            </ion-item>
+            <app-matches [inViewMode]="true"></app-matches>
           </ng-container>
         </ng-container>
 

@@ -1,10 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatchesComponent } from './matches.component';
-import { ConnectionModule } from '../connection/connection.module';
+import { MatchPreviewModule } from '../match-preview/matche-preview.module';
 
 @NgModule({
-  imports: [CommonModule, ConnectionModule],
+  imports: [CommonModule, MatchPreviewModule],
   declarations: [MatchesComponent],
   exports: [MatchesComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

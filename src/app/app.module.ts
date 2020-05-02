@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TopMenuModule } from './components/top-menu/top-menu.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MatchesModule } from './components/matches/matches.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
     AngularFireAuthModule,
     TopMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    MatchesModule
   ],
   providers: [
     StatusBar,

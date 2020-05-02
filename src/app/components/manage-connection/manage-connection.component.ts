@@ -71,7 +71,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     }
     const profile = await this.sharedStoreService.getProfile();
     const connection: Connection = {
-      id: this.sharedStoreService.createId(),
+      id: `${profile.user_id}_${this.Q.phoneNumber}`,
       basicInfo: {
         name: this.Q.name,
         mobile: this.Q.phoneNumber,
