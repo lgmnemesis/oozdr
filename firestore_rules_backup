@@ -24,11 +24,11 @@ service cloud.firestore {
     match /connections/{userId} {
     	allow read: if isOwner();
     	allow create: if isSignedIn() && isValidForConnectionDoc();
-    	allow update: if isOwner() && isValidForConnectionDoc();
+    	allow update: if isOwner() && isValidForConnectionUpdateDoc();
     	allow delete: if isOwner();
     }
     
-    match /matches/{userId} {
+    match /matches/{matchId} {
     	allow read: if canReadChat();
     	allow create: if false;
     	allow update: if canUpdateChat();
@@ -45,7 +45,12 @@ service cloud.firestore {
   }
   
   function isValidForConnectionDoc() {
-  	return isValid() && incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
+  	return isValid() 
+    	&& incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
+  }
+  
+  function isValidForConnectionUpdateDoc() {
+  	return isValidForConnectionDoc(); // for now
   }
   
   function isValid() {
