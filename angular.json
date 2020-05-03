@@ -45,6 +45,9 @@
               },
               {
                 "input": "node_modules/intl-tel-input/build/css/intlTelInput.min.css"
+              },
+              {
+                "input": "node_modules/@ctrl/ngx-emoji-mart/picker.css"
               }
             ],
             "scripts": [

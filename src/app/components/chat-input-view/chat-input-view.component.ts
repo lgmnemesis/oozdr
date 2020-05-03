@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -10,8 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class ChatInputViewComponent implements OnInit {
 
   MAX_MESSAGE_LENGTH = 1500;
-
-  @ViewChild('textarea', {static: false}) private textarea: any;
+  emojiCssStyle = { position: 'fixed', bottom: '60px', right: '20px', 'z-index': '2' };
 
   ctrlEnter = false;
   messageText = '';
@@ -19,6 +18,7 @@ export class ChatInputViewComponent implements OnInit {
   isActiveInput = false;
   inputDisabled = true;
   showEmojiPicker = false;
+  lastCursorPos = 0;
 
   constructor(private cd: ChangeDetectorRef,
     public sharedService: SharedService) { }
@@ -72,13 +72,35 @@ export class ChatInputViewComponent implements OnInit {
       this.inputDisabled = true;
       this.inputAutoGrow = true;
       try {
-        const el = await this.textarea.getInputElement();
+        const ta = <any>document.getElementById('i-textarea');
+        const el = await ta.getInputElement();
         el.value = '';
         el.setSelectionRange(0, 0);
       } catch (error) {
         console.error(error);
       }
       this.markForCheck();
+    }
+  }
+
+  async emojiSelected(event) {
+    try {
+      const emoji = event.emoji.native;
+      const ta = <any>document.getElementById('i-textarea');
+      const el = await ta.getInputElement();
+      let textCursorPos = this.lastCursorPos;
+      if (el.selectionStart) {
+        textCursorPos = el.selectionStart;
+      }
+      const preffix = this.messageText.slice(0, textCursorPos);
+      const suffix = this.messageText.slice(textCursorPos);
+      this.messageText =  preffix + emoji + suffix;
+      if (preffix && emoji) {
+        this.lastCursorPos  = preffix.length + emoji.length;
+      }
+      this.markForCheck();
+    } catch (error) {
+      console.error(error);
     }
   }
 

@@ -1,5 +1,5 @@
 <div class="text-area basic-text">
-  <ion-textarea #textarea (keydown.control.enter)="ctrlEnterPressed()"
+  <ion-textarea id="i-textarea" (keydown.control.enter)="ctrlEnterPressed()"
     color="dark"
     rows="1" 
     spellcheck="true"
@@ -23,3 +23,11 @@
     </ion-button>
   </ion-item>
 </div>
+
+<emoji-mart *ngIf="showEmojiPicker"
+  title=""
+  emoji=""
+  (emojiSelect)="emojiSelected($event)"
+  set="google"
+  [style]="emojiCssStyle">
+</emoji-mart>
