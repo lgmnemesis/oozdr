@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { ConnectionsState } from '../interfaces/connections-state';
 import { DatabaseService } from './database.service';
-import { Profile, Connection } from '../interfaces/profile';
+import { Profile, Connection, Match, Message } from '../interfaces/profile';
 import { first } from 'rxjs/operators';
 
 @Injectable({
@@ -16,7 +16,8 @@ export class SharedStoreService {
   shouldAnimateStartPage = true;
   isMatchesOpen = true;
   needToFinishInfoRegistration = false;
-  activeMatch: Connection = null;
+  activeMatchConnection: Connection = null;
+  activeMatch: Match = null;
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();
@@ -38,6 +39,10 @@ export class SharedStoreService {
   connectionsSubject: BehaviorSubject<Connection[]> = new BehaviorSubject(null);
   connections$ = this.connectionsSubject.asObservable();
 
+  _matchDB: Subscription;
+  matchSubject: BehaviorSubject<Match> = new BehaviorSubject(null);
+  match$ = this.matchSubject.asObservable();
+
   constructor(private databaseService: DatabaseService) { }
 
   resetStore() {
@@ -53,6 +58,8 @@ export class SharedStoreService {
     this.isVisibleSplitPaneSubject.next(false);
     this.connectionsStateSubject.next({state: 'view'});
     this.profileSubject.next(null);
+    this.connectionsSubject.next(null);
+    this.matchSubject.next(null);
 
     this.unsubscribe();
   }
@@ -63,6 +70,9 @@ export class SharedStoreService {
     }
     if (this._connectionsDB) {
       this._connectionsDB.unsubscribe();
+    }
+    if (this._matchDB) {
+      this._matchDB.unsubscribe();
     }
   }
 
@@ -101,6 +111,32 @@ export class SharedStoreService {
     catch (error) {
       console.error(error);
      }
+  }
+
+  subscribeToMatchById(id: string) {
+    if (!id) {
+      return;
+    }
+    if (this._matchDB) {
+      this._matchDB.unsubscribe();
+    }
+    this.databaseService.getMatchAsObservable(id).subscribe((match) => {
+      console.log('moshe sending match:', match);
+      this.matchSubject.next(match);
+      this.activeMatch = match;
+    });
+  }
+
+  async addMatchMessage(message: string) {
+    if (this.activeMatch) {
+      const msg: Message = {
+        id: this.databaseService.createId(),
+        content: message,
+        createdAt: new Date().getTime(),
+        user_id: (await this.getProfile()).user_id
+      }
+      this.databaseService.addMatchMessage(this.activeMatch.id, msg);
+    }
   }
 
   get timestamp(): number {

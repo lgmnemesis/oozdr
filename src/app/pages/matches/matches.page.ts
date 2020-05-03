@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { Match } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-matches-page',
@@ -15,6 +16,8 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
+  match: Match
+  _match: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -26,6 +29,11 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });
+
+    this._match = this.sharedStoreService.matchSubject.subscribe((match) => {
+      this.match = match;
+      this.markForCheck();
+    })
   }
 
   ngAfterViewInit() {

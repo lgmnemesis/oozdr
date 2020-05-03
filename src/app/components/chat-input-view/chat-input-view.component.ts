@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
+import { ConnectionsService } from 'src/app/services/connections.service';
 
 @Component({
   selector: 'app-chat-input-view',
@@ -21,7 +22,8 @@ export class ChatInputViewComponent implements OnInit {
   lastCursorPos = 0;
 
   constructor(private cd: ChangeDetectorRef,
-    public sharedService: SharedService) { }
+    public sharedService: SharedService,
+    private connectionsService: ConnectionsService) { }
 
   ngOnInit() {}
 
@@ -63,10 +65,8 @@ export class ChatInputViewComponent implements OnInit {
       return;
     }
     if (message.length > 0) {
-      // this.chatAction = {
-      //   action: 'add',
-      //   message: this.messageText
-      // };
+      const msg = this.messageText;
+      this.connectionsService.addMessage(msg);
       this.messageText = '';
       this.showEmojiPicker = false;
       this.inputDisabled = true;

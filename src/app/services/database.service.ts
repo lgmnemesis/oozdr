@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Profile, Connection } from '../interfaces/profile';
+import { Profile, Connection, Match, Message } from '../interfaces/profile';
 import * as firebase from 'firebase/app'; 
 import 'firebase/firestore';
 
@@ -25,10 +25,14 @@ export class DatabaseService {
     }));
   }
 
-  updateProfile(profile: Profile): Promise<void> {
+  async updateProfile(profile: Profile): Promise<void> {
     const path = 'profiles/';
     profile.timestamp = this.timestamp;
-    return this.afs.collection(path).doc(profile.user_id).set(profile, { merge: true });
+    try {
+      return this.afs.collection(path).doc(profile.user_id).set(profile, { merge: true });
+    } catch (error) {
+      return console.error(error);
+    }
   }
 
   private getConnectionsDbRef(userId: string, batchSize = 100): AngularFirestoreCollection<Connection[]> {
@@ -75,6 +79,26 @@ export class DatabaseService {
       return this.afs.collection(path).doc(connection.id).update(data);
     }
     catch (error) {
+      return console.error(error);
+    }
+  }
+
+  getMatchAsObservable(id: string): Observable<Match> {
+    const path = 'matches/' + id;
+    return this.afs.doc(path).valueChanges()
+    .pipe(catchError((error) => {
+      if (!environment.production) {
+        console.error(error);
+      }
+      return of(null);
+    }));
+  }
+
+  async addMatchMessage(id: string, message: Message) {
+    const path = 'matches/' + id;
+    try {
+      return this.afs.doc(path).update({ messages: firebase.firestore.FieldValue.arrayUnion(message) });
+    } catch (error) {
       return console.error(error);
     }
   }
@@ -139,7 +163,8 @@ export class DatabaseService {
           user_id: secondPartyConnection.user_id,
           user_mobile: secondPartyConnection.user_mobile
         },
-        participates: [connection.user_id, secondPartyConnection.user_id]
+        participates: [connection.user_id, secondPartyConnection.user_id],
+        messages: []
       }
       console.log('preparing batch write');
       const batch = db.batch();

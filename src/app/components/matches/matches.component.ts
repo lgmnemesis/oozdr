@@ -42,12 +42,20 @@ export class MatchesComponent implements OnInit, OnDestroy {
 
   matchButtonClicked(connection: Connection) {
     console.log('match clicked');
-    this.sharedStoreService.activeMatch = connection;
+    if (!this.sharedStoreService.activeMatchConnection
+      || connection.id !== this.sharedStoreService.activeMatchConnection.id) {
+      this.sharedStoreService.activeMatchConnection = connection;
+      this.showMatchByConnection(connection);
+    }
     this.sharedStoreService.activeMenuSubject.next('matches');
     this.matchClicked.next(true);
     this.markForCheck();
     this.router.navigate(['/matches']).catch(error => console.error(error));
-    // send selected match?/connetcion? so that matches component under matches page will display it
+  }
+
+  showMatchByConnection(connection: Connection) {
+    // get match from db + pass it to matches page via subject
+    this.sharedStoreService.subscribeToMatchById(connection.match_id);
   }
 
   trackById(i, connection) {

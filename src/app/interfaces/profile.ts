@@ -31,10 +31,18 @@ export interface Match {
   firstParty: Party;
   secondParty: Party;
   participates: string[];
-  messages: string[];
+  messages: Message[];
 }
 
 export interface Party {
   user_id: string;
   user_mobile: string;
+}
+
+export interface Message {
+  id: string;
+  user_id: string;
+  user_name?: string;
+  content: string;
+  createdAt: Date | number
 }

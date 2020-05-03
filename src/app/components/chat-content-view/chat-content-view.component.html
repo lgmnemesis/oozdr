@@ -1,4 +1,4 @@
-<ng-container *ngFor="let message of chat?.messages; trackBy: trackById">  
+<ng-container *ngFor="let message of match?.messages; trackBy: trackById">  
   <div class="date-outer" *ngIf="message.createdAt | chatTimeUnique:timeInABottle">
     <div class="date-inner small-text">
       {{ message.createdAt | date }}
