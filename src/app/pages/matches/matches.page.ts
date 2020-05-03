@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -10,6 +10,8 @@ import { SharedService } from 'src/app/services/shared.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('content', {static: false}) private content: any;
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
@@ -33,10 +35,21 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     } catch (error) {
       console.error(error);
     }
+    setTimeout(() => {
+      this.scrollToBottom(0);
+    }, 100);
   }
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  scrollToBottom(time = 300) {
+    try {
+      this.content.scrollToBottom(time);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   ngOnDestroy() {
