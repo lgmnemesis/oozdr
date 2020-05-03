@@ -1,22 +1,33 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Match } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-chat-content-view',
   templateUrl: './chat-content-view.component.html',
   styleUrls: ['./chat-content-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatContentViewComponent implements OnInit {
 
   @Input() myUserId = 'moshe_id';
-  @Input() match: Match = null;
+  @Input() 
+  set match(m: Match) {
+    this.activeMatch = m;
+    this.timeInABottle = {};
+    this.markForCheck();
+  }
 
   showUser = false;
   timeInABottle = {};
+  activeMatch: Match;
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+  }
+
+  markForCheck() {
+    this.cd.markForCheck();
   }
 
   showUserInfo(message) {}

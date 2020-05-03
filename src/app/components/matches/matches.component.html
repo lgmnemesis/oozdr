@@ -3,7 +3,7 @@
     <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
       <app-match-preview *ngIf="connection?.isMatched"
         [connection]="connection"
-        [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatch?.id === connection?.id"
+        [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatchConnection?.id === connection?.id"
         (buttonEvent)="matchButtonClicked(connection)">
       </app-match-preview>
     </ion-col>
@@ -13,7 +13,7 @@
 <ng-container *ngIf="inViewMode">
   <ng-container *ngFor="let connection of connections; trackBy: trackById">
     <app-match-preview *ngIf="connection?.isMatched"
-      [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatch?.id === connection?.id"
+      [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatchConnection?.id === connection?.id"
       [inViewMode]="inViewMode" 
       [connection]="connection" 
       (buttonEvent)="matchButtonClicked(connection)">

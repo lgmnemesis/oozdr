@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Match } from 'src/app/interfaces/profile';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-matches-page',
@@ -18,10 +20,12 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
   match: Match
   _match: Subscription;
+  user: User = this.authService.getUser();
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
