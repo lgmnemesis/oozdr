@@ -1,4 +1,4 @@
-<ion-item *ngIf="inViewMode"
+<ion-item
   class="i-match" 
   [class.isActive]="isActiveMatch" 
   button lines="none" (click)="selectedMatchButton()">
@@ -10,10 +10,3 @@
     <p>last message</p>
   </ion-label>
 </ion-item>
-
-<ion-card [class.isActive]="isActiveMatch" *ngIf="!inViewMode">
-  <ion-label>
-    <h2>{{ connection?.basicInfo?.name }}</h2>
-    <p>last message</p>
-  </ion-label>
-</ion-card>

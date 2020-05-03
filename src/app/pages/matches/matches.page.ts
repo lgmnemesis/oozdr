@@ -23,6 +23,7 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
   _match: Subscription;
   _route: Subscription;
   user: User = this.authService.getUser();
+  isInsideChat = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -45,7 +46,9 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     this._route = this.route.params.subscribe(params => {
       const mid = params['mid'];
       const cid = params['cid'];
+      this.isInsideChat = false;
       if (mid && cid) {
+        this.isInsideChat = true;
         this.sharedStoreService.activeMatchConnectionId = cid;
         this.sharedStoreService.subscribeToMatchById(mid);
         this.sharedStoreService.activeMenuSubject.next('matches');

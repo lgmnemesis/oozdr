@@ -12,7 +12,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class MatchesComponent implements OnInit, OnDestroy {
 
-  @Input() inViewMode = false;
   @Output() matchClicked = new EventEmitter();
 
   activeMenu: string;

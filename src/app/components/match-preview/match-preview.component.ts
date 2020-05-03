@@ -15,7 +15,6 @@ export class MatchPreviewComponent implements OnInit {
     this.markForCheck();
   }
   @Input() connection: Connection;
-  @Input() inViewMode = false;
   @Output() buttonEvent = new EventEmitter;
 
   isActiveMatch = false;

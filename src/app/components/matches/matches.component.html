@@ -1,20 +1,7 @@
-<!-- <ion-grid *ngIf="!inViewMode">
-  <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
-    <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
-      <app-match-preview *ngIf="connection?.isMatched"
-        [connection]="connection"
-        [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatchConnectionId === connection?.id"
-        (buttonEvent)="matchButtonClicked(connection)">
-      </app-match-preview>
-    </ion-col>
-  </ion-row>
-</ion-grid> -->
-
 <ng-container>
   <ng-container *ngFor="let connection of connections; trackBy: trackById">
     <app-match-preview *ngIf="connection?.isMatched"
       [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatchConnectionId === connection?.id"
-      [inViewMode]="inViewMode" 
       [connection]="connection" 
       (buttonEvent)="matchButtonClicked(connection)">
     </app-match-preview>
