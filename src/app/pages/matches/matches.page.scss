@@ -1,2 +1,12 @@
 @import '../../styles/animation';
 @import '../../styles/fonts-text';
+
+ion-footer {
+  background: var(--ion-color-minor);
+}
+
+.chat-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: auto;
+}

@@ -4,6 +4,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content id="matches-content">
   <app-matches [inViewMode]="false" *ngIf="!isVisibleSplitPane"></app-matches>
+  <div class="chat-container">
+    <app-chat-content-view></app-chat-content-view>
+  </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <div class="chat-container">
+    <app-chat-input-view></app-chat-input-view>
+  </div>
+</ion-footer>

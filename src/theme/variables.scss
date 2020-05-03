@@ -91,6 +91,22 @@
   --ion-color-minor-shade: #e0e0e0;
   --ion-color-minor-tint: #ffffff;
 
+  /** ginger **/
+  --ion-color-ginger: #ADD8E6;
+  --ion-color-ginger-rgb: 173,216,230;
+  --ion-color-ginger-contrast: #000000;
+  --ion-color-ginger-contrast-rgb: 0,0,0;
+  --ion-color-ginger-shade: #98beca;
+  --ion-color-ginger-tint: #b5dce9;
+
+    /** zoe **/
+    --ion-color-zoe: #4278ff;
+    --ion-color-zoe-rgb: 66,120,255;
+    --ion-color-zoe-contrast: #ffffff;
+    --ion-color-zoe-contrast-rgb: 255,255,255;
+    --ion-color-zoe-shade: #3a6ae0;
+    --ion-color-zoe-tint: #67a7ff;
+
   // Global font family
   --ion-font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", sans-serif;
 
@@ -114,6 +130,24 @@
   --ion-color-contrast-rgb: var(--ion-color-minor-contrast-rgb);
   --ion-color-shade: var(--ion-color-minor-shade);
   --ion-color-tint: var(--ion-color-minor-tint);
+}
+
+.ion-color-ginger {
+  --ion-color-base: var(--ion-color-ginger);
+  --ion-color-base-rgb: var(--ion-color-ginger-rgb);
+  --ion-color-contrast: var(--ion-color-ginger-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-ginger-contrast-rgb);
+  --ion-color-shade: var(--ion-color-ginger-shade);
+  --ion-color-tint: var(--ion-color-ginger-tint);
+}
+
+.ion-color-zoe {
+  --ion-color-base: var(--ion-color-zoe);
+  --ion-color-base-rgb: var(--ion-color-zoe-rgb);
+  --ion-color-contrast: var(--ion-color-zoe-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-zoe-contrast-rgb);
+  --ion-color-shade: var(--ion-color-zoe-shade);
+  --ion-color-tint: var(--ion-color-zoe-tint);
 }
 
 // @media (prefers-color-scheme: dark) {

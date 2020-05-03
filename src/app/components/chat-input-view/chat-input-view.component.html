@@ -1,0 +1,25 @@
+<div class="text-area basic-text">
+  <ion-textarea #textarea (keydown.control.enter)="ctrlEnterPressed()"
+    color="dark"
+    rows="1" 
+    spellcheck="true"
+    placeholder="Say something..."
+    [class.active-input]="isActiveInput"
+    [autoGrow]="inputAutoGrow"
+    [value]="messageText"
+    (ionFocus)="isActiveInput = true"
+    (ionBlur)="isActiveInput = false"
+    (ionChange)="inputChange($event)">
+  </ion-textarea>
+  <ion-item lines="none">
+    <ion-label slot="start" class="basic-text" *ngIf="!inputDisabled && !sharedService.isMobileApp()">
+      Ctrl + Enter for next line.
+    </ion-label>
+    <ion-button slot="end" fill="clear" (click)="toggleEmoji()" *ngIf="!sharedService.isMobileApp()">
+      <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" fill="clear" [disabled]="inputDisabled" (click)="sendMessage()">
+      <ion-icon slot="icon-only" name="send"></ion-icon>
+    </ion-button>
+  </ion-item>
+</div>

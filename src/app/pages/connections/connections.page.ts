@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./connections.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConnectionsPage implements OnInit, OnDestroy {
+export class ConnectionsPage implements OnInit, AfterViewInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
@@ -37,6 +37,15 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.sharedStoreService.activeMenuSubject.next('connections');
 
     this.sharedService.setDefaultPhoneCountryCode();
+  }
+
+  ngAfterViewInit() {
+    try {
+      const content = document.querySelector('#connections-content');
+      this.sharedService.styleIonScrollbars(content);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   markForCheck() {

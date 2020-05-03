@@ -6,6 +6,8 @@ import { MatchesPageRoutingModule } from './matches-routing.module';
 import { MatchesPage } from './matches.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { MatchesModule } from 'src/app/components/matches/matches.module';
+import { ChatContentViewModule } from 'src/app/components/chat-content-view/chat-content-view.module';
+import { ChatInputViewModule } from 'src/app/components/chat-input-view/chat-input-view.module';
 
 @NgModule({
   imports: [
@@ -14,7 +16,9 @@ import { MatchesModule } from 'src/app/components/matches/matches.module';
     IonicModule,
     MatchesPageRoutingModule,
     TopMenuModule,
-    MatchesModule
+    MatchesModule,
+    ChatContentViewModule,
+    ChatInputViewModule
   ],
   declarations: [MatchesPage]
 })
