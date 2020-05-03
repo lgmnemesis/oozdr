@@ -34,7 +34,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     });
 
     this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
-    this.sharedStoreService.activeMenu = 'connections';
+    this.sharedStoreService.activeMenuSubject.next('connections');
 
     this.sharedService.setDefaultPhoneCountryCode();
   }

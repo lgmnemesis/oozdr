@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-top-menu',
@@ -15,11 +16,11 @@ export class TopMenuComponent implements OnInit {
     this.isVisible = is;
     if (is) {
       if (this.sharedStoreService.activeTopMenu === this.menu3) {
-        this.sharedStoreService.activeMenu = this.menu3;
+        this.sharedStoreService.activeMenuSubject.next(this.menu3);
         this.sharedStoreService.activeTopMenu = this.menu2;
       }
     } else {
-      if (this.sharedStoreService.activeMenu === this.menu3) {
+      if (this.activeMenu === this.menu3) {
         this.sharedStoreService.activeTopMenu = this.menu3;
       }
     }
@@ -29,6 +30,8 @@ export class TopMenuComponent implements OnInit {
   @Input() showChat = true;
   @Input() isLarge = true;
 
+  activeMenu: string;
+  _activeMenu: Subscription;
   isVisible = false;
   useToggle = false;
   
@@ -41,6 +44,10 @@ export class TopMenuComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
+      this.activeMenu = active;
+      this.markForCheck();
+    });
   }
 
   markForCheck() {
@@ -50,7 +57,7 @@ export class TopMenuComponent implements OnInit {
   clickedOn(url: string) {
     if (this.sharedStoreService.activeTopMenu !== url) {
       this.sharedStoreService.activeTopMenu = url;
-      this.sharedStoreService.activeMenu = url;
+      this.sharedStoreService.activeMenuSubject.next(url);
       this.goto(url);
     }
   }

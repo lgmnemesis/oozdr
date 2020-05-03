@@ -13,10 +13,13 @@ export class SharedStoreService {
   canEnterWelcome = false;
   canEnterHome = false;
   activeTopMenu = 'connections';
-  activeMenu = 'connections';
   shouldAnimateStartPage = true;
   isMatchesOpen = true;
   needToFinishInfoRegistration = false;
+  activeMatch: Connection = null;
+
+  activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
+  activeMenu$ = this.activeMenuSubject.asObservable();
 
   useSplitPaneSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   useSplitPane$ = this.useSplitPaneSubject.asObservable();
@@ -29,11 +32,11 @@ export class SharedStoreService {
 
   _profileDB: Subscription;
   profileSubject: BehaviorSubject<Profile> = new BehaviorSubject(null);
-  profile$: Observable<Profile> = this.profileSubject.asObservable();
+  profile$ = this.profileSubject.asObservable();
 
   _connectionsDB: Subscription;
   connectionsSubject: BehaviorSubject<Connection[]> = new BehaviorSubject(null);
-  connections$: Observable<Connection[]> = this.connectionsSubject.asObservable();
+  connections$ = this.connectionsSubject.asObservable();
 
   constructor(private databaseService: DatabaseService) { }
 
@@ -41,7 +44,7 @@ export class SharedStoreService {
     this.canEnterWelcome = false;
     this.canEnterHome = false;
     this.activeTopMenu = 'connections';
-    this.activeMenu = 'connections';
+    this.activeMenuSubject.next('connections');
     this.shouldAnimateStartPage = false;
     this.isMatchesOpen = true;
     this.needToFinishInfoRegistration = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
@@ -13,18 +13,25 @@ import { Router } from '@angular/router';
 export class MatchesComponent implements OnInit, OnDestroy {
 
   @Input() inViewMode = false;
+  @Output() matchClicked = new EventEmitter();
 
-  activeMatch: Connection = null;
+  activeMenu: string;
+  _activeMenu: Subscription;
   connections: Connection[];
   _connections: Subscription;
 
-  constructor(private sharedStoreService: SharedStoreService,
+  constructor(public sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private router: Router) {}
 
   ngOnInit() {
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
       this.connections = connections;
+      this.markForCheck();
+    });
+
+    this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
+      this.activeMenu = active;
       this.markForCheck();
     });
   }
@@ -34,7 +41,10 @@ export class MatchesComponent implements OnInit, OnDestroy {
   }
 
   matchButtonClicked(connection: Connection) {
-    this.activeMatch = connection;
+    console.log('match clicked');
+    this.sharedStoreService.activeMatch = connection;
+    this.sharedStoreService.activeMenuSubject.next('matches');
+    this.matchClicked.next(true);
     this.markForCheck();
     this.router.navigate(['/matches']).catch(error => console.error(error));
     // send selected match?/connetcion? so that matches component under matches page will display it
@@ -47,6 +57,9 @@ export class MatchesComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this._connections) {
       this._connections.unsubscribe();
+    }
+    if (this._activeMenu) {
+      this._activeMenu.unsubscribe();
     }
   }
 }

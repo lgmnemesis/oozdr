@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
-
 })
 export class AppComponent implements AfterViewInit {
 
   useSplitPane = false;
   isVisibleSplitPane = false;
+  activeMenu: string;
 
   tmps = [1, 2, 3, 4, 5, 6];
 
@@ -35,6 +35,7 @@ export class AppComponent implements AfterViewInit {
     this.authService.init();
     this.initializeApp();
     this.subscribeToSplitPaneEvents();
+    this.subscribeToActiveMenu();
   }
 
   ngAfterViewInit() {
@@ -71,37 +72,42 @@ export class AppComponent implements AfterViewInit {
     })
   }
 
+  subscribeToActiveMenu() {
+    this.sharedStoreService.activeMenu$.subscribe((active) => {
+      this.activeMenu = active;
+    });
+  }
+
   ionSplitPaneOutputEvent(event) {
     this.isVisibleSplitPane = event.detail.visible;
     this.sharedStoreService.isVisibleSplitPaneSubject.next(this.isVisibleSplitPane);
   } 
 
   connectionsClicked() {
-    this.sharedStoreService.activeMenu = 'connections';
-    this.gotoActiveMenu();
+    this.sharedStoreService.activeMenuSubject.next('connections');
+    this.gotoActiveMenu('connections');
   }
 
   matchesClicked() {
-    this.sharedStoreService.activeMenu = 'matches';
-    this.gotoActiveMenu();
+    this.sharedStoreService.activeMenuSubject.next('matches');
+    // this.gotoActiveMenu();
   }
 
   profileClicked() {
-    this.sharedStoreService.activeMenu = 'profile';
-    this.gotoActiveMenu();
+    this.sharedStoreService.activeMenuSubject.next('profile');
+    this.gotoActiveMenu('profile');
   }
 
   settingsClicked() {
-    this.sharedStoreService.activeMenu = 'settings';
-    this.gotoActiveMenu();
+    this.sharedStoreService.activeMenuSubject.next('settings');
+    this.gotoActiveMenu('settings');
   }
 
   logoutClicked() {
     this.authService.logout(true);
   }
 
-  gotoActiveMenu() {
-    const url = this.sharedStoreService.activeMenu;
+  gotoActiveMenu(url: string) {
     this.router.navigate([url]).catch(error => console.error(error));
   }
 
