@@ -5,6 +5,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Match } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/user';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-matches-page',
@@ -20,12 +21,14 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
   match: Match
   _match: Subscription;
+  _route: Subscription;
   user: User = this.authService.getUser();
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -38,6 +41,17 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
       this.match = match;
       this.markForCheck();
     })
+
+    this._route = this.route.params.subscribe(params => {
+      const mid = params['mid'];
+      const cid = params['cid'];
+      if (mid && cid) {
+        this.sharedStoreService.activeMatchConnectionId = cid;
+        this.sharedStoreService.subscribeToMatchById(mid);
+        this.sharedStoreService.activeMenuSubject.next('matches');
+        this.markForCheck();
+      }
+    });
   }
 
   ngAfterViewInit() {

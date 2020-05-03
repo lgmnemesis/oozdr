@@ -30,6 +30,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'match/:mid/:cid',
+    loadChildren: () => import('./pages/matches/matches.module').then( m => m.MatchesPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
     canActivate: [AuthGuard]

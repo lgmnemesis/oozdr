@@ -16,7 +16,7 @@ export class SharedStoreService {
   shouldAnimateStartPage = true;
   isMatchesOpen = true;
   needToFinishInfoRegistration = false;
-  activeMatchConnection: Connection = null;
+  activeMatchConnectionId: string = null;
   activeMatch: Match = null;
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
@@ -121,7 +121,6 @@ export class SharedStoreService {
       this._matchDB.unsubscribe();
     }
     this.databaseService.getMatchAsObservable(id).subscribe((match) => {
-      console.log('moshe sending match:', match);
       this.matchSubject.next(match);
       this.activeMatch = match;
     });

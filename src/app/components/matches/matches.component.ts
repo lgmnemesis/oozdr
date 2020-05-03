@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-matches',
@@ -41,21 +41,10 @@ export class MatchesComponent implements OnInit, OnDestroy {
   }
 
   matchButtonClicked(connection: Connection) {
-    console.log('match clicked');
-    if (!this.sharedStoreService.activeMatchConnection
-      || connection.id !== this.sharedStoreService.activeMatchConnection.id) {
-      this.sharedStoreService.activeMatchConnection = connection;
-      this.showMatchByConnection(connection);
-    }
-    this.sharedStoreService.activeMenuSubject.next('matches');
+    this.sharedStoreService.activeMatchConnectionId = connection.id;
+    const mid = connection.match_id;
     this.matchClicked.next(true);
-    this.markForCheck();
-    this.router.navigate(['/matches']).catch(error => console.error(error));
-  }
-
-  showMatchByConnection(connection: Connection) {
-    // get match from db + pass it to matches page via subject
-    this.sharedStoreService.subscribeToMatchById(connection.match_id);
+    this.router.navigate(['/match', mid, connection.id]).catch(error => console.error(error));
   }
 
   trackById(i, connection) {
