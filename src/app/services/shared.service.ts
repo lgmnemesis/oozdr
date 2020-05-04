@@ -67,9 +67,9 @@ export class SharedService {
     return false;
   }
 
-  styleIonScrollbars(element: any) {
-    if (this.isMobileApp()) {
-      return;
+  styleIonScrollbars(element: any): boolean {
+    if (!element || this.isMobileApp()) {
+      return false;
     }
     try {
       const stylesheet = `
@@ -97,6 +97,8 @@ export class SharedService {
       }
     } catch (error) {
       console.error(error);
+      return false;
     }
+    return true;
   }
 }
