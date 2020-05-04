@@ -13,6 +13,7 @@ import { Connection } from 'src/app/interfaces/profile';
 export class ConnectionsComponent implements OnInit, OnDestroy {
 
   connections: Connection[];
+  isOnlyMatches = false;
 
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
@@ -28,7 +29,12 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     });
 
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
+      console.log('connections:', connections);
       this.connections = connections;
+      this.isOnlyMatches = false;
+      if (connections && connections.length > 0) {
+        this.isOnlyMatches = connections.filter(c => !c.isMatched).length === 0;
+      }
       this.markForCheck();
     });
   }

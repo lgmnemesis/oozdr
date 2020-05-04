@@ -83,6 +83,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       },
       timestamp: this.sharedStoreService.timestamp,
       isMatched: false,
+      isNewMatch: false,
       match_id: '',
       match_user_id: '',
       user_id: profile.user_id,

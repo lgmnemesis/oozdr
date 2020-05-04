@@ -6,14 +6,15 @@ export interface Profile {
 
 export interface Connection {
   id: string;
-  user_id: string
-  match_user_id: string,
-  match_id: string,
-  user_mobile: string, // the user that open the connection (user_id)
-  user_profle_img_url: string,
-  basicInfo: BasicInfo,
-  timestamp: number,
-  isMatched: boolean
+  user_id: string;
+  match_user_id: string;
+  match_id: string;
+  user_mobile: string; // the user that open the connection (user_id)
+  user_profle_img_url: string;
+  basicInfo: BasicInfo;
+  timestamp: number;
+  isMatched: boolean;
+  isNewMatch: boolean;
 }
 
 export interface BasicInfo {

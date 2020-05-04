@@ -6,7 +6,7 @@ import { SharedService } from '../services/shared.service';
 })
 export class ScrollbarThemeDirective {
 
-  constructor(private el: ElementRef,
+  constructor(el: ElementRef,
     private sharedService: SharedService) {
     this.styleIonScrollbars(el);
    }
