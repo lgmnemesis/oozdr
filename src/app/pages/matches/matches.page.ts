@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./matches.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
+export class MatchesPage implements OnInit, OnDestroy {
 
   @ViewChild('content', {static: false}) private content: any;
 
@@ -64,22 +64,8 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit() {
-    this.setScrollBar();
-  }
-
   markForCheck() {
     this.cd.markForCheck();
-  }
-
-  setScrollBar(): boolean {
-    try {
-      const content = this.content.el;
-      return this.sharedService.styleIonScrollbars(content);
-    } catch (error) {
-      console.error(error);
-    }
-    return false;
   }
 
   scrollToBottom(time = 300) {

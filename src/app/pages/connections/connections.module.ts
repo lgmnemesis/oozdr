@@ -6,6 +6,7 @@ import { ConnectionsPageRoutingModule } from './connections-routing.module';
 import { ConnectionsPage } from './connections.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { ConnectionsModule } from 'src/app/components/connections/connections.module';
+import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { ConnectionsModule } from 'src/app/components/connections/connections.mo
     IonicModule,
     ConnectionsPageRoutingModule,
     TopMenuModule,
-    ConnectionsModule
+    ConnectionsModule,
+    ScrollbarThemeModule
   ],
   declarations: [ConnectionsPage]
 })

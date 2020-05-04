@@ -26,7 +26,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content #content>
+<ion-content #content appScrollbarTheme>
   <app-matches *ngIf="!isVisibleSplitPane && !isInsideChat"></app-matches>
   <div class="chat-container" *ngIf="isInsideChat">
     <app-chat-content-view [match]="match" [myUserId]="user?.user_id"></app-chat-content-view>

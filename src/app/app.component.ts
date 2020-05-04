@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
 
   useSplitPane = false;
   isVisibleSplitPane = false;
@@ -34,15 +34,6 @@ export class AppComponent implements AfterViewInit {
     this.initializeApp();
     this.subscribeToSplitPaneEvents();
     this.subscribeToActiveMenu();
-  }
-
-  ngAfterViewInit() {
-    try {
-      const content = document.querySelector('#split-pane-content');
-      this.sharedService.styleIonScrollbars(content);
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   initializeApp() {

@@ -66,39 +66,4 @@ export class SharedService {
     }
     return false;
   }
-
-  styleIonScrollbars(element: any): boolean {
-    if (!element || this.isMobileApp()) {
-      return false;
-    }
-    try {
-      const stylesheet = `
-        ::-webkit-scrollbar {
-          width: 8px;
-          background: var(--ion-color-minor);
-        }
-        ::-webkit-scrollbar,
-        ::-webkit-scrollbar-thumb {
-          overflow: visible;
-        }
-        ::-webkit-scrollbar-thumb {
-          background: var(--ion-color-light-shade);
-        }
-      `;
-
-      const styleElement = element.shadowRoot.querySelector('style');
-
-      if (styleElement) {
-        styleElement.append(stylesheet);
-      } else {
-        const barStyle = document.createElement('style');
-        barStyle.append(stylesheet);
-        element.shadowRoot.appendChild(barStyle);
-      }
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-    return true;
-  }
 }

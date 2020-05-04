@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { TopMenuModule } from './components/top-menu/top-menu.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatchesModule } from './components/matches/matches.module';
+import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,8 @@ import { MatchesModule } from './components/matches/matches.module';
     AngularFireAuthModule,
     TopMenuModule,
     HttpClientModule,
-    MatchesModule
+    MatchesModule,
+    ScrollbarThemeModule
   ],
   providers: [
     StatusBar,

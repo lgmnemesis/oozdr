@@ -8,6 +8,7 @@ import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { MatchesModule } from 'src/app/components/matches/matches.module';
 import { ChatContentViewModule } from 'src/app/components/chat-content-view/chat-content-view.module';
 import { ChatInputViewModule } from 'src/app/components/chat-input-view/chat-input-view.module';
+import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { ChatInputViewModule } from 'src/app/components/chat-input-view/chat-inp
     TopMenuModule,
     MatchesModule,
     ChatContentViewModule,
-    ChatInputViewModule
+    ChatInputViewModule,
+    ScrollbarThemeModule
   ],
   declarations: [MatchesPage]
 })

@@ -19,7 +19,7 @@
         </ion-item>
       </ng-container>
 
-      <ion-content id="split-pane-content">
+      <ion-content appScrollbarTheme>
         <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections'">
           <ion-item button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
             class="i-title" (click)="toggleMatches()">

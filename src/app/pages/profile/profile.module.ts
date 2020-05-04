@@ -6,6 +6,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { ProfileMenuModule } from 'src/app/components/profile-menu/profile-menu.module';
+import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { ProfileMenuModule } from 'src/app/components/profile-menu/profile-menu.
     IonicModule,
     ProfilePageRoutingModule,
     TopMenuModule,
-    ProfileMenuModule
+    ProfileMenuModule,
+    ScrollbarThemeModule
   ],
   declarations: [ProfilePage]
 })
