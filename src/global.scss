@@ -55,3 +55,11 @@
   from {opacity: 0;}
   to {opacity: 1;}
 }
+
+.match-options-popover {
+  --min-width: 300px;
+}
+
+.match-options-popover .popover-content {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+}

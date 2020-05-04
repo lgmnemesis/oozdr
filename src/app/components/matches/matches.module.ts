@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatchesComponent } from './matches.component';
-import { MatchPreviewModule } from '../match-preview/matche-preview.module';
+import { MatchPreviewModule } from '../match-preview/match-preview.module';
 
 @NgModule({
   imports: [CommonModule, MatchPreviewModule],

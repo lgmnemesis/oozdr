@@ -9,6 +9,7 @@ import { MatchesModule } from 'src/app/components/matches/matches.module';
 import { ChatContentViewModule } from 'src/app/components/chat-content-view/chat-content-view.module';
 import { ChatInputViewModule } from 'src/app/components/chat-input-view/chat-input-view.module';
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
+import { MatchOptionsModule } from 'src/app/components/match-options/match-options.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directi
     MatchesModule,
     ChatContentViewModule,
     ChatInputViewModule,
-    ScrollbarThemeModule
+    ScrollbarThemeModule,
+    MatchOptionsModule
   ],
   declarations: [MatchesPage]
 })

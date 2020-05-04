@@ -20,7 +20,7 @@
       <ion-label>
         {{ connection?.basicInfo?.name }}
       </ion-label>
-      <ion-button slot="end" fill="clear">
+      <ion-button slot="end" fill="clear" (click)="openOptions($event)">
         <ion-icon color="dark" name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-item>

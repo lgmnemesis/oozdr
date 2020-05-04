@@ -6,6 +6,8 @@ import { Match, Connection } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { MatchOptionsComponent } from 'src/app/components/match-options/match-options.component';
 
 @Component({
   selector: 'app-matches-page',
@@ -26,13 +28,15 @@ export class MatchesPage implements OnInit, OnDestroy {
   isInsideChat = false;
   defaultProfileImg = this.sharedService.defaultProfileImg;
   connection: Connection;
+  inOpenOptionsProcess = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private popoverCtrl: PopoverController) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -76,6 +80,33 @@ export class MatchesPage implements OnInit, OnDestroy {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async openOptions(ev) {
+    if (this.inOpenOptionsProcess) {
+      return;
+    }
+    this.inOpenOptionsProcess = true;
+
+    const popover = await this.popoverCtrl.create({
+      component: MatchOptionsComponent,
+      event: ev,
+      mode: 'ios',
+      cssClass: 'match-options-popover'
+    });
+
+    popover.onWillDismiss().then((data) => {
+      console.log('data:', data);
+      this.inOpenOptionsProcess = false;
+    }).catch(error => {
+      console.error(error);
+      this.inOpenOptionsProcess = false;
+    });
+
+    return await popover.present().catch(error => {
+      console.error(error);
+      this.inOpenOptionsProcess = false;
+    });
   }
 
   goBack() {
