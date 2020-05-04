@@ -5,7 +5,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Match, Connection } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/user';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-matches-page',
@@ -31,7 +31,8 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
     private authService: AuthService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -48,13 +49,14 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     this._route = this.route.params.subscribe(params => {
       const cid = params['cid'];
       this.isInsideChat = false;
+      this.sharedStoreService.activeMatchConnectionId = null;
+      this.sharedStoreService.activeMenuSubject.next('matches');
       if (cid) {
         this.isInsideChat = true;
         this.connection = this.sharedStoreService.getConnectionById(cid);
         if (this.connection) {
-          this.sharedStoreService.activeMatchConnectionId = cid;
           this.sharedStoreService.subscribeToMatchById(this.connection.match_id);
-          this.sharedStoreService.activeMenuSubject.next('matches');
+          this.sharedStoreService.activeMatchConnectionId = cid;
         }
         this.markForCheck();
       }
@@ -83,6 +85,10 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  goBack() {
+    this.router.navigate(['/matches']).catch(error => console.error(error));
   }
 
   ngOnDestroy() {

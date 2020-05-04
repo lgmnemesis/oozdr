@@ -7,7 +7,9 @@
 
     <ng-container *ngIf="isInsideChat">
       <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+        <ion-button fill="clear" (click)="goBack()">
+          <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        </ion-button>
       </ion-buttons>
 
       <ion-item lines="none">
