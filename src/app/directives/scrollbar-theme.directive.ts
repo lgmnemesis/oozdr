@@ -1,16 +1,18 @@
 import { Directive, ElementRef, NgModule } from '@angular/core';
+import { SharedService } from '../services/shared.service';
 
 @Directive({
   selector: '[appScrollbarTheme]'
 })
 export class ScrollbarThemeDirective {
 
-  constructor(el: ElementRef) {
+  constructor(private el: ElementRef,
+    private sharedService: SharedService) {
     this.styleIonScrollbars(el);
    }
 
    styleIonScrollbars(element: ElementRef): boolean {
-    if (!element) {
+    if (!element || this.sharedService.isMobileApp()) {
       return false;
     }
     try {
