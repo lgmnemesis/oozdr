@@ -39,3 +39,19 @@
   --border-radius: 20px;
   --max-width: 450px;
 }
+
+.ion-date-style-options .picker-wrapper {
+  top: 0;
+  border-radius: 20px;
+  animation: fadeInDate ease-in-out 500ms;
+  -webkit-animation: fadeInDate ease-in-out 500ms;
+}
+
+@-webkit-keyframes fadeInDate {
+  from {opacity: 0;}
+  to {opacity: 1; }
+}
+@keyframes fadeInDate {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}

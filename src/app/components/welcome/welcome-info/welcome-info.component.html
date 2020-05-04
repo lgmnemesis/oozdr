@@ -59,11 +59,12 @@
       <p>Birthday</p>
       <ion-item lines="none" class="item-input">
         <ion-icon size="small" name="calendar-outline"></ion-icon>
-        <ion-datetime 
+        <ion-datetime
           displayFormat="MM DD YY" 
           placeholder="Select Date"
           min="1900" max="2007"
           [value]="basicInfo?.birthday"
+          [pickerOptions]="customPickerOptions"
           (ionChange)="setBirthday($event)">
         </ion-datetime>
       </ion-item>

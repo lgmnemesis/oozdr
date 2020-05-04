@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmi
 import { BasicInfo } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import * as Croppie from 'croppie';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-welcome-info',
@@ -28,10 +29,19 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
   isBirthdayError = false;
   isDisableNextButton = false;
 
+  customPickerOptions: any = {};
+
   constructor(private welcomeService: WelcomeService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
+    if (!this.sharedService.isMobileApp()) {
+      this.customPickerOptions = {
+        cssClass: 'ion-date-style-options',
+        animated: false
+      };
+    }
   }
 
   ngAfterViewInit() {
