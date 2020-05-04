@@ -26,6 +26,7 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
   isInsideChat = false;
   defaultProfileImg = this.sharedService.defaultProfileImg;
   connection: Connection;
+  contentId = 'matches-content';
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -43,15 +44,18 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
 
     this._match = this.sharedStoreService.matchSubject.subscribe((match) => {
       this.match = match;
+      this.scrollToBottom();
       this.markForCheck();
     })
 
     this._route = this.route.params.subscribe(params => {
-      const cid = params['cid'];
+      const cid: string = params['cid'];
       this.isInsideChat = false;
       this.sharedStoreService.activeMatchConnectionId = null;
       this.sharedStoreService.activeMenuSubject.next('matches');
+      this.contentId = 'matches-content';
       if (cid) {
+        this.contentId = `matches-content-${cid.split('_')[0]}`;
         this.isInsideChat = true;
         this.connection = this.sharedStoreService.getConnectionById(cid);
         if (this.connection) {
@@ -65,14 +69,11 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     try {
-      const content = document.querySelector('#matches-content');
+      const content = document.querySelector(`#${this.contentId}`);
       this.sharedService.styleIonScrollbars(content);
     } catch (error) {
       console.error(error);
     }
-    setTimeout(() => {
-      this.scrollToBottom(0);
-    }, 100);
   }
 
   markForCheck() {
@@ -81,7 +82,9 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
 
   scrollToBottom(time = 300) {
     try {
-      this.content.scrollToBottom(time);
+      if (this.content) {
+        this.content.scrollToBottom(time);
+      }
     } catch (error) {
       console.error(error);
     }
