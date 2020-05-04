@@ -13,6 +13,7 @@ export class SharedService {
   ipInfoUrl = 'https://ipapi.co/json';
   defaultPhoneCountryCode: string = null;
   countryCodeStoreKeyName = 'country_code';
+  defaultProfileImg =  '/assets/images/profile-def.png';
 
   constructor(private httpClient: HttpClient,
     private platform: Platform) { }

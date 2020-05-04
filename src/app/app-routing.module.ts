@@ -30,7 +30,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'match/:mid/:cid',
+    path: 'match/:cid',
     loadChildren: () => import('./pages/matches/matches.module').then( m => m.MatchesPageModule),
     canActivate: [AuthGuard]
   },

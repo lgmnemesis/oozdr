@@ -1,11 +1,26 @@
 <ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
   <ion-toolbar>
+
     <app-top-menu *ngIf="!isInsideChat"
       [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false">
     </app-top-menu>
-    <ion-buttons slot="start" *ngIf="isInsideChat">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+
+    <ng-container *ngIf="isInsideChat">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image">
+        </ion-avatar>
+        <ion-label>
+          {{ connection?.basicInfo?.name }}
+        </ion-label>
+      </ion-item>
+
+    </ng-container>
+
   </ion-toolbar>
 </ion-header>
 

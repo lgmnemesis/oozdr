@@ -18,6 +18,7 @@ export class SharedStoreService {
   needToFinishInfoRegistration = false;
   activeMatchConnectionId: string = null;
   activeMatch: Match = null;
+  connections: Connection[];
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();
@@ -87,9 +88,17 @@ export class SharedStoreService {
   async registerToConnections(userId: string) {
     if (userId && (!this._connectionsDB || this._connectionsDB.closed)) {
       this._connectionsDB = this.databaseService.getConnectionsAsObservable(userId).subscribe((connections) => {
+        this.connections = connections;
         this.connectionsSubject.next(connections);
       });
     }
+  }
+
+  getConnectionById(id: string): Connection {
+    if (!this.connections) {
+      return null;
+    }
+    return this.connections.find((c => c.id === id));
   }
 
   updateProfile(profile: Profile): Promise<void> {

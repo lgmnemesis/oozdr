@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Connection } from 'src/app/interfaces/profile';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-match-preview',
@@ -18,9 +19,11 @@ export class MatchPreviewComponent implements OnInit {
   @Output() buttonEvent = new EventEmitter;
 
   isActiveMatch = false;
-  defaultProfileImg =  '../../../assets/images/profile-def.png';
+  defaultProfileImg =  this.sharedService.defaultProfileImg;
+  
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef,
+    private sharedService: SharedService) {}
 
   ngOnInit() {
   }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { Match } from 'src/app/interfaces/profile';
+import { Match, Connection } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/user';
 import { ActivatedRoute } from '@angular/router';
@@ -24,6 +24,8 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
   _route: Subscription;
   user: User = this.authService.getUser();
   isInsideChat = false;
+  defaultProfileImg = this.sharedService.defaultProfileImg;
+  connection: Connection;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -44,14 +46,16 @@ export class MatchesPage implements OnInit, AfterViewInit, OnDestroy {
     })
 
     this._route = this.route.params.subscribe(params => {
-      const mid = params['mid'];
       const cid = params['cid'];
       this.isInsideChat = false;
-      if (mid && cid) {
+      if (cid) {
         this.isInsideChat = true;
-        this.sharedStoreService.activeMatchConnectionId = cid;
-        this.sharedStoreService.subscribeToMatchById(mid);
-        this.sharedStoreService.activeMenuSubject.next('matches');
+        this.connection = this.sharedStoreService.getConnectionById(cid);
+        if (this.connection) {
+          this.sharedStoreService.activeMatchConnectionId = cid;
+          this.sharedStoreService.subscribeToMatchById(this.connection.match_id);
+          this.sharedStoreService.activeMenuSubject.next('matches');
+        }
         this.markForCheck();
       }
     });
