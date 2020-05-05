@@ -1,4 +1,4 @@
-<ion-card color="main" class="animated fadeInDown" *ngIf="message?.isVisible && message?.id === id">
+<ion-card color="main" class="animated hide" [class.show]="message?.isVisible && message?.id === id">
   <ion-card-header>
     <ion-card-title class="title-text">{{ message?.header }}</ion-card-title>
   </ion-card-header>
