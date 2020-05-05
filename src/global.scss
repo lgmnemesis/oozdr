@@ -63,3 +63,13 @@
 .match-options-popover .popover-content {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
+
+.toast-style {
+  --background: #50c8ff;
+  --color: var(--ion-color-minor);
+  // .basic-text - copied fron fonts-text.css
+  font-family: 'Roboto', sans-serif !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  font-size: 16px !important;
+}

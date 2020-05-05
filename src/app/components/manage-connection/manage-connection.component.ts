@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { SharedService } from 'src/app/services/shared.service';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
+import { ToastMessage } from 'src/app/interfaces/toast-message';
 
 export class Q {
   name = '';
@@ -89,7 +90,16 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       user_mobile: profile.basicInfo.mobile,
       user_profle_img_url: profile.basicInfo.profile_img_url
     }
-    this.sharedStoreService.addConnection(connection).catch(error => console.error(error));
+    this.sharedStoreService.addConnection(connection)
+    .then(() => {
+        const message: ToastMessage = {
+          header: `${connection.basicInfo.name} was added to your connections.`,
+          message: `If ${connection.basicInfo.name} added you as well or will add you in the future to their connections, We will update both of you immediately.`,
+          duration: -1,
+        }
+        this.sharedStoreService.toastNotificationsSubject.next(message);
+    })
+    .catch(error => console.error(error));
     this.close();
   }
 

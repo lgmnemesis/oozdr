@@ -3,6 +3,7 @@ import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-connections',
@@ -20,7 +21,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   _connections: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
@@ -29,7 +31,6 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     });
 
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
-      console.log('connections:', connections);
       this.connections = connections;
       this.isOnlyMatches = false;
       if (connections && connections.length > 0) {
