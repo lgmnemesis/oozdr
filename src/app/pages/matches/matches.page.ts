@@ -21,13 +21,13 @@ export class MatchesPage implements OnInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
-  match: Match
   _match: Subscription;
   _route: Subscription;
   user: User = this.authService.getUser();
   isInsideChat = false;
   defaultProfileImg = this.sharedService.defaultProfileImg;
   connection: Connection;
+  match: Match
   inOpenOptionsProcess = false;
 
   constructor(private sharedStoreService: SharedStoreService,
@@ -45,7 +45,7 @@ export class MatchesPage implements OnInit, OnDestroy {
       this.markForCheck();
     });
 
-    this._match = this.sharedStoreService.matchSubject.subscribe((match) => {
+    this._match = this.sharedStoreService.match$.subscribe((match) => {
       this.match = match;
       this.scrollToBottom();
       this.markForCheck();
