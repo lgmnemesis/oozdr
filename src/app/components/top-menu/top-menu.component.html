@@ -38,7 +38,8 @@
       [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === menu3"
       [size]="isLarge ? 'large' : 'default'" fill="clear"
       (click)="clickedOn(menu3)">
-      <ion-icon name="fitness-outline"></ion-icon>
+      <ion-icon class="matches-icon" name="fitness-outline"></ion-icon>
+      <div class="new-matches-ind" *ngIf="isNewMatches"></div>
     </ion-button>
   </ion-item>
 </div>

@@ -27,3 +27,16 @@ ion-button {
   --color: var(--ion-color-minor);
   border-radius: 10px;
 }
+
+.matches-icon {
+  position: relative;
+}
+
+.new-matches-ind {
+  position: absolute;
+  top: 5px;
+  width: 5px;
+  height: 5px;
+  background: var(--ion-color-danger);
+  border-radius: 50%;
+}

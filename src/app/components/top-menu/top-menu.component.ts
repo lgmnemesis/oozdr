@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./top-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TopMenuComponent implements OnInit {
+export class TopMenuComponent implements OnInit, OnDestroy {
 
   @Input()
   set visible(is: boolean) {
@@ -30,10 +30,13 @@ export class TopMenuComponent implements OnInit {
   @Input() showChat = true;
   @Input() isLarge = true;
 
-  activeMenu: string;
   _activeMenu: Subscription;
+  _newMatchesIndicator: Subscription;
+
+  activeMenu: string;
   isVisible = false;
   useToggle = false;
+  isNewMatches = false;
   
   menu1 = 'profile';
   menu2 = 'connections';
@@ -46,6 +49,11 @@ export class TopMenuComponent implements OnInit {
   ngOnInit() {
     this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
       this.activeMenu = active;
+      this.markForCheck();
+    });
+
+    this._newMatchesIndicator = this.sharedStoreService.newMatchesIndicator$.subscribe((isNew) => {
+      this.isNewMatches = isNew;
       this.markForCheck();
     });
   }
@@ -73,5 +81,14 @@ export class TopMenuComponent implements OnInit {
 
   goto(url) {
     this.router.navigate([url]).catch(error => console.error(error));
+  }
+
+  ngOnDestroy() {
+    if (this._activeMenu) {
+      this._activeMenu.unsubscribe();
+    }
+    if (this._newMatchesIndicator) {
+      this._newMatchesIndicator.unsubscribe();
+    }
   }
 }

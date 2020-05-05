@@ -1,5 +1,6 @@
 @import '../../styles/fonts-text';
 @import '../../styles/global-styles';
+@import '../../styles/animation';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   ion-card {
@@ -39,4 +40,9 @@ ion-label {
 
 ion-chip {
   margin: 0;
+}
+
+.active-animation {
+  @extend .animated;
+  @extend .zoomIn;
 }

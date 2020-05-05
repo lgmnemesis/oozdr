@@ -44,6 +44,10 @@ export class SharedStoreService {
   matchSubject: BehaviorSubject<Match> = new BehaviorSubject(null);
   match$ = this.matchSubject.asObservable();
 
+  _newMatchesIndicator: Subscription;
+  newMatchesIndicatorSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  newMatchesIndicator$ = this.newMatchesIndicatorSubject.asObservable();
+
   constructor(private databaseService: DatabaseService) { }
 
   resetStore() {
@@ -61,6 +65,7 @@ export class SharedStoreService {
     this.profileSubject.next(null);
     this.connectionsSubject.next(null);
     this.matchSubject.next(null);
+    this.newMatchesIndicatorSubject.next(false);
 
     this.unsubscribe();
   }

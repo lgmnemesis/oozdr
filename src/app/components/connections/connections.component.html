@@ -10,11 +10,13 @@
     <ion-row *ngIf="connections?.length > 0"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
-        <app-connection [connection]="connection" *ngIf="!connection.isMatched"></app-connection>
+        <app-connection *ngIf="!connection.isMatched || connection.isNewMatch"
+          [connection]="connection">
+        </app-connection>
       </ion-col>
     </ion-row>
 
-    <!-- 1. incase there are no connections -->
+    <!-- 1. Incase there are no connections -->
     <ion-row *ngIf="connections?.length === 0"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto">
@@ -22,7 +24,7 @@
       </ion-col>
     </ion-row>
 
-    <!-- 2. incase there are matches but no connections. -->
+    <!-- 2. Incase there are matches but no connections. -->
     <ion-row *ngIf="isOnlyMatches"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto">

@@ -33,7 +33,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       this.connections = connections;
       this.isOnlyMatches = false;
       if (connections && connections.length > 0) {
-        this.isOnlyMatches = connections.filter(c => !c.isMatched).length === 0;
+        this.isOnlyMatches = connections.filter(c => !(c.isMatched && !c.isNewMatch)).length === 0;
+        const isNewMatches = connections.findIndex(c => c.isNewMatch) > -1;
+        this.sharedStoreService.newMatchesIndicatorSubject.next(isNewMatches);
       }
       this.markForCheck();
     });
