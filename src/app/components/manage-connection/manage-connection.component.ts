@@ -92,15 +92,35 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     }
     this.sharedStoreService.addConnection(connection)
     .then(() => {
-        const message: ToastMessage = {
-          header: `${connection.basicInfo.name} was added to your connections.`,
-          message: `If ${connection.basicInfo.name} added you as well or will add you in the future to their connections, We will update both of you immediately.`,
-          duration: -1,
-        }
-        this.sharedStoreService.toastNotificationsSubject.next(message);
+      this.sendToastMessage(connection);
     })
     .catch(error => console.error(error));
     this.close();
+  }
+
+  sendToastMessage(connection: Connection) {
+    const message: ToastMessage = {
+      header: `${connection.basicInfo.name} was added to your connections.`,
+      message: `If ${connection.basicInfo.name} added you as well or will add you in the future to their connections, We will update both of you immediately.`,
+      id: 'connection_added',
+      isVisible: true,
+      duration: -1,
+      dismissButton: true,
+      dismissButtonText: 'got it',
+      persistOnDismiss: true
+    }
+    try {
+      const isPers = localStorage.getItem(`toast-notif-${message.id}`);
+      if (isPers) {
+        message.duration = 5000;
+        message.dismissButton = true;
+        message.dismissButtonText = 'Ok';
+        message.persistOnDismiss = false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    this.sharedStoreService.toastNotificationsSubject.next(message);
   }
 
   close() {

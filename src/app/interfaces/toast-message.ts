@@ -1,7 +1,12 @@
 export interface ToastMessage {
   header?: string;
   message: string;
+  id: string;
+  isVisible: boolean;
   duration?: number;
+  dismissButton?: boolean;
+  dismissButtonText?: string;
+  persistOnDismiss?: boolean;
 }
 
 export interface IonToastMessage {
