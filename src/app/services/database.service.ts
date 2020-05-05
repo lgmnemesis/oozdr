@@ -55,8 +55,12 @@ export class DatabaseService {
 
   async addConnection(connection: Connection): Promise<void> {
     const path = 'connections/';
+    const timestamp = this.timestamp;
     try {
-      return this.afs.collection(path).doc(connection.id).set(connection);
+      return this.afs.collection(path).doc(connection.id).set({
+        ...connection,
+        createdAt: timestamp
+      });
     }
     catch (error) {
       return console.error(error);
@@ -109,6 +113,10 @@ export class DatabaseService {
 
   get timestamp(): number {
     return new Date().getTime();
+  }
+
+  get serverTimestamp() { // not in use for now
+    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   async moshe_tmp(connection: Connection) {

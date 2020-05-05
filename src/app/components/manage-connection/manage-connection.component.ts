@@ -81,7 +81,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
         profile_img_url: '',
         profile_img_url_org: ''
       },
-      timestamp: this.sharedStoreService.timestamp,
       isMatched: false,
       isNewMatch: false,
       match_id: '',
