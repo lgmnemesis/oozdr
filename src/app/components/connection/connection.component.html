@@ -1,4 +1,7 @@
-<ion-card [class.active-animation]="connection?.isNewMatch">
+<ion-card 
+  [button]="connection?.isNewMatch" 
+  [class.active-animation]="connection?.isNewMatch"
+  (click)="cardClicked()">
   <ion-item lines="full" class="i-title">
     <ion-icon name="person-circle-outline" slot="start" color="primary"></ion-icon>
     <ion-label color="primary" class="bold-text ion-text-wrap">{{ connection?.basicInfo?.name }}</ion-label>

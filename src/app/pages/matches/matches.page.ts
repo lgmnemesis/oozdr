@@ -63,8 +63,8 @@ export class MatchesPage implements OnInit, OnDestroy {
           this.sharedStoreService.subscribeToMatchById(this.connection.match_id);
           this.sharedStoreService.activeMatchConnectionId = cid;
         }
-        this.markForCheck();
       }
+      this.markForCheck();
     });
   }
 

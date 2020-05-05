@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, O
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -15,13 +16,13 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   set visible(is: boolean) {
     this.isVisible = is;
     if (is) {
-      if (this.sharedStoreService.activeTopMenu === this.menu3) {
-        this.sharedStoreService.activeMenuSubject.next(this.menu3);
-        this.sharedStoreService.activeTopMenu = this.menu2;
+      if (this.sharedStoreService.activeTopMenu === this.sharedService.menu3) {
+        this.sharedStoreService.activeMenuSubject.next(this.sharedService.menu3);
+        this.sharedStoreService.activeTopMenu = this.sharedService.menu2;
       }
     } else {
-      if (this.activeMenu === this.menu3) {
-        this.sharedStoreService.activeTopMenu = this.menu3;
+      if (this.activeMenu === this.sharedService.menu3) {
+        this.sharedStoreService.activeTopMenu = this.sharedService.menu3;
       }
     }
     this.markForCheck();
@@ -37,18 +38,18 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   isVisible = false;
   useToggle = false;
   isNewMatches = false;
-  
-  menu1 = 'profile';
-  menu2 = 'connections';
-  menu3 = 'matches';
 
   constructor(private cd: ChangeDetectorRef,
     public sharedStoreService: SharedStoreService,
+    public sharedService: SharedService,
     private router: Router) { }
 
   ngOnInit() {
     this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
       this.activeMenu = active;
+      if (active === this.sharedService.menu3 && !this.isVisible) {
+        this.sharedStoreService.activeTopMenu = active;
+      }
       this.markForCheck();
     });
 
@@ -71,10 +72,10 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   toggleMenus() {
-    if (this.sharedStoreService.activeTopMenu === this.menu1) {
-      this.sharedStoreService.activeTopMenu = this.menu2;
+    if (this.sharedStoreService.activeTopMenu === this.sharedService.menu1) {
+      this.sharedStoreService.activeTopMenu = this.sharedService.menu2;
     } else {
-      this.sharedStoreService.activeTopMenu = this.menu1
+      this.sharedStoreService.activeTopMenu = this.sharedService.menu1
     }
     this.goto(this.sharedStoreService.activeTopMenu);
   }

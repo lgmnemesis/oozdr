@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
-import { Router } from '@angular/router';
+import { ConnectionsService } from 'src/app/services/connections.service';
 
 @Component({
   selector: 'app-matches',
@@ -21,7 +21,7 @@ export class MatchesComponent implements OnInit, OnDestroy {
 
   constructor(public sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private router: Router) {}
+    private connetionsService: ConnectionsService) {}
 
   ngOnInit() {
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
@@ -40,12 +40,8 @@ export class MatchesComponent implements OnInit, OnDestroy {
   }
 
   matchButtonClicked(connection: Connection) {
-    this.sharedStoreService.activeMatchConnectionId = connection.id;
     this.matchClicked.next(true);
-    if (connection.isNewMatch) {
-      this.sharedStoreService.updateConnectionData(connection, {isNewMatch: false});
-    }
-    this.router.navigate(['/match', connection.id]).catch(error => console.error(error));
+    this.connetionsService.gotoMatch(connection);
   }
 
   trackById(i, connection) {

@@ -6,38 +6,38 @@
       [size]="isLarge ? 'large' : 'default'" fill="clear"
       (click)="toggleMenus()">
       <ion-icon 
-        [name]="sharedStoreService?.activeTopMenu === menu1 ? 'leaf-outline' : 'person-outline'">
+        [name]="sharedStoreService?.activeTopMenu === sharedService.menu1 ? 'leaf-outline' : 'person-outline'">
       </ion-icon>
     </ion-button>
 
     <ng-container *ngIf="!useToggle || !isVisible">
       <ion-button 
-        [class.passive]="!isVisible && sharedStoreService?.activeTopMenu !== menu1"
-        [class.active]="!isVisible && sharedStoreService?.activeTopMenu === menu1"
-        [class.passive-visible]="isVisible && sharedStoreService?.activeTopMenu !== menu1"
-        [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === menu1"
+        [class.passive]="!isVisible && sharedStoreService?.activeTopMenu !== sharedService.menu1"
+        [class.active]="!isVisible && sharedStoreService?.activeTopMenu === sharedService.menu1"
+        [class.passive-visible]="isVisible && sharedStoreService?.activeTopMenu !== sharedService.menu1"
+        [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === sharedService.menu1"
         [size]="isLarge ? 'large' : 'default'" fill="clear"
-        (click)="clickedOn(menu1)">
+        (click)="clickedOn(sharedService.menu1)">
         <ion-icon name="person-outline"></ion-icon>
       </ion-button>
       <ion-button 
-        [class.passive]="!isVisible && sharedStoreService?.activeTopMenu !== menu2"
-        [class.active]="!isVisible && sharedStoreService?.activeTopMenu === menu2"
-        [class.passive-visible]="isVisible && sharedStoreService?.activeTopMenu !== menu2"
-        [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === menu2"
+        [class.passive]="!isVisible && sharedStoreService?.activeTopMenu !== sharedService.menu2"
+        [class.active]="!isVisible && sharedStoreService?.activeTopMenu === sharedService.menu2"
+        [class.passive-visible]="isVisible && sharedStoreService?.activeTopMenu !== sharedService.menu2"
+        [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === sharedService.menu2"
         [size]="isLarge ? 'large' : 'default'" fill="clear"
-        (click)="clickedOn(menu2)">
+        (click)="clickedOn(sharedService.menu2)">
         <ion-icon name="leaf-outline"></ion-icon>
       </ion-button>
     </ng-container>
     
     <ion-button *ngIf="showChat"
-      [class.passive]="!isVisible && sharedStoreService?.activeTopMenu !== menu3"
-      [class.active]="!isVisible && sharedStoreService?.activeTopMenu === menu3"
-      [class.passive-visible]="isVisible && sharedStoreService?.activeTopMenu !== menu3"
-      [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === menu3"
+      [class.passive]="!isVisible && sharedStoreService?.activeTopMenu !== sharedService.menu3"
+      [class.active]="!isVisible && sharedStoreService?.activeTopMenu === sharedService.menu3"
+      [class.passive-visible]="isVisible && sharedStoreService?.activeTopMenu !== sharedService.menu3"
+      [class.active-visible]="isVisible && sharedStoreService?.activeTopMenu === sharedService.menu3"
       [size]="isLarge ? 'large' : 'default'" fill="clear"
-      (click)="clickedOn(menu3)">
+      (click)="clickedOn(sharedService.menu3)">
       <ion-icon name="fitness-outline"></ion-icon>
       <div class="new-matches-ind" *ngIf="isNewMatches"></div>
     </ion-button>

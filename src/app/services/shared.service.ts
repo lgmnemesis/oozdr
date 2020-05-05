@@ -15,6 +15,10 @@ export class SharedService {
   countryCodeStoreKeyName = 'country_code';
   defaultProfileImg =  '/assets/images/profile-def.png';
 
+  menu1 = 'profile';
+  menu2 = 'connections';
+  menu3 = 'matches';
+
   constructor(private httpClient: HttpClient,
     private platform: Platform) { }
 

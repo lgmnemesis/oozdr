@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 import { Connection } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AlertController } from '@ionic/angular';
+import { ConnectionsService } from 'src/app/services/connections.service';
 
 @Component({
   selector: 'app-connection',
@@ -16,9 +17,16 @@ export class ConnectionComponent implements OnInit {
   inDisconnectProcess = false;
 
   constructor(private sharedStoreService: SharedStoreService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private connectionsService: ConnectionsService) { }
 
   ngOnInit() {}
+
+  cardClicked() {
+    if (this.connection.isNewMatch) {
+      this.connectionsService.gotoMatch(this.connection);
+    }
+  }
 
   async disconnect() {
     const profile = await this.sharedStoreService.getProfile();
