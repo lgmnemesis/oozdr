@@ -23,7 +23,7 @@ service cloud.firestore {
     
     match /connections/{userId} {
     	allow read: if isOwner();
-    	allow create: if isSignedIn() && isValidForConnectionDoc();
+    	allow create: if isSignedIn() && isValidForConnectionCreateDoc();
     	allow update: if isOwner() && isValidForConnectionUpdateDoc();
     	allow delete: if isOwner();
     }
@@ -49,8 +49,14 @@ service cloud.firestore {
     	&& incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
   }
   
+  function isValidForConnectionCreateDoc() {
+  	return isValidForConnectionDoc()
+    	&& incomingData().createdAt == request.time;
+  }
+  
   function isValidForConnectionUpdateDoc() {
-  	return isValidForConnectionDoc(); // for now
+  	return isValidForConnectionDoc()
+    	&& incomingData().createdAt == existingData().createdAt;
   }
   
   function isValid() {

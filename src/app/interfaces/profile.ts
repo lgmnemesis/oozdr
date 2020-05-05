@@ -12,7 +12,7 @@ export interface Connection {
   user_mobile: string; // the user that open the connection (user_id)
   user_profle_img_url: string;
   basicInfo: BasicInfo;
-  createdAt?: Date;
+  createdAt?: firebase.firestore.Timestamp;
   isMatched: boolean;
   isNewMatch: boolean;
 }

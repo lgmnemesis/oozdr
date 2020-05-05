@@ -55,7 +55,7 @@ export class DatabaseService {
 
   async addConnection(connection: Connection): Promise<void> {
     const path = 'connections/';
-    const timestamp = this.timestamp;
+    const timestamp = this.serverTimestamp;
     try {
       return this.afs.collection(path).doc(connection.id).set({
         ...connection,
@@ -115,7 +115,7 @@ export class DatabaseService {
     return new Date().getTime();
   }
 
-  get serverTimestamp() { // not in use for now
+  get serverTimestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
   }
 
