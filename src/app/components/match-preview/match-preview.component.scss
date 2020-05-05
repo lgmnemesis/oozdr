@@ -1,6 +1,4 @@
-.i-match {
-  --background: var(--ion-color-minor);
-}
+@import '../../styles/animation';
 
 ion-item {
   --min-height: 70px;
@@ -8,14 +6,8 @@ ion-item {
   background: var(--ion-color-minor);
 }
 
-.item-active {
-  --background: var(--ion-color-light);
-}
-
-ion-icon {
-  font-size: 37px;
-  border-radius: 100%;
-  border: 1px solid;
+.i-match {
+  --background: var(--ion-color-minor);
 }
 
 .isActive {

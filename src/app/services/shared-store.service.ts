@@ -109,6 +109,10 @@ export class SharedStoreService {
     return this.databaseService.addConnection(connection);
   }
 
+  updateConnectionData(connection: Connection, data: any): Promise<void> {
+    return this.databaseService.updateConnectionData(connection, data);
+  }
+
   removeConnection(connection: Connection): Promise<void> {
     return this.databaseService.removeConnection(connection);
   }

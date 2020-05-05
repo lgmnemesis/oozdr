@@ -9,4 +9,8 @@
     <h2>{{ connection?.basicInfo?.name }}</h2>
     <p>last message</p>
   </ion-label>
+  <ion-icon *ngIf="connection?.isNewMatch"
+    class="animated zoomIn"
+    slot="end" name="bonfire-outline" color="danger">
+  </ion-icon>
 </ion-item>

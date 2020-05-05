@@ -42,6 +42,9 @@ export class MatchesComponent implements OnInit, OnDestroy {
   matchButtonClicked(connection: Connection) {
     this.sharedStoreService.activeMatchConnectionId = connection.id;
     this.matchClicked.next(true);
+    if (connection.isNewMatch) {
+      this.sharedStoreService.updateConnectionData(connection, {isNewMatch: false});
+    }
     this.router.navigate(['/match', connection.id]).catch(error => console.error(error));
   }
 
