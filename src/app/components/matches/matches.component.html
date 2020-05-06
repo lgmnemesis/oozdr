@@ -3,12 +3,8 @@
     <ion-col size="auto">
       <ion-card [class.no-box]="sharedStoreService.activeTopMenu !== sharedService.menu3"
         [color]="sharedStoreService.activeTopMenu === sharedService.menu3 ? 'secondary' : 'main'">
-        <ion-card-header>
-          <ion-card-title class="title-text">Title</ion-card-title>
-        </ion-card-header>
-      
-        <ion-card-content class="basic-text">
-          No Matches Found
+        <ion-card-content>
+          <p>No Matches Found</p>
         </ion-card-content>
       </ion-card>
     </ion-col>

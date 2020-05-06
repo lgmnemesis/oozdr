@@ -8,3 +8,8 @@ ion-card {
 .no-box {
   box-shadow: none;
 }
+
+ion-card-content,
+ion-card-content p {
+  @extend .basic-text;
+}
