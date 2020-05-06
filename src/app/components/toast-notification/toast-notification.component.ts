@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Subscription } from 'rxjs';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-toast-notification',
@@ -13,12 +14,14 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
 
   @Input() id = null;
 
+  toastNotificationsStoragePerfix = this.sharedService.toastNotificationsStoragePerfix;
   message: ToastMessage
   _toastNotifications: Subscription;
   isLocked = false;
 
   constructor(private sharedStoreService: SharedStoreService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this._toastNotifications = this.sharedStoreService.toastNotifications$.subscribe((message) => {
@@ -44,6 +47,9 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
+  getStoragePath() {
+    return `${this.toastNotificationsStoragePerfix}${this.id}`;
+  }
   cloneMessage() {
     return JSON.parse(JSON.stringify(this.message));
   }
@@ -58,7 +64,7 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
     this.sharedStoreService.toastNotificationsSubject.next(message);
     try {
       console.log('moshe sending dismiss id:', message.id);
-      localStorage.setItem(`toast-notif-${this.id}`, 'true');
+      localStorage.setItem(`${this.getStoragePath()}`,'true');
     } catch (error) {
       console.error(error);
     }

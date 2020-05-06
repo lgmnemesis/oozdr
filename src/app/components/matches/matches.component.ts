@@ -18,6 +18,7 @@ export class MatchesComponent implements OnInit, OnDestroy {
   _activeMenu: Subscription;
   connections: Connection[];
   _connections: Subscription;
+  noMatches = false;
 
   constructor(public sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -26,6 +27,11 @@ export class MatchesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
       this.connections = connections;
+      this.noMatches = connections && connections.length == 0;
+      if (connections && connections.length > 0) {
+        this.noMatches = connections.filter(c => c.isMatched).length === 0;
+      }
+      console.log('no matches found:');
       this.markForCheck();
     });
 
