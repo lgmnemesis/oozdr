@@ -1,4 +1,6 @@
-<ion-card color="main" class="animated hide" [class.show]="message?.isVisible && message?.id === id">
+<ion-card color="main" class="animated"
+  [class.hide]="!(message?.isVisible && message?.id === id)"
+  [class.show]="message?.isVisible && message?.id === id">
   <ion-card-header>
     <ion-card-title class="title-text">{{ message?.header }}</ion-card-title>
   </ion-card-header>
