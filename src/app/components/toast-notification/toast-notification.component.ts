@@ -22,9 +22,12 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._toastNotifications = this.sharedStoreService.toastNotifications$.subscribe((message) => {
+      console.log('moshe got message 1');
       if (message && message.id === this.id) {
+        console.log('moshe got message id 2: ', message.id);
         this.message = message;
         if (!this.isLocked && message.isVisible && message.duration && message.duration > 0) {
+          console.log('moshe inside lock id:', message.id);
           this.isLocked = true;
           const msg = this.cloneMessage();
           setTimeout(() => {
@@ -54,6 +57,7 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
     message.isVisible = false;
     this.sharedStoreService.toastNotificationsSubject.next(message);
     try {
+      console.log('moshe sending dismiss id:', message.id);
       localStorage.setItem(`toast-notif-${this.id}`, 'true');
     } catch (error) {
       console.error(error);
