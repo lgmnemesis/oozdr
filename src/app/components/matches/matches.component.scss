@@ -1,1 +1,10 @@
 @import '../../styles/animation';
+@import '../../styles/fonts-text';
+
+ion-card {
+  min-width: 300px;
+}
+
+.no-box {
+  box-shadow: none;
+}

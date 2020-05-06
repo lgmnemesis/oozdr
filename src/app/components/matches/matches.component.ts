@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
 import { ConnectionsService } from 'src/app/services/connections.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-matches',
@@ -22,7 +23,8 @@ export class MatchesComponent implements OnInit, OnDestroy {
 
   constructor(public sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private connetionsService: ConnectionsService) {}
+    private connetionsService: ConnectionsService,
+    public sharedService: SharedService) {}
 
   ngOnInit() {
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
@@ -31,7 +33,6 @@ export class MatchesComponent implements OnInit, OnDestroy {
       if (connections && connections.length > 0) {
         this.noMatches = connections.filter(c => c.isMatched).length === 0;
       }
-      console.log('no matches found:');
       this.markForCheck();
     });
 

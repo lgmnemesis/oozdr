@@ -3,6 +3,7 @@ import { Connection } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AlertController } from '@ionic/angular';
 import { ConnectionsService } from 'src/app/services/connections.service';
+import { ToastMessage } from 'src/app/interfaces/toast-message';
 
 @Component({
   selector: 'app-connection',
@@ -32,6 +33,12 @@ export class ConnectionComponent implements OnInit {
     const profile = await this.sharedStoreService.getProfile();
     this.sharedStoreService.removeConnection(this.connection)
       .catch(error => console.error(error));
+    const message: ToastMessage = {
+      message: '',
+      id: 'connection_added',
+      isVisible: false
+    }
+    this.sharedStoreService.toastNotificationsSubject.next(message);
   }
 
   async presentDisconnectConfirm() {

@@ -25,7 +25,7 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._toastNotifications = this.sharedStoreService.toastNotifications$.subscribe((message) => {
-      console.log('moshe got message 1');
+      console.log('moshe got message 1:', message);
       if (message && message.id === this.id) {
         console.log('moshe got message id 2: ', message.id);
         this.message = message;

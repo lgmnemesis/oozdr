@@ -1,1 +1,17 @@
 @import '../../styles/animation';
+@import '../../styles/fonts-text';
+
+// .center-msg {
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   min-width: 300px;
+//   padding: 20px;
+//   border: 1px solid var(--ion-color-light);
+//   border-radius: 10px;
+// }
+
+ion-card {
+  min-width: 300px;
+}

@@ -2,9 +2,6 @@
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <app-toast-notification id="connection_added"></app-toast-notification>
-      <app-toast-notification id="first_time"></app-toast-notification>
-      <app-toast-notification id="connections_empty"></app-toast-notification>
-      <app-toast-notification id="connections_only_matches"></app-toast-notification>
     </ion-col>
   </ion-row>
   
@@ -25,11 +22,35 @@
       </ion-col>
     </ion-row>
 
-    <!-- Incase connections page is empty(no connections or only matches) -->
-    <ion-row *ngIf="connections?.length === 0 || isOnlyMatches"
+    <!-- Incase connections page is empty(no connections nor matches) -->
+    <ion-row *ngIf="connections?.length === 0"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto">
-        Generic card message here?
+        <ion-card color="secondary">
+          <ion-card-header>
+            <ion-card-title class="title-text">Title</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content class="basic-text">
+            no connections at all message
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Incase connections page is empty(but has matches found) -->
+    <ion-row *ngIf="isOnlyMatches"
+      class="ion-justify-content-center ion-align-items-center animated fadeIn">
+      <ion-col size="auto">
+        <ion-card color="secondary">
+          <ion-card-header>
+            <ion-card-title class="title-text">Title</ion-card-title>
+          </ion-card-header>
+        
+          <ion-card-content class="basic-text">
+            Only matches message
+          </ion-card-content>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ng-container>
