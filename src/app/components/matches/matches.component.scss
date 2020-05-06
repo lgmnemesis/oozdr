@@ -3,13 +3,21 @@
 
 ion-card {
   min-width: 300px;
+  max-width: 600px;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
 }
 
-.no-box {
-  box-shadow: none;
+ion-card-content {
+  margin: auto;
 }
 
 ion-card-content,
 ion-card-content p {
   @extend .basic-text;
+}
+
+.no-box {
+  box-shadow: none;
 }

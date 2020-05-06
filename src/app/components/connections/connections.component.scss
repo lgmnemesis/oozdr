@@ -3,6 +3,15 @@
 
 ion-card {
   min-width: 300px;
+  max-width: 600px;
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+ion-card-content {
+  margin: auto;
+  line-height: 1.8;
 }
 
 ion-card-content,
