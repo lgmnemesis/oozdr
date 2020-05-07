@@ -12,6 +12,8 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
+  isProfileChanged = false;
+  firstTime = true;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
@@ -26,6 +28,14 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  profileChanged(isChanged: boolean) {
+    this.isProfileChanged = isChanged;
+    if (isChanged && this.firstTime) {
+      this.firstTime = false;
+    }
+    this.markForCheck();
   }
 
   ngOnDestroy() {

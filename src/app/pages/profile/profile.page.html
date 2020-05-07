@@ -1,10 +1,19 @@
-<ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar *ngIf="!isVisibleSplitPane">
     <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="end" class="animated"
+      [class.hide]="firstTime"
+      [class.fadeOutUp]="!isProfileChanged"
+      [class.fadeInDown]="isProfileChanged">
+      <ion-button [disabled]="!isProfileChanged" color="primary" fill="outline">Cancel</ion-button>
+      <ion-button [disabled]="!isProfileChanged" color="primary" fill="solid">Save</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content appScrollbarTheme>
   <!-- <app-manage-profile *ngIf="isVisibleSplitPane"><app-manage-profile> -->
-  <app-profile-menu *ngIf="!isVisibleSplitPane"></app-profile-menu>
+  <app-profile-menu (isChangedEvent)="profileChanged($event)"></app-profile-menu>
 </ion-content>

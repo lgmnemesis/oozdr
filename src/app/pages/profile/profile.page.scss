@@ -1,1 +1,11 @@
 @import '../../styles/fonts-text';
+@import '../../styles/animation';
+
+ion-button {
+  --border-radius: 10px !important;
+  width: 75px;
+}
+
+.hide {
+  visibility: hidden;
+}
