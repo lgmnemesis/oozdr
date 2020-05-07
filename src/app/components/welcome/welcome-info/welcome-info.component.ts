@@ -3,6 +3,7 @@ import { BasicInfo } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import * as Croppie from 'croppie';
 import { SharedService } from 'src/app/services/shared.service';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-welcome-info',
