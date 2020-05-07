@@ -1,9 +1,9 @@
-<ion-header>
+<ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
 </ion-header>
 
 <ion-content appScrollbarTheme>
-
+  setting yow
 </ion-content>

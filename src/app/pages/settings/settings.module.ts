@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 import { SettingsPage } from './settings.page';
+import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
 
 @NgModule({
@@ -12,6 +13,7 @@ import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directi
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule,
+    TopMenuModule,
     ScrollbarThemeModule
   ],
   declarations: [SettingsPage]
