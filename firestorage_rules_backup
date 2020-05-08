@@ -6,9 +6,9 @@ service firebase.storage {
     }
     match /profiles/{user_id}/{img_name} {
       allow read: if request.auth.uid == user_id
-      	&& img_name == "profile2.jpg";
+      	&& img_name == "profile.jpg";
       allow write: if request.auth != null
-      	&& img_name == "profile2.jpg"
+      	&& img_name == "profile.jpg"
         && request.resource.size < 1 * 1024 * 1024
         && request.resource.contentType.matches('image/.*');
       allow delete: if request.auth.uid == user_id;
