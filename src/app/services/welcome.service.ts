@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BasicInfo, Profile } from '../interfaces/profile';
 import * as Croppie from 'croppie';
-import { User } from '../interfaces/user';
 import { AuthService } from './auth.service';
 import { SharedService } from './shared.service';
 import { SharedStoreService } from './shared-store.service';
@@ -32,7 +31,14 @@ export class WelcomeService {
   constructor(private authService: AuthService,
     private sharedService: SharedService,
     private sharedStoreService: SharedStoreService,
-    private fileStorageService: FileStorageService) { }
+    private fileStorageService: FileStorageService) { 
+      this.authService.signingOut$.subscribe((isSigningOut) => {
+        if (isSigningOut) {
+          this.sharedStoreService.needToFinishInfoRegistration = false;
+          this.resetStore();
+        }
+      });
+    }
 
   private getInfoFromStore(): BasicInfo {
     if (!this.useLocalStorage) {
@@ -75,12 +81,15 @@ export class WelcomeService {
     }
   }
 
-  deleteInfoFromStore() {
+  resetStore() {
+    this.basicInfo = null;
+    this.infoStore = null;
     try {
       localStorage.removeItem('basic_info');
     } catch (error) {
       console.error(error);
     }
+    this.basicInfo = this.getInfo();
   }
 
   isValidName(): boolean {
@@ -214,13 +223,12 @@ export class WelcomeService {
     delete this.basicInfo.profile_img_file;
   }
 
-  async registerAndUpdate(user: User, profile: Profile) {
+  async registerAndUpdate(profile: Profile) {
     try {
-      const updateUser = await this.authService.updateUserData(user, true);
       const file = this.basicInfo.profile_img_file;
       if (file) {
         // Save profile img
-        const uploadDir = `${this.sharedService.uploadProfileImgDir}/${user.user_id}`;
+        const uploadDir = `${this.sharedService.uploadProfileImgDir}/${profile.user_id}`;
         const imgUrl = await this.fileStorageService.uploadImgFile(uploadDir, file);
         console.log('moshe saving profile img:', imgUrl);
         this.basicInfo.profile_img_url = imgUrl;

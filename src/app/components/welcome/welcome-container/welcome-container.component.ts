@@ -4,8 +4,6 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
-import { SharedService } from 'src/app/services/shared.service';
-import { FileStorageService } from 'src/app/services/file-storage.service';
 
 @Component({
   selector: 'app-welcome-container',
@@ -24,9 +22,7 @@ export class WelcomeContainerComponent implements OnInit {
     private navCtrl: NavController,
     public sharedStoreService: SharedStoreService,
     private authService: AuthService,
-    private welcomeService: WelcomeService,
-    private sharedService: SharedService,
-    private fileStorageService: FileStorageService) { }
+    private welcomeService: WelcomeService) { }
 
   ngOnInit() {
   }
@@ -35,10 +31,8 @@ export class WelcomeContainerComponent implements OnInit {
     this.cd.markForCheck();
   }
 
-  signOut() {
-    this.sharedStoreService.needToFinishInfoRegistration = false;
-    this.welcomeService.deleteInfoFromStore();
-    this.authService.signOut();
+  logout() {
+    this.authService.logout();
   }
 
   back() {
@@ -74,18 +68,16 @@ export class WelcomeContainerComponent implements OnInit {
 
   async finishInfoRegistration() {
     const info = this.welcomeService.basicInfo;
-    const user = this.authService.getUser();
+    const user = await this.authService.getUser();
     if (user) {
-      user.display_name = info.name;
-      user.email = info.email;
       delete info.mobile; // already created at first registration
       const profile: Profile = {
-        user_id: user.user_id,
+        user_id: user.uid,
         basicInfo: info,
         timestamp: this.sharedStoreService.timestamp
       }
 
-      await this.welcomeService.registerAndUpdate(user, profile);
+      await this.welcomeService.registerAndUpdate(profile);
       this.gotoStart();
     }
   }

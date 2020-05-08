@@ -2,12 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRe
 import { ModalController, NavController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, of } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { environment } from '../../../environments/environment';
 import { SharedService } from 'src/app/services/shared.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-start',
@@ -19,7 +20,8 @@ export class StartPage implements OnInit, OnDestroy {
 
   private isSignInButtonActive = false;
   shouldAnimate = this.sharedStoreService.shouldAnimateStartPage;
-  _user: Subscription;
+  _profile: Subscription;
+  profile$: Observable<Profile>;
   canShowPage = false;
   isLoggedIn = false;
   testAuthForProduction = false; // temp for now
@@ -37,34 +39,51 @@ export class StartPage implements OnInit, OnDestroy {
     // Test auth for production
     this.checkTestAuthForProduction();
 
+    this.navigateAccordingly();
+  }
+
+  markForCheck() {
+    this.cd.markForCheck();
+  }
+
+  navigateAccordingly() {
     this.sharedStoreService.canEnterWelcome = true;
     this.sharedStoreService.canEnterHome = false;
     this.sharedStoreService.needToFinishInfoRegistration = false;
-    this._user = this.authService.user$.subscribe((user) => {
+  
+    this.profile$ = this.authService.user$.pipe(switchMap(user => {
       this.canShowPage = false;
       if (user) {
         this.isLoggedIn = true;
         this.canShowPage = false;
-        this.sharedStoreService.registerToProfile(user.user_id);
-        this.sharedStoreService.registerToConnections(user.user_id);
         try {
           this.modalCtrl.dismiss().catch(error => {});
         } catch (error) {
         }
-        if (user.display_name) {
+        this.sharedStoreService.registerToProfile(user.uid);
+        return this.sharedStoreService.profile$;
+      } else {
+        if (user === null) {
+          this.canShowPage = true;
+          this.sharedService.setDefaultPhoneCountryCode();
+        }
+        this.markForCheck();
+        return of(null);
+      }
+    }));
+
+    this._profile = this.profile$.subscribe((profile: Profile) => {
+      console.log('profile 1:', profile);
+      if (profile) {
+        console.log('in profile 2');
+        if (profile.basicInfo && profile.basicInfo.name) {
           this.gotoHome();
         } else {
           // if there is info object, fill it, update and go home
           const info = this.welcomeService.basicInfo;
           if (info && info.name && info.mobile) {
-            const profile: Profile = {
-              basicInfo: info,
-              timestamp: this.sharedStoreService.timestamp,
-              user_id: user.user_id
-            }
-            user.display_name = info.name;
-            user.email = info.email;
-            this.authService.updateUserData(user).catch((error) => { console.error(error)});
+            const profileJ: Profile = JSON.parse(JSON.stringify(profile));
+            profileJ.basicInfo = info;
             this.sharedStoreService.updateProfile(profile).catch(error => console.error(error));
             this.gotoHome();
           } else {
@@ -72,32 +91,8 @@ export class StartPage implements OnInit, OnDestroy {
             this.gotoWelcome();
           }
         }
-      } else if (user === null) {
-        this.canShowPage = true;
-        this.sharedService.setDefaultPhoneCountryCode();
       }
-      this.markForCheck();
-    })
-  }
-
-  checkTestAuthForProduction() {
-    if (environment.production) {
-      this.isProduction = true;
-    } else {
-      this.testAuthForProduction = true;
-    }
-    this.markForCheck();
-  }
-
-  testAuthForProductionInput(event) {
-    if (event.detail.value === '12gin21') {
-      this.testAuthForProduction = true;
-      this.markForCheck();
-    }
-  }
-
-  markForCheck() {
-    this.cd.markForCheck();
+    });
   }
 
   gotoHome() {
@@ -146,9 +141,25 @@ export class StartPage implements OnInit, OnDestroy {
     this.shouldAnimate = false;
   }
 
+  checkTestAuthForProduction() {
+    if (environment.production) {
+      this.isProduction = true;
+    } else {
+      this.testAuthForProduction = true;
+    }
+    this.markForCheck();
+  }
+
+  testAuthForProductionInput(event) {
+    if (event.detail.value === '12gin21') {
+      this.testAuthForProduction = true;
+      this.markForCheck();
+    }
+  }
+
   ngOnDestroy() {
-    if (this._user) {
-      this._user.unsubscribe();
+    if (this._profile) {
+      this._profile.unsubscribe();
     }
   }
 }

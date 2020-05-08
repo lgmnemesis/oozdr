@@ -3,6 +3,7 @@ import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection } from 'src/app/interfaces/profile';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-connections',
@@ -20,9 +21,12 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   _connections: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private authService: AuthService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const user = await this.authService.getUser();
+    this.sharedStoreService.registerToConnections(user.uid);
     this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
       this.markForCheck();

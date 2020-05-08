@@ -151,9 +151,9 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
   async nextStep() {
     const canNext = await this.welcomeService.nextStep();
     if (canNext) {
+      this.cropImgMode = false;
       this.nextEvent.next(true);
     }
-    this.cropImgMode = false;
     this.markForCheck();
   }
 

@@ -4,7 +4,6 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Match, Connection } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/interfaces/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MatchOptionsComponent } from 'src/app/components/match-options/match-options.component';
@@ -23,7 +22,7 @@ export class MatchesPage implements OnInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
   _match: Subscription;
   _route: Subscription;
-  user: User = this.authService.getUser();
+  user: firebase.User;
   isInsideChat = false;
   defaultProfileImg = this.sharedService.defaultProfileImg;
   connection: Connection;
@@ -38,7 +37,8 @@ export class MatchesPage implements OnInit, OnDestroy {
     private router: Router,
     private popoverCtrl: PopoverController) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.user = await this.authService.getUser();
     this.sharedStoreService.useSplitPaneSubject.next(true);
     this._isVisibleSplitPane = this.sharedStoreService.isVisibleSplitPane$.subscribe((isVisible) => {
       this.isVisibleSplitPane = isVisible;

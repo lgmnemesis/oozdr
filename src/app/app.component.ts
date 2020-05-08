@@ -93,7 +93,7 @@ export class AppComponent {
   }
 
   logoutClicked() {
-    this.authService.logout(true);
+    this.authService.logout();
   }
 
   gotoActiveMenu(url: string) {

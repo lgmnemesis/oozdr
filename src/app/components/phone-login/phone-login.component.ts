@@ -4,7 +4,6 @@ import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { SharedService } from 'src/app/services/shared.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/interfaces/user';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
@@ -108,20 +107,12 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       info.mobile = this.phoneNumber.line;
       const isNewUser = confirm.additionalUserInfo.isNewUser;
       if (isNewUser) {
-          const user: User = {
-          user_id: confirm.user.uid,
-          display_name: info.name,
-          email: info.email,
-          roles: {
-            admin: false
-          }
-        }
         const profile: Profile = {
-          user_id: user.user_id,
+          user_id: confirm.user.uid,
           basicInfo: info,
           timestamp: this.sharedStoreService.timestamp
         }
-        await this.welcomeService.registerAndUpdate(user, profile);
+        await this.welcomeService.registerAndUpdate(profile);
       } else {
         this.processDone.next({disableBackButton: true});
       }

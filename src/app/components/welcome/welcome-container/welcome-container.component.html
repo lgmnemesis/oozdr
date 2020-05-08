@@ -4,8 +4,8 @@
       fill="clear" [disabled]="disableBackButton" (click)="back()">
       <ion-icon name="arrow-back-outline"></ion-icon>
     </ion-button>
-    <ion-button color="main" (click)="signOut()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">
-      Sign Out
+    <ion-button color="main" (click)="logout()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">
+      Log Out
     </ion-button>
   </div>
   <div class="flex-inner">

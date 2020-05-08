@@ -7,13 +7,6 @@ service cloud.firestore {
       allow read, write: if false;
     }
     
-    match /users/{userId} {
-    	allow read: if isOwner();
-    	allow create: if isSignedIn() && isValidForUserDocCreate();
-    	allow update: if isOwner() && isValidForUserDocUpdate();
-    	allow delete: if isOwner();
-    }
-    
     match /profiles/{userId} {
     	allow read: if isOwner();
     	allow create: if isSignedIn() && isValid();
@@ -36,14 +29,6 @@ service cloud.firestore {
     }
   }
   
-  function isValidForUserDocCreate() {
-  	return isValid() && incomingData().roles.admin == false;
-  }
-  
-  function isValidForUserDocUpdate() {
-  	return isValid() && incomingData().roles == existingData().roles;
-  }
-  
   function isValidForConnectionDoc() {
   	return isValid() 
     	&& incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
@@ -56,7 +41,8 @@ service cloud.firestore {
   
   function isValidForConnectionUpdateDoc() {
   	return isValidForConnectionDoc()
-    	&& incomingData().createdAt == existingData().createdAt;
+      && ((request.writeFields.size() == 1) 
+      && ('isNewMatch' in request.writeFields));
   }
   
   function isValid() {
