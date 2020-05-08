@@ -77,6 +77,7 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
           this.welcomeService.basicInfo.profile_img_url = imgUrl;
         } catch (error) {
           console.error(error);
+          this.welcomeService.basicInfo.profile_img_url = '';
         }
       }
     }

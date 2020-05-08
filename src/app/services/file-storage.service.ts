@@ -21,12 +21,17 @@ export class FileStorageService {
     }
 
     // Main task
-    const fixedFile = await this.rotateImgFile(file);
-    const path = `${dir}/${fixedFile.name}`;
-    this.task = this.storage.upload(path, fixedFile);
-
-    // Progress monitoring
-    const snapshot = await this.task.snapshotChanges().pipe(finalize(() => {})).toPromise();
+    let path = '';
+    try {
+      const fixedFile = await this.rotateImgFile(file);
+      path = `${dir}/${fixedFile.name}`;
+      this.task = this.storage.upload(path, fixedFile);
+  
+      // Progress monitoring
+      const snapshot = await this.task.snapshotChanges().pipe(finalize(() => {})).toPromise();
+    } catch (error) {
+      console.error(error);
+    }
   
     // File's download URL
     return this.storage.ref(path).getDownloadURL().pipe(take(1)).toPromise()
