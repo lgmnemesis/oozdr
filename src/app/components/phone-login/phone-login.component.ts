@@ -104,7 +104,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.isVerifyButtonDisabled = true;
     try {
       const confirm = await this.confirmationResult.confirm(this.verificationCode);
-      const info = this.welcomeService.getInfo();
+      const info = this.welcomeService.basicInfo;
       info.mobile = this.phoneNumber.line;
       const isNewUser = confirm.additionalUserInfo.isNewUser;
       if (isNewUser) {

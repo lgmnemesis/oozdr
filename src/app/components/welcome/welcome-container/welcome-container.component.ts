@@ -73,7 +73,7 @@ export class WelcomeContainerComponent implements OnInit {
   }
 
   async finishInfoRegistration() {
-    const info = this.welcomeService.getInfo();
+    const info = this.welcomeService.basicInfo;
     const user = this.authService.getUser();
     if (user) {
       user.display_name = info.name;

@@ -153,6 +153,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
     if (canNext) {
       this.nextEvent.next(true);
     }
+    this.cropImgMode = false;
     this.markForCheck();
   }
 

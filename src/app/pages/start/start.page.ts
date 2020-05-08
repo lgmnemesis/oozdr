@@ -55,7 +55,7 @@ export class StartPage implements OnInit, OnDestroy {
           this.gotoHome();
         } else {
           // if there is info object, fill it, update and go home
-          const info = this.welcomeService.getInfo();
+          const info = this.welcomeService.basicInfo;
           if (info && info.name && info.mobile) {
             const profile: Profile = {
               basicInfo: info,

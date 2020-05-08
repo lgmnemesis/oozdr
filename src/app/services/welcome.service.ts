@@ -59,7 +59,7 @@ export class WelcomeService {
     return this.infoStore;
   }
 
-  getInfo() {
+  private getInfo() {
     const info = this.getInfoFromStore();
     if (!info) {
       return this.createNewInfo();
