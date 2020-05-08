@@ -149,8 +149,10 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
   }
 
   async nextStep() {
-    await this.welcomeService.nextStep();
-    this.nextEvent.next(true);
+    const canNext = await this.welcomeService.nextStep();
+    if (canNext) {
+      this.nextEvent.next(true);
+    }
     this.markForCheck();
   }
 

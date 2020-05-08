@@ -36,6 +36,9 @@ export class ProfilePage implements OnInit, OnDestroy {
     if (isChanged && this.firstTime) {
       this.firstTime = false;
     }
+    if (isChanged) {
+      this.saveButtonAction = {save: false};
+    }
     this.markForCheck();
   }
 

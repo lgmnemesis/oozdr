@@ -90,7 +90,7 @@
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto" class="img-col">
+    <ion-col size="auto">
       <div id="col-photo" *ngIf="cropImgMode">
         <ion-spinner name="crescent" *ngIf="savingMode"></ion-spinner>
       <ion-button *ngIf="!savingMode && welcomeService?.basicInfo?.profile_img_url"
@@ -99,7 +99,7 @@
       </ion-button>
       </div>
     
-      <div class="img-container" *ngIf="!cropImgMode">
+      <div class="img-container" *ngIf="!cropImgMode && welcomeService?.basicInfo?.profile_img_url">
         <ion-button class="bt-rm" color="medium" fill="clear" (click)="removeProfilePhoto()">
           <ion-icon slot="icon-only" name="close-outline"></ion-icon>
         </ion-button>

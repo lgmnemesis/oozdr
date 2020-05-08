@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Profile } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { FileStorageService } from 'src/app/services/file-storage.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-profile-menu',
@@ -36,7 +37,8 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private welcomeService: WelcomeService,
-    private fileStorageService: FileStorageService) { }
+    private fileStorageService: FileStorageService,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this._profile = this.sharedStoreService.profile$.subscribe((profile) => {
@@ -64,7 +66,7 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
 
   async saveProfile() {
     if (this.welcomeService.basicInfo.profile_img_url) {
-      const uploadDir = `profiles/${this.profile.user_id}`;
+      const uploadDir = `${this.sharedService.uploadProfileImgDir}/${this.profile.user_id}`;
       await this.welcomeService.nextStep();
       const file = this.welcomeService.basicInfo.profile_img_file;
       if (file) {

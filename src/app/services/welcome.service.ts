@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BasicInfo } from '../interfaces/profile';
+import { BasicInfo, Profile } from '../interfaces/profile';
 import * as Croppie from 'croppie';
+import { User } from '../interfaces/user';
+import { AuthService } from './auth.service';
+import { SharedService } from './shared.service';
+import { SharedStoreService } from './shared-store.service';
+import { FileStorageService } from './file-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +29,10 @@ export class WelcomeService {
   isDisableNextButton = false;
   profilePhotoText = 'Profile Photo (optional)';
 
-  constructor() { }
+  constructor(private authService: AuthService,
+    private sharedService: SharedService,
+    private sharedStoreService: SharedStoreService,
+    private fileStorageService: FileStorageService) { }
 
   private getInfoFromStore(): BasicInfo {
     if (!this.useLocalStorage) {
@@ -151,7 +159,10 @@ export class WelcomeService {
         this.croppie = null;
       }
       this.isDisableNextButton = true;
+    } else {
+      return false;
     }
+    return true;
   }
 
   convertBase64ImgToFile(dataUrl, filename) {
@@ -201,5 +212,25 @@ export class WelcomeService {
     }
     this.basicInfo.profile_img_url = '';
     delete this.basicInfo.profile_img_file;
+  }
+
+  async registerAndUpdate(user: User, profile: Profile) {
+    try {
+      const updateUser = await this.authService.updateUserData(user, true);
+      const file = this.basicInfo.profile_img_file;
+      if (file) {
+        // Save profile img
+        const uploadDir = `${this.sharedService.uploadProfileImgDir}/${user.user_id}`;
+        const imgUrl = await this.fileStorageService.uploadImgFile(uploadDir, file);
+        console.log('moshe saving profile img:', imgUrl);
+        this.basicInfo.profile_img_url = imgUrl;
+        profile.basicInfo.profile_img_url = imgUrl;
+      }
+      delete profile.basicInfo.profile_img_file;
+      const updateProfile = await this.sharedStoreService.updateProfile(profile);
+      const register = await this.sharedStoreService.registerToProfile(profile.user_id);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

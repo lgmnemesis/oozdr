@@ -4,6 +4,8 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
+import { SharedService } from 'src/app/services/shared.service';
+import { FileStorageService } from 'src/app/services/file-storage.service';
 
 @Component({
   selector: 'app-welcome-container',
@@ -22,7 +24,9 @@ export class WelcomeContainerComponent implements OnInit {
     private navCtrl: NavController,
     public sharedStoreService: SharedStoreService,
     private authService: AuthService,
-    private welcomeService: WelcomeService) { }
+    private welcomeService: WelcomeService,
+    private sharedService: SharedService,
+    private fileStorageService: FileStorageService) { }
 
   ngOnInit() {
   }
@@ -45,6 +49,7 @@ export class WelcomeContainerComponent implements OnInit {
       // goto start
       this.gotoStart();
     }
+    this.welcomeService.isDisableNextButton = false;
     this.markForCheck();
   }
 
@@ -67,7 +72,7 @@ export class WelcomeContainerComponent implements OnInit {
     });
   }
 
-  finishInfoRegistration() {
+  async finishInfoRegistration() {
     const info = this.welcomeService.getInfo();
     const user = this.authService.getUser();
     if (user) {
@@ -79,12 +84,9 @@ export class WelcomeContainerComponent implements OnInit {
         basicInfo: info,
         timestamp: this.sharedStoreService.timestamp
       }
-    
-      this.authService.updateUserData(user, false).catch((error) => { console.error(error)});
-      this.sharedStoreService.updateProfile(profile).then(() => {
-        this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
-        this.gotoStart();
-      }).catch(error => console.error(error));
+
+      await this.welcomeService.registerAndUpdate(user, profile);
+      this.gotoStart();
     }
   }
 

@@ -16,6 +16,7 @@ export class SharedService {
   countryCodeStoreKeyName = 'country_code';
   defaultProfileImg =  '/assets/images/profile-def.png';
   toastNotificationsStoragePerfix = 'toast-notif-';
+  uploadProfileImgDir = 'profiles';
 
   menu1 = 'profile';
   menu2 = 'connections';

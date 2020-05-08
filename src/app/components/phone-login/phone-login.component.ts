@@ -8,6 +8,7 @@ import { User } from 'src/app/interfaces/user';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { FileStorageService } from 'src/app/services/file-storage.service';
 
 export class PhoneNumber {
   country: string;
@@ -43,7 +44,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private authService: AuthService,
     private welcomeService: WelcomeService,
-    private sharedStoreService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService,
+    private fileStorageService: FileStorageService) { }
 
   ngOnInit() {
     this.initRecaptcha();
@@ -87,7 +89,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     }, app);
   }
 
-  verifyLoginCode() {
+  async verifyLoginCode() {
     this.isVerificationError = false;
     this.verificationError = 'no errors';
     if (!this.confirmationResult) {
@@ -100,40 +102,36 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     }
 
     this.isVerifyButtonDisabled = true;
-    this.confirmationResult.confirm(this.verificationCode)
-      .then(result => {
-        const info = this.welcomeService.getInfo();
-        info.mobile = this.phoneNumber.line;
-        const isNewUser = result.additionalUserInfo.isNewUser;
-        if (isNewUser) {
-           const user: User = {
-            user_id: result.user.uid,
-            display_name: info.name,
-            email: info.email,
-            roles: {
-              admin: false
-            }
+    try {
+      const confirm = await this.confirmationResult.confirm(this.verificationCode);
+      const info = this.welcomeService.getInfo();
+      info.mobile = this.phoneNumber.line;
+      const isNewUser = confirm.additionalUserInfo.isNewUser;
+      if (isNewUser) {
+          const user: User = {
+          user_id: confirm.user.uid,
+          display_name: info.name,
+          email: info.email,
+          roles: {
+            admin: false
           }
-          const profile: Profile = {
-            user_id: user.user_id,
-            basicInfo: info,
-            timestamp: this.sharedStoreService.timestamp
-          }
-          this.authService.updateUserData(user, true).catch((error) => { console.error(error)});
-          this.sharedStoreService.updateProfile(profile).then(() => {
-            this.sharedStoreService.registerToProfile(profile.user_id).catch(error => console.error(error));
-          }).catch(error => console.error(error));
-        } else {
-          this.processDone.next({disableBackButton: true});
         }
-      })
-      .catch(error => {
-        this.isVerificationError = true;
-        this.verificationError = 'Wrong Verification Code';
-        this.isVerifyButtonDisabled = false;
-        this.markForCheck();
-        console.error(error);
-      });
+        const profile: Profile = {
+          user_id: user.user_id,
+          basicInfo: info,
+          timestamp: this.sharedStoreService.timestamp
+        }
+        await this.welcomeService.registerAndUpdate(user, profile);
+      } else {
+        this.processDone.next({disableBackButton: true});
+      }
+    } catch (error) {
+      this.isVerificationError = true;
+      this.verificationError = 'Wrong Verification Code';
+      this.isVerifyButtonDisabled = false;
+      this.markForCheck();
+      console.error(error);
+    }
   }
 
   getAndVerifyNumber(): boolean {
