@@ -116,6 +116,10 @@ export class SharedStoreService {
     return this.databaseService.updateProfile(profile);
   }
 
+  updateProfileData(profile: Profile, data: any): Promise<void> {
+    return this.databaseService.updateProfileData(profile, data);
+  }
+
   addConnection(connection: Connection): Promise<void> {
     return this.databaseService.addConnection(connection);
   }

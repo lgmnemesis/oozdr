@@ -73,28 +73,38 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      
       <p>{{ welcomeService?.profilePhotoText }}</p>
-      <ion-button id="load-photo" color="medium" fill="outline" (click)="selectPhotoButton()">
-        <ion-icon name="image-outline"></ion-icon>
-        <p>Select Photo</p>
-      </ion-button>
-      <p class="p-error">Invalid photo</p>
-      <input
-        id="file-chip" 
-        type="file" 
-        class="input-select-photo" 
-        (change)="selectPhoto($event?.target?.files)">
-
+      <ng-container *ngIf="cropImgMode">
+        <ion-button id="load-photo" color="medium" fill="outline" (click)="selectPhotoButton()">
+          <ion-icon name="image-outline"></ion-icon>
+          <p>Select Photo</p>
+        </ion-button>
+        <p class="p-error">Invalid photo</p>
+        <input
+          id="file-chip" 
+          type="file" 
+          class="input-select-photo" 
+          (change)="selectPhoto($event?.target?.files)">
+      </ng-container>
     </ion-col>
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto" id="col-photo">
-      <ion-button *ngIf="welcomeService?.basicInfo?.profile_img_url"
-        color="medium" fill="clear" shape="round" (click)="removeProfilePhoto()">
-        <ion-icon size="large" name="close-circle-outline"></ion-icon>
+    <ion-col size="auto" class="img-col">
+      <div id="col-photo" *ngIf="cropImgMode">
+        <ion-spinner name="crescent" *ngIf="savingMode"></ion-spinner>
+      <ion-button *ngIf="!savingMode && welcomeService?.basicInfo?.profile_img_url"
+        class="bt-rm" color="medium" fill="clear" (click)="removeProfilePhoto()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
       </ion-button>
+      </div>
+    
+      <div class="img-container" *ngIf="!cropImgMode">
+        <ion-button class="bt-rm" color="medium" fill="clear" (click)="removeProfilePhoto()">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+        <img class="p-img" [src]="welcomeService?.basicInfo?.profile_img_url">
+      </div>
     </ion-col>
   </ion-row>
 

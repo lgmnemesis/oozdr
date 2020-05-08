@@ -24,7 +24,7 @@ export interface BasicInfo {
   birthday: string;
   mobile: string;
   profile_img_url: string;
-  profile_img_url_org: string;
+  profile_img_file: any;
 }
 
 export interface Match {

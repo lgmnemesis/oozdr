@@ -46,7 +46,7 @@ export class WelcomeService {
       birthday: '',
       mobile: '',
       profile_img_url: '',
-      profile_img_url_org: ''
+      profile_img_file: ''
     }
     return this.infoStore;
   }
@@ -138,15 +138,34 @@ export class WelcomeService {
   async nextStep() {
     if (this.isValidatedForm()) {
       if (this.croppie) {
-        const res = await this.croppie.result({ type: 'base64' });
-        if (res) {
-          this.basicInfo.profile_img_url = res;
+        try {
+          const res = await this.croppie.result({ type: 'base64' });
+          if (res) {
+            this.basicInfo.profile_img_url = res;
+            this.basicInfo.profile_img_file = this.convertBase64ImgToFile(res, 'profile.jpg');
+          }
+        } catch (error) {
+          console.error(error);          
         }
         this.croppie.destroy();
         this.croppie = null;
       }
       this.isDisableNextButton = true;
     }
+  }
+
+  convertBase64ImgToFile(dataUrl, filename) {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+        
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    
+    return new File([u8arr], filename, {type:mime});
   }
 
   async cropPhoto() {
@@ -158,8 +177,8 @@ export class WelcomeService {
 
       const el = document.getElementById('col-photo');
       this.croppie = new Croppie(el, {
-          viewport: { width: 200, height: 200, type: 'circle' },
-          boundary: { width: 350, height: 350 },
+          viewport: { width: 150, height: 150, type: 'circle' },
+          boundary: { width: 300, height: 300 },
           showZoomer: true,
           enableOrientation: false
       });
@@ -181,6 +200,6 @@ export class WelcomeService {
       this.croppie = null;
     }
     this.basicInfo.profile_img_url = '';
-    delete this.basicInfo.profile_img_url_org;
+    delete this.basicInfo.profile_img_file;
   }
 }

@@ -29,6 +29,7 @@
     "@ionic/angular": "^5.1.0",
     "core-js": "^3.6.5",
     "croppie": "^2.6.4",
+    "exif-js": "^2.3.0",
     "firebase": "^7.14.2",
     "intl-tel-input": "^17.0.0",
     "ng2-tel-input": "^2.3.0",

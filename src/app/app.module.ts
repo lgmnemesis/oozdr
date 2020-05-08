@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { TopMenuModule } from './components/top-menu/top-menu.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatchesModule } from './components/matches/matches.module';
@@ -29,6 +30,7 @@ import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     TopMenuModule,
     HttpClientModule,
     MatchesModule,

@@ -1,1 +1,3 @@
-<app-welcome-info [profile]="profile" (inputChangedEvent)="isProfileChanged()"></app-welcome-info>
+<app-welcome-info 
+  [myProfile]="profile" [savingMode]="isSaving" (inputChangedEvent)="isProfileChanged()">
+</app-welcome-info>

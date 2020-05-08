@@ -35,6 +35,16 @@ export class DatabaseService {
     }
   }
 
+  async updateProfileData(profile: Profile, data: any) {
+    const path = 'profiles/';
+    try {
+      return this.afs.collection(path).doc(profile.user_id).update(data);
+    }
+    catch (error) {
+      return console.error(error);
+    }
+  }
+
   private getConnectionsDbRef(userId: string, batchSize = 100): AngularFirestoreCollection<Connection[]> {
     const path = 'connections/';
     return this.afs.collection(path, ref => {

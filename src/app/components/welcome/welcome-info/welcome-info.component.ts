@@ -13,11 +13,20 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
 
   @Input() isNext = false;
   @Input() isBack = false;
-  @Input() profile: Profile = null;
+  @Input()
+  set myProfile(profile: Profile) {
+    console.log('my profile changed');
+    this.profile = profile;
+    this.setProfile();
+  }
+  @Input() savingMode = false;
+
   @Output() nextEvent = new EventEmitter();
   @Output() inputChangedEvent = new EventEmitter();
-
+  
+  profile: Profile = null;
   customPickerOptions: any = {};
+  cropImgMode = false;
 
   constructor(public welcomeService: WelcomeService,
     private cd: ChangeDetectorRef,
@@ -30,26 +39,36 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
         animated: false
       };
     }
-    if (this.profile) {
-      this.welcomeService.basicInfo = JSON.parse(JSON.stringify(this.profile.basicInfo));
-      this.welcomeService.profilePhotoText = 'Profile Photo';
-      console.log('in info:', JSON.stringify(this.welcomeService.basicInfo));
-      this.inputChangedEvent.next(true);
-    }
+    this.setProfile();
   }
 
   async ngAfterViewInit() {
-    if (this.welcomeService.basicInfo.profile_img_url) {
-      if (this.welcomeService.basicInfo.profile_img_url_org) {
-        this.welcomeService.basicInfo.profile_img_url = this.welcomeService.basicInfo.profile_img_url_org;
-      }
-      await this.welcomeService.cropPhoto();
-      this.markForCheck();
-    }
+    // if (this.welcomeService.basicInfo.profile_img_url) {
+      // if (this.welcomeService.basicInfo.profile_img_url_org) {
+      //   this.welcomeService.basicInfo.profile_img_url = this.welcomeService.basicInfo.profile_img_url_org;
+      // }
+      // await this.welcomeService.cropPhoto();
+      // this.markForCheck();
+    // }
   }
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  setProfile() {
+    if (this.profile) {
+      this.welcomeService.basicInfo = JSON.parse(JSON.stringify(this.profile.basicInfo));
+      this.welcomeService.profilePhotoText = 'Profile Photo';
+      console.log('moshe in info:', JSON.stringify(this.welcomeService.basicInfo));
+      this.inputChangedEvent.next(true);
+    }
+    if (!this.welcomeService.basicInfo.profile_img_url) {
+      this.cropImgMode = true;
+    } else {
+      this.cropImgMode = false;
+    }
+    this.markForCheck();
   }
 
   setName(event) {
@@ -104,7 +123,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
     });
     const readerAsDataURLEvent: any = await readerAsDataURLAsync;
     this.welcomeService.basicInfo.profile_img_url = readerAsDataURLEvent.target.result;
-    this.welcomeService.basicInfo.profile_img_url_org = this.welcomeService.basicInfo.profile_img_url;
+    // this.welcomeService.basicInfo.profile_img_url_org = this.welcomeService.basicInfo.profile_img_url;
 
     await this.welcomeService.cropPhoto();
     this.inputChangedEvent.next(true);
@@ -113,6 +132,7 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
 
   removeProfilePhoto() {
     this.welcomeService.removeProfilePhoto();
+    this.cropImgMode = true;
     this.inputChangedEvent.next(true);
     this.markForCheck();
   }

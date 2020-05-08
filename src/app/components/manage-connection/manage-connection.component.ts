@@ -80,7 +80,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
         email: '',
         gender: '',
         profile_img_url: '',
-        profile_img_url_org: ''
+        profile_img_file: ''
       },
       isMatched: false,
       isNewMatch: false,
