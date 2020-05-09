@@ -48,9 +48,12 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
       this.activeMenu = active;
       if (active === this.sharedService.menu3 && !this.isVisible) {
-        this.sharedStoreService.activeTopMenu = active;
+        this.sharedStoreService.activeTopMenu = this.sharedService.menu3;
+      } else if (active === this.sharedService.menu3) {
+        this.sharedStoreService.activeTopMenu = this.sharedService.menu2;
       }
       this.markForCheck();
+      console.log('moshe:', this.sharedStoreService.activeTopMenu, active, this.isVisible);
     });
 
     this._newMatchesIndicator = this.sharedStoreService.newMatchesIndicator$.subscribe((isNew) => {

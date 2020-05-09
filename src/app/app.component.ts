@@ -77,7 +77,7 @@ export class AppComponent {
     this.gotoActiveMenu('connections');
   }
 
-  matchesClicked() {
+  matchClicked() {
     this.sharedStoreService.activeMenuSubject.next('matches');
     // this.gotoActiveMenu();
   }

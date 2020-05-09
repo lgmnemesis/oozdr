@@ -42,7 +42,7 @@ export class MatchesPage implements OnInit, OnDestroy {
     this.sharedStoreService.useSplitPaneSubject.next(true);
     this._isVisibleSplitPane = this.sharedStoreService.isVisibleSplitPane$.subscribe((isVisible) => {
       this.isVisibleSplitPane = isVisible;
-      this.markForCheck();
+      this.cd.detectChanges();
     });
 
     this._match = this.sharedStoreService.match$.subscribe((match) => {
