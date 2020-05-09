@@ -7,7 +7,8 @@
       [class.hide]="firstTime"
       [class.fadeOutUp]="!isProfileChanged"
       [class.fadeInDown]="isProfileChanged">
-      <ion-button [disabled]="saveButtonAction?.save" color="primary" fill="outline">Cancel</ion-button>
+      <ion-button (click)="cancelProfileChanges()"
+        [disabled]="saveButtonAction?.save" color="primary" fill="outline">Cancel</ion-button>
       <ion-button (click)="saveProfile()"
         [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
     </ion-buttons>

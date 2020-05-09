@@ -14,7 +14,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
   isProfileChanged = false;
   firstTime = true;
-  saveButtonAction = {save: false};
+  saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef) { }
@@ -37,13 +37,18 @@ export class ProfilePage implements OnInit, OnDestroy {
       this.firstTime = false;
     }
     if (isChanged) {
-      this.saveButtonAction = {save: false};
+      this.saveButtonAction = {save: false, cancel: false};
     }
+    this.cd.detectChanges();
+  }
+
+  cancelProfileChanges() {
+    this.saveButtonAction = {save: false, cancel: true};
     this.markForCheck();
   }
 
   saveProfile() {
-    this.saveButtonAction = {save: true};
+    this.saveButtonAction = {save: true, cancel: false};
     this.markForCheck();
   }
 

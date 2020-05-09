@@ -15,15 +15,18 @@ import { SharedService } from 'src/app/services/shared.service';
 export class ProfileMenuComponent implements OnInit, OnDestroy {
 
   @Input()
-  set saveButtonClicked(action: {save: boolean}) {
+  set saveButtonClicked(action: {save: boolean, cancel: boolean}) {
     if (action && action.save) {
       this.isSaving = true;
       this.saveProfile().finally(() => {
         this.isSaving = false;
         this.markForCheck();
       });
-      this.markForCheck();
+    } else if (action && action.cancel) {
+      this.isSaving = false;
+      this.resetProfileChanges();
     }
+    this.markForCheck();
   }
 
   @Output() isChangedEvent = new EventEmitter();
@@ -56,6 +59,13 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
     } else {
       this.isChangedEvent.next(false);
     }
+  }
+
+  resetProfileChanges() {
+    this.welcomeService.basicInfo = JSON.parse(JSON.stringify(this.profile.basicInfo));
+    this.profile = JSON.parse(JSON.stringify(this.profile));
+    this.isChangedEvent.next(false);
+    this.markForCheck();
   }
 
   async saveProfile() {
