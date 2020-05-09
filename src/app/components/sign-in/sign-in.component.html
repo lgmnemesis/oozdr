@@ -2,7 +2,7 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <app-phone-login></app-phone-login>
+        <app-phone-login [reauthenticate]="reauthenticate" (processDone)="processDone($event)"></app-phone-login>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, LoadingController } from '@ionic/angular';
 import { IonToastMessage } from '../interfaces/toast-message';
 
 @Injectable({
@@ -24,7 +24,8 @@ export class SharedService {
 
   constructor(private httpClient: HttpClient,
     private platform: Platform,
-    private toastCtrl: ToastController) { }
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController) { }
 
   showInfo() {
     console.log(`Client Version: ${this.getClientVersion()}`);
@@ -85,5 +86,16 @@ export class SharedService {
       buttons: toastMessage.buttons || []
     });
     toast.present();
+  }
+
+  async presentLoading(message: string, duration = 0) {
+    const loading = await this.loadingCtrl.create({
+      message: message,
+      duration: duration,
+      mode: 'ios'
+
+    });
+    loading.present();
+    return loading;
   }
 }

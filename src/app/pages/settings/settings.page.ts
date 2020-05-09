@@ -44,7 +44,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   deleteAccount() {
-
+    this.authService.deleteAccount();
   }
 
   settingsChanged(isChanged: boolean) {

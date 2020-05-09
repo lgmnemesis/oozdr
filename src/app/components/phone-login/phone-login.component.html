@@ -2,6 +2,7 @@
 <ion-grid *ngIf="!confirmationResult">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
+      <p class="basic-text" *ngIf="reauthenticate">Please Sign in again to verify your account</p>
       <p class="larger-text">Enter Your Mobile Number</p>
     </ion-col>
   </ion-row>

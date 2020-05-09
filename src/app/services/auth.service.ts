@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SharedStoreService } from './shared-store.service';
 import { take } from 'rxjs/operators';
+import { DatabaseService } from './database.service';
+import { SharedService } from './shared.service';
+import { SignInModalComponent } from '../components/sign-in-modal/sign-in-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +25,10 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth,
     private alertCtrl: AlertController,
     private router: Router,
-    private sharedStoreService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService,
+    private databaseService: DatabaseService,
+    private sharedService: SharedService,
+    private modalCtrl: ModalController) { }
 
   init() {
     this.subscribeUser();
@@ -73,9 +79,22 @@ export class AuthService {
   }
 
   private async presentLogoutConfirm() {
+    const message = 'Are you sure you want to log out?';
+    const buttonText = 'Log out';
+    this.presentConfirm(message, buttonText, false, 'signOut');
+  }
+
+  private async presentDeleteAccountConfirm() {
+    const message = 'Are you sure you want to delete your account and all its data?';
+    const buttonText = 'Delete';
+    this.presentConfirm(message, buttonText, true, 'deleteCurrentUser');
+  }
+
+  private async presentConfirm(header: string, buttonText: string, isDangerColor: boolean, action: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Are you sure you want to log out?',
+      header: header,
       mode: 'ios',
+      cssClass: 'alert-confirm-conainer',
       buttons: [
         {
           text: 'Cancel',
@@ -84,15 +103,24 @@ export class AuthService {
             this.inLogoutProcess = false;
           }
         }, {
-          text: 'Log out',
+          text: buttonText,
+          cssClass: isDangerColor ? 'alert-danger-text-color' : '',
           handler: () => {
-            this.signOut();
+            this.confirmAction(action);
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  confirmAction(action: string) {
+    if (action === 'signOut') {
+      this.signOut();
+    } else if (action === 'deleteCurrentUser') {
+      this.deleteCurrentUser();
+    }
   }
 
   async logout(withConfirmation = true) {
@@ -104,6 +132,61 @@ export class AuthService {
       await this.presentLogoutConfirm();
     } else {
       this.signOut();
+    }
+  }
+
+  async deleteAccount() {
+    if (this.inLogoutProcess) {
+      return;
+    }
+    this.inLogoutProcess = true;
+    await this.presentDeleteAccountConfirm();
+  }
+
+  async deleteCurrentUser() {
+    const user = await this.getUser();
+    if (user) {
+      try {
+        await this.reauthenticateWithPopup();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  }
+
+  async reauthenticateWithPopup() {
+    const modal = await this.modalCtrl.create({
+      component: SignInModalComponent,
+      backdropDismiss: false,
+      cssClass: 'present-modal-properties',
+      componentProps: {
+        reauthenticate: true
+      }
+    });
+
+    modal.onWillDismiss()
+    .then((res) => {
+      this.deleteCurrentUserLastStep().catch(error => console.error(error));
+
+    }).catch(error => console.error(error));
+
+    return await modal.present();
+  }
+
+  async deleteCurrentUserLastStep() {
+    const loader = this.sharedService.presentLoading('Deleting your account...');
+    const user = await this.getUser();
+    this.databaseService.deleteUserData();
+    await user.delete();
+    this.sharedStoreService.userDeleted = true;
+    this.signOut();
+    if (loader) {
+      setTimeout(() => {
+        loader.then((loadRef) => {
+          loadRef.dismiss();
+          this.inLogoutProcess = false;
+        });
+      }, 3000);
     }
   }
 }

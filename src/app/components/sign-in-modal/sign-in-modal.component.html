@@ -8,5 +8,5 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-sign-in></app-sign-in>
+  <app-sign-in [reauthenticate]="reauthenticate" (processDoneEvent)="processDone($event)"></app-sign-in>
 </ion-content>

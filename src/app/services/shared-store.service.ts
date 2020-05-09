@@ -20,6 +20,7 @@ export class SharedStoreService {
   activeMatchConnectionId: string = null;
   activeMatch: Match = null;
   connections: Connection[];
+  userDeleted = false;
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();

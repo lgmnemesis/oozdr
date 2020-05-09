@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -23,6 +23,7 @@ export class PhoneNumber {
 
 export class PhoneLoginComponent implements OnInit, OnDestroy {
 
+  @Input() reauthenticate = false;
   @Output() processDone = new EventEmitter();
 
   phoneNumber = new PhoneNumber();
@@ -103,18 +104,22 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.isVerifyButtonDisabled = true;
     try {
       const confirm = await this.confirmationResult.confirm(this.verificationCode);
-      const info = this.welcomeService.basicInfo;
-      info.mobile = this.phoneNumber.line;
-      const isNewUser = confirm.additionalUserInfo.isNewUser;
-      if (isNewUser) {
-        const profile: Profile = {
-          user_id: confirm.user.uid,
-          basicInfo: info,
-          timestamp: this.sharedStoreService.timestamp
-        }
-        await this.welcomeService.registerAndUpdate(profile);
+      if (this.reauthenticate) {
+        this.processDone.next({userCredential: confirm});
       } else {
-        this.processDone.next({disableBackButton: true});
+        const info = this.welcomeService.basicInfo;
+        info.mobile = this.phoneNumber.line;
+        const isNewUser = confirm.additionalUserInfo.isNewUser;
+        if (isNewUser) {
+          const profile: Profile = {
+            user_id: confirm.user.uid,
+            basicInfo: info,
+            timestamp: this.sharedStoreService.timestamp
+          }
+          await this.welcomeService.registerAndUpdate(profile);
+        } else {
+          this.processDone.next({disableBackButton: true});
+        }
       }
     } catch (error) {
       this.isVerificationError = true;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -8,12 +8,20 @@ import { ModalController } from '@ionic/angular';
 })
 export class SignInModalComponent implements OnInit {
 
+  @Input() reauthenticate = false;
+
   constructor(private modalCtrl: ModalController) { }
 
   ngOnInit() {}
 
-  close() {
-    this.modalCtrl.dismiss().catch((error) => console.error(error));
+  processDone(event) {
+    if (event && event.userCredential) {
+      this.close(event);
+    }
+  }
+
+  close(data?: any) {
+    this.modalCtrl.dismiss(data).catch((error) => console.error(error));
   }
 
 }

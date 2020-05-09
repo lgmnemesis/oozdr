@@ -193,4 +193,8 @@ export class DatabaseService {
     }
   }
 
+  deleteUserData() {
+    // Deleting profile and connections
+  }
+
 } 

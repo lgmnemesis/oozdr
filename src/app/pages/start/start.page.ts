@@ -28,7 +28,7 @@ export class StartPage implements OnInit, OnDestroy {
   isProduction = false; // temp for now
 
   constructor(private modalCtrl: ModalController,
-    private sharedStoreService: SharedStoreService,
+    public sharedStoreService: SharedStoreService,
     private sharedService: SharedService,
     private authService: AuthService,
     private navCtrl: NavController,
