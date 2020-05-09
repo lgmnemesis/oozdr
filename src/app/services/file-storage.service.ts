@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as exif from 'exif-js';
 import { AngularFireUploadTask } from '@angular/fire/storage/task';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { take, finalize } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -29,12 +29,20 @@ export class FileStorageService {
   
       // Progress monitoring
       const snapshot = await this.task.snapshotChanges().pipe(finalize(() => {})).toPromise();
+
+      // Update file metadata
+      const metadata = {
+        cacheControl: 'public,max-age=15552000',
+        contentType: 'image/jpeg'
+      }
+      const meta = await snapshot.ref.updateMetadata(metadata)
+      
+      // File's download URL
+      return snapshot.ref.getDownloadURL();
+
     } catch (error) {
       console.error(error);
     }
-  
-    // File's download URL
-    return this.storage.ref(path).getDownloadURL().pipe(take(1)).toPromise()
   }
 
   async rotateImgFile(file: File): Promise<File> {
