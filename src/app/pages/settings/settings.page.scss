@@ -1,6 +1,10 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
+ion-grid {
+  padding-top: 100px;
+}
+
 .bt-s-c {
   --border-radius: 10px !important;
   width: 75px;
