@@ -3,7 +3,7 @@
   [class.isActive]="isActiveMatch" 
   button lines="none" (click)="selectedMatchButton()">
   <ion-avatar slot="start">
-    <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image">
+    <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
   </ion-avatar>
   <ion-label>
     <h2>{{ connection?.basicInfo?.name }}</h2>

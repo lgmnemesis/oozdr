@@ -103,7 +103,7 @@
         <ion-button class="bt-rm" color="medium" fill="clear" (click)="removeProfilePhoto()">
           <ion-icon slot="icon-only" name="close-outline"></ion-icon>
         </ion-button>
-        <img class="p-img" [src]="welcomeService?.basicInfo?.profile_img_url">
+        <img class="p-img" [src]="welcomeService?.basicInfo?.profile_img_url" crossorigin="anonymous">
       </div>
     </ion-col>
   </ion-row>

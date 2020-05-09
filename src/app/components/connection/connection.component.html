@@ -4,7 +4,7 @@
   <ion-item lines="full" class="i-title">
     <ion-avatar *ngIf="connection?.basicInfo?.profile_img_url"
       slot="start" [class.active-animation]="connection?.isNewMatch">
-      <img [src]="connection?.basicInfo?.profile_img_url" alt="profile image">
+      <img [src]="connection?.basicInfo?.profile_img_url" alt="profile image" crossorigin="anonymous">
     </ion-avatar>
     <ion-icon *ngIf="!connection?.basicInfo?.profile_img_url"
       name="person-circle-outline" slot="start" color="primary">

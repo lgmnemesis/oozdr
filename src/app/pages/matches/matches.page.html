@@ -15,7 +15,7 @@
 
     <ion-item lines="none" class="top-item" *ngIf="isInsideChat">
       <ion-avatar slot="start">
-        <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image">
+        <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
       </ion-avatar>
       <ion-label>
         {{ connection?.basicInfo?.name }}
