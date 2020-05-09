@@ -13,7 +13,7 @@
       [class.fadeOutUp]="!isProfileChanged"
       [class.fadeInDown]="isProfileChanged">
       <ion-button class="bt-s-c" (click)="cancelProfileChanges()"
-        [disabled]="saveButtonAction?.save" color="primary" fill="outline">Cancel</ion-button>
+        [disabled]="saveButtonAction?.save" color="secondary" fill="outline">Cancel</ion-button>
       <ion-button class="bt-s-c" (click)="saveProfile()"
         [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
     </ion-buttons>

@@ -18,3 +18,8 @@ ion-card-content,
 ion-card-content p {
   @extend .basic-text;
 }
+
+.p-quote {
+  max-width: 500px;
+  padding: 0 10px;
+}

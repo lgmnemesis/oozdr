@@ -41,6 +41,24 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   setName(event) {
     this.Q.name = event.detail.value;
+    this.isValidName();
+  }
+
+  isValidName(): boolean {
+    this.nameError = 'no errors';
+    this.isNameError = false;
+    const name = this.Q.name.trim();
+    if (!name) {
+      this.nameError = 'Please Enter a Valid Name';
+      this.isNameError = true;      
+    } else if (!name.match(/^[\u0590-\u05FF\w ]+$/)) {
+      this.nameError = 'Only Letters please';
+      this.isNameError = true;
+    } else if (name.length < 2) {
+      this.nameError = 'Sorry, name is too short';
+      this.isNameError = true;
+    }
+    return !this.isNameError;
   }
 
   getAndVerifyNumber(): boolean {
@@ -66,8 +84,15 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   async addConnection() {
-    const isValid = this.getAndVerifyNumber();
-    if (!isValid) {
+    this.isNameError = false;
+    this.isPhoneError = false;
+    const isValidName = this.isValidName();
+    const isValidNumber = this.getAndVerifyNumber();
+    if (!isValidNumber) {
+      this.phoneError = !this.Q.phoneNumber  ? 'Enter Connection\'s Mobile Number' : 'Invalid Number';
+      this.isPhoneError = true;
+    }
+    if (!isValidName || !isValidNumber) {
       return;
     }
     const profile = await this.sharedStoreService.getProfile();
@@ -100,8 +125,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   sendToastMessage(connection: Connection) {
     const message: ToastMessage = {
-      header: `${connection.basicInfo.name} was added to your connections.`,
-      message: `If ${connection.basicInfo.name} added you as well or will add you in the future to their connections, We will update both of you immediately.`,
+      header: `${connection.basicInfo.name} is now a new connection. Great first step!`,
+      message: `If ${connection.basicInfo.name} has you as a connection, or will add you in the future, We will update both of you immediately.`,
       id: 'connection_added',
       isVisible: true,
       duration: -1,

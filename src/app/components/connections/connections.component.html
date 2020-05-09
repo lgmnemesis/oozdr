@@ -1,7 +1,7 @@
 <ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <app-toast-notification id="connection_added"></app-toast-notification>
+      <app-toast-notification id="connection_added" [hide]="connectionsState?.state === 'add'"></app-toast-notification>
     </ion-col>
   </ion-row>
   
@@ -23,17 +23,26 @@
     </ion-row>
 
     <!-- Incase connections page is empty(no connections nor matches) -->
-    <ion-row *ngIf="connections?.length === 0"
-      class="ion-justify-content-center ion-align-items-center animated fadeIn">
-      <ion-col size="auto">
-        <ion-card color="secondary">
-          <ion-card-content>
-            <p>Start by adding connections, people, loved ones, soulmate, you are looking to reconnect.</p>
-            <!-- <p>no connections at all message 2</p> -->
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
+    <ng-container *ngIf="connections?.length === 0">
+      <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
+        <ion-col size="auto">
+          <ion-card color="secondary">
+            <ion-card-content>
+              <p>Start by adding connections, people, loved ones, soulmate, you are looking to reconnect.</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
+        <ion-col size="auto">
+          <p class="basic-text p-quote">
+            “Doesn’t matter if you can dream it or not, all that matters is if you can begin it or not? Take that first step.”
+          </p>
+          <p class="basic-text p-quote">― Vikrmn, Corpkshetra</p>
+        </ion-col>
+      </ion-row>
+    </ng-container>
 
     <!-- Incase connections page is empty(but has matches found) -->
     <ion-row *ngIf="isOnlyMatches"

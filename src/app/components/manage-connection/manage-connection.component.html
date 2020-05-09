@@ -1,11 +1,16 @@
 <ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
+      <p class="title-text p-title">Who do you want to reconnect with?</p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
       <p>Name</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
           autofocus 
-          placeholder="Her Name" 
+          placeholder="Connection Name" 
           maxLength="20" 
           debounce="300" 
           (ionChange)="setName($event)">
@@ -38,11 +43,20 @@
   </ion-row> -->
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto" class="col-txt">
+      <p class="small-text p-note">
+        Don't worry, we are not doing anything yet.
+        They will be notified ONLY if they are looking for you too.
+      </p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-button fill="outline" color="secondary" (click)="close()">Cancel</ion-button>
+      <ion-button class="basic-text ion-text-capitalize" fill="outline" color="secondary" (click)="close()">Cancel</ion-button>
     </ion-col>
     <ion-col size="auto">
-      <ion-button (click)="addConnection()">Make Your Move</ion-button>
+      <ion-button class="basic-text ion-text-capitalize" (click)="addConnection()">Add Connection</ion-button>
     </ion-col>
   </ion-row>
 

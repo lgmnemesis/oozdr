@@ -10,7 +10,7 @@
       [class.fadeOutUp]="!isSettingsChanged"
       [class.fadeInDown]="isSettingsChanged">
       <ion-button class="bt-s-c" (click)="cancelSettingsChanges()"
-        [disabled]="saveButtonAction?.save" color="primary" fill="outline">Cancel</ion-button>
+        [disabled]="saveButtonAction?.save" color="secondary" fill="outline">Cancel</ion-button>
       <ion-button class="bt-s-c" (click)="saveSettings()"
         [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
     </ion-buttons>

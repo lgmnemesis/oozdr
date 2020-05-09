@@ -13,6 +13,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class ToastNotificationComponent implements OnInit, OnDestroy {
 
   @Input() id = null;
+  @Input() hide = false;
 
   toastNotificationsStoragePerfix = this.sharedService.toastNotificationsStoragePerfix;
   message: ToastMessage
