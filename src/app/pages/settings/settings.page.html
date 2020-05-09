@@ -1,13 +1,10 @@
 <ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
   <ion-toolbar>
-    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
-      <ion-button (click)="gotoProfile()" color="dark" fill="clear" shape="round">
-        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-      </ion-button>
+    <ion-title>Settings</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
     </ion-buttons>
+
     <ion-buttons slot="end" class="animated"
       [class.hide]="firstTime"
       [class.fadeOutUp]="!isSettingsChanged"
@@ -21,5 +18,42 @@
 </ion-header>
 
 <ion-content appScrollbarTheme>
-  setting yow
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <ion-item lines="none">
+          <ion-label class="basic-text">Notifications</ion-label>
+          <ion-toggle 
+            mode="ios" 
+            slot="start" 
+            [checked]="showNotifications"
+            (ionChange)="toggleNotifications($event)">
+          </ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!isVisibleSplitPane"
+      class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <ion-item lines="none">
+          <ion-button class="bt-theme" (click)="logout()">
+            <ion-label class="basic-text">Log Out</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <ion-item lines="none">
+          <ion-button class="bt-theme" color="danger" (click)="deleteAccount()">
+            <ion-label class="basic-text">Delete Account</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
 </ion-content>

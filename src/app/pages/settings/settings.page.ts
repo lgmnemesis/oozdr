@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,10 +16,12 @@ export class SettingsPage implements OnInit, OnDestroy {
   firstTime = true;
   isSettingsChanged = false;
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
+  showNotifications = true;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -32,7 +35,19 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
-  profileChanged(isChanged: boolean) {
+  toggleNotifications(event) {
+    this.showNotifications = event.detail.checked;
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  deleteAccount() {
+
+  }
+
+  settingsChanged(isChanged: boolean) {
     this.isSettingsChanged = isChanged;
     if (isChanged && this.firstTime) {
       this.firstTime = false;
