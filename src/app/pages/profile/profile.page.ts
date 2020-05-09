@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,8 @@ export class ProfilePage implements OnInit, OnDestroy {
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
 
   constructor(private sharedStoreService: SharedStoreService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private router: Router) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -50,6 +52,10 @@ export class ProfilePage implements OnInit, OnDestroy {
   saveProfile() {
     this.saveButtonAction = {save: true, cancel: false};
     this.markForCheck();
+  }
+
+  gotoSettings() {
+    this.router.navigate(['settings']).catch(error => console.error(error));
   }
 
   ngOnDestroy() {

@@ -1,0 +1,11 @@
+@import '../../styles/fonts-text';
+@import '../../styles/animation';
+
+.bt-s-c {
+  --border-radius: 10px !important;
+  width: 75px;
+}
+
+.hide {
+  visibility: hidden;
+}

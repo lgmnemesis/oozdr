@@ -3,13 +3,18 @@
     <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
   <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
+      <ion-button (click)="gotoSettings()" color="dark" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="end" class="animated"
       [class.hide]="firstTime"
       [class.fadeOutUp]="!isProfileChanged"
       [class.fadeInDown]="isProfileChanged">
-      <ion-button (click)="cancelProfileChanges()"
+      <ion-button class="bt-s-c" (click)="cancelProfileChanges()"
         [disabled]="saveButtonAction?.save" color="primary" fill="outline">Cancel</ion-button>
-      <ion-button (click)="saveProfile()"
+      <ion-button class="bt-s-c" (click)="saveProfile()"
         [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -64,11 +64,11 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   clickedOn(url: string) {
-    if (this.sharedStoreService.activeTopMenu !== url) {
+    // if (this.sharedStoreService.activeTopMenu !== url) {
       this.sharedStoreService.activeTopMenu = url;
       this.sharedStoreService.activeMenuSubject.next(url);
       this.goto(url);
-    }
+    // }
   }
 
   toggleMenus() {
