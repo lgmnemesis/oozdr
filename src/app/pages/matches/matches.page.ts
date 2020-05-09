@@ -96,7 +96,6 @@ export class MatchesPage implements OnInit, OnDestroy {
     });
 
     popover.onWillDismiss().then((data) => {
-      console.log('data:', data);
       this.inOpenOptionsProcess = false;
     }).catch(error => {
       console.error(error);

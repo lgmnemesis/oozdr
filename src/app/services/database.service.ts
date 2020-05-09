@@ -142,7 +142,6 @@ export class DatabaseService {
       const qSnap = await query.get();
       qSnap.forEach((doc) => {
         const docData = doc.data();
-        console.log('match1:', docData);
         if (docData.user_id !== connection.user_id) {
           secondPartyConnection = docData;
         }
@@ -152,8 +151,6 @@ export class DatabaseService {
     }
 
     if (secondPartyConnection) {
-      console.log('final match', ' myParty:', connection, ' secondParty:', secondPartyConnection);
-
       const myConnectionDocRef = db.doc(`connections/${connection.id}`);
       const secondConnectionDocRef = db.doc(`connections/${secondPartyConnection.id}`);
       const matchId = db.collection('matchid').doc().id;
@@ -184,21 +181,16 @@ export class DatabaseService {
         participates: [connection.user_id, secondPartyConnection.user_id],
         messages: []
       }
-      console.log('preparing batch write');
       const batch = db.batch();
       batch.set(myConnectionDocRef, myConnectionParams, { merge: true });
       batch.set(secondConnectionDocRef, secondConnectionParams, { merge: true });
       batch.set(matchDocRef, matchParams, { merge: true });
       try {
-        console.log('before commit');
         await batch.commit();
-        console.log('after commit');
       } catch (error) {
         console.error(error);
       }
     }
-    console.log('last');
-
   }
 
 } 

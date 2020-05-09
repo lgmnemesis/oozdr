@@ -18,9 +18,7 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
   set saveButtonClicked(action: {save: boolean}) {
     if (action && action.save) {
       this.isSaving = true;
-      console.log('moshe saving now.');
       this.saveProfile().finally(() => {
-        console.log('moshe: savingProfile done.');
         this.isSaving = false;
         this.markForCheck();
       });
@@ -43,7 +41,6 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._profile = this.sharedStoreService.profile$.subscribe((profile) => {
       this.profile = profile;
-      console.log('profie:', profile);
       this.markForCheck();
     });
   }
@@ -53,13 +50,10 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
   }
 
   isProfileChanged() {
-    console.log('profile:', this.profile.basicInfo, ' info:', this.welcomeService.basicInfo);
     const isChanged = JSON.stringify(this.profile.basicInfo) !== JSON.stringify(this.welcomeService.basicInfo);
     if (isChanged) {
-      console.log('was changed');
       this.isChangedEvent.next(true);
     } else {
-      console.log('all good');
       this.isChangedEvent.next(false);
     }
   }
@@ -70,10 +64,8 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
       await this.welcomeService.nextStep();
       const file = this.welcomeService.basicInfo.profile_img_file;
       if (file) {
-        console.log('moshe before uploading');
         try {
           const imgUrl = await this.fileStorageService.uploadImgFile(uploadDir, file);
-          console.log('moshe result:', imgUrl);
           this.welcomeService.basicInfo.profile_img_url = imgUrl;
         } catch (error) {
           console.error(error);
@@ -85,7 +77,6 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
     // Save Profile to db
     delete this.welcomeService.basicInfo.profile_img_file;
     const basicInfo = JSON.parse(JSON.stringify(this.welcomeService.basicInfo));
-    console.log('saving basicInfo:', basicInfo);
     return this.sharedStoreService.updateProfileData(this.profile, {basicInfo: basicInfo});
   }
 

@@ -231,7 +231,6 @@ export class WelcomeService {
         const uploadDir = `${this.sharedService.uploadProfileImgDir}/${profile.user_id}`;
         try {
           const imgUrl = await this.fileStorageService.uploadImgFile(uploadDir, file);
-          console.log('moshe saving profile img:', imgUrl);
           this.basicInfo.profile_img_url = imgUrl;
           profile.basicInfo.profile_img_url = imgUrl;
         } catch (error) {

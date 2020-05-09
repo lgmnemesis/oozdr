@@ -73,9 +73,7 @@ export class StartPage implements OnInit, OnDestroy {
     }));
 
     this._profile = this.profile$.subscribe((profile: Profile) => {
-      console.log('profile 1:', profile);
       if (profile) {
-        console.log('in profile 2');
         if (profile.basicInfo && profile.basicInfo.name) {
           this.gotoHome();
         } else {

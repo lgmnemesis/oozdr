@@ -15,7 +15,6 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
   @Input() isBack = false;
   @Input()
   set myProfile(profile: Profile) {
-    console.log('my profile changed');
     this.profile = profile;
     this.setProfile();
   }
@@ -60,7 +59,6 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
     if (this.profile) {
       this.welcomeService.basicInfo = JSON.parse(JSON.stringify(this.profile.basicInfo));
       this.welcomeService.profilePhotoText = 'Profile Photo';
-      console.log('moshe in info:', JSON.stringify(this.welcomeService.basicInfo));
       this.inputChangedEvent.next(true);
     }
     if (!this.welcomeService.basicInfo.profile_img_url) {
