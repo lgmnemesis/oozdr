@@ -1,6 +1,6 @@
-<ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
       <ion-back-button text=""></ion-back-button>
       <ion-icon name="settings-outline"></ion-icon>
     </ion-buttons>
@@ -21,16 +21,88 @@
 
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="auto">
+      <ion-col size="12">
         <ion-item lines="none">
-          <ion-label class="basic-text">Notifications</ion-label>
+          <ion-label class="title-text bold-text">Notifications</ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label class="basic-text">Push Notifications</ion-label>
           <ion-toggle 
-            mode="ios" 
-            slot="start" 
+            slot="end" 
             [checked]="showNotifications"
             (ionChange)="toggleNotifications($event)">
           </ion-toggle>
         </ion-item>
+        <ion-item lines="none">
+          <ion-label class="basic-text">Email Notifications</ion-label>
+          <ion-toggle 
+            slot="end" 
+            [checked]="showNotifications"
+            (ionChange)="toggleNotifications($event)">
+          </ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!isVisibleSplitPane"
+      class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item lines="none" class="item-invite">
+          <ion-button class="bt-theme" fill="clear" (click)="logout()">
+            <ion-icon name="people-outline"></ion-icon>
+            <ion-label class="basic-text padding-x">Invite Your Friends</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label> 
+            <p class="title-text bold-text">About</p>
+            <p class="basic-text">Version: {{ version }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item button lines="none">
+          <ion-label> 
+            <p class="title-text bold-text">Terms and Conditions</p>
+            <p class="basic-text">Good to know.</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item button lines="none">
+          <ion-label> 
+            <p class="title-text bold-text">Privacy Policy</p>
+            <p class="basic-text">Please read.</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item button lines="none">
+          <ion-label> 
+            <p class="title-text bold-text">Support</p>
+            <p class="basic-text">Get help, contact us.</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <div class="divider"></div>
       </ion-col>
     </ion-row>
 

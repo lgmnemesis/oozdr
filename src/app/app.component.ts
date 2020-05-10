@@ -8,6 +8,7 @@ import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
 import { SharedStoreService } from './services/shared-store.service';
 import { Router } from '@angular/router';
+import { Profile } from './interfaces/profile';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent {
   useSplitPane = false;
   isVisibleSplitPane = false;
   activeMenu: string;
+  profile: Profile;
 
   constructor(
     private platform: Platform,
@@ -42,6 +44,7 @@ export class AppComponent {
       // this.splashScreen.hide();
       this.sharedService.showInfo();
       this.subscribeToVersionUpdate();
+      this.subscribeToProfile();
     });
   }
 
@@ -101,5 +104,11 @@ export class AppComponent {
 
   toggleMatches() {
     this.sharedStoreService.isMatchesOpen = !this.sharedStoreService.isMatchesOpen;
+  }
+
+  subscribeToProfile() {
+    this.sharedStoreService.profile$.subscribe((profile) => {
+      this.profile = profile;
+    })
   }
 }

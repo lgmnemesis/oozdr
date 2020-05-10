@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,11 +18,13 @@ export class SettingsPage implements OnInit, OnDestroy {
   isSettingsChanged = false;
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
   showNotifications = true;
+  version = this.sharedService.getClientVersion();
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);

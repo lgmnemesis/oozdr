@@ -1,8 +1,12 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
-ion-grid {
-  padding-top: 100px;
+ion-col {
+  max-width: 500px !important;
+}
+
+ion-item {
+  --border-radius: 10px;
 }
 
 .bt-s-c {
@@ -18,4 +22,18 @@ ion-grid {
   min-width: 200px;
   height: 40px;
   text-transform: capitalize;
+}
+
+.item-invite {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.padding-x {
+  padding: 0 5px;
+}
+
+.divider {
+  width: 100%;
+  border-bottom: 1px solid var(--ion-color-light);
 }
