@@ -46,3 +46,11 @@ ion-chip {
   @extend .animated;
   @extend .zoomIn;
 }
+
+.p-s-margin {
+  margin: 2px;
+}
+
+.color-primary {
+  color: var(--ion-color-primary);
+}

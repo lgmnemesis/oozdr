@@ -6,7 +6,7 @@
     <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
   </ion-avatar>
   <ion-label>
-    <h2>{{ connection?.basicInfo?.name }}</h2>
+    <h2 class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</h2>
     <p>last message</p>
   </ion-label>
   <ion-icon *ngIf="connection?.isNewMatch"

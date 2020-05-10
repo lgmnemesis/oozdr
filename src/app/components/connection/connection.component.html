@@ -9,7 +9,9 @@
     <ion-icon *ngIf="!connection?.basicInfo?.profile_img_url"
       name="person-circle-outline" slot="start" color="primary">
     </ion-icon>
-    <ion-label color="primary" class="bold-text ion-text-wrap">{{ connection?.basicInfo?.name }}</ion-label>
+    <ion-label color="primary" class="bold-text ion-text-wrap ion-text-capitalize">
+      {{ connection?.basicInfo?.name }}
+    </ion-label>
   </ion-item>
 
   <div class="card-content">
@@ -26,7 +28,16 @@
     </ng-container>
 
     <ng-container *ngIf="connection?.isNewMatch">
-      confuckyoulation!
+      <ion-item lines="none">
+        <ion-icon name="bonfire-outline" slot="start" color="danger"></ion-icon>
+        <ion-label color="danger" class="ion-text-wrap">Congratulations! it's a match.</ion-label>
+      </ion-item>
+      <p class="ion-text-center p-s-margin">
+        <span class="color-primary ion-text-capitalize">{{ connection?.basicInfo?.name }}</span>
+        was looking for you as well!
+      </p>
+      <p class="ion-text-center p-s-margin">Go ahead and reconnect. start chatting.<p> 
+      <p class="ion-text-center p-s-margin color-primary">Good luck!</p>
     </ng-container>
 
   </div>
