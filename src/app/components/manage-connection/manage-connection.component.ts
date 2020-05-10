@@ -136,7 +136,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       persistOnDismiss: true
     }
     try {
-      const isPers = localStorage.getItem(`${this.sharedService.toastNotificationsStoragePerfix}${message.id}`);
+      const isPers = localStorage.getItem(`${this.sharedService.toastNotificationsStoragePerfix}${message.type}`);
       if (isPers) {
         message.duration = 5000;
         message.dismissButton = true;
