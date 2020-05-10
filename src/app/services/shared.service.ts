@@ -17,6 +17,7 @@ export class SharedService {
   defaultProfileImg =  '/assets/images/profile-def.png';
   toastNotificationsStoragePerfix = 'toast-notif-';
   uploadProfileImgDir = 'profiles';
+  currentUrlPath = null;
 
   menu1 = 'profile';
   menu2 = 'connections';

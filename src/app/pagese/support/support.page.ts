@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-support',
   templateUrl: './support.page.html',
   styleUrls: ['./support.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SupportPage implements OnInit {
 
-  constructor() { }
+  useBackIcon = true;
+
+  constructor(private sharedService: SharedService) { }
 
   ngOnInit() {
+    if (this.sharedService.currentUrlPath !== 'support') {
+      this.useBackIcon = false;
+    }
   }
 
 }

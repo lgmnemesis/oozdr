@@ -76,6 +76,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
   
   goto(url: string) {
+    this.sharedService.currentUrlPath = url;
     this.router.navigate([url]).catch(error => console.error(error));
   }
 
