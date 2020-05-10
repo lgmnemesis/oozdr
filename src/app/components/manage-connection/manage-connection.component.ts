@@ -127,7 +127,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     const message: ToastMessage = {
       header: `${connection.basicInfo.name} is now a new connection. Great first step!`,
       message: `If ${connection.basicInfo.name} has you as a connection, or will add you in the future, We will update both of you immediately.`,
-      id: 'connection_added',
+      type: 'connection_added',
+      id: connection.id,
       isVisible: true,
       duration: -1,
       dismissButton: true,

@@ -13,8 +13,15 @@ import { ToastMessage } from 'src/app/interfaces/toast-message';
 })
 export class ConnectionComponent implements OnInit {
 
-  @Input() connection: Connection = null;
+  @Input() 
+  set connectionInput(c: Connection) {
+    this.connection = c;
+    if (this.connection && this.connection.isMatched) {
+      this.dismissToast();
+    }
+  };
 
+  connection: Connection = null;
   inDisconnectProcess = false;
 
   constructor(private sharedStoreService: SharedStoreService,
@@ -25,17 +32,22 @@ export class ConnectionComponent implements OnInit {
 
   cardClicked() {
     if (this.connection.isNewMatch) {
+      this.dismissToast();
       this.connectionsService.gotoMatch(this.connection);
     }
   }
 
   async disconnect() {
-    const profile = await this.sharedStoreService.getProfile();
     this.sharedStoreService.removeConnection(this.connection)
       .catch(error => console.error(error));
+    this.dismissToast();
+  }
+
+  dismissToast() {
     const message: ToastMessage = {
       message: '',
-      id: 'connection_added',
+      type: 'connection_added',
+      id: this.connection.id,
       isVisible: false
     }
     this.sharedStoreService.toastNotificationsSubject.next(message);

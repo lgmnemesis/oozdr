@@ -1,7 +1,7 @@
 <ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <app-toast-notification id="connection_added" [hide]="connectionsState?.state === 'add'"></app-toast-notification>
+      <app-toast-notification type="connection_added" [hide]="connectionsState?.state === 'add'"></app-toast-notification>
     </ion-col>
   </ion-row>
   
@@ -17,7 +17,7 @@
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
         <app-connection *ngIf="!connection.isMatched || connection.isNewMatch"
-          [connection]="connection">
+          [connectionInput]="connection">
         </app-connection>
       </ion-col>
     </ion-row>

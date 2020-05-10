@@ -12,8 +12,9 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class ToastNotificationComponent implements OnInit, OnDestroy {
 
-  @Input() id = null;
+  @Input() type = null;
   @Input() hide = false;
+  id = null;
 
   toastNotificationsStoragePerfix = this.sharedService.toastNotificationsStoragePerfix;
   message: ToastMessage
@@ -26,7 +27,12 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._toastNotifications = this.sharedStoreService.toastNotifications$.subscribe((message) => {
-      if (message && message.id === this.id) {
+      if (message && message.type === this.type) {
+        if (!message.isVisible && message.id) {
+          if ( message.id !== this.id) {
+            return;
+          }
+        }
         this.message = message;
         if (!this.isLocked && message.isVisible && message.duration && message.duration > 0) {
           this.isLocked = true;
@@ -36,6 +42,7 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
             this.isLocked = false;
           }, message.duration);
         }
+        this.id = this.message.id;
         this.markForCheck();
       }
     });
@@ -46,7 +53,7 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
   }
 
   getStoragePath() {
-    return `${this.toastNotificationsStoragePerfix}${this.id}`;
+    return `${this.toastNotificationsStoragePerfix}${this.type}`;
   }
   cloneMessage() {
     return JSON.parse(JSON.stringify(this.message));

@@ -1,7 +1,8 @@
 export interface ToastMessage {
   header?: string;
   message: string;
-  id: 'connection_added';
+  type: 'connection_added';
+  id: string;
   isVisible: boolean;
   duration?: number;
   dismissButton?: boolean;
