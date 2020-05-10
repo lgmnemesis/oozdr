@@ -39,8 +39,20 @@ const routes: Routes = [
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'terms',
+    loadChildren: () => import('./pagese/terms/terms.module').then( m => m.TermsPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./pagese/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: 'support',
+    loadChildren: () => import('./pagese/support/support.module').then( m => m.SupportPageModule)
+  },
   // Default redirect route rule if non of the above matches
-  { path: '**', redirectTo: 'start', pathMatch: 'full' },
+  { path: '**', redirectTo: 'start', pathMatch: 'full' }
 ];
 
 @NgModule({

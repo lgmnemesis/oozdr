@@ -69,9 +69,9 @@
 
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="12">
-        <ion-item button lines="none">
+        <ion-item button lines="none" (click)="goto('terms')">
           <ion-label> 
-            <p class="title-text bold-text">Terms and Conditions</p>
+            <p class="title-text bold-text">Terms of Service</p>
             <p class="basic-text">Good to know.</p>
           </ion-label>
         </ion-item>
@@ -80,7 +80,7 @@
 
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="12">
-        <ion-item button lines="none">
+        <ion-item button lines="none" (click)="goto('privacy')">
           <ion-label> 
             <p class="title-text bold-text">Privacy Policy</p>
             <p class="basic-text">Please read.</p>
@@ -91,7 +91,7 @@
 
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="12">
-        <ion-item button lines="none">
+        <ion-item button lines="none" (click)="goto('support')">
           <ion-label> 
             <p class="title-text bold-text">Support</p>
             <p class="basic-text">Get help, contact us.</p>

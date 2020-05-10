@@ -1,1 +1,5 @@
 https://reconnect.holonotes.io
+https://reconnect.holonotes.io/start
+https://reconnect.holonotes.io/terms
+https://reconnect.holonotes.io/privacy
+https://reconnect.holonotes.io/support

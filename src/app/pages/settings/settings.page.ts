@@ -72,7 +72,11 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile']).catch(error => console.error(error));
+    this.goto('profile');
+  }
+  
+  goto(url: string) {
+    this.router.navigate([url]).catch(error => console.error(error));
   }
 
   ngOnDestroy() {
