@@ -9,7 +9,7 @@ import { Match } from 'src/app/interfaces/profile';
 })
 export class ChatContentViewComponent implements OnInit {
 
-  @Input() myUserId = 'moshe_id';
+  @Input() myUserId = null;
   @Input() 
   set match(m: Match) {
     this.activeMatch = m;

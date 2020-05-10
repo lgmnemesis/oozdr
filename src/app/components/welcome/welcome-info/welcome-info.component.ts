@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input } from '@angular/core';
 import { Profile } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -9,7 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./welcome-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WelcomeInfoComponent implements OnInit, AfterViewInit {
+export class WelcomeInfoComponent implements OnInit {
 
   @Input() isNext = false;
   @Input() isBack = false;
@@ -39,16 +39,6 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
       };
     }
     this.setProfile();
-  }
-
-  async ngAfterViewInit() {
-    // if (this.welcomeService.basicInfo.profile_img_url) {
-      // if (this.welcomeService.basicInfo.profile_img_url_org) {
-      //   this.welcomeService.basicInfo.profile_img_url = this.welcomeService.basicInfo.profile_img_url_org;
-      // }
-      // await this.welcomeService.cropPhoto();
-      // this.markForCheck();
-    // }
   }
 
   markForCheck() {
@@ -121,7 +111,6 @@ export class WelcomeInfoComponent implements OnInit, AfterViewInit {
     });
     const readerAsDataURLEvent: any = await readerAsDataURLAsync;
     this.welcomeService.basicInfo.profile_img_url = readerAsDataURLEvent.target.result;
-    // this.welcomeService.basicInfo.profile_img_url_org = this.welcomeService.basicInfo.profile_img_url;
 
     await this.welcomeService.cropPhoto();
     this.inputChangedEvent.next(true);

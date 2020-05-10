@@ -17,9 +17,7 @@
       <ion-avatar slot="start">
         <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
       </ion-avatar>
-      <ion-label>
-        {{ connection?.basicInfo?.name }}
-      </ion-label>
+      <ion-label class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</ion-label>
       <ion-button slot="end" fill="clear" (click)="openOptions($event)">
         <ion-icon color="dark" name="ellipsis-vertical"></ion-icon>
       </ion-button>

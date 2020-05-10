@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ConnectionsState } from '../interfaces/connections-state';
 import { DatabaseService } from './database.service';
 import { Profile, Connection, Match, Message } from '../interfaces/profile';

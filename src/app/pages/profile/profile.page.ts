@@ -55,6 +55,9 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   gotoSettings() {
+    if (!this.isProfileChanged) {
+      this.firstTime = true;
+    }
     this.router.navigate(['settings']).catch(error => console.error(error));
   }
 

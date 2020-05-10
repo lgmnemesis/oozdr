@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subscription, Observable } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
 import { AlertController, ModalController } from '@ionic/angular';

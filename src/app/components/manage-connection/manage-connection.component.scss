@@ -3,7 +3,7 @@
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   ion-col {
-    padding: 15px 0px !important;
+    padding: 0px 0px !important;
   }
   
   .item-input {
@@ -64,11 +64,12 @@ input:focus {
 
 .p-title {
   color: var(--ion-color-primary);
+  text-align: center;
 }
 
 .p-note {
   max-width: 500px;
   color: var(--ion-color-secondary);
   text-align: center;
-  margin-bottom: 0;
+  margin-bottom: 2px;
 }

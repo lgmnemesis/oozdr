@@ -53,7 +53,6 @@ export class TopMenuComponent implements OnInit, OnDestroy {
         this.sharedStoreService.activeTopMenu = this.sharedService.menu2;
       }
       this.markForCheck();
-      console.log('moshe:', this.sharedStoreService.activeTopMenu, active, this.isVisible);
     });
 
     this._newMatchesIndicator = this.sharedStoreService.newMatchesIndicator$.subscribe((isNew) => {
@@ -67,11 +66,9 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   }
 
   clickedOn(url: string) {
-    // if (this.sharedStoreService.activeTopMenu !== url) {
-      this.sharedStoreService.activeTopMenu = url;
-      this.sharedStoreService.activeMenuSubject.next(url);
-      this.goto(url);
-    // }
+    this.sharedStoreService.activeTopMenu = url;
+    this.sharedStoreService.activeMenuSubject.next(url);
+    this.goto(url);
   }
 
   toggleMenus() {

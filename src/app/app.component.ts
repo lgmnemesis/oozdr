@@ -79,7 +79,6 @@ export class AppComponent {
 
   matchClicked() {
     this.sharedStoreService.activeMenuSubject.next('matches');
-    // this.gotoActiveMenu();
   }
 
   profileClicked() {
