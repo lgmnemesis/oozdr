@@ -1,1 +1,20 @@
 @import '../../styles/fonts-text';
+@import '../../styles/global-styles';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .content {
+    padding: 0 10px !important;
+  }
+}
+
+.content {
+  padding: 0 50px;
+  max-width: 1200px;
+}
+
+p,
+h2,
+h3,
+li {
+  @extend .font-params;
+}
