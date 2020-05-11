@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { Connection } from 'src/app/interfaces/profile';
+import { Connection, Match, Message, LastMessage } from 'src/app/interfaces/profile';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -19,7 +19,9 @@ export class MatchesComponent implements OnInit, OnDestroy {
   _activeMenu: Subscription;
   connections: Connection[];
   _connections: Subscription;
+  _matches: Subscription;
   noMatches = false;
+  matches: Match[];
 
   constructor(public sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -40,15 +42,24 @@ export class MatchesComponent implements OnInit, OnDestroy {
       this.activeMenu = active;
       this.markForCheck();
     });
+
+    this._matches = this.sharedStoreService.matches$.subscribe((matches) => {
+      if (matches) {
+        this.matches = matches;
+        this.markForCheck();
+      }
+    })
   }
 
   markForCheck() {
     this.cd.markForCheck();
   }
 
-  matchButtonClicked(connection: Connection) {
+  matchButtonClicked(event) {
     this.matchClicked.next(true);
-    this.connetionsService.gotoMatch(connection);
+    const connection: Connection = event.connection;
+    const lastMessage: LastMessage = event.lastMessage;
+    this.connetionsService.gotoMatch(connection, lastMessage);
   }
 
   trackById(i, connection) {
@@ -61,6 +72,9 @@ export class MatchesComponent implements OnInit, OnDestroy {
     }
     if (this._activeMenu) {
       this._activeMenu.unsubscribe();
+    }
+    if (this._matches) {
+      this._matches.unsubscribe();
     }
   }
 }

@@ -125,5 +125,11 @@ export class MatchesPage implements OnInit, OnDestroy {
     if (this._isVisibleSplitPane) {
       this._isVisibleSplitPane.unsubscribe();
     }
+    if (this._matches) {
+      this._matches.unsubscribe();
+    }
+    if (this._route) {
+      this._route.unsubscribe();
+    }
   }
 }

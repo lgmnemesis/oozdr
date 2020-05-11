@@ -74,7 +74,7 @@ export class ChatInputViewComponent implements OnInit {
     }
     if (message.length > 0 && this.activeMatch) {
       const msg = this.messageText;
-      this.connectionsService.addMessage(this.activeMatch.id, msg);
+      this.connectionsService.addMessage(this.activeMatch, msg);
       this.messageText = '';
       this.showEmojiPicker = false;
       this.inputDisabled = true;

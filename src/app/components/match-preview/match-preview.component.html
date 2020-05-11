@@ -7,10 +7,14 @@
   </ion-avatar>
   <ion-label>
     <h2 class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</h2>
-    <p class="last-msg">{{ lastMessagesByConnectionId[connection?.id] }}</p>
+    <p class="last-msg">{{ lastMessage?.message?.content }}</p>
   </ion-label>
   <ion-icon *ngIf="connection?.isNewMatch"
     class="animated zoomIn"
     slot="end" name="bonfire-outline" color="danger">
+  </ion-icon>
+  <ion-icon *ngIf="!isActiveMatch && !connection?.isNewMatch && lastMessage?.hasNewMessages"
+    class="animated zoomIn"
+    slot="end" size="small" name="chatbubble-outline" color="success">
   </ion-icon>
 </ion-item>

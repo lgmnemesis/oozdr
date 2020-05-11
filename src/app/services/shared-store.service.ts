@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { ConnectionsState } from '../interfaces/connections-state';
 import { DatabaseService } from './database.service';
-import { Profile, Connection, Match, Message } from '../interfaces/profile';
+import { Profile, Connection, Match, Message, LastMessage } from '../interfaces/profile';
 import { first } from 'rxjs/operators';
 import { ToastMessage } from '../interfaces/toast-message';
 
@@ -20,6 +20,7 @@ export class SharedStoreService {
   activeMatchConnectionId: string = null;
   connections: Connection[];
   userDeleted = false;
+  lastActiveMessage: LastMessage = null;
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();
@@ -63,6 +64,7 @@ export class SharedStoreService {
     this.shouldAnimateStartPage = false;
     this.isMatchesOpen = true;
     this.needToFinishInfoRegistration = false;
+    this.lastActiveMessage = null;
 
     this.useSplitPaneSubject.next(false);
     this.isVisibleSplitPaneSubject.next(false);
@@ -125,6 +127,7 @@ export class SharedStoreService {
   }
 
   updateConnectionData(connection: Connection, data: any): Promise<void> {
+    console.log('moshe updating connection data DB');
     return this.databaseService.updateConnectionData(connection, data);
   }
 
@@ -149,17 +152,21 @@ export class SharedStoreService {
     }
   }
 
-  async addMatchMessage(matchId: string, message: string) {
-    if (matchId) {
+  async addMatchMessage(match: Match, message: string) {
+    if (match) {
       const msg: Message = {
         id: this.databaseService.createId(),
-        match_id: matchId,
+        match_id: match.id,
         content: message,
         createdAt: new Date().getTime(),
         user_id: (await this.getProfile()).user_id
       }
-      this.databaseService.addMatchMessage(msg);
+      this.databaseService.addMatchMessage(match, msg);
     }
+  }
+
+  setMatchPartyHasReadMessages(lastMessage: LastMessage) {
+    this.databaseService.setMatchPartyHasReadMessages(lastMessage);
   }
 
   get timestamp(): number {

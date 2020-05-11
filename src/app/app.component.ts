@@ -7,7 +7,7 @@ import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
 import { SharedStoreService } from './services/shared-store.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Profile } from './interfaces/profile';
 
 @Component({
@@ -45,6 +45,7 @@ export class AppComponent {
       this.sharedService.showInfo();
       this.subscribeToVersionUpdate();
       this.subscribeToProfile();
+      this.subscribeToRouterEvents();
     });
   }
 
@@ -67,6 +68,24 @@ export class AppComponent {
   subscribeToActiveMenu() {
     this.sharedStoreService.activeMenu$.subscribe((active) => {
       this.activeMenu = active;
+    });
+  }
+
+  subscribeToRouterEvents() {
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+
+        // Manage unread messages indication
+        const dUrl = e.url.replace('%2B', '+');
+        const cid = this.sharedStoreService.activeMatchConnectionId;
+        const lastActiveMessage = JSON.parse(JSON.stringify(this.sharedStoreService.lastActiveMessage));
+        const notInChat = cid && !dUrl.includes(cid);
+        if (cid && lastActiveMessage && lastActiveMessage.hasNewMessages && notInChat) {
+          this.sharedStoreService.lastActiveMessage = null;
+          this.sharedStoreService.setMatchPartyHasReadMessages(lastActiveMessage);
+        }
+
+      }
     });
   }
 

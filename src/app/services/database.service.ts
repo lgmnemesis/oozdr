@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Profile, Connection, Match, Message } from '../interfaces/profile';
+import { Profile, Connection, Match, Message, LastMessage } from '../interfaces/profile';
 import * as firebase from 'firebase/app'; 
 import 'firebase/firestore';
 
@@ -115,10 +115,45 @@ export class DatabaseService {
     }));
   }
 
-  async addMatchMessage(message: Message) {
-    const path = 'matches/' + message.match_id;
+  
+  async setMatchPartyHasReadMessages(lastMessage: LastMessage) {
+    const path = 'matches/' + lastMessage.match.id;
+    const data = {
+      firstParty: lastMessage.match.firstParty,
+      secondParty: lastMessage.match.secondParty,
+    }
+    const isFirstParty = lastMessage.isFirstParty;
+    if (isFirstParty) {
+      data.firstParty.hasNewMessages = false;
+    } else {
+      data.secondParty.hasNewMessages = false;
+    }
+    console.log('moshe DB setMatchPartyHasReadMessages');
     try {
-      return this.afs.doc(path).update({ messages: firebase.firestore.FieldValue.arrayUnion(message) });
+      return this.afs.doc(path).update(data);
+    } catch (error) {
+      return console.error(error);
+    }
+  }
+
+  async addMatchMessage(match: Match, message: Message) {
+    const path = 'matches/' + message.match_id;
+    const data = {
+      firstParty: match.firstParty,
+      secondParty: match.secondParty,
+      messages: firebase.firestore.FieldValue.arrayUnion(message)
+    }
+    const isFirstParty = message.user_id === match.firstParty.user_id;
+    if (isFirstParty) {
+      data.firstParty.hasNewMessages = false;
+      data.secondParty.hasNewMessages = true;
+    } else {
+      data.firstParty.hasNewMessages = true;
+      data.secondParty.hasNewMessages = false;
+    }
+    console.log('moshe DB addMatchMessage');
+    try {
+      return this.afs.doc(path).update(data);
     } catch (error) {
       return console.error(error);
     }

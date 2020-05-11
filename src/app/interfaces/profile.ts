@@ -15,6 +15,7 @@ export interface Connection {
   createdAt?: firebase.firestore.Timestamp;
   isMatched: boolean;
   isNewMatch: boolean;
+  lastMessage?: Message;
 }
 
 export interface BasicInfo {
@@ -38,6 +39,7 @@ export interface Match {
 export interface Party {
   user_id: string;
   user_mobile: string;
+  hasNewMessages?: boolean;
 }
 
 export interface Message {
@@ -47,4 +49,11 @@ export interface Message {
   user_name?: string;
   content: string;
   createdAt: Date | number
+}
+
+export interface LastMessage {
+  message: Message, 
+  hasNewMessages: boolean;
+  isFirstParty: boolean;
+  match: Match;
 }
