@@ -76,11 +76,8 @@ export class AppComponent {
       if (e instanceof NavigationEnd) {
 
         // Manage unread messages indication
-        const dUrl = e.url.replace('%2B', '+');
-        const cid = this.sharedStoreService.activeMatchConnectionId;
-        const lastActiveMessage = JSON.parse(JSON.stringify(this.sharedStoreService.lastActiveMessage));
-        const notInChat = cid && !dUrl.includes(cid);
-        if (cid && lastActiveMessage && lastActiveMessage.hasNewMessages && notInChat) {
+        if (this.sharedStoreService.lastActiveMessage && this.sharedStoreService.lastActiveMessage.hasNewMessages) {
+          const lastActiveMessage = JSON.parse(JSON.stringify(this.sharedStoreService.lastActiveMessage));
           this.sharedStoreService.lastActiveMessage = null;
           this.sharedStoreService.setMatchPartyHasReadMessages(lastActiveMessage);
         }
