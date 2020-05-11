@@ -9,12 +9,15 @@
 
 .content {
   padding: 0 50px;
+  padding-bottom: 50px;
   max-width: 1200px;
+  line-height: 1.5;
 }
 
-p,
-h2,
-h3,
-li {
+h2, h3 {
   @extend .font-params;
+}
+
+p, li {
+  @extend .basic-text;
 }
