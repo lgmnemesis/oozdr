@@ -41,7 +41,7 @@ service cloud.firestore {
   
   function isValidForConnectionUpdateDoc() {
   	return isValidForConnectionDoc()
-      && ((request.writeFields.size() == 1) 
+      && ((request.writeFields.size() == 1)
       && ('isNewMatch' in request.writeFields));
   }
   
@@ -52,8 +52,14 @@ service cloud.firestore {
   function isValidChat() {
   	return incomingData().id == existingData().id 
   		&& incomingData().participates == existingData().participates
+      && incomingData().firstParty.user_id == existingData().firstParty.user_id
+      && incomingData().firstParty.user_mobile == existingData().firstParty.user_mobile
+      && incomingData().secondParty.user_id == existingData().secondParty.user_id
+      && incomingData().secondParty.user_mobile == existingData().secondParty.user_mobile
       && incomingData().messages.hasAll(existingData().messages)
-      && incomingData().messages.size() == existingData().messages.size() + 1
+      && (incomingData().messages.size() == existingData().messages.size() + 1
+      || (incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages
+      || incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages))
       && request.resource.size() == resource.size();
   }
   
@@ -86,3 +92,4 @@ service cloud.firestore {
   	return request.resource.data;
   }
 }
+  

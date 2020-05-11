@@ -20,7 +20,6 @@ export class MatchPreviewComponent implements OnInit {
   set setLastMessage(m: LastMessage) {
     this.lastMessage = m;
     if (this.isActiveMatch) {
-      console.log('active match:', this.lastMessage);
       this.sharedStoreService.lastActiveMessage = this.lastMessage;
     }
   }
