@@ -20,13 +20,14 @@ export class MatchesPage implements OnInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
-  _match: Subscription;
+  _matches: Subscription;
   _route: Subscription;
   user: firebase.User;
   isInsideChat = false;
   defaultProfileImg = this.sharedService.defaultProfileImg;
   connection: Connection;
-  match: Match
+  matches: Match[];
+  activeMatch: Match;
   inOpenOptionsProcess = false;
 
   constructor(private sharedStoreService: SharedStoreService,
@@ -45,9 +46,9 @@ export class MatchesPage implements OnInit, OnDestroy {
       this.cd.detectChanges();
     });
 
-    this._match = this.sharedStoreService.match$.subscribe((match) => {
-      this.match = match;
-      this.scrollToBottom();
+    this._matches = this.sharedStoreService.matches$.subscribe((matches) => {
+      this.matches = matches;
+      this.updateActiveMatch();
       this.markForCheck();
     })
 
@@ -60,8 +61,8 @@ export class MatchesPage implements OnInit, OnDestroy {
         this.isInsideChat = true;
         this.connection = this.sharedStoreService.getConnectionById(cid);
         if (this.connection) {
-          this.sharedStoreService.subscribeToMatchById(this.connection.match_id);
           this.sharedStoreService.activeMatchConnectionId = cid;
+          this.updateActiveMatch();
         }
       }
       this.markForCheck();
@@ -70,6 +71,14 @@ export class MatchesPage implements OnInit, OnDestroy {
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  updateActiveMatch() {
+    if (this.connection && this.matches) {
+      const matchId = this.connection.match_id;
+      this.activeMatch = this.matches.find(m => m.id === matchId);
+      this.scrollToBottom();
+    }
   }
 
   scrollToBottom(time = 300) {

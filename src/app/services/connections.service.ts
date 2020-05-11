@@ -11,9 +11,9 @@ export class ConnectionsService {
   constructor(private sharedStoreService: SharedStoreService,
     private router: Router) { }
 
-  addMessage(messageContent: string) {
+  addMessage(matchId: string, messageContent: string) {
     const message = this.formatMessage(messageContent);
-    this.sharedStoreService.addMatchMessage(message);
+    this.sharedStoreService.addMatchMessage(matchId, message);
   }
 
   formatMessage(message: string): string {

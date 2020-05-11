@@ -43,6 +43,7 @@ export interface Party {
 export interface Message {
   id: string;
   user_id: string;
+  match_id: string;
   user_name?: string;
   content: string;
   createdAt: Date | number

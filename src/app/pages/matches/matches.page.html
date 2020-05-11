@@ -29,12 +29,12 @@
 <ion-content #content appScrollbarTheme>
   <app-matches *ngIf="!isVisibleSplitPane && !isInsideChat"></app-matches>
   <div class="chat-container" *ngIf="isInsideChat">
-    <app-chat-content-view [match]="match" [myUserId]="user?.uid"></app-chat-content-view>
+    <app-chat-content-view [match]="activeMatch" [myUserId]="user?.uid"></app-chat-content-view>
   </div>
 </ion-content>
 
 <ion-footer class="ion-no-border" *ngIf="isInsideChat">
   <div class="chat-container">
-    <app-chat-input-view></app-chat-input-view>
+    <app-chat-input-view [match]="activeMatch"></app-chat-input-view>
   </div>
 </ion-footer>

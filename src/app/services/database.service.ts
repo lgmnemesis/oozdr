@@ -97,9 +97,16 @@ export class DatabaseService {
     }
   }
 
-  getMatchAsObservable(id: string): Observable<Match> {
-    const path = 'matches/' + id;
-    return this.afs.doc(path).valueChanges()
+  private getMatchesDbRef(userId: string, batchSize = 100): AngularFirestoreCollection<Match[]> {
+    const path = 'matches/';
+    return this.afs.collection(path, ref => {
+      return ref.where('participates', 'array-contains', userId)
+      .limit(batchSize);
+    });
+  }
+
+  getMatchesAsObservable(userId: string): Observable<Match[]> {
+    return this.getMatchesDbRef(userId).valueChanges()
     .pipe(catchError((error) => {
       if (!environment.production) {
         console.error(error);
@@ -108,8 +115,8 @@ export class DatabaseService {
     }));
   }
 
-  async addMatchMessage(id: string, message: Message) {
-    const path = 'matches/' + id;
+  async addMatchMessage(message: Message) {
+    const path = 'matches/' + message.match_id;
     try {
       return this.afs.doc(path).update({ messages: firebase.firestore.FieldValue.arrayUnion(message) });
     } catch (error) {

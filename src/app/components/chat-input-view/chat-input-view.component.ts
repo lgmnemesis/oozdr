@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConnectionsService } from 'src/app/services/connections.service';
+import { Match } from 'src/app/interfaces/profile';
 
 @Component({
   selector: 'app-chat-input-view',
@@ -10,9 +11,16 @@ import { ConnectionsService } from 'src/app/services/connections.service';
 })
 export class ChatInputViewComponent implements OnInit {
 
+  @Input() 
+  set match(m: Match) {
+    this.activeMatch = m;
+    this.markForCheck();
+  }
+
   MAX_MESSAGE_LENGTH = 1500;
   emojiCssStyle = { position: 'fixed', bottom: '60px', right: '20px', 'z-index': '2' };
 
+  activeMatch: Match;
   ctrlEnter = false;
   messageText = '';
   inputAutoGrow = true;
@@ -64,9 +72,9 @@ export class ChatInputViewComponent implements OnInit {
     if (message.length > this.MAX_MESSAGE_LENGTH) {
       return;
     }
-    if (message.length > 0) {
+    if (message.length > 0 && this.activeMatch) {
       const msg = this.messageText;
-      this.connectionsService.addMessage(msg);
+      this.connectionsService.addMessage(this.activeMatch.id, msg);
       this.messageText = '';
       this.showEmojiPicker = false;
       this.inputDisabled = true;

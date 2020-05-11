@@ -18,7 +18,6 @@ export class SharedStoreService {
   isMatchesOpen = true;
   needToFinishInfoRegistration = false;
   activeMatchConnectionId: string = null;
-  activeMatch: Match = null;
   connections: Connection[];
   userDeleted = false;
 
@@ -42,9 +41,9 @@ export class SharedStoreService {
   connectionsSubject: BehaviorSubject<Connection[]> = new BehaviorSubject(null);
   connections$ = this.connectionsSubject.asObservable();
 
-  _matchDB: Subscription;
-  matchSubject: BehaviorSubject<Match> = new BehaviorSubject(null);
-  match$ = this.matchSubject.asObservable();
+  _matchesDB: Subscription;
+  matchesSubject: BehaviorSubject<Match[]> = new BehaviorSubject(null);
+  matches$ = this.matchesSubject.asObservable();
 
   _newMatchesIndicator: Subscription;
   newMatchesIndicatorSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -70,7 +69,7 @@ export class SharedStoreService {
     this.connectionsStateSubject.next({state: 'view'});
     this.profileSubject.next(null);
     this.connectionsSubject.next(null);
-    this.matchSubject.next(null);
+    this.matchesSubject.next(null);
     this.newMatchesIndicatorSubject.next(false);
     this.toastNotificationsSubject.next(null);
 
@@ -84,8 +83,8 @@ export class SharedStoreService {
     if (this._connectionsDB) {
       this._connectionsDB.unsubscribe();
     }
-    if (this._matchDB) {
-      this._matchDB.unsubscribe();
+    if (this._matchesDB) {
+      this._matchesDB.unsubscribe();
     }
   }
 
@@ -142,28 +141,24 @@ export class SharedStoreService {
      }
   }
 
-  subscribeToMatchById(id: string) {
-    if (!id) {
-      return;
+  async registerToMatches(userId: string) {
+    if (userId && (!this._matchesDB || this._matchesDB.closed)) {
+      this._matchesDB = this.databaseService.getMatchesAsObservable(userId).subscribe((matches) => {
+        this.matchesSubject.next(matches);
+      });
     }
-    if (this._matchDB) {
-      this._matchDB.unsubscribe();
-    }
-    this.databaseService.getMatchAsObservable(id).subscribe((match) => {
-      this.matchSubject.next(match);
-      this.activeMatch = match;
-    });
   }
 
-  async addMatchMessage(message: string) {
-    if (this.activeMatch) {
+  async addMatchMessage(matchId: string, message: string) {
+    if (matchId) {
       const msg: Message = {
         id: this.databaseService.createId(),
+        match_id: matchId,
         content: message,
         createdAt: new Date().getTime(),
         user_id: (await this.getProfile()).user_id
       }
-      this.databaseService.addMatchMessage(this.activeMatch.id, msg);
+      this.databaseService.addMatchMessage(msg);
     }
   }
 
