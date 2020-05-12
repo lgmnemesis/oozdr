@@ -44,6 +44,35 @@
       </ion-col>
     </ion-row>
 
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item button lines="none" [disabled]="blockedMachesCount === 0" (click)="toggleBlockedMatches()">
+          <ion-label> 
+            <p class="title-text bold-text">Blocked Matches</p>
+            <p class="basic-text">{{ blockedMachesCount > 0 ? blockedMachesCount : 'None' }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="isOpenBlockedMatchesList">
+      <ion-col size="12">
+        <ion-list lines="none" class="blocked-list">
+          <ng-container *ngFor="let connection of connections; trackBy: trackById">
+            <ion-item class="i-match" *ngIf="connection?.isMatched && connection?.isBlocked"
+              lines="none" button [detail]="false" (click)="unBlockButton(connection)">
+              <ion-avatar slot="start">
+                <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
+              </ion-avatar>
+              <ion-label>
+                <h2 class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</h2>
+              </ion-label>
+            </ion-item>
+          </ng-container>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
     <ion-row *ngIf="!isVisibleSplitPane"
       class="ion-justify-content-center ion-align-items-center">
       <ion-col size="12">

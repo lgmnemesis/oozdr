@@ -12,7 +12,7 @@
   </ion-row>
 </ion-grid>
 <ng-container *ngFor="let connection of connections; trackBy: trackById">
-  <app-match-preview [setLastMessage]="connection | getLastMessages:matches" *ngIf="connection?.isMatched"
+  <app-match-preview [setLastMessage]="connection | getLastMessages:matches" *ngIf="connection?.isMatched && !connection?.isBlocked"
     [isActive]="activeMenu == 'matches' && sharedStoreService.activeMatchConnectionId === connection?.id"
     [connection]="connection" 
     (buttonEvent)="matchButtonClicked($event)">

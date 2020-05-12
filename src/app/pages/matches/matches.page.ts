@@ -5,7 +5,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Match, Connection } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, AlertController } from '@ionic/angular';
 import { MatchOptionsComponent } from 'src/app/components/match-options/match-options.component';
 
 @Component({
@@ -36,7 +36,8 @@ export class MatchesPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private popoverCtrl: PopoverController) { }
+    private popoverCtrl: PopoverController,
+    private alertCtrl: AlertController) { }
 
   async ngOnInit() {
     this.user = await this.authService.getUser();
@@ -100,11 +101,20 @@ export class MatchesPage implements OnInit, OnDestroy {
     const popover = await this.popoverCtrl.create({
       component: MatchOptionsComponent,
       event: ev,
+      componentProps: {connection: this.connection},
       mode: 'ios',
       cssClass: 'match-options-popover'
     });
 
-    popover.onWillDismiss().then((data) => {
+    popover.onWillDismiss().then((res) => {
+      if (res && res.data && res.data.block) {
+        const name = this.connection.basicInfo.name;
+        const nameC = name[0].toUpperCase() + name.slice(1);
+        const header = `You will no longer be able to send or recieve messages from ${nameC}`;
+        const message = 'Blocked matches can be unblocked at any time (under settings)';
+        const buttonText = 'Block';
+        this.presentConfirm(header, message, buttonText, true, 'block');
+      }
       this.inOpenOptionsProcess = false;
     }).catch(error => {
       console.error(error);
@@ -117,8 +127,44 @@ export class MatchesPage implements OnInit, OnDestroy {
     });
   }
 
+  private async presentConfirm(header: string, message: string, buttonText: string, isDangerColor: boolean, action: string) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      message: message,
+      mode: 'ios',
+      cssClass: 'alert-confirm-conainer',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        }, {
+          text: buttonText,
+          cssClass: isDangerColor ? 'alert-danger-text-color' : '',
+          handler: () => {
+            this.confirmAction(action);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  confirmAction(action: string) {
+    if (action === 'block') {
+      this.sharedStoreService.updateConnectionData(this.connection, {isBlocked: true});
+      this.goto('/connections');
+    }
+  }
+
   goBack() {
-    this.router.navigate(['/matches']).catch(error => console.error(error));
+    this.goto('matches');
+  }
+  
+  goto(url: string) {
+    this.router.navigate([url]).catch(error => console.error(error));
   }
 
   ngOnDestroy() {

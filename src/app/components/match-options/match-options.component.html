@@ -1,8 +1,11 @@
 <ion-list lines="none">
-  <ion-item lines="full" button [detail]="false" (click)="clicked()">
-    <ion-label class="ion-text-center basic-text">Remove Match</ion-label>
+  <ion-item lines="full" button [detail]="false" (click)="blockButton()">
+    <ion-icon color="danger" name="hand-left"></ion-icon>
+    <ion-label 
+      class="ion-text-center basic-text ion-text-capitalize">
+        Block {{ connection?.basicInfo?.name }}
+      </ion-label>
   </ion-item>
-  <ion-item button [detail]="false" (click)="clicked()">
-    <ion-label class="ion-text-center basic-text">Last Option</ion-label>
+  <ion-item  [detail]="false">
   </ion-item>
 </ion-list>

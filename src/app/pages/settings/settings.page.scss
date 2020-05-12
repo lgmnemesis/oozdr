@@ -48,3 +48,12 @@ ion-item {
   width: 100%;
   border-bottom: 1px solid var(--ion-color-light);
 }
+
+.i-match {
+  --background: var(--ion-color-minor);
+}
+
+.blocked-list {
+  border: 1px solid var(--ion-color-light);
+  border-radius: 5px;
+}

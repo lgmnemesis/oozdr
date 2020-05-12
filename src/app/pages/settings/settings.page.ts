@@ -4,6 +4,8 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { Connection } from 'src/app/interfaces/profile';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-settings',
@@ -14,22 +16,41 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
+  _connections: Subscription;
   firstTime = true;
   isSettingsChanged = false;
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
   showNotifications = true;
   version = this.sharedService.getClientVersion();
+  isOpenBlockedMatchesList = false;
+  blockedMachesCount = 0;
+  connections: Connection[] = [];
+  defaultProfileImg = this.sharedService.defaultProfileImg;
+  lockModal = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private router: Router,
     private authService: AuthService,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
     this._isVisibleSplitPane = this.sharedStoreService.isVisibleSplitPane$.subscribe((isVisible) => {
       this.isVisibleSplitPane = isVisible;
+      this.markForCheck();
+    });
+
+    this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
+      this.connections = connections;
+      if (connections) {
+        const blocked = connections.filter(c => c.isMatched && c.isBlocked);
+        this.blockedMachesCount = blocked.length;
+        if (this.blockedMachesCount === 0) {
+          this.isOpenBlockedMatchesList = false;
+        }
+      }
       this.markForCheck();
     });
   }
@@ -40,6 +61,14 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   toggleNotifications(event) {
     this.showNotifications = event.detail.checked;
+  }
+
+  toggleBlockedMatches() {
+    if (this.blockedMachesCount > 0) {
+      this.isOpenBlockedMatchesList = !this.isOpenBlockedMatchesList;
+    } else {
+      this.isOpenBlockedMatchesList = false;
+    }
   }
 
   logout() {
@@ -80,9 +109,56 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.router.navigate([url]).catch(error => console.error(error));
   }
 
+  unBlockButton(connection: Connection) {
+    if (this.lockModal) {
+      return;
+    }
+    this.lockModal = true;
+    const name = connection.basicInfo.name;
+    const nameC = name[0].toUpperCase() + name.slice(1);
+    const header = `Unblock ${nameC}?`;
+    const message = '';
+    const buttonText = 'Unblock';
+    this.presentConfirm(header, message, buttonText, false, connection);
+  }
+
+  private async presentConfirm(header: string, message: string, buttonText: string, isDangerColor: boolean, connection: Connection) {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      message: message,
+      mode: 'ios',
+      cssClass: 'alert-confirm-conainer',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            this.lockModal = false;
+          }
+        }, {
+          text: buttonText,
+          cssClass: isDangerColor ? 'alert-danger-text-color' : '',
+          handler: () => {
+            this.sharedStoreService.updateConnectionData(connection, {isBlocked: false});
+            this.lockModal = false;
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  trackById(i, connection) {
+    return connection.id;
+  }
+
   ngOnDestroy() {
     if (this._isVisibleSplitPane) {
       this._isVisibleSplitPane.unsubscribe();
+    }
+    if (this._connections) {
+      this._connections.unsubscribe();
     }
   }
 }

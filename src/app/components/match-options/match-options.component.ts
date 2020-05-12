@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Connection } from 'src/app/interfaces/profile';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-match-options',
@@ -7,12 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MatchOptionsComponent implements OnInit {
 
-  constructor() { }
+  @Input() connection: Connection;
 
-  ngOnInit() {}
+  constructor(private popoverCtrl: PopoverController) { }
 
-  clicked() {
-    console.log('clicked');
+  ngOnInit() {
+  }
+
+  blockButton() {
+    this.close({block: true});
+  }
+
+  close(data?: any) {
+    this.popoverCtrl.dismiss(data).catch(error => console.error(error));
   }
 
 }

@@ -33,7 +33,7 @@ export class MatchesComponent implements OnInit, OnDestroy {
       this.connections = connections;
       this.noMatches = connections && connections.length == 0;
       if (connections && connections.length > 0) {
-        this.noMatches = connections.filter(c => c.isMatched).length === 0;
+        this.noMatches = connections.filter(c => c.isMatched && !c.isBlocked).length === 0;
       }
       this.markForCheck();
     });
