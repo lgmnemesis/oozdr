@@ -52,6 +52,10 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
+  addConnectionButton() {
+    this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
+  }
+
   trackById(i, connection) {
     return connection.id;
   }

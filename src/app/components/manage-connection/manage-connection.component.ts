@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { Connection } from 'src/app/interfaces/profile';
+import { Connection, Profile } from 'src/app/interfaces/profile';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 
@@ -37,6 +37,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   isPhoneError = false;
   showWelcomeMessage = false;
   saveConnectionButtonText = 'Add Connection';
+  profile: Profile;
 
   telInputObj: any
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
@@ -47,6 +48,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     private sharedStoreService: SharedStoreService) { }
 
   ngOnInit() {
+    this.getProfile();
   }
 
   markForCheck() {
@@ -64,6 +66,10 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isPhoneError = false;
     this.showWelcomeMessage = false;
     this.saveConnectionButtonText = 'Add Connection';
+  }
+
+  async getProfile() {
+    this.profile = await this.sharedStoreService.getProfile();
   }
 
   setForEdit(connectionState: ConnectionsState) {
@@ -204,11 +210,13 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isPhoneError = false;
     const isValidName = this.isValidName();
     const isValidNumber = this.getAndVerifyNumber();
-    if (!isValidNumber) {
-      this.phoneError = !this.Q.phoneNumber  ? 'Enter Connection\'s Mobile Number' : 'Invalid Number';
+    const isUsingOwnNuber = this.profile.basicInfo.mobile === this.Q.phoneNumber;
+    if (!isValidNumber || isUsingOwnNuber) {
+      this.phoneError = !this.Q.phoneNumber  ? 'Enter Connection\'s Mobile Number' : 
+      isUsingOwnNuber ? 'Can\'t use your own mumber' : 'Invalid Number';
       this.isPhoneError = true;
     }
-    if (!isValidName || !isValidNumber) {
+    if (!isValidName || !isValidNumber || isUsingOwnNuber) {
       return false;
     }
     return true;
