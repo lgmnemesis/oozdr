@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
+<ion-header class="ion-no-border" [class.large-header]="isVisibleSplitPane">
+  <ion-toolbar class="second-toolbar">
     <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
       <ion-back-button text=""></ion-back-button>
       <ion-icon name="settings-outline"></ion-icon>

@@ -1,6 +1,17 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
+.large-header {
+  display: flex;
+  justify-content: center;
+  background: var(--ion-color-minor);
+}
+
+.second-toolbar {
+  max-width: 820px;
+  margin: auto;
+}
+
 .bt-s-c {
   --border-radius: 5px !important;
   width: 75px;

@@ -1,8 +1,8 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" [class.large-header]="isVisibleSplitPane">
   <ion-toolbar *ngIf="!isVisibleSplitPane">
     <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar class="second-toolbar">
     <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
       <ion-button (click)="gotoSettings()" color="dark" fill="clear" shape="round">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
