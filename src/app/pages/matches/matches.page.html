@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar [class.border-buttom]="isInsideChat">
+  <ion-toolbar [class.border-buttom]="isInsideChat" [class.chat-container]="isInsideChat">
 
     <ng-container *ngIf="!isVisibleSplitPane">
       <app-top-menu *ngIf="!isInsideChat"
