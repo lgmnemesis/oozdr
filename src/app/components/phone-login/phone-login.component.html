@@ -10,7 +10,7 @@
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <input id="tel-input"
-        type="text" ng2TelInput
+        type="tel" ng2TelInput
         [disabled]="isContinueButtonDisabled"
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 

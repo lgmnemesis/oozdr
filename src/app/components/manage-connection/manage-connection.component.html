@@ -24,7 +24,7 @@
       <p>Mobile Number</p>
       <input id="tel-input"
         [disabled]="connectionState?.state === 'edit'"
-        type="text" ng2TelInput
+        type="tel" ng2TelInput
         [name]="Q?.phoneNumber"
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 
