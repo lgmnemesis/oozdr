@@ -43,6 +43,10 @@ export class ConnectionComponent implements OnInit {
     this.dismissToast();
   }
 
+  edit() {
+    this.sharedStoreService.connectionsStateSubject.next({connection: this.connection, state: 'edit'});
+  }
+
   dismissToast() {
     const message: ToastMessage = {
       message: '',

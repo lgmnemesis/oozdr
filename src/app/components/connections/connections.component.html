@@ -1,14 +1,17 @@
 <ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <app-toast-notification type="connection_added" [hide]="connectionsState?.state === 'add'"></app-toast-notification>
+      <app-toast-notification 
+        type="connection_added" 
+        [hide]="connectionsState?.state !== 'view'">
+      </app-toast-notification>
     </ion-col>
   </ion-row>
   
-  <ion-row *ngIf="connectionsState?.state === 'add'"
+  <ion-row *ngIf="connectionsState?.state === 'add' || connectionsState?.state === 'edit'"
     class="ion-justify-content-center ion-align-items-center animated zoomIn">
     <ion-col size="auto">
-      <app-manage-connection [action]="'add'"></app-manage-connection>
+      <app-manage-connection [state]="connectionsState"></app-manage-connection>
     </ion-col>
   </ion-row>
 

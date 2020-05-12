@@ -28,6 +28,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     const user = await this.authService.getUser();
     this.sharedStoreService.registerToConnections(user.uid);
     this.sharedStoreService.registerToMatches(user.uid);
+
     this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
       this.markForCheck();

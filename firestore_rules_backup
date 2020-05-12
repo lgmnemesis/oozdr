@@ -42,7 +42,7 @@ service cloud.firestore {
   function isValidForConnectionUpdateDoc() {
   	return isValidForConnectionDoc()
       && ((request.writeFields.size() == 1)
-      && ('isNewMatch' in request.writeFields));
+      && (('isNewMatch' in request.writeFields) || ('basicInfo' in request.writeFields)));
   }
   
   function isValid() {
@@ -92,4 +92,3 @@ service cloud.firestore {
   	return request.resource.data;
   }
 }
-  

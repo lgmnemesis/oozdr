@@ -11,7 +11,8 @@
         <ion-input 
           placeholder="Connection Name" 
           maxLength="20" 
-          debounce="300" 
+          debounce="300"
+          [value]="Q?.name"
           (ionChange)="setName($event)">
           <ion-icon name="person-outline"></ion-icon>
         </ion-input>
@@ -22,7 +23,9 @@
     <ion-col size="auto">
       <p>Mobile Number</p>
       <input id="tel-input"
+        [disabled]="connectionState?.state === 'edit'"
         type="text" ng2TelInput
+        [name]="Q?.phoneNumber"
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 
         (intlTelInputObject)="telInputObject($event)"/>
@@ -34,8 +37,13 @@
     <ion-col size="auto">
       <ion-list>
         <ion-item lines="none">
-          <ion-toggle (ionChange)="toggleWelcomeMessage($event)" color="secondary"></ion-toggle>
-          <ion-label class="basic-text ion-text-wrap">Personal Welcome Message</ion-label>
+          <ion-toggle 
+            color="secondary"
+            [value]="Q?.welcomeMessage"
+            [checked]="showWelcomeMessage" 
+            (ionChange)="toggleWelcomeMessage($event)">
+          </ion-toggle>
+          <ion-label class="basic-text ion-text-wrap">Welcome Message</ion-label>
         </ion-item>
         <p class="small-12-text p-sub-text">Show them you care. write them something inviting.</p>
       </ion-list>
@@ -71,7 +79,7 @@
       <ion-button class="basic-text ion-text-capitalize" fill="outline" color="secondary" (click)="close()">Cancel</ion-button>
     </ion-col>
     <ion-col size="auto">
-      <ion-button class="basic-text ion-text-capitalize" (click)="addConnection()">Add Connection</ion-button>
+      <ion-button class="basic-text ion-text-capitalize" (click)="addOrSaveConnection()">{{ saveConnectionButtonText }}</ion-button>
     </ion-col>
   </ion-row>
 
