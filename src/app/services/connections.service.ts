@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SharedStoreService } from './shared-store.service';
-import { Connection, Match, Message, LastMessage } from '../interfaces/profile';
+import { Connection, Match, LastMessage } from '../interfaces/profile';
 import { Router } from '@angular/router';
 
 @Injectable({

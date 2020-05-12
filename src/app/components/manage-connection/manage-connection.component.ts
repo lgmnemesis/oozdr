@@ -7,7 +7,7 @@ import { ToastMessage } from 'src/app/interfaces/toast-message';
 export class Q {
   name = '';
   phoneNumber = '';
-  welcomeMessage = false;  
+  welcomeMessage = '';  
 }
 
 @Component({
@@ -27,6 +27,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   phoneError = 'no errors';
   isPhoneError = false;
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
+  showWelcomeMessage = false;
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
@@ -80,7 +81,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   toggleWelcomeMessage(event) {
-    this.Q.welcomeMessage = event.detail.checked;
+    this.showWelcomeMessage = event.detail.checked;
+  }
+
+  setWelcomeMessage(event) {
+    this.Q.welcomeMessage = event.detail.value;
   }
 
   async addConnection() {
@@ -105,7 +110,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
         email: '',
         gender: '',
         profile_img_url: '',
-        profile_img_file: ''
+        profile_img_file: '',
+        welcome_msg: this.Q.welcomeMessage
       },
       isMatched: false,
       isNewMatch: false,

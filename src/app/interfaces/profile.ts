@@ -26,6 +26,7 @@ export interface BasicInfo {
   mobile: string;
   profile_img_url: string;
   profile_img_file: any;
+  welcome_msg: string;
 }
 
 export interface Match {

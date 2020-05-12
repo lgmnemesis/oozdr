@@ -60,7 +60,8 @@ export class WelcomeService {
       birthday: '',
       mobile: '',
       profile_img_url: '',
-      profile_img_file: ''
+      profile_img_file: '',
+      welcome_msg: ''
     }
     return this.infoStore;
   }
