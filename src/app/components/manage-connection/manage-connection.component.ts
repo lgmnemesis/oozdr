@@ -7,7 +7,7 @@ import { ToastMessage } from 'src/app/interfaces/toast-message';
 export class Q {
   name = '';
   phoneNumber = '';
-  letThemKnow = false;  
+  welcomeMessage = false;  
 }
 
 @Component({
@@ -79,8 +79,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   telHasError(event) {
   }
 
-  toggleLetThemKnow(event) {
-    this.Q.letThemKnow = event.detail.value;
+  toggleWelcomeMessage(event) {
+    this.Q.welcomeMessage = event.detail.checked;
   }
 
   async addConnection() {
