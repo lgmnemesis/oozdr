@@ -2,7 +2,7 @@ export interface Profile {
   user_id: string,
   timestamp: number,
   basicInfo: BasicInfo;
-  fcmToken?: string;
+  fcmTokens?: string[];
 }
 
 export interface Connection {

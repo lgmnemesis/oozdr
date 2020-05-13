@@ -22,10 +22,27 @@ export class FcmService {
   private async updateToken(token) {
     const user = await this.authService.getUser();
     const profile = await this.sharedStoreService.getProfile();
+    let shouldUpdateDb = false;
     if (profile) {
-      const fcmToken = profile.fcmToken;
-      if (fcmToken !== token) {
-        this.databaseService.updateFcmToken(user, token);
+      let fcmTokens = profile.fcmTokens;
+      if (fcmTokens && fcmTokens.length > 0) {
+        const found = fcmTokens.find(t => t === token);
+        if (!found) {
+          const tokens = fcmTokens.slice(0, 4);
+          if (tokens.length >= 5) {
+            tokens.shift();
+          }
+          tokens.push(token);
+          fcmTokens = tokens;
+          shouldUpdateDb = true;
+        }
+      } else {
+        fcmTokens = [];
+        fcmTokens.push(token);
+        shouldUpdateDb = true;
+      }
+      if (shouldUpdateDb) {
+        this.databaseService.updateFcmTokens(user, fcmTokens);
       }
     }
   }

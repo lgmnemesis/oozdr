@@ -244,9 +244,9 @@ export class DatabaseService {
     // Deleting profile and connections
   }
 
-  updateFcmToken(user: firebase.User, token: string): Promise<void> {
+  updateFcmTokens(user: firebase.User, tokens: string[]): Promise<void> {
     const data = {
-      fcmToken: token
+      fcmTokens: tokens
     }
     return this.updateProfileDataByUserId(user.uid, data);
   }
