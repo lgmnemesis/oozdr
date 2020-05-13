@@ -193,7 +193,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       isNewMatch: false,
       match_id: '',
       match_user_id: '',
-      user_name: profile.basicInfo.name,
       user_id: profile.user_id,
       user_mobile: profile.basicInfo.mobile,
       user_profle_img_url: profile.basicInfo.profile_img_url

@@ -10,8 +10,7 @@ export interface Connection {
   user_id: string;
   match_user_id: string;
   match_id: string;
-  user_name: string; // the user that open the connection (user_id)
-  user_mobile: string;
+  user_mobile: string; // the user that open the connection (user_id)
   user_profle_img_url: string;
   basicInfo: BasicInfo;
   createdAt?: firebase.firestore.Timestamp;
