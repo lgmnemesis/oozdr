@@ -35,10 +35,15 @@ export class DatabaseService {
     }
   }
 
-  async updateProfileData(profile: Profile, data: any) {
+  updateProfileData(profile: Profile, data: any) {
+    return this.updateProfileDataByUserId(profile.user_id, data);
+  }
+
+  async updateProfileDataByUserId(id: string, data: any) {
+    console.log('moshe DB update profile with:', data);
     const path = 'profiles/';
     try {
-      return this.afs.collection(path).doc(profile.user_id).update(data);
+      return this.afs.collection(path).doc(id).update(data);
     }
     catch (error) {
       return console.error(error);
@@ -237,6 +242,13 @@ export class DatabaseService {
 
   deleteUserData() {
     // Deleting profile and connections
+  }
+
+  updateFcmToken(user: firebase.User, token: string): Promise<void> {
+    const data = {
+      fcmToken: token
+    }
+    return this.updateProfileDataByUserId(user.uid, data);
   }
 
 } 
