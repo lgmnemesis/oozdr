@@ -31,10 +31,7 @@ export class FcmService {
   }
 
   getPermission() {
-    this.messaging.requestPermission()
-    .then(() => {
-      return this.messaging.getToken();
-    })
+    this.messaging.getToken()
     .then((token) => {
       this.updateToken(token);
     })
