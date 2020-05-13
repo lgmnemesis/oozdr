@@ -15,6 +15,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
   connections: Connection[];
   isOnlyMatches = false;
+  isOnlyBlockedMatches = false;
 
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
@@ -38,6 +39,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       this.connections = connections;
       if (connections && connections.length > 0) {
         this.isOnlyMatches = connections.filter(c => !(c.isMatched && !c.isNewMatch && !c.isBlocked)).length === 0;
+        this.isOnlyBlockedMatches = connections.filter(c => !c.isBlocked).length === 0;
         const isNewMatches = connections.findIndex(c => c.isNewMatch) > -1;
         this.sharedStoreService.newMatchesIndicatorSubject.next(isNewMatches);
       } else {
