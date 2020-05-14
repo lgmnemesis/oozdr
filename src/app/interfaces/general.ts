@@ -3,3 +3,8 @@ export interface FileUpload {
   url: string;
   isSelected: boolean;
 }
+
+export interface FcmState {
+  isRegistered: boolean;
+  isSubscribed: boolean;
+}

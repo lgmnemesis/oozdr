@@ -5,6 +5,7 @@ import { DatabaseService } from './database.service';
 import { Profile, Connection, Match, Message, LastMessage } from '../interfaces/profile';
 import { first } from 'rxjs/operators';
 import { ToastMessage } from '../interfaces/toast-message';
+import { FcmState } from '../interfaces/general';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,10 @@ export class SharedStoreService {
   toastNotificationsSubject: BehaviorSubject<ToastMessage> = new BehaviorSubject(null);
   toastNotifications$ = this.toastNotificationsSubject.asObservable();
 
+  _fcmState: Subscription;
+  fcmStateSubject: BehaviorSubject<FcmState> = new BehaviorSubject(null);
+  fcmState$ = this.fcmStateSubject.asObservable();
+
   constructor(private databaseService: DatabaseService) { }
 
   resetStore() {
@@ -74,6 +79,7 @@ export class SharedStoreService {
     this.matchesSubject.next(null);
     this.newMatchesIndicatorSubject.next(false);
     this.toastNotificationsSubject.next(null);
+    this.fcmStateSubject.next(null);
 
     this.unsubscribe();
   }

@@ -40,8 +40,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
 
     this.sharedService.setDefaultPhoneCountryCode();
 
-    this.fcmService.getPermission();
-    this.fcmService.subscribeToMessages();
+    this.fcmService.fcmInit();
   }
 
   markForCheck() {

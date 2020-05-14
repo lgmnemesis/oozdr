@@ -114,7 +114,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
           const profile: Profile = {
             user_id: confirm.user.uid,
             basicInfo: info,
-            timestamp: this.sharedStoreService.timestamp
+            timestamp: this.sharedStoreService.timestamp,
+            fcmTokens: []
           }
           await this.welcomeService.registerAndUpdate(profile);
         } else {

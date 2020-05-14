@@ -74,7 +74,8 @@ export class WelcomeContainerComponent implements OnInit {
       const profile: Profile = {
         user_id: user.uid,
         basicInfo: info,
-        timestamp: this.sharedStoreService.timestamp
+        timestamp: this.sharedStoreService.timestamp,
+        fcmTokens: []
       }
 
       await this.welcomeService.registerAndUpdate(profile);
