@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { SharedStoreService } from './shared-store.service';
 import { take } from 'rxjs/operators';
@@ -28,7 +28,8 @@ export class AuthService {
     private sharedStoreService: SharedStoreService,
     private databaseService: DatabaseService,
     private sharedService: SharedService,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private navCtrl: NavController) { }
 
   init() {
     this.subscribeUser();
@@ -63,9 +64,10 @@ export class AuthService {
   private async signOutInternal() {
     this.userSubject.next(undefined);
     try {
+      this.sharedStoreService.unsubscribe();
       await this.afAuth.signOut();
       this.sharedStoreService.resetStore();
-      await this.router.navigate(['/']);
+      await this.navCtrl.navigateRoot('/');
       this.inLogoutProcess = false;
     } catch (error) {
       console.error(error);

@@ -22,8 +22,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   showNotificaionsPermission = false;
   showNotificaionsInProgress = false;
   showNotificaionsAnimationIn = true;
-
   connectionsState: ConnectionsState;
+  matchNotifStorageIndicator: string;
+
   _connectionsState: Subscription;
   _connections: Subscription;
   _profile: Subscription;
@@ -66,6 +67,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     })
   
     this.fcmAction();
+    this.matchNotifStorageIndicator = this.sharedService.matchNotifStorageIndicatorPreffix + `_${user.uid}`;
   }
 
   markForCheck() {
@@ -81,7 +83,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     if (isDisplay) {
       this.showNotificaionsPermission = true;
       try {
-        localStorage.setItem(this.sharedService.matchNotifStorageIndicatorName, 'done');
+        localStorage.setItem(this.matchNotifStorageIndicator, 'done');
       } catch (error) {
         console.error(error);
       }
@@ -114,7 +116,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
   async isDisplayNotificaionsPermission(): Promise<boolean> {
     try {
-      const displayedAlready = localStorage.getItem(this.sharedService.matchNotifStorageIndicatorName);
+      const displayedAlready = localStorage.getItem(this.matchNotifStorageIndicator);
       if (displayedAlready) {
         return false;
       }

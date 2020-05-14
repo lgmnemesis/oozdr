@@ -18,9 +18,9 @@ export class SharedStoreService {
   isMatchesOpen = true;
   needToFinishInfoRegistration = false;
   activeMatchConnectionId: string = null;
-  connections: Connection[];
-  userDeleted = false;
+  connections: Connection[] = [];
   lastActiveMessage: LastMessage = null;
+  userDeleted = false;
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();
@@ -60,12 +60,14 @@ export class SharedStoreService {
     this.canEnterWelcome = false;
     this.canEnterHome = false;
     this.activeTopMenu = 'connections';
-    this.activeMenuSubject.next('connections');
     this.shouldAnimateStartPage = false;
     this.isMatchesOpen = true;
     this.needToFinishInfoRegistration = false;
+    this.activeMatchConnectionId = null;
+    this.connections = [];
     this.lastActiveMessage = null;
-
+    
+    this.activeMenuSubject.next('connections');
     this.useSplitPaneSubject.next(false);
     this.isVisibleSplitPaneSubject.next(false);
     this.connectionsStateSubject.next({state: 'view'});
@@ -74,8 +76,6 @@ export class SharedStoreService {
     this.matchesSubject.next(null);
     this.newMatchesIndicatorSubject.next(false);
     this.toastNotificationsSubject.next(null);
-
-    this.unsubscribe();
   }
 
   unsubscribe() {
