@@ -1,9 +1,4 @@
 <ion-grid>
-  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="showNotificaionsPermission">
-    <ion-col size="auto">
-    </ion-col>
-  </ion-row>
-
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <app-toast-notification 
@@ -13,6 +8,36 @@
     </ion-col>
   </ion-row>
   
+  <ion-row *ngIf="showNotificaionsPermission && connectionsState?.state === 'view'"
+    class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+
+      <ion-card class="m-notif animated" color="secondary"
+        [class.fadeInDown]="showNotificaionsAnimationIn"
+        [class.fadeOutUp]="!showNotificaionsAnimationIn">
+        <ion-spinner name="dots" color="minor" *ngIf="showNotificaionsInProgress"></ion-spinner>
+        <ion-card-header>
+          <ion-card-title class="title-text">Important notifications</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p class="basic-text">Do you want be notified if and when you have a new match?</p>
+          <p class="small-text">You can always change your selection, from your Profile -> Settings tab</p>
+        </ion-card-content>
+        
+        <ion-item class="m-notif-item" color="secondary" lines="none">
+          <ion-button [disabled]="showNotificaionsInProgress" class="bt-notif" slot="start" fill="clear" (click)="notNow()">
+            <ion-label class="basic-text ion-text-capitalize">Not Now</ion-label>
+          </ion-button>
+          <ion-button [disabled]="showNotificaionsInProgress" class="bt-notif" slot="end" fill="clear" (click)="sure()">
+            <ion-label class="basic-text ion-text-capitalize">Sure</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-card>
+
+    </ion-col>
+  </ion-row>
+
   <ion-row *ngIf="connectionsState?.state === 'add' || connectionsState?.state === 'edit'"
     class="ion-justify-content-center ion-align-items-center animated zoomIn">
     <ion-col size="auto">
@@ -34,7 +59,7 @@
     <ng-container *ngIf="connections?.length === 0 || isOnlyBlockedMatches">
       <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
         <ion-col size="auto">
-          <ion-card color="secondary">
+          <ion-card class="msg-card" color="secondary">
             <ion-card-content>
               <p>Start by adding connections, people, loved ones, soulmate, you are looking to reconnect.</p>
             </ion-card-content>
@@ -65,7 +90,7 @@
     <ion-row *ngIf="isOnlyMatches"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto">
-        <ion-card color="secondary">
+        <ion-card class="msg-card" color="secondary">
           <ion-card-content>
             <p>Looks like you found what you were looking for.</p>
             <p></p>

@@ -20,6 +20,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   isOnlyMatches = false;
   isOnlyBlockedMatches = false;
   showNotificaionsPermission = false;
+  showNotificaionsInProgress = false;
+  showNotificaionsAnimationIn = true;
 
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
@@ -77,10 +79,37 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   async displayNotificaionsPermission() {
     const isDisplay = await this.isDisplayNotificaionsPermission();
     if (isDisplay) {
-      console.log('should display notif perm');
-    } else {
-      console.log('no need');
+      this.showNotificaionsPermission = true;
+      try {
+        localStorage.setItem(this.sharedService.matchNotifStorageIndicatorName, 'done');
+      } catch (error) {
+        console.error(error);
+      }
+      this.markForCheck();
     }
+  }
+
+  notNow() {
+    this.closeDisplayNotificationElement();
+  }
+
+  async sure() {
+    if (this.showNotificaionsInProgress) {
+      return;
+    }
+    this.showNotificaionsInProgress = true;
+    await this.fcmService.finishSubscriptionProcess();
+    this.closeDisplayNotificationElement();
+    this.markForCheck();
+  }
+
+  closeDisplayNotificationElement() {
+    this.showNotificaionsAnimationIn = false;
+    setTimeout(() => {
+      this.showNotificaionsPermission = false;
+      this.showNotificaionsInProgress = false;
+      this.markForCheck();
+    }, 500);
   }
 
   async isDisplayNotificaionsPermission(): Promise<boolean> {
@@ -96,7 +125,6 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     const subs = await this.fcmService.getSubscription();
     const isSubscribed = !!subs;
     const disabled = this.profile && this.profile.settings && this.profile.settings.notifications === 'disabled';
-    console.log('is:', isNotifDenied, isSubscribed, disabled);
     if (isNotifDenied || isSubscribed || disabled) {
       return false;
     }

@@ -1,7 +1,15 @@
 @import '../../styles/animation';
 @import '../../styles/fonts-text';
+@import '../../styles/global-styles';
 
-ion-card {
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .m-notif-item {
+    --padding-end: 0 !important;
+    --padding-start: 0 !important;
+  }
+}
+
+.msg-card {
   min-width: 250px;
   max-width: 600px;
   min-height: 100px;
@@ -9,18 +17,18 @@ ion-card {
   justify-content: center;
 }
 
-ion-card-content {
+.msg-card ion-card-content {
   margin: auto;
   line-height: 1.8;
 }
 
-ion-card-content,
-ion-card-content p {
+.msg-card ion-card-content,
+.msg-card ion-card-content p {
   @extend .basic-text;
 }
 
 .p-quote {
-  max-width: 500px;
+  max-width: 600px;
   padding: 0 10px;
 }
 
@@ -30,4 +38,29 @@ ion-card-content p {
 
 .padding-x {
   padding: 0 10px;
+}
+
+.bt-notif {
+  --color: var(--ion-color-minor);
+}
+
+.m-notif {
+  position: relative;
+  min-width: 290px;
+  max-width: 500px;
+  margin: 0;
+}
+
+.m-notif-item {
+  --padding-end: 30px;
+  --padding-start: 30px;
+}
+
+ion-spinner {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 10px;
+  z-index: 99;
+  margin: auto;
 }
