@@ -73,7 +73,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   setForEdit(connectionState: ConnectionsState) {
-    console.log('in edit');
     const connection = connectionState.connection;
     this.Q.name = connection.basicInfo.name;
     this.Q.phoneNumber = connection.basicInfo.mobile;

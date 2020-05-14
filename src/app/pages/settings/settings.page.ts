@@ -4,8 +4,9 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { Connection } from 'src/app/interfaces/profile';
+import { Connection, Profile } from 'src/app/interfaces/profile';
 import { AlertController } from '@ionic/angular';
+import { FcmService } from 'src/app/services/fcm.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,20 +21,25 @@ export class SettingsPage implements OnInit, OnDestroy {
   firstTime = true;
   isSettingsChanged = false;
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
-  showNotifications = true;
+  showNotifications = false;
   version = this.sharedService.getClientVersion();
   isOpenBlockedMatchesList = false;
   blockedMachesCount = 0;
   connections: Connection[] = [];
   defaultProfileImg = this.sharedService.defaultProfileImg;
   lockModal = false;
+  profile: Profile;
+  isSubscribedLocaly: boolean;
+  toggling = false;
+  unsubscribeMarker = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private router: Router,
     private authService: AuthService,
     private sharedService: SharedService,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private fcmService: FcmService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -53,14 +59,41 @@ export class SettingsPage implements OnInit, OnDestroy {
       }
       this.markForCheck();
     });
+
+    this.setProfile();
   }
 
   markForCheck() {
     this.cd.markForCheck();
   }
 
-  toggleNotifications(event) {
-    this.showNotifications = event.detail.checked;
+  async setProfile() {
+    this.profile = await this.sharedStoreService.getProfile();
+    const subs = await this.fcmService.getSubscription();
+    this.isSubscribedLocaly = !!subs;
+    if (this.profile && this.profile.settings) {
+      this.showNotifications = this.profile.settings.notifications && !!this.isSubscribedLocaly;
+    }
+  }
+
+  async toggleNotifications(event) {
+    if (this.toggling) {
+      return;
+    }
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    event.preventDefault();
+    this.toggling = true;
+    this.unsubscribeMarker = false;
+    let isChecked = !this.showNotifications;
+    if (isChecked && (!this.profile.settings || (this.profile.settings && !this.profile.settings.notifications) || !this.isSubscribedLocaly)) {
+      isChecked = await this.fcmService.finishSubscriptionProcess();
+    } else if (!isChecked && this.profile.settings && this.profile.settings.notifications) {
+      this.unsubscribeMarker = true;
+    }
+    this.showNotifications = isChecked;
+    this.toggling = false;
+    this.markForCheck();
   }
 
   toggleBlockedMatches() {
@@ -159,6 +192,9 @@ export class SettingsPage implements OnInit, OnDestroy {
     }
     if (this._connections) {
       this._connections.unsubscribe();
+    }
+    if (this.unsubscribeMarker) {
+      this.fcmService.unsubscribe();
     }
   }
 }

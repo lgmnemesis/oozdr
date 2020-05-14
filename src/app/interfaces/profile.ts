@@ -3,6 +3,9 @@ export interface Profile {
   timestamp: number,
   basicInfo: BasicInfo;
   fcmTokens: string[];
+  settings: {
+    notifications: boolean;
+  }
 }
 
 export interface Connection {

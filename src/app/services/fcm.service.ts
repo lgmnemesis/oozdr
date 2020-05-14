@@ -15,6 +15,7 @@ export class FcmService {
   currentMessage = new BehaviorSubject(null);
   _msg: firebase.Unsubscribe;
   swRegistration: ServiceWorkerRegistration
+  isBlocked = false;
 
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
@@ -25,23 +26,23 @@ export class FcmService {
     const reg = await this.registerToServiceWorker();
     const subs = await this.getSubscription();
     if (subs) {
-      console.log('moshe init: subs:', subs);
+      console.log('moshe init subs:', subs);
       this.finishSubscriptionProcess();
     } else if (reg) {
-      console.log('moshe init no subs. need to prompt');
-      // Need to prompt user for permission
+      console.log('moshe init no subs. need to subscribe');
       this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: false});
     } else {
-      console.log('moshe init 3');
+      console.log('moshe init no reg');
       this.sharedStoreService.fcmStateSubject.next({isRegistered: false, isSubscribed: false});
     }
   }
 
-  async finishSubscriptionProcess() {
-    await this.getPermission();
+  async finishSubscriptionProcess(): Promise<boolean> {
+    const got = await this.getPermission();
     this.subscribeToTokenRefresh();
     this.subscribeToMessages();
-    this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: true});
+    this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: got});
+    return got;
   }
 
   private async updateToken(token: string) {
@@ -67,7 +68,7 @@ export class FcmService {
         shouldUpdateDb = true;
       }
       if (shouldUpdateDb) {
-        this.databaseService.updateFcmTokens(user, fcmTokens);
+        this.databaseService.updateNotificationsState(user, fcmTokens, true);
       }
     }
   }
@@ -80,6 +81,7 @@ export class FcmService {
     try {
       this.swRegistration = await navigator.serviceWorker.register('fcm-sw.js');
       this.messaging.useServiceWorker(this.swRegistration);
+      console.log('moshe registerd');
     } catch (error) {
       console.error(error);
       return null;
@@ -92,7 +94,8 @@ export class FcmService {
       return this.swRegistration.pushManager.getSubscription();
     }
     catch (error) {
-      return console.error(error);
+      console.error(error);
+      return null;
     }
   }
 
@@ -101,7 +104,7 @@ export class FcmService {
     if (subs) {
       try {
         await subs.unsubscribe();
-        await this.unsubscribeAllTokens();
+        await this.removeAllTokensFromDB();
         this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: false});
       } catch (error) {
         console.error(error);
@@ -109,20 +112,20 @@ export class FcmService {
     }
   }
 
-  async unsubscribeCurrentToken() {
-    const subs = await this.getSubscription();
-    if (subs) {
-      console.log(subs);
-    }
-  }
-
   async getPermission() {
+    this.isBlocked = false;
     try {
       const token = await this.messaging.getToken();
       this.updateToken(token);
+      return true;
     }
     catch (error) {
       console.error(error);
+      const er: firebase.FirebaseError = error;
+      if (er && er.code && er.code.includes('blocked')) {
+        this.isBlocked = true;
+      }
+      return false;
     }
   }
 
@@ -138,30 +141,17 @@ export class FcmService {
       return;
     }
     this._msg = this.messaging.onMessage((payload) => {
-      console.log('Got message:', payload);
+      console.log('moshe got message:', payload);
       this.currentMessage.next(payload);
     })
   }
 
-  private async unsubscribeAllTokens() {
-    // Removing tokens from profile
-    try {
-      const user = await this.authService.getUser();
-      const profile = await this.sharedStoreService.getProfile();
-      let fcmTokens = profile.fcmTokens;
-      if (fcmTokens && fcmTokens.length > 0) {
-        fcmTokens.forEach(async token => {
-          try {
-            await this.messaging.deleteToken(token);
-          } catch (error) {
-            console.error(error);
-          }
-        });
-        fcmTokens = [];
-        this.databaseService.updateFcmTokens(user, fcmTokens);
-      }
-    } catch (error) {
-      console.error(error); 
+  private async removeAllTokensFromDB() {
+    const user = await this.authService.getUser();
+    const profile = await this.sharedStoreService.getProfile();
+    const fcmTokens = [];
+    if (profile && profile.fcmTokens && profile.fcmTokens.length > 0) {
+      this.databaseService.updateNotificationsState(user, fcmTokens, false);
     }
   }
 }

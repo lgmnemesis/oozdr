@@ -31,19 +31,20 @@
             <p class="small-text color-medium ion-text-wrap">So you'll know when you have new matches</p>
           </ion-label>
           <ion-toggle 
-            slot="end" 
+            slot="end"
             [checked]="showNotifications"
-            (ionChange)="toggleNotifications($event)">
+            [disabled]="toggling"
+            (click)="toggleNotifications($event)">
           </ion-toggle>
         </ion-item>
-        <ion-item lines="none">
+        <!-- <ion-item lines="none">
           <ion-label class="basic-text">Email Notifications</ion-label>
           <ion-toggle 
             slot="end" 
             [checked]="showNotifications"
             (ionChange)="toggleNotifications($event)">
           </ion-toggle>
-        </ion-item>
+        </ion-item> -->
       </ion-col>
     </ion-row>
 

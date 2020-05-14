@@ -164,6 +164,16 @@ export class DatabaseService {
     }
   }
 
+  updateNotificationsState(user: firebase.User, tokens: string[], enabled: boolean): Promise<void> {
+    const data = {
+      fcmTokens: tokens,
+      settings: {
+        notifications: enabled
+      }
+    }
+    return this.updateProfileDataByUserId(user.uid, data);
+  }
+
   createId(): string {
     return this.afs.createId();
   }
@@ -242,13 +252,6 @@ export class DatabaseService {
 
   deleteUserData() {
     // Deleting profile and connections
-  }
-
-  updateFcmTokens(user: firebase.User, tokens: string[]): Promise<void> {
-    const data = {
-      fcmTokens: tokens
-    }
-    return this.updateProfileDataByUserId(user.uid, data);
   }
 
 } 
