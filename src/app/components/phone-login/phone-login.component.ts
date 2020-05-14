@@ -117,7 +117,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
             timestamp: this.sharedStoreService.timestamp,
             fcmTokens: [],
             settings: {
-              notifications: false
+              notifications: 'initial'
             }
           }
           await this.welcomeService.registerAndUpdate(profile);

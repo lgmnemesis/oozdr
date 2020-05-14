@@ -4,7 +4,7 @@ export interface Profile {
   basicInfo: BasicInfo;
   fcmTokens: string[];
   settings: {
-    notifications: boolean;
+    notifications: 'initial' | 'enabled' | 'disabled';
   }
 }
 

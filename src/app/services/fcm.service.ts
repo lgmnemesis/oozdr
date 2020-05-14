@@ -15,7 +15,7 @@ export class FcmService {
   currentMessage = new BehaviorSubject(null);
   _msg: firebase.Unsubscribe;
   swRegistration: ServiceWorkerRegistration
-  isBlocked = false;
+  registeredLock = false;
 
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
@@ -25,23 +25,18 @@ export class FcmService {
   async fcmInit() {
     const reg = await this.registerToServiceWorker();
     const subs = await this.getSubscription();
+    console.log('subs:', subs);
     if (subs) {
-      console.log('moshe init subs:', subs);
       this.finishSubscriptionProcess();
-    } else if (reg) {
-      console.log('moshe init no subs. need to subscribe');
-      this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: false});
-    } else {
-      console.log('moshe init no reg');
-      this.sharedStoreService.fcmStateSubject.next({isRegistered: false, isSubscribed: false});
+      return subs;
     }
+    return null;
   }
 
   async finishSubscriptionProcess(): Promise<boolean> {
     const got = await this.getPermission();
     this.subscribeToTokenRefresh();
     this.subscribeToMessages();
-    this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: got});
     return got;
   }
 
@@ -68,12 +63,16 @@ export class FcmService {
         shouldUpdateDb = true;
       }
       if (shouldUpdateDb) {
-        this.databaseService.updateNotificationsState(user, fcmTokens, true);
+        this.databaseService.updateNotificationsState(user, fcmTokens, 'enabled');
       }
     }
   }
 
   private async registerToServiceWorker() {
+    if (this.registeredLock) {
+      return null;
+    }
+    this.registeredLock = true;
     if (!('serviceWorker' in navigator)) {
       console.error('serviceWorker not supported.');
       return null;
@@ -105,7 +104,6 @@ export class FcmService {
       try {
         await subs.unsubscribe();
         await this.removeAllTokensFromDB();
-        this.sharedStoreService.fcmStateSubject.next({isRegistered: true, isSubscribed: false});
       } catch (error) {
         console.error(error);
       }
@@ -113,7 +111,6 @@ export class FcmService {
   }
 
   async getPermission() {
-    this.isBlocked = false;
     try {
       const token = await this.messaging.getToken();
       this.updateToken(token);
@@ -121,10 +118,6 @@ export class FcmService {
     }
     catch (error) {
       console.error(error);
-      const er: firebase.FirebaseError = error;
-      if (er && er.code && er.code.includes('blocked')) {
-        this.isBlocked = true;
-      }
       return false;
     }
   }
@@ -146,12 +139,16 @@ export class FcmService {
     })
   }
 
+  isNotificationDenied() {
+    return Notification.permission === 'denied';
+  }
+
   private async removeAllTokensFromDB() {
     const user = await this.authService.getUser();
     const profile = await this.sharedStoreService.getProfile();
     const fcmTokens = [];
     if (profile && profile.fcmTokens && profile.fcmTokens.length > 0) {
-      this.databaseService.updateNotificationsState(user, fcmTokens, false);
+      this.databaseService.updateNotificationsState(user, fcmTokens, 'disabled');
     }
   }
 }

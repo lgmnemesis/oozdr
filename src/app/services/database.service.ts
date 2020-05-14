@@ -164,7 +164,7 @@ export class DatabaseService {
     }
   }
 
-  updateNotificationsState(user: firebase.User, tokens: string[], enabled: boolean): Promise<void> {
+  updateNotificationsState(user: firebase.User, tokens: string[], enabled: string): Promise<void> {
     const data = {
       fcmTokens: tokens,
       settings: {

@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRe
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { Connection } from 'src/app/interfaces/profile';
+import { Connection, Profile } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
+import { FcmService } from 'src/app/services/fcm.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-connections',
@@ -14,16 +16,21 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ConnectionsComponent implements OnInit, OnDestroy {
 
   connections: Connection[];
+  profile: Profile;
   isOnlyMatches = false;
   isOnlyBlockedMatches = false;
+  showNotificaionsPermission = false;
 
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
   _connections: Subscription;
+  _profile: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private fcmService: FcmService,
+    private sharedService: SharedService) { }
 
   async ngOnInit() {
     const user = await this.authService.getUser();
@@ -32,6 +39,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
     this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
+      if (state && state.prevState === 'add') {
+        this.displayNotificaionsPermission();
+      }
       this.markForCheck();
     });
 
@@ -48,10 +58,49 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       }
       this.markForCheck();
     });
+
+    this._profile = this.sharedStoreService.profile$.subscribe((profile) => {
+      this.profile = profile;
+    })
+  
+    this.fcmAction();
   }
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  async fcmAction() {
+    this.fcmService.fcmInit();
+  }
+
+  async displayNotificaionsPermission() {
+    const isDisplay = await this.isDisplayNotificaionsPermission();
+    if (isDisplay) {
+      console.log('should display notif perm');
+    } else {
+      console.log('no need');
+    }
+  }
+
+  async isDisplayNotificaionsPermission(): Promise<boolean> {
+    try {
+      const displayedAlready = localStorage.getItem(this.sharedService.matchNotifStorageIndicatorName);
+      if (displayedAlready) {
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    const isNotifDenied = this.fcmService.isNotificationDenied();
+    const subs = await this.fcmService.getSubscription();
+    const isSubscribed = !!subs;
+    const disabled = this.profile && this.profile.settings && this.profile.settings.notifications === 'disabled';
+    console.log('is:', isNotifDenied, isSubscribed, disabled);
+    if (isNotifDenied || isSubscribed || disabled) {
+      return false;
+    }
+    return true;
   }
 
   addConnectionButton() {
@@ -68,6 +117,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     }
     if (this._connections) {
       this._connections.unsubscribe();
+    }
+    if (this._profile) {
+      this._profile.unsubscribe();
     }
   }
 

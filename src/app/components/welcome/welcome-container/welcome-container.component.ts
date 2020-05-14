@@ -77,7 +77,7 @@ export class WelcomeContainerComponent implements OnInit {
         timestamp: this.sharedStoreService.timestamp,
         fcmTokens: [],
         settings: {
-          notifications: false
+          notifications: 'initial'
         }
       }
 

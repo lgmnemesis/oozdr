@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { SharedService } from 'src/app/services/shared.service';
-import { FcmService } from 'src/app/services/fcm.service';
 
 @Component({
   selector: 'app-connections-page',
@@ -20,8 +19,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private sharedService: SharedService,
-    private fcmService: FcmService) { }
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -39,8 +37,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.sharedStoreService.activeMenuSubject.next('connections');
 
     this.sharedService.setDefaultPhoneCountryCode();
-
-    this.fcmService.fcmInit();
+    
   }
 
   markForCheck() {

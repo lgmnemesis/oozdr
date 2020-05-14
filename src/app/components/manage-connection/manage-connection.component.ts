@@ -201,7 +201,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       this.sendToastMessage(connection);
     })
     .catch(error => console.error(error));
-    this.close();
+    this.close('added');
   }
 
   validateConnection(): boolean {
@@ -247,8 +247,14 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.sharedStoreService.toastNotificationsSubject.next(message);
   }
 
-  close() {
-    this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
+  close(action?: string) {
+    let state: ConnectionsState;
+    if (action === 'added') {
+      state = {state: 'view', prevState: 'add'};
+    } else {
+      state = {state: 'view'};
+    }
+    this.sharedStoreService.connectionsStateSubject.next(state);
   }
 
   ngOnDestroy() {

@@ -68,11 +68,12 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   async setProfile() {
+    this.toggling = this.fcmService.isNotificationDenied();
     this.profile = await this.sharedStoreService.getProfile();
     const subs = await this.fcmService.getSubscription();
     this.isSubscribedLocaly = !!subs;
     if (this.profile && this.profile.settings) {
-      this.showNotifications = this.profile.settings.notifications && !!this.isSubscribedLocaly;
+      this.showNotifications = this.profile.settings.notifications === 'enabled' && !!this.isSubscribedLocaly;
     }
   }
 
@@ -80,19 +81,17 @@ export class SettingsPage implements OnInit, OnDestroy {
     if (this.toggling) {
       return;
     }
-    event.stopImmediatePropagation();
-    event.stopPropagation();
-    event.preventDefault();
     this.toggling = true;
     this.unsubscribeMarker = false;
-    let isChecked = !this.showNotifications;
-    if (isChecked && (!this.profile.settings || (this.profile.settings && !this.profile.settings.notifications) || !this.isSubscribedLocaly)) {
+    let isChecked = event.detail.checked;
+    if (isChecked && 
+      (!this.profile.settings || (this.profile.settings && this.profile.settings.notifications !== 'enabled') || !this.isSubscribedLocaly)) {
       isChecked = await this.fcmService.finishSubscriptionProcess();
-    } else if (!isChecked && this.profile.settings && this.profile.settings.notifications) {
+    } else if (!isChecked) {
       this.unsubscribeMarker = true;
     }
     this.showNotifications = isChecked;
-    this.toggling = false;
+    this.toggling = this.fcmService.isNotificationDenied();
     this.markForCheck();
   }
 
