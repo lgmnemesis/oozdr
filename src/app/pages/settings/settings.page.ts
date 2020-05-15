@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Connection, Profile } from 'src/app/interfaces/profile';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { FcmService } from 'src/app/services/fcm.service';
+import { InviteFriendsModalComponent } from 'src/app/components/invite-friends-modal/invite-friends-modal.component';
 
 @Component({
   selector: 'app-settings',
@@ -39,7 +40,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private sharedService: SharedService,
     private alertCtrl: AlertController,
-    private fcmService: FcmService) { }
+    private fcmService: FcmService,
+    private modalCtrl: ModalController) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -105,6 +107,24 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
+  }
+
+  inviteFriends() {
+    this.presentModal();
+  }
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: InviteFriendsModalComponent,
+      cssClass: 'present-modal-properties'
+    });
+
+    // modal.onWillDismiss()
+    // .then((res) => {
+
+    // }).catch(error => console.error(error));
+
+    return await modal.present();
   }
 
   goBack() {

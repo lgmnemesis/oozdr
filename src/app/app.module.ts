@@ -18,6 +18,7 @@ import { TopMenuModule } from './components/top-menu/top-menu.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatchesModule } from './components/matches/matches.module';
 import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
+import { InviteFriendsModalModule } from './components/invite-friends-modal/invite-friends-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
     TopMenuModule,
     HttpClientModule,
     MatchesModule,
-    ScrollbarThemeModule
+    ScrollbarThemeModule,
+    InviteFriendsModalModule
   ],
   providers: [
     StatusBar,

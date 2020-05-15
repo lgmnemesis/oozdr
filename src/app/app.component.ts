@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
@@ -10,6 +10,7 @@ import { SharedStoreService } from './services/shared-store.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Profile } from './interfaces/profile';
 import { User } from 'firebase';
+import { InviteFriendsModalComponent } from './components/invite-friends-modal/invite-friends-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent {
     public sharedStoreService: SharedStoreService,
     private swUpdate: SwUpdate,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalCtrl: ModalController
   ) {
     this.authService.init();
     this.initializeApp();
@@ -135,5 +137,17 @@ export class AppComponent {
     this.sharedStoreService.profile$.subscribe((profile) => {
       this.profile = profile;
     })
+  }
+
+  inviteFriends() {
+    this.presentModal();
+  }
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: InviteFriendsModalComponent,
+      cssClass: 'present-modal-properties'
+    });
+    return await modal.present();
   }
 }

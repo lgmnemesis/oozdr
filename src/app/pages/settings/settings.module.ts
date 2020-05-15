@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 import { SettingsPage } from './settings.page';
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
+import { InviteFriendsModalModule } from 'src/app/components/invite-friends-modal/invite-friends-modal.module';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directi
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule,
-    ScrollbarThemeModule
+    ScrollbarThemeModule,
+    InviteFriendsModalModule
   ],
   declarations: [SettingsPage]
 })
