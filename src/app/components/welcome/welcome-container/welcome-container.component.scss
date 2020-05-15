@@ -1,3 +1,20 @@
+@import '../../../styles/fonts-text';
+@import '../../../styles/global-styles';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .flex-inner {
+    padding-top: 50px;
+  }
+}
+
+.p-title {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  color: var(--ion-color-secondary);
+  letter-spacing: 3px;
+}
+
 .flex-container {
   position: relative;
   height: 100%;
@@ -12,7 +29,7 @@
 
 #bt-back {
   position: absolute;
-  top: 0;
+  top: 3px;
   left: 0;
   z-index: 99;
 }
