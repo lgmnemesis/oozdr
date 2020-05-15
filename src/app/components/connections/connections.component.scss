@@ -22,14 +22,20 @@
   line-height: 1.8;
 }
 
-.msg-card ion-card-content,
-.msg-card ion-card-content p {
-  @extend .basic-text;
-}
-
-.p-quote {
+.p-quote,
+.p-quote-n {
   max-width: 600px;
   padding: 0 10px;
+  color: var(--ion-color-medium);
+}
+
+.p-quote::before {
+  content: open-quote;
+  position: absolute;
+  left: 6px;
+}
+.p-quote::after {
+  content: close-quote;
 }
 
 .top-padding {
