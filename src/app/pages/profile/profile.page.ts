@@ -58,6 +58,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     if (!this.isProfileChanged) {
       this.firstTime = true;
     }
+    this.sharedStoreService.activeMenuSubject.next('settings');
     this.router.navigate(['settings']).catch(error => console.error(error));
   }
 

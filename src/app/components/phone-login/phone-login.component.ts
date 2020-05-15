@@ -7,7 +7,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { FileStorageService } from 'src/app/services/file-storage.service';
 
 export class PhoneNumber {
   country: string;
@@ -44,8 +43,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private authService: AuthService,
     private welcomeService: WelcomeService,
-    private sharedStoreService: SharedStoreService,
-    private fileStorageService: FileStorageService) { }
+    private sharedStoreService: SharedStoreService) { }
 
   ngOnInit() {
     this.initRecaptcha();

@@ -107,6 +107,10 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+  goBack() {
+    this.sharedStoreService.activeMenuSubject.next('profile');
+  }
+
   deleteAccount() {
     this.authService.deleteAccount();
   }

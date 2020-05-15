@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 import { SharedStoreService } from './services/shared-store.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Profile } from './interfaces/profile';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
   isVisibleSplitPane = false;
   activeMenu: string;
   profile: Profile;
+  user: User;
 
   constructor(
     private platform: Platform,
@@ -36,6 +38,7 @@ export class AppComponent {
     this.initializeApp();
     this.subscribeToSplitPaneEvents();
     this.subscribeToActiveMenu();
+    this.subscribeToUser();
   }
 
   initializeApp() {
@@ -69,6 +72,12 @@ export class AppComponent {
     this.sharedStoreService.activeMenu$.subscribe((active) => {
       this.activeMenu = active;
     });
+  }
+
+  subscribeToUser() {
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+    })
   }
 
   subscribeToRouterEvents() {

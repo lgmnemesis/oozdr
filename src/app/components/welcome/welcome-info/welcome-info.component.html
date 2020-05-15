@@ -1,6 +1,11 @@
 <ion-grid class="animated"
   [class.slideInRight]="isNext"
   [class.slideInLeft]="isBack">
+  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!profile">
+    <ion-col size="auto">
+      <p class="title-text ion-text-capitalize">Personal Details</p>
+    </ion-col>
+  </ion-row>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p>Name</p>

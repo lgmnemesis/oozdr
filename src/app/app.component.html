@@ -4,7 +4,7 @@
     [disabled]="!useSplitPane" 
     (ionSplitPaneVisible)="ionSplitPaneOutputEvent($event)"> 
     <!--  our side menu  -->
-    <ion-menu contentId="main">
+    <ion-menu contentId="main" [disabled]="!user">
       <ion-header class="ion-no-border">
         <ion-toolbar>
           <app-top-menu [visible]="isVisibleSplitPane" [showChat]="false"></app-top-menu>
