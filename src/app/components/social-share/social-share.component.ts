@@ -11,4 +11,23 @@ export class SocialShareComponent implements OnInit {
 
   ngOnInit() {}
 
+  shareOnWhatsapp() {
+
+  }
+
+  shareOnFacebook() {
+
+  }
+
+  shareOnTwitter() {
+
+  }
+
+  shareWithMail() {
+
+  }
+  
+  copyLink() {
+
+  }
 }

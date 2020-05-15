@@ -1,3 +1,39 @@
-<p>
-  social-share works!
-</p>
+<ion-grid>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <ion-button (click)="shareOnWhatsapp()" 
+        size="large" color="success" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="logo-whatsapp"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-button (click)="shareOnFacebook()"
+        size="large" fill="clear" shape="round">
+        <ion-icon class="facebook" slot="icon-only" name="logo-facebook"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-button (click)="shareOnTwitter()"
+        size="large"  color="secondary" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-button (click)="shareWithMail()"
+        size="large" color="danger" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-button (click)="copyLink()"
+        size="large" color="dark" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="clipboard-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
