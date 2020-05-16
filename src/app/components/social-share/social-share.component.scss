@@ -2,11 +2,15 @@
   color: dodgerblue;
 }
 
-ion-button {
+.bt-share {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   background: var(--ion-color-light);
   --padding-start: 0;
   --padding-end: 0;
+}
+
+.bt-nav-share ion-icon {
+  padding-right: 10px;
 }
