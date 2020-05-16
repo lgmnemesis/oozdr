@@ -51,21 +51,27 @@ export class SocialShareComponent implements OnInit {
   }
 
   shareOnWhatsapp() {
-
+    const base_url = 'https://web.whatsapp.com/send?';
+    const encodedUrl = encodeURIComponent(this.share.url);
+    const encodedDescription = encodeURIComponent(`${this.share.title}\n${this.share.text}\n`);
+    const url = `${base_url}text=${encodedDescription}${encodedUrl}`;
+    this.openNewWindow(url, 600);
   }
 
   shareOnFacebook() {
-
+    const base_url = 'https://www.facebook.com/sharer/sharer.php?';
+    const encodedUrl = encodeURIComponent(this.share.url);
+    const url = `${base_url}u=${encodedUrl}`;
+    this.openNewWindow(url, 800);
   }
 
   shareOnTwitter() {
     // const base_url = 'https://twitter.com/intent/tweet?'; // post to all
     const base_url = 'https://twitter.com/messages/compose?'; // Direct Message to selected users
-    const encodedText = encodeURIComponent(`${this.share.title}${this.share.text}\n`);
+    const encodedText = encodeURIComponent(`${this.share.title}\n${this.share.text}\n`);
     const encodedUrl = encodeURIComponent(this.share.url);
     const url = `${base_url}url=${encodedUrl}&text=${encodedText}${encodedUrl}`;
-    return this.openNewWindow(url, 500);
-
+    this.openNewWindow(url, 600);
   }
 
   shareWithMail() {
@@ -85,13 +91,8 @@ export class SocialShareComponent implements OnInit {
 
   async navigatorShare() {
     const nav: any = navigator;
-    const share = {
-      url: 'https://reconnect.page.link/invite',
-      title: 'App recommendation for you.',
-      text: 'This app has helped me to reconnect with some one dear and i think it can help you as well.'
-    }
     try {
-      await nav.share(share);
+      await nav.share(this.share);
       console.log('Thanks for sharing!')
     } catch (error) {
       console.error('Could not share!', error);
