@@ -25,7 +25,6 @@ export class FcmService {
   async fcmInit() {
     const reg = await this.registerToServiceWorker();
     const subs = await this.getSubscription();
-    console.log('subs:', subs);
     if (subs) {
       this.finishSubscriptionProcess();
       return subs;
@@ -80,7 +79,6 @@ export class FcmService {
     try {
       this.swRegistration = await navigator.serviceWorker.register('fcm-sw.js');
       this.messaging.useServiceWorker(this.swRegistration);
-      console.log('moshe registerd');
     } catch (error) {
       console.error(error);
       return null;
@@ -124,7 +122,6 @@ export class FcmService {
 
   subscribeToTokenRefresh() {
     this.messaging.onTokenRefresh(() => {
-      console.log('moshe token refreshed');
       return this.getPermission();
     })
   }
@@ -134,7 +131,6 @@ export class FcmService {
       return;
     }
     this._msg = this.messaging.onMessage((payload) => {
-      console.log('moshe got message:', payload);
       this.currentMessage.next(payload);
     })
   }

@@ -93,7 +93,6 @@ export class SocialShareComponent implements OnInit {
     const nav: any = navigator;
     try {
       await nav.share(this.share);
-      console.log('Thanks for sharing!')
     } catch (error) {
       console.error('Could not share!', error);
     }
