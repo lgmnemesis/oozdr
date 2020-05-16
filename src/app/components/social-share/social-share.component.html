@@ -1,5 +1,6 @@
 <ion-grid>
   <ng-container *ngIf="!navigatorShareSupport">
+    <div class="copied" [class.show-copied]="copyiedToClipboard">Copied</div>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
         <ion-button class="bt-share" (click)="shareOnWhatsapp()" 

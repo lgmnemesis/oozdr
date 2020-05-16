@@ -14,3 +14,25 @@
 .bt-nav-share ion-icon {
   padding-right: 10px;
 }
+
+.copied {
+  position: absolute;
+  text-align: center;
+  opacity: 0;
+  z-index: 2;
+  width: 80px;
+  padding: 5px;
+  top: -20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 20px;
+  background: var(--ion-color-light-shade);
+  color: var(--ion-color-dark);
+  -webkit-transition: opacity 0.8s ease-in-out;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.show-copied {
+  opacity: 1;
+}

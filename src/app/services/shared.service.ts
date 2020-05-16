@@ -9,6 +9,14 @@ import { IonToastMessage } from '../interfaces/toast-message';
 })
 export class SharedService {
 
+  EXTRA_SMALL_WINDOW_WIDTH = 415;
+  SMALL_WINDOW_WIDTH = 576;
+  MEDIUM_WINDOW_WIDTH = 768;
+  LARGE_WINDOW_WIDTH = 992;
+  EXTRA_LARGE_WINDOW_WIDTH = 1200;
+  MEDIUM_WINDOW_HEIGHT = 570;
+  LARGE_WINDOW_HEIGHT = 650;
+
   INITIAL_PHONE_COUNTRY_CODE = 'us';
 
   ipInfoUrl = 'https://ipapi.co/json';
