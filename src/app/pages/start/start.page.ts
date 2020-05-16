@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription, Observable, of } from 'rxjs';
@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { switchMap } from 'rxjs/operators';
+import { SiteFooterModalComponent } from 'src/app/components/site-footer-modal/site-footer-modal.component';
 
 @Component({
   selector: 'app-start',
@@ -19,13 +20,14 @@ import { switchMap } from 'rxjs/operators';
 export class StartPage implements OnInit, OnDestroy {
 
   private isSignInButtonActive = false;
-  shouldAnimate = this.sharedStoreService.shouldAnimateStartPage;
   _profile: Subscription;
   profile$: Observable<Profile>;
   canShowPage = false;
   isLoggedIn = false;
+  isSiteMenuActive = false;
   testAuthForProduction = false; // temp for now
   isProduction = false; // temp for now
+
 
   constructor(private modalCtrl: ModalController,
     public sharedStoreService: SharedStoreService,
@@ -33,13 +35,19 @@ export class StartPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private navCtrl: NavController,
     private cd: ChangeDetectorRef,
-    private welcomeService: WelcomeService) { }
+    private welcomeService: WelcomeService,
+    private popoverCtrl: PopoverController) { }
 
   ngOnInit() {
     // Test auth for production
     this.checkTestAuthForProduction();
 
     this.navigateAccordingly();
+
+    setTimeout(() => {
+      this.sharedStoreService.shouldAnimateStartPage = false;
+      this.markForCheck();
+    }, 7000);
   }
 
   markForCheck() {
@@ -110,6 +118,26 @@ export class StartPage implements OnInit, OnDestroy {
     });
   }
 
+  openSiteMenu(event) {
+    if (!this.isSiteMenuActive) {
+      this.isSiteMenuActive = true;
+      this.presentSiteMenu(event);
+    }
+  }
+
+  async presentSiteMenu(event) {
+    const modal = await this.popoverCtrl.create({
+      component: SiteFooterModalComponent,
+      event: event,
+      cssClass: 'site-footer-popover'
+    });
+
+    modal.onDidDismiss().finally(() => {
+      this.isSiteMenuActive = false;
+    })
+    return await modal.present();
+  }
+
   signIn() {
     if (!this.isSignInButtonActive) {
       this.isSignInButtonActive = true;
@@ -136,7 +164,6 @@ export class StartPage implements OnInit, OnDestroy {
 
   disableAnimation() {
     this.sharedStoreService.shouldAnimateStartPage = false;
-    this.shouldAnimate = false;
   }
 
   checkTestAuthForProduction() {

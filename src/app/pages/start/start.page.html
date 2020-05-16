@@ -24,7 +24,8 @@
         slot="end"
         size="large"
         fill="clear"
-        color="minor">
+        color="minor"
+        (click)="openSiteMenu($event)">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
     </ion-item>
@@ -37,22 +38,23 @@
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="auto">
           <ion-text color="minor">
-            <p class="margin-height animated" [class.fadeInDown]="shouldAnimate">
+            <p class="margin-height animated" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               Have you ever thought about your soulmate? your Ex? the love of your life?
             </p>
-            <p class="margin-height animated delay-1s" [class.fadeInDown]="shouldAnimate">
+            <p class="margin-height animated delay-1s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               Maybe they're thinking about you as well?
             </p>
-            <div class="margin-height animated delay-2s" [class.fadeInDown]="shouldAnimate">
+            <div class="margin-height animated delay-2s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               <p class="margin-0">Find out if they are looking for you as well!</p>
             </div>
-            <div class="margin-height animated delay-3s" [class.fadeInDown]="shouldAnimate">
+            <div class="margin-height animated delay-3s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               <h1>RECONNECT WITH YOUR SOULMATE</h1>
             </div>
           </ion-text>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-justify-content-center ion-align-items-center animated delay-3s" [class.fadeInDown]="shouldAnimate">
+      <ion-row class="ion-justify-content-center ion-align-items-center animated delay-3s" 
+        [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
         <ion-col size="auto">
           <ion-button 
             id="bt-signup" 

@@ -62,8 +62,14 @@
   --min-width: 300px;
 }
 
+.site-footer-popover .popover-content,
 .match-options-popover .popover-content {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
+}
+
+.site-footer-popover {
+  --max-width: calc(100vw - 50px);
+  --width: auto;
 }
 
 .toast-style {
