@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Platform, ModalController } from '@ionic/angular';
+import { Platform, ModalController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
@@ -34,7 +34,8 @@ export class AppComponent {
     private swUpdate: SwUpdate,
     private authService: AuthService,
     private router: Router,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private menuCtrl: MenuController
   ) {
     this.authService.init();
     this.initializeApp();
@@ -126,6 +127,7 @@ export class AppComponent {
   }
 
   gotoActiveMenu(url: string) {
+    this.menuCtrl.close().catch(error => console.error(error));
     this.router.navigate([url]).catch(error => console.error(error));
   }
 
