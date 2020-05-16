@@ -14,7 +14,7 @@ export class SocialShareComponent implements OnInit {
 
   share = {
     url: 'https://reconnect.page.link/invite',
-    title: 'App recommendation for you. ',
+    title: 'App recommendation for you',
     text: 'This app has helped me to reconnect with someone dear and I think it can help you as well.'
   }
 
@@ -53,9 +53,9 @@ export class SocialShareComponent implements OnInit {
   shareOnWhatsapp() {
     const base_url = 'https://web.whatsapp.com/send?';
     const encodedUrl = encodeURIComponent(this.share.url);
-    const encodedDescription = encodeURIComponent(`${this.share.title}\n${this.share.text}\n`);
+    const encodedDescription = encodeURIComponent(`${this.share.title}.\n${this.share.text}\n`);
     const url = `${base_url}text=${encodedDescription}${encodedUrl}`;
-    this.openNewWindow(url, 600);
+    this.openNewWindow(url);
   }
 
   shareOnFacebook() {
@@ -68,10 +68,10 @@ export class SocialShareComponent implements OnInit {
   shareOnTwitter() {
     // const base_url = 'https://twitter.com/intent/tweet?'; // post to all
     const base_url = 'https://twitter.com/messages/compose?'; // Direct Message to selected users
-    const encodedText = encodeURIComponent(`${this.share.title}\n${this.share.text}\n`);
+    const encodedText = encodeURIComponent(`${this.share.title}.\n${this.share.text}\n`);
     const encodedUrl = encodeURIComponent(this.share.url);
     const url = `${base_url}url=${encodedUrl}&text=${encodedText}${encodedUrl}`;
-    this.openNewWindow(url, 600);
+    this.openNewWindow(url);
   }
 
   shareWithMail() {
@@ -98,7 +98,7 @@ export class SocialShareComponent implements OnInit {
     }
   }
 
-  openNewWindow(url: string, windowHeight = 300): Window {
+  openNewWindow(url: string, windowHeight = 600): Window {
     const width = window.innerWidth;
     const height = window.innerHeight;
     let w: number, left: number;
