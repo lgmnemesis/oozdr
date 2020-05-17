@@ -9,8 +9,8 @@ service cloud.firestore {
     
     match /profiles/{userId} {
     	allow read: if isOwner();
-    	allow create: if isSignedIn() && isValid();
-    	allow update: if isOwner() && isValid();
+    	allow create: if isSignedIn() && isValidProfile();
+    	allow update: if isOwner() && isValidProfile();
     	allow delete: if isOwner();
     }
     
@@ -25,6 +25,13 @@ service cloud.firestore {
     	allow read: if canReadChat();
     	allow create: if false;
     	allow update: if canUpdateChat();
+    	allow delete: if false;
+    }
+    
+    match /feedbacks/{id} {
+    	allow read: if false;
+    	allow create: if true;
+    	allow update: if false;
     	allow delete: if false;
     }
   }
@@ -49,6 +56,10 @@ service cloud.firestore {
   
   function isValid() {
   	return incomingData().user_id == request.auth.uid;
+  }
+  
+  function isValidProfile() {
+  	return isValid() && incomingData().fcmTokens.size() <= 5;
   }
   
   function isValidChat() {
