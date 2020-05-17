@@ -27,6 +27,7 @@ export class SharedService {
   matchNotifStorageIndicatorPreffix = 'm-notif';
   uploadProfileImgDir = 'profiles';
   currentUrlPath = null;
+  private canSendFeedBack = true;
 
   menu1 = 'profile';
   menu2 = 'connections';
@@ -130,5 +131,16 @@ export class SharedService {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  canSendFeedBackTimer(): boolean {
+    if (this.canSendFeedBack) {
+      this.canSendFeedBack = false;
+      setTimeout(() => {
+        this.canSendFeedBack = true;
+      }, 30000);
+      return true;
+    }
+    return false;
   }
 }

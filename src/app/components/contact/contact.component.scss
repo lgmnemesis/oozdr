@@ -1,0 +1,47 @@
+@import '../../styles/fonts-text';
+@import '../../styles/global-styles';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .c-div,
+  .q-div {
+    width: 100% !important;
+  }
+
+  .q-div ion-input,
+  .q-div ion-textarea{
+    width: 290px !important;
+  }
+}
+
+p {
+  margin: 10px 0;
+}
+
+.c-div {
+  width: 450px;
+}
+
+.q-div {
+  width: 450px;
+}
+
+.q-div ion-input {
+  @extend .basic-text;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 10px;
+  width: 400px;
+  height: 45px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  margin: 20px 0;
+}
+
+.q-div ion-textarea {
+  @extend .basic-text;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 10px;
+  --padding-start: 20px;
+  --padding-end: 10px;
+  margin: 20px 0;
+  width: 400px;
+}

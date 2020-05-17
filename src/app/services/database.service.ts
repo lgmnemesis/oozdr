@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment';
 import { Profile, Connection, Match, Message, LastMessage } from '../interfaces/profile';
 import * as firebase from 'firebase/app'; 
 import 'firebase/firestore';
+import { Feedback } from '../interfaces/general';
 
 @Injectable({
   providedIn: 'root'
@@ -252,6 +253,12 @@ export class DatabaseService {
 
   deleteUserData() {
     // Deleting profile and connections
+  }
+
+  addFeedback(message: Feedback) {
+    const id = this.createId();
+    const path = 'feedbacks/' + id;
+    this.afs.doc(path).set(message).catch(error => console.error(error));
   }
 
 } 
