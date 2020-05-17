@@ -2,6 +2,10 @@
 @import '../../styles/global-styles';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .c-div p {
+    padding: 0 10px !important;
+  }
+
   .c-div,
   .q-div {
     width: 100% !important;
@@ -11,6 +15,10 @@
   .q-div ion-textarea{
     width: 290px !important;
   }
+
+  .top-margin {
+    margin: 0 !important;
+  }
 }
 
 p {
@@ -19,6 +27,13 @@ p {
 
 .c-div {
   width: 450px;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.c-div p {
+  padding: 0 60px;
+  padding-bottom: 20px;
 }
 
 .q-div {
@@ -44,4 +59,12 @@ p {
   --padding-end: 10px;
   margin: 20px 0;
   width: 400px;
+}
+
+.top-margin {
+  margin: 50px 0;
+}
+
+.color-secondary {
+  color: var(--ion-color-secondary);
 }
