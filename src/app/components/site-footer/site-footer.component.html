@@ -25,39 +25,17 @@
     <ion-col size="auto">
       <div class="flex-col">
         <ion-label class="title-text bold-text ion-text-uppercase">Information</ion-label>
-        <ion-button fill="clear" color="dark">
-          <ion-label class="basic-text ion-text-capitalize">About</ion-label>
-        </ion-button>
-        <ion-button fill="clear" color="dark">
+        <!-- <ion-button fill="clear" color="dark">
+          <ion-label class="basic-text ion-text-capitalize">Help</ion-label>
+        </ion-button> -->
+        <ion-button fill="clear" color="dark" (click)="gotoContact()">
           <ion-label class="basic-text ion-text-capitalize">Contact</ion-label>
         </ion-button>
-        <ion-button fill="clear" color="dark">
-          <ion-label class="basic-text ion-text-capitalize">Help</ion-label>
+        <ion-button fill="clear" color="dark" (click)="gotoSupport()">
+          <ion-label class="basic-text ion-text-capitalize">Support</ion-label>
         </ion-button>
       </div>
     </ion-col>
   </ion-row>
-
-  <ion-row class="social-row ion-justify-content-center ion-align-items-start">
-    <ion-col size="auto">
-      <ion-button class="bt-share"
-        fill="clear" shape="round">
-        <ion-icon class="facebook" slot="icon-only" name="logo-facebook"></ion-icon>
-      </ion-button>
-    </ion-col>
-
-    <ion-col size="auto">
-      <ion-button class="bt-share"
-        color="secondary" fill="clear" shape="round">
-        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
-      </ion-button>
-    </ion-col>
-
-    <ion-col size="auto">
-      <ion-button class="bt-share"
-        color="danger" fill="clear" shape="round">
-        <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
 </ion-grid>
+<app-contact-links></app-contact-links>

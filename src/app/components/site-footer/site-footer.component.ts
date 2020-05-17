@@ -11,7 +11,7 @@ import { PopoverController } from '@ionic/angular';
 export class SiteFooterComponent implements OnInit {
 
   constructor(private router: Router,
-    private popoverCtrl: PopoverController ) { }
+    private popoverCtrl: PopoverController) { }
 
   ngOnInit() {}
 
@@ -23,9 +23,16 @@ export class SiteFooterComponent implements OnInit {
     this.goto('terms');
   }
 
+  gotoContact() {
+    this.goto('contact');
+  }
+
+  gotoSupport() {
+    this.goto('support');
+  }
+
   goto(url: string) {
     this.popoverCtrl.dismiss().catch(error => console.error(error));
     this.router.navigate([url]).catch(error => console.error(error));
   }
-
 }

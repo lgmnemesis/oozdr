@@ -48,6 +48,10 @@ const routes: Routes = [
     loadChildren: () => import('./pagese/privacy/privacy.module').then( m => m.PrivacyPageModule)
   },
   {
+    path: 'contact',
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+  },
+  {
     path: 'support',
     loadChildren: () => import('./pagese/support/support.module').then( m => m.SupportPageModule)
   },

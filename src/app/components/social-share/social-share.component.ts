@@ -55,14 +55,14 @@ export class SocialShareComponent implements OnInit {
     const encodedUrl = encodeURIComponent(this.share.url);
     const encodedDescription = encodeURIComponent(`${this.share.title}.\n${this.share.text}\n`);
     const url = `${base_url}text=${encodedDescription}${encodedUrl}`;
-    this.openNewWindow(url);
+    this.sharedService.openNewWindow(url);
   }
 
   shareOnFacebook() {
     const base_url = 'https://www.facebook.com/sharer/sharer.php?';
     const encodedUrl = encodeURIComponent(this.share.url);
     const url = `${base_url}u=${encodedUrl}`;
-    this.openNewWindow(url, 800);
+    this.sharedService.openNewWindow(url, 800);
   }
 
   shareOnTwitter() {
@@ -71,13 +71,13 @@ export class SocialShareComponent implements OnInit {
     const encodedText = encodeURIComponent(`${this.share.title}.\n${this.share.text}\n`);
     const encodedUrl = encodeURIComponent(this.share.url);
     const url = `${base_url}url=${encodedUrl}&text=${encodedText}${encodedUrl}`;
-    this.openNewWindow(url);
+    this.sharedService.openNewWindow(url);
   }
 
   shareWithMail() {
     const body = encodeURIComponent(`${this.share.text}\n${this.share.url}\n`);
     const url = `mailto:?subject=${this.share.title}&body=${body}`;
-    this.openNewWindow(url);
+    this.sharedService.openNewWindow(url);
   }
   
   copyLink() {
@@ -97,29 +97,5 @@ export class SocialShareComponent implements OnInit {
       console.error('Could not share!', error);
     }
   }
-
-  openNewWindow(url: string, windowHeight = 600): Window {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    let w: number, left: number;
-    try {
-      if (width < this.sharedService.MEDIUM_WINDOW_WIDTH) {
-        w = width - 20;
-        left = 0;
-      } else {
-        w = this.sharedService.MEDIUM_WINDOW_WIDTH;
-        left = Number((width / 2) - (w / 2));
-      }
-      const h = windowHeight;
-      const top = Number((height / 2)  - (h / 2));
-      const params = `scrollbars=no,resizable=no,
-      status=no,location=no,toolbar=no,menubar=no,
-      width=${w},height=${h},left=${left},top=${top}`;
-      return window.open(url, '', params);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
 
 }

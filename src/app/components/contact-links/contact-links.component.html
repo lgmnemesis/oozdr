@@ -1,0 +1,24 @@
+<ion-grid>
+  <ion-row class="social-row ion-justify-content-center ion-align-items-start">
+    <ion-col size="auto">
+      <ion-button class="bt-share" (click)="openFaceBook()"
+        fill="clear" shape="round">
+        <ion-icon class="facebook" slot="icon-only" name="logo-facebook"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-button class="bt-share" (click)="openTwitter()"
+        color="secondary" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="auto">
+      <ion-button class="bt-share" (click)="mailTo()"
+        color="danger" fill="clear" shape="round">
+        <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>

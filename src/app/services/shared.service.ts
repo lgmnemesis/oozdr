@@ -108,4 +108,27 @@ export class SharedService {
     loading.present();
     return loading;
   }
+
+  openNewWindow(url: string, windowHeight = 600): Window {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    let w: number, left: number;
+    try {
+      if (width < this.MEDIUM_WINDOW_WIDTH) {
+        w = width - 20;
+        left = 0;
+      } else {
+        w = this.MEDIUM_WINDOW_WIDTH;
+        left = Number((width / 2) - (w / 2));
+      }
+      const h = windowHeight;
+      const top = Number((height / 2)  - (h / 2));
+      const params = `scrollbars=no,resizable=no,
+      status=no,location=no,toolbar=no,menubar=no,
+      width=${w},height=${h},left=${left},top=${top}`;
+      return window.open(url, '', params);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
