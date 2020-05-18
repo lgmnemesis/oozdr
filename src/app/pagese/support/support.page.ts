@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-support',
+  selector: 'app-support-page',
   templateUrl: './support.page.html',
   styleUrls: ['./support.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

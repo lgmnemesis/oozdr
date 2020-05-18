@@ -141,6 +141,7 @@ export class SharedStoreService {
     }
     catch (error) {
       console.error(error);
+      return null;
      }
   }
 

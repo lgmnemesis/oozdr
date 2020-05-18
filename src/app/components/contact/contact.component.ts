@@ -1,32 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Feedback } from 'src/app/interfaces/general';
 import { IonToastMessage } from 'src/app/interfaces/toast-message';
+import { Profile } from 'src/app/interfaces/profile';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactComponent implements OnInit {
 
   sending = false;
   feedback: Feedback;
+  profile: Profile;
 
   constructor(private databaseService: DatabaseService,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private sharedStoreService: SharedStoreService,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.createFeedback();
   }
 
-  createFeedback() {
+  markForCheck() {
+    this.cd.markForCheck();
+  }
+
+  async createFeedback() {
+    this.profile = await this.sharedStoreService.getProfile();
     this.feedback = {
       name: '',
       email: '',
       message: ''
     }
+    if (this.profile) {
+      this.feedback.name = this.profile.basicInfo.name;
+      this.feedback.email = this.profile.basicInfo.email;
+    }
+    this.markForCheck();
   }
 
   setName(event) {
@@ -56,6 +72,7 @@ export class ContactComponent implements OnInit {
       this.sharedService.presentToast(toast);
     }
     this.sending = false;
+    this.markForCheck();
   }
 
   validate() {

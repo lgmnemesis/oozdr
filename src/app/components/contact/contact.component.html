@@ -19,8 +19,12 @@
     </ion-col>
     <ion-col size="auto">
       <div class="q-div">
-        <ion-input placeholder="Your name" [value]="feedback?.name" (ionChange)="setName($event)"></ion-input>
-        <ion-input placeholder="What's your email?" [value]="feedback?.email" (ionChange)="setEmail($event)"></ion-input>
+        <ion-input *ngIf="!profile"
+          placeholder="Your name" [value]="feedback?.name" (ionChange)="setName($event)">
+        </ion-input>
+        <ion-input *ngIf="!profile"
+          placeholder="What's your email?" [value]="feedback?.email" (ionChange)="setEmail($event)">
+        </ion-input>
         <ion-textarea 
           placeholder="Your questions, comments..."
           rows="5"

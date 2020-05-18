@@ -5,6 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { SupportPageRoutingModule } from './support-routing.module';
 import { SupportPage } from './support.page';
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
+import { ContactModule } from 'src/app/components/contact/contact.module';
+import { SupportModule } from 'src/app/components/support/support.module';
 
 @NgModule({
   imports: [
@@ -12,7 +14,9 @@ import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directi
     FormsModule,
     IonicModule,
     SupportPageRoutingModule,
-    ScrollbarThemeModule
+    ScrollbarThemeModule,
+    SupportModule,
+    ContactModule
   ],
   declarations: [SupportPage]
 })
