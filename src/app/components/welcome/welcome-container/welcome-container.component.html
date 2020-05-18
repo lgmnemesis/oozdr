@@ -1,14 +1,16 @@
 <div class="flex-container">
-  <div id="bt-back">
-    <ion-button *ngIf="!sharedStoreService?.needToFinishInfoRegistration"
-      fill="clear" [disabled]="disableBackButton" (click)="back()">
-      <ion-icon name="arrow-back-outline"></ion-icon>
-    </ion-button>
-    <ion-button color="main" (click)="logout()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">
-      Log Out
-    </ion-button>
+  <div class="header">
+    <div id="bt-back">
+      <ion-button *ngIf="!sharedStoreService?.needToFinishInfoRegistration"
+        fill="clear" [disabled]="disableBackButton" (click)="back()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="main" (click)="logout()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">
+        Log Out
+      </ion-button>
+    </div>
+    <p class="larger-text bold-text ion-text-center p-title">GET STARTED</p>
   </div>
-  <p class="larger-text bold-text ion-text-center p-title">GET STARTED</p>
   <div class="flex-inner">
     <app-welcome-info
       [isBack]="isBack" [isNext]="isNext" (nextEvent)="next()" *ngIf="step === 1">

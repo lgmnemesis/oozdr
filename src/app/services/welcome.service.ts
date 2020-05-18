@@ -153,26 +153,34 @@ export class WelcomeService {
     return !this.isNameError && !this.isGenderError && !this.isEmailError && !this.isBirthdayError;
   }
 
-  async nextStep() {
+  backStep() {
+    this.cropiePlease();
+  }
+
+  nextStep() {
     if (this.isValidatedForm()) {
-      if (this.croppie) {
-        try {
-          const res = await this.croppie.result({ type: 'base64' });
-          if (res) {
-            this.basicInfo.profile_img_url = res;
-            this.basicInfo.profile_img_file = this.convertBase64ImgToFile(res, 'profile.jpg');
-          }
-        } catch (error) {
-          console.error(error);          
-        }
-        this.croppie.destroy();
-        this.croppie = null;
-      }
+      this.cropiePlease();
       this.isDisableNextButton = true;
     } else {
       return false;
     }
     return true;
+  }
+
+  async cropiePlease() {
+    if (this.croppie) {
+      try {
+        const res = await this.croppie.result({ type: 'base64' });
+        if (res) {
+          this.basicInfo.profile_img_url = res;
+          this.basicInfo.profile_img_file = this.convertBase64ImgToFile(res, 'profile.jpg');
+        }
+      } catch (error) {
+        console.error(error);          
+      }
+      this.croppie.destroy();
+      this.croppie = null;
+    }
   }
 
   convertBase64ImgToFile(dataUrl, filename) {

@@ -41,6 +41,7 @@ export class WelcomeContainerComponent implements OnInit {
     this.isNext = false;
     if (this.step < 1) {
       // goto start
+      this.welcomeService.backStep();
       this.gotoStart();
     }
     this.welcomeService.isDisableNextButton = false;
