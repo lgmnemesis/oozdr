@@ -3,15 +3,19 @@
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .content {
-    padding: 0 10px !important;
+    padding: 20px 20px !important;
+    margin: 20px 0 !important;
+    border-radius: 20px 0 !important;
   }
 }
 
 .content {
-  padding: 0 50px;
-  padding-bottom: 50px;
+  padding: 20px 50px;
+  margin: 20px 50px;
   max-width: 1200px;
-  line-height: 1.5;
+  line-height: 2;
+  background-color: #f8f8f8;
+  border-radius: 20px;
 }
 
 h2, h3 {

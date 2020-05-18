@@ -2,7 +2,11 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
+        <p class="large-text ion-text-center color-secondary">Log into your account</p>
         <app-phone-login [reauthenticate]="reauthenticate" (processDone)="processDone($event)"></app-phone-login>
+        <p class="basic-text ion-text-center">
+          Don't have an account? <span class="sp-signin" (click)="signUp()">Sign up</span>
+        </p>
       </ion-col>
     </ion-row>
   </ion-grid>

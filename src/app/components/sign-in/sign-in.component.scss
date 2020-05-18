@@ -1,6 +1,18 @@
+@import '../../styles/fonts-text';
+
 .flex-container {
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.color-secondary {
+  color: var(--ion-color-secondary);
+}
+
+.sp-signin {
+  color: var(--ion-color-primary);
+  border-bottom: 1px solid;
+  cursor: pointer;
 }

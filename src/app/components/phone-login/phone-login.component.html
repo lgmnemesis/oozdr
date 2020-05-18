@@ -31,6 +31,11 @@
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" class="col-txt">
+      <p class="small-text ion-text-center">
+        By continuing, you agree to our <span class="terms" (click)="openTerms()">Terms</span>
+      </p>
+    </ion-col>
     <ion-col size="auto">
       <ion-button [disabled]="isContinueButtonDisabled" (click)="sendLoginCode()">Continue</ion-button>
     </ion-col>

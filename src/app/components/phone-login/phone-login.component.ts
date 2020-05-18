@@ -154,6 +154,15 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.verificationCode = event.detail.value;
   }
 
+  openTerms() {
+    const url = 'https://reqonneqt.com/terms';
+    try {
+      window.open(url, '');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   ngOnDestroy() {
     if (this.telInputObj) {
       try {
