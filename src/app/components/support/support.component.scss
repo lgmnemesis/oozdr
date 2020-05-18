@@ -7,6 +7,37 @@
   }
 }
 
+ion-grid {
+  background: var(--ion-color-light);
+}
+
+.t-container ion-item {
+  --background: var(--ion-color-light);
+}
+
+.main-title {
+  text-align: center;
+  @extend .font-params;
+  font-size: 50px;
+  line-height: 1;
+  margin: 50px 0;
+}
+
 .top-margin {
   margin: 50px 0;
+}
+
+.p-title {
+  @extend .large-text;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.p-text {
+  @extend .title-text;
+  max-width: 400px;
+}
+
+.t-divider {
+  padding: 20px 0;
 }
