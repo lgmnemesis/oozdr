@@ -49,3 +49,27 @@
   @extend .font-params;
   font-size: 12px;
 }
+
+.main-title {
+  @extend .font-params;
+  text-align: center;
+  font-size: 50px;
+  line-height: 1;
+  margin: 50px 0;
+}
+
+.color-primary {
+  color: var(--ion-color-primary);
+}
+
+.color-secondary {
+  color: var(--ion-color-secondary);
+}
+
+.color-tertiary {
+  color: var(--ion-color-tertiary);
+}
+
+.color-medium {
+  color: var(--ion-color-medium);
+}
