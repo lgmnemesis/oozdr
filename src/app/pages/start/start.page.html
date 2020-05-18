@@ -13,12 +13,12 @@
 
   <div id="start-header">
     <ion-item lines="none">
-      <ion-button
-        id="bt-signin"
+      <ion-button id="bt-signin"
         slot="end"
-        color="main"
+        color="minor"
+        fill="outline"
         (click)="signIn()">
-        Sign In
+        <ion-label class="basic-text ion-text-capitalize">Sign In</ion-label>
       </ion-button>
       <ion-button
         slot="end"
@@ -35,9 +35,12 @@
 
   <div class="flex-container">
     <ion-grid>
-      <ion-row class="ion-justify-content-center ion-align-items-center">
-        <ion-col size="auto">
+      <ion-row class="ion-justify-content-start ion-align-items-start">
+        <ion-col class="t-col" size="auto">
           <ion-text color="minor">
+            <div class="margin-height" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
+              <h1>RECONNECT</h1>
+            </div>
             <p class="margin-height animated" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               Have you ever thought about your soulmate? your Ex? the love of your life?
             </p>
@@ -45,17 +48,14 @@
               Maybe they're thinking about you as well?
             </p>
             <div class="margin-height animated delay-2s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
-              <p class="margin-0">Find out if they are looking for you as well!</p>
-            </div>
-            <div class="margin-height animated delay-3s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
-              <h1>RECONNECT WITH YOUR SOULMATE</h1>
+              <p class="margin-0">Find out if they are looking for you as well...</p>
             </div>
           </ion-text>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-justify-content-center ion-align-items-center animated delay-3s" 
+      <ion-row class="margin-height ion-justify-content-start ion-align-items-start animated delay-3s" 
         [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
-        <ion-col size="auto">
+        <ion-col class="t-col" size="auto">
           <ion-button 
             id="bt-signup" 
             size="large" 
