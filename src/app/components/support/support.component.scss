@@ -5,6 +5,11 @@
   .top-margin {
     margin: 0 !important;
   }
+
+  .main-title {
+    font-size: 30px !important;
+    margin: 30px 0 !important;
+  }
 }
 
 ion-grid {
@@ -43,4 +48,8 @@ ion-grid {
 
 .t-divider {
   padding: 20px 0;
+}
+
+.bck-light {
+  background: var(--ion-color-light);
 }
