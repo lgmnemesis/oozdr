@@ -96,7 +96,7 @@ export class AppComponent {
         }
 
         // Send page_view event to analytics
-        this.analyticsService.pageViewEvent(e);
+        this.analyticsService.pageViewEvent();
       }
     });
   }
