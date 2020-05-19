@@ -124,3 +124,21 @@ h1 {
   padding-left: 10vw;
   padding-right: 10vw;
 }
+
+.reconnect {
+  position: relative;
+}
+
+.reconnect img {
+  position: absolute;
+  width: 40px;
+  border: 2px solid;
+  border-radius: 50%;
+  top: 5px;
+  bottom: 0;
+  margin: auto;
+}
+
+.reconnect h1 {
+  margin-inline-start: 45px;
+}
