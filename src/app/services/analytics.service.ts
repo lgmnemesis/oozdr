@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { User } from 'firebase';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnalyticsService {
 
-  constructor(private analytics: AngularFireAnalytics) { }
+  onlyInProd = true;
+
+  constructor(private analytics: AngularFireAnalytics) {}
 
   private sendEvent(eventName: string, eventParams?: { [key: string]: any; }, options?: firebase.analytics.AnalyticsCallOptions) {
-    console.log('Sending event:', eventName, eventParams, options);
-    this.analytics.logEvent(eventName, eventParams, options).catch(error => console.error(error));
+    if (!this.onlyInProd || environment.production) {
+      console.log('Sending event:', eventName, eventParams, options);
+      this.analytics.logEvent(eventName, eventParams, options).catch(error => console.error(error));
+    }
   }
 
   setUserId(user: User) {
-    console.log('setUserId:', user.uid);
-    this.analytics.setUserId(user.uid).catch(error => console.error(error));
+    if (!this.onlyInProd || environment.production) {
+      console.log('setUserId:', user.uid);
+      this.analytics.setUserId(user.uid).catch(error => console.error(error));
+    }
   }
 
   pageViewEvent() {
