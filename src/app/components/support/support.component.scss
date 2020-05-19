@@ -89,14 +89,26 @@ ion-grid {
 }
 
 .img-col {
+  position: relative;
   width: 600px !important;
   height: 345px !important;
 }
 
 .img-col img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 16px;
 }
 
 .active-title {
   color: var(--ion-color-secondary);
+}
+
+.active-img {
+  z-index: 2 !important;
+  opacity: 1 !important;
 }

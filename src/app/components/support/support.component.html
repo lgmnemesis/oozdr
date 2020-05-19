@@ -86,9 +86,9 @@
       </div>
     </ion-col>
     <ion-col size="auto" class="img-col hide-sm">
-      <img src="../../assets/images/support_1.png" alt="Add Connection" crossorigin="anonymous" *ngIf="supportImg === 1">
-      <img src="../../assets/images/support_2.png" alt="support2" crossorigin="anonymous" *ngIf="supportImg === 2">
-      <img src="../../assets/images/support_3.png" alt="You Have a Match" crossorigin="anonymous" *ngIf="supportImg === 3">
+      <img src="../../assets/images/support_1.png" alt="Add Connection" crossorigin="anonymous" [class.active-img]="supportImg === 1">
+      <img src="../../assets/images/support_2.png" alt="support2" crossorigin="anonymous" [class.active-img]="supportImg === 2">
+      <img src="../../assets/images/support_3.png" alt="You Have a Match" crossorigin="anonymous" [class.active-img]="supportImg === 3">
     </ion-col>
   </ion-row>
   
