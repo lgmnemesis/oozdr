@@ -38,4 +38,7 @@ export class AnalyticsService {
     this.sendEvent('logout', {uid: userId});
   }
 
+  versionEvent(version: string) {
+    this.sendEvent('client', { version: version });
+  }
 }
