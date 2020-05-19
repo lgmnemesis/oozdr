@@ -45,29 +45,58 @@
     <ion-col size="auto">
       <div class="t-container">
 
-        <ion-item lines="none">
-          <ion-icon name="walk" slot="start"></ion-icon>
+        <div class="show-sm hide-md">
+          <ion-icon color="primary" name="pulse-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" (click)="showSupportImg(1)">
+          <ion-icon class="hide-sm" color="primary" name="pulse-outline" slot="start"></ion-icon>
           <ion-label>
-            <p class="p-title">Card Button Item 2</p>
+            <p class="p-title" [class.active-title]="supportImg === 1">Add Connections</p>
+            <p class="p-text">Card Button Item 1</p>
+          </ion-label>
+        </ion-item>
+
+        <div class="t-divider"></div>
+
+        <div class="show-sm hide-md">
+          <ion-icon color="success" name="fitness-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" (click)="showSupportImg(2)">
+          <ion-icon class="hide-sm" color="success" name="fitness-outline" slot="start"></ion-icon>
+          <ion-label>
+            <p class="p-title" [class.active-title]="supportImg === 2">Card Button Item 2</p>
             <p class="p-text">Card Button Item 2</p>
           </ion-label>
         </ion-item>
 
         <div class="t-divider"></div>
 
-        <ion-item lines="none">
-          <ion-icon name="walk" slot="start"></ion-icon>
+        <div class="show-sm hide-md">
+          <ion-icon color="main" name="bonfire-outline"></ion-icon>
+        </div>
+        <ion-item lines="none" (click)="showSupportImg(3)">
+          <ion-icon class="hide-sm" color="main" name="bonfire-outline" slot="start"></ion-icon>
           <ion-label>
-            <p class="p-title">Card Button Item 2</p>
-            <p class="p-text">Card Button Item 2</p>
+            <p class="p-title" [class.active-title]="supportImg === 3">You Have a Match</p>
+            <p class="p-text">Card Button Item 3</p>
           </ion-label>
         </ion-item>
 
+        <div class="t-divider"></div>
       </div>
     </ion-col>
-    <ion-col size="auto">
-      wide with pic
+    <ion-col size="auto" class="img-col hide-sm">
+      <img src="../../assets/images/support_1.png" alt="support" *ngIf="supportImg === 1">
+      <img src="../../assets/images/support_2.png" alt="support" *ngIf="supportImg === 2">
+      <img src="../../assets/images/support_3.png" alt="support" *ngIf="supportImg === 3">
     </ion-col>
   </ion-row>
   
+  <ion-row class="ion-justify-content-center ion-align-items-center bck-light hide-sm">
+    <ion-col size="auto">
+      <div class="t-divider"></div>
+      <div class="t-divider"></div>
+    </ion-col>
+  </ion-row>
+
 </ion-grid>
