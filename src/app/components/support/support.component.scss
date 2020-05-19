@@ -17,7 +17,7 @@ ion-grid {
 }
 
 .t-container ion-item {
-  --background: var(--ion-color-light);
+  --background: transparent;
 }
 
 .top-margin {
@@ -42,7 +42,7 @@ ion-grid {
 }
 
 .p-sol {
-  font-size: 20px;
+  font-size: 22px;
   text-align: center;
 }
 
@@ -51,5 +51,5 @@ ion-grid {
 }
 
 .bck-light {
-  background: var(--ion-color-light);
+  background: rgba(var(--ion-color-light-rgb), 0.4);
 }
