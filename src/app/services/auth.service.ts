@@ -3,12 +3,12 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from '../../environments/environment';
 import { AlertController, ModalController, NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { SharedStoreService } from './shared-store.service';
 import { take } from 'rxjs/operators';
 import { DatabaseService } from './database.service';
 import { SharedService } from './shared.service';
 import { SignInModalComponent } from '../components/sign-in-modal/sign-in-modal.component';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +24,12 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
     private alertCtrl: AlertController,
-    private router: Router,
     private sharedStoreService: SharedStoreService,
     private databaseService: DatabaseService,
     private sharedService: SharedService,
     private modalCtrl: ModalController,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController,
+    private analyticsService: AnalyticsService) { }
 
   init() {
     this.subscribeUser();
@@ -47,6 +47,9 @@ export class AuthService {
         console.log('[DEBUG] Auth user:', user);
       }
       this.userSubject.next(user);
+      if (user) {
+        this.analyticsService.setUserId(user);
+      }
     });
   }
 
@@ -62,12 +65,14 @@ export class AuthService {
   }
 
   private async signOutInternal() {
-    this.userSubject.next(undefined);
     try {
+      const userId = (await this.getUser()).uid;
+      this.userSubject.next(undefined);
       this.sharedStoreService.unsubscribe();
       await this.afAuth.signOut();
       this.sharedStoreService.resetStore();
       await this.navCtrl.navigateRoot('/');
+      this.analyticsService.logoutEvent(userId);
       this.inLogoutProcess = false;
     } catch (error) {
       console.error(error);

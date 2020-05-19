@@ -11,6 +11,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Profile } from './interfaces/profile';
 import { User } from 'firebase';
 import { InviteFriendsModalComponent } from './components/invite-friends-modal/invite-friends-modal.component';
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,8 @@ export class AppComponent {
     private authService: AuthService,
     private router: Router,
     private modalCtrl: ModalController,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private analyticsService: AnalyticsService
   ) {
     this.authService.init();
     this.initializeApp();
@@ -94,6 +96,8 @@ export class AppComponent {
           this.sharedStoreService.setMatchPartyHasReadMessages(lastActiveMessage);
         }
 
+        // Send page_view event to analytics
+        this.analyticsService.pageViewEvent(e);
       }
     });
   }

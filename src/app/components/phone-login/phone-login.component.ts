@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 export class PhoneNumber {
   country: string;
@@ -43,7 +44,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private authService: AuthService,
     private welcomeService: WelcomeService,
-    private sharedStoreService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.initRecaptcha();
@@ -102,6 +104,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.isVerifyButtonDisabled = true;
     try {
       const confirm = await this.confirmationResult.confirm(this.verificationCode);
+      this.analyticsService.loginEvent(confirm);
       if (this.reauthenticate) {
         this.processDone.next({userCredential: confirm});
       } else {

@@ -14,6 +14,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { TopMenuModule } from './components/top-menu/top-menu.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatchesModule } from './components/matches/matches.module';
@@ -32,6 +33,7 @@ import { InviteFriendsModalModule } from './components/invite-friends-modal/invi
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
     AngularFireAuthModule,
     AngularFireStorageModule,
+    AngularFireAnalyticsModule,
     TopMenuModule,
     HttpClientModule,
     MatchesModule,
