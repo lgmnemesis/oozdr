@@ -76,8 +76,11 @@ ion-content {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.3),rgba(255, 255, 255, 0.01)),
+  // background-image:
+  //   linear-gradient(rgba(0, 0, 0, 0.3),rgba(255, 255, 255, 0.01)),
+  //   url('../../../assets/images/reconnect.jpg');
+  background-image: 
+    linear-gradient(rgba(30, 73, 250, 0.72), rgba(3, 40, 64, 0.2)), 
     url('../../../assets/images/reconnect.jpg');
   background-repeat: no-repeat;
   background-position: center center;

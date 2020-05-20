@@ -186,6 +186,7 @@ export class AuthService {
     this.databaseService.deleteUserData();
     await user.delete();
     this.sharedStoreService.userDeleted = true;
+    this.analyticsService.deleteAccount();
     this.signOut();
     if (loader) {
       setTimeout(() => {

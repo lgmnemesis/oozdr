@@ -10,6 +10,7 @@ import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { switchMap } from 'rxjs/operators';
 import { SiteFooterModalComponent } from 'src/app/components/site-footer-modal/site-footer-modal.component';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-start',
@@ -36,7 +37,8 @@ export class StartPage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private cd: ChangeDetectorRef,
     private welcomeService: WelcomeService,
-    private popoverCtrl: PopoverController) { }
+    private popoverCtrl: PopoverController,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     // Test auth for production
@@ -135,6 +137,7 @@ export class StartPage implements OnInit, OnDestroy {
     modal.onDidDismiss().finally(() => {
       this.isSiteMenuActive = false;
     })
+    this.analyticsService.siteMenuEvent();
     return await modal.present();
   }
 

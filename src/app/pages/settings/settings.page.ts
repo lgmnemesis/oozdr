@@ -8,6 +8,7 @@ import { Connection, Profile } from 'src/app/interfaces/profile';
 import { AlertController, ModalController } from '@ionic/angular';
 import { FcmService } from 'src/app/services/fcm.service';
 import { InviteFriendsModalComponent } from 'src/app/components/invite-friends-modal/invite-friends-modal.component';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-settings',
@@ -41,7 +42,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private alertCtrl: AlertController,
     private fcmService: FcmService,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -197,6 +199,7 @@ export class SettingsPage implements OnInit, OnDestroy {
           handler: () => {
             this.sharedStoreService.updateConnectionData(connection, {isBlocked: false});
             this.lockModal = false;
+            this.analyticsService.matchUnblockedEvent();
           }
         }
       ]

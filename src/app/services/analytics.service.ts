@@ -35,14 +35,46 @@ export class AnalyticsService {
       return;
     }
     const type = userCredential.additionalUserInfo.isNewUser ? 'sign_up' : 'login';
-    this.sendEvent(type, {uid: userCredential.user.uid});
+    this.sendEvent(type, {user_id: userCredential.user.uid});
   }
 
   logoutEvent(userId: string) {
-    this.sendEvent('logout', {uid: userId});
+    this.sendEvent('logout', {user_id: userId});
   }
 
   versionEvent(version: string) {
     this.sendEvent('client', { version: version });
+  }
+
+  siteMenuEvent() {
+    this.sendEvent('site_menu', { clicked: 1 });
+  }
+
+  matchViewedEvent(matchId: string, userId: string) {
+    this.sendEvent('match_viewed', { match_id: matchId, user_id: userId});
+  }
+
+  addConnectionEvent() {
+    this.sendEvent('add_connection', { clicked: 1 });
+  }
+
+  disconnectEvent() {
+    this.sendEvent('disconnect', { clicked: 1 });
+  }
+
+  matchBlockedEvent() {
+    this.sendEvent('match_blocked', { clicked: 1 });
+  }
+
+  matchUnblockedEvent() {
+    this.sendEvent('match_unblocked', { clicked: 1 });
+  }
+
+  deleteAccount() {
+    this.sendEvent('delete_account', { clicked: 1 });
+  }
+
+  socialShareEvent(shareVia: string) {
+    this.sendEvent('social_share', { via: shareVia, clicked: 1 });
   }
 }

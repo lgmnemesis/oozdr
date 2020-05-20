@@ -6,6 +6,7 @@ import { Connection, Profile } from 'src/app/interfaces/profile';
 import { AuthService } from 'src/app/services/auth.service';
 import { FcmService } from 'src/app/services/fcm.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-connections',
@@ -33,7 +34,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private authService: AuthService,
     private fcmService: FcmService,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private analyticsService: AnalyticsService) { }
 
   async ngOnInit() {
     const user = await this.authService.getUser();
@@ -135,6 +137,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
   addConnectionButton() {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
+    this.analyticsService.addConnectionEvent();
   }
 
   trackById(i, connection) {

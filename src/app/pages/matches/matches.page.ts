@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController, AlertController } from '@ionic/angular';
 import { MatchOptionsComponent } from 'src/app/components/match-options/match-options.component';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-matches-page',
@@ -37,7 +38,8 @@ export class MatchesPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private popoverCtrl: PopoverController,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private analyticsService: AnalyticsService) { }
 
   async ngOnInit() {
     this.user = await this.authService.getUser();
@@ -155,6 +157,7 @@ export class MatchesPage implements OnInit, OnDestroy {
   confirmAction(action: string) {
     if (action === 'block') {
       this.sharedStoreService.updateConnectionData(this.connection, {isBlocked: true});
+      this.analyticsService.matchBlockedEvent();
       this.goto('/connections');
     }
   }
