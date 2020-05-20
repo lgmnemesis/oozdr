@@ -3,6 +3,8 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
+import { AlertsService } from 'src/app/services/alerts.service';
+import { Alert } from 'src/app/interfaces/general';
 
 @Component({
   selector: 'app-top-menu',
@@ -33,16 +35,20 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   _activeMenu: Subscription;
   _newMatchesIndicator: Subscription;
+  _alerts: Subscription;
 
   activeMenu: string;
   isVisible = false;
   useToggle = false;
   isNewMatches = false;
+  alerts: Alert[];
+  closedAlertId: string;
 
   constructor(private cd: ChangeDetectorRef,
     public sharedStoreService: SharedStoreService,
     public sharedService: SharedService,
-    private router: Router) { }
+    private router: Router,
+    private alertsService: AlertsService) { }
 
   ngOnInit() {
     this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
@@ -59,6 +65,11 @@ export class TopMenuComponent implements OnInit, OnDestroy {
       this.isNewMatches = isNew;
       this.markForCheck();
     });
+
+    this._alerts = this.alertsService.getAlertsAsObservable().subscribe((alerts) => {
+      this.alerts = alerts;
+      this.markForCheck();
+    })
   }
 
   markForCheck() {
@@ -84,12 +95,25 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     this.router.navigate([url]).catch(error => console.error(error));
   }
 
+  dismissAlert(alert: Alert) {
+    this.closedAlertId = alert.id;
+    this.alertsService.dismissAlert(alert);
+    this.markForCheck();
+  }
+
+  acceptAlert(alert: Alert) {
+    this.closedAlertId = alert.id;
+    this.alertsService.acceptAlert(alert);
+    this.markForCheck();
+  }
+
+  trackById(i, message) {
+    return message.id;
+  }
+
   ngOnDestroy() {
-    if (this._activeMenu) {
-      this._activeMenu.unsubscribe();
-    }
-    if (this._newMatchesIndicator) {
-      this._newMatchesIndicator.unsubscribe();
-    }
+    if (this._activeMenu) this._activeMenu.unsubscribe();
+    if (this._newMatchesIndicator) this._newMatchesIndicator.unsubscribe();
+    if (this._alerts) this._alerts.unsubscribe();
   }
 }

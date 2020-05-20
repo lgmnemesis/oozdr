@@ -12,6 +12,7 @@ import { Profile } from './interfaces/profile';
 import { User } from 'firebase';
 import { InviteFriendsModalComponent } from './components/invite-friends-modal/invite-friends-modal.component';
 import { AnalyticsService } from './services/analytics.service';
+import { AlertsService } from './services/alerts.service';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +38,8 @@ export class AppComponent {
     private router: Router,
     private modalCtrl: ModalController,
     private menuCtrl: MenuController,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private alertsService: AlertsService
   ) {
     this.authService.init();
     this.initializeApp();
@@ -62,6 +64,7 @@ export class AppComponent {
         console.log(
           'New version is available and will be active on the next reload/refresh', update
         );
+        this.alertsService.sendNewVersionAlert();
       });
     }
   }
