@@ -19,6 +19,7 @@ export class SharedService {
 
   INITIAL_PHONE_COUNTRY_CODE = 'us';
 
+  dynamicLinkInvitationUrl = 'https://reconnect.page.link/invitation';
   ipInfoUrl = 'https://ipapi.co/json';
   defaultPhoneCountryCode: string = null;
   countryCodeStoreKeyName = 'country_code';

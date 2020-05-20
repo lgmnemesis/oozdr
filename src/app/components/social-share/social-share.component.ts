@@ -14,7 +14,7 @@ export class SocialShareComponent implements OnInit {
   copyiedToClipboard = false;
 
   share = {
-    url: 'https://reconnect.page.link/invite',
+    url: this.sharedService.dynamicLinkInvitationUrl,
     title: 'App recommendation for you',
     text: 'This app has helped me to reconnect with someone dear and I think it can help you as well.'
   }
