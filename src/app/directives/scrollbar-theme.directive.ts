@@ -30,14 +30,15 @@ export class ScrollbarThemeDirective {
         }
       `;
 
-      const styleElement = element.nativeElement.shadowRoot.querySelector('style');
+      const elRoot = element.nativeElement.shadowRoot || element.nativeElement;
+      const styleElement = elRoot.querySelector('style');
 
       if (styleElement) {
         styleElement.append(stylesheet);
       } else {
         const barStyle = document.createElement('style');
         barStyle.append(stylesheet);
-        element.nativeElement.shadowRoot.appendChild(barStyle);
+        elRoot.appendChild(barStyle);
       }
     } catch (error) {
       console.error(error);

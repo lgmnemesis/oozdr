@@ -47,12 +47,15 @@ ion-grid {
   background: var(--ion-color-minor);
 }
 
+ion-item {
+  --background: transparent;
+}
+
 .hide-md {
   display: none;
 }
 
 .t-container ion-item {
-  --background: transparent;
   margin-inline-end: 50px;
   cursor: pointer;
 }
