@@ -114,7 +114,7 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   gotoSupport() {
-    this.goto('/support');
+    this.navCtrl.navigateForward('/support').catch(error => console.error(error));
   }
   
   goto(url) {
