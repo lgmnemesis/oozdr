@@ -9,12 +9,12 @@ service cloud.firestore {
     
     match /profiles/{userId} {
     	allow read: if isOwner();
-    	allow create: if isSignedIn() && isValidProfile();
+    	allow create: if canCreateProfileDoc(userId) && isValidProfile();
     	allow update: if isOwner() && isValidProfile();
-    	allow delete: if isOwner();
+    	allow delete: if false; // TODO: delete user data from functions, when user is deleted
     }
     
-    match /connections/{userId} {
+    match /connections/{connectionId} {
     	allow read: if isOwner();
     	allow create: if isSignedIn() && isValidForConnectionCreateDoc();
     	allow update: if isOwner() && isValidForConnectionUpdateDoc();
@@ -38,6 +38,10 @@ service cloud.firestore {
     
     // Functions Section
     
+    function canCreateProfileDoc(userId) {
+    	return isSignedIn() && request.auth.uid == userId;
+    }
+    
     function canUpdateFeedback() {
     	return existingData().messages.size() < 500
       	&& request.resource.size() == resource.size()
@@ -45,8 +49,8 @@ service cloud.firestore {
     }
     
     function isValidForConnectionDoc() {
-      return isValid() 
-        && incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
+    	return isValid()
+      	&& incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
     }
   
     function isValidForConnectionCreateDoc() {
@@ -71,17 +75,18 @@ service cloud.firestore {
     }
 
     function isValidChat() {
-      return incomingData().id == existingData().id 
+      return request.resource.size() == resource.size()
+      	&& incomingData().id == existingData().id 
         && incomingData().participates == existingData().participates
         && incomingData().firstParty.user_id == existingData().firstParty.user_id
         && incomingData().firstParty.user_mobile == existingData().firstParty.user_mobile
         && incomingData().secondParty.user_id == existingData().secondParty.user_id
         && incomingData().secondParty.user_mobile == existingData().secondParty.user_mobile
         && incomingData().messages.hasAll(existingData().messages)
+        && existingData().messages.size() < 500
         && (incomingData().messages.size() == existingData().messages.size() + 1
-        || (incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages
-        || incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages))
-        && request.resource.size() == resource.size();
+        	|| (incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages
+          	|| incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages));
     }
 
     function isOwner() {

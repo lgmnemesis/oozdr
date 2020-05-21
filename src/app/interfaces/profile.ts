@@ -36,9 +36,9 @@ export interface BasicInfo {
 
 export interface Match {
   id: string;
+  participates: string[];
   firstParty: Party;
   secondParty: Party;
-  participates: string[];
   messages: Message[];
 }
 
