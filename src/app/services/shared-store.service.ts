@@ -143,15 +143,16 @@ export class SharedStoreService {
 
   async getProfile(): Promise<Profile> {
     try {
-      return this.profile$.pipe(first()).toPromise();
+      const profile = await this.profile$.pipe(first()).toPromise();
+      return profile;
     }
     catch (error) {
       console.error(error);
       return null;
-     }
+    }
   }
 
-  async registerToMatches(userId: string) {
+  registerToMatches(userId: string) {
     if (userId && (!this._matchesDB || this._matchesDB.closed)) {
       this._matchesDB = this.databaseService.getMatchesAsObservable(userId).subscribe((matches) => {
         this.matchesSubject.next(matches);
@@ -182,9 +183,5 @@ export class SharedStoreService {
 
   createId(): string {
     return this.databaseService.createId();
-  }
-
-  moshe_tmp(connection: Connection) {
-    this.databaseService.moshe_tmp(connection);
   }
 }

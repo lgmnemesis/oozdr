@@ -30,9 +30,11 @@ export class DatabaseService {
     const path = 'profiles/';
     profile.timestamp = this.timestamp;
     try {
-      return this.afs.collection(path).doc(profile.user_id).set(profile, { merge: true });
+      await this.afs.collection(path).doc(profile.user_id).set(profile, { merge: true });
     } catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
@@ -44,10 +46,12 @@ export class DatabaseService {
     console.log('moshe DB update profile with:', data);
     const path = 'profiles/';
     try {
-      return this.afs.collection(path).doc(id).update(data);
+      await this.afs.collection(path).doc(id).update(data);
     }
     catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
@@ -73,33 +77,39 @@ export class DatabaseService {
     const path = 'connections/';
     const timestamp = this.serverTimestamp;
     try {
-      return this.afs.collection(path).doc(connection.id).set({
+      await this.afs.collection(path).doc(connection.id).set({
         ...connection,
         createdAt: timestamp
       });
     }
     catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
   async removeConnection(connection: Connection): Promise<void> {
     const path = 'connections/';
     try {
-      return this.afs.collection(path).doc(connection.id).delete();
+      await this.afs.collection(path).doc(connection.id).delete();
     }
     catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
   async updateConnectionData(connection: Connection, data: any) {
     const path = 'connections/';
     try {
-      return this.afs.collection(path).doc(connection.id).update(data);
+      await this.afs.collection(path).doc(connection.id).update(data);
     }
     catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
@@ -136,9 +146,11 @@ export class DatabaseService {
     }
     console.log('moshe DB setMatchPartyHasReadMessages');
     try {
-      return this.afs.doc(path).update(data);
+      await this.afs.doc(path).update(data);
     } catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
@@ -159,9 +171,11 @@ export class DatabaseService {
     }
     console.log('moshe DB addMatchMessage');
     try {
-      return this.afs.doc(path).update(data);
+      await this.afs.doc(path).update(data);
     } catch (error) {
-      return console.error(error);
+      if (!environment.production) {
+        console.error(error);
+      }
     }
   }
 
@@ -175,6 +189,25 @@ export class DatabaseService {
     return this.updateProfileDataByUserId(user.uid, data);
   }
 
+  deleteUserData() {
+    // Deleting profile and connections
+  }
+
+  async addFeedback(message: Feedback) {
+    const path = 'feedbacks/form_feedbacks';
+    const feedbacks = {
+      messages: firebase.firestore.FieldValue.arrayUnion(message)
+    }
+    try {
+      await this.afs.doc(path).update(feedbacks);
+    }
+    catch (error) {
+      if (!environment.production) {
+        console.error(error);
+      }
+    }
+  }
+
   createId(): string {
     return this.afs.createId();
   }
@@ -185,80 +218,6 @@ export class DatabaseService {
 
   get serverTimestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
-  }
-
-  async moshe_tmp(connection: Connection) {
-    const db = firebase.firestore();
-
-    // Find new connection to work on
-    let secondPartyConnection: any = null;
-    const connectionsRef = db.collection('connections');
-    const query = connectionsRef
-      .where('basicInfo.mobile', '==' , connection.user_mobile)
-      .where('user_mobile', '==', connection.basicInfo.mobile);
-    try {
-      const qSnap = await query.get();
-      qSnap.forEach((doc) => {
-        const docData = doc.data();
-        if (docData.user_id !== connection.user_id) {
-          secondPartyConnection = docData;
-        }
-      });
-    } catch (error) {
-      console.error("Error getting documents: ", error);
-    }
-
-    if (secondPartyConnection) {
-      const myConnectionDocRef = db.doc(`connections/${connection.id}`);
-      const secondConnectionDocRef = db.doc(`connections/${secondPartyConnection.id}`);
-      const matchId = db.collection('matchid').doc().id;
-      const matchDocRef = db.doc(`matches/${matchId}`);
-      const timestamp = new Date().getTime();
-      const myConnectionParams = {
-        isMatched: true,
-        timestamp: timestamp,
-        match_user_id: secondPartyConnection.user_id,
-        match_id: matchId
-      }
-      const secondConnectionParams = {
-        isMatched: true,
-        timestamp: timestamp,
-        match_user_id: connection.user_id,
-        match_id: matchId
-      }
-      const matchParams = {
-        id: matchId,
-        firstParty: {
-          user_id: connection.user_id,
-          user_mobile: connection.user_mobile
-        },
-        secondParty: {
-          user_id: secondPartyConnection.user_id,
-          user_mobile: secondPartyConnection.user_mobile
-        },
-        participates: [connection.user_id, secondPartyConnection.user_id],
-        messages: []
-      }
-      const batch = db.batch();
-      batch.set(myConnectionDocRef, myConnectionParams, { merge: true });
-      batch.set(secondConnectionDocRef, secondConnectionParams, { merge: true });
-      batch.set(matchDocRef, matchParams, { merge: true });
-      try {
-        await batch.commit();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-
-  deleteUserData() {
-    // Deleting profile and connections
-  }
-
-  addFeedback(message: Feedback) {
-    const id = this.createId();
-    const path = 'feedbacks/' + id;
-    this.afs.doc(path).set(message).catch(error => console.error(error));
   }
 
 } 
