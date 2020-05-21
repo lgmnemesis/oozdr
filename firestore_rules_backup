@@ -28,80 +28,90 @@ service cloud.firestore {
     	allow delete: if false;
     }
     
-    match /feedbacks/{id} {
+    match /feedbacks/form_feedbacks {
     	allow read: if false;
-    	allow create: if true;
-    	allow update: if false;
+    	allow create: if false;
+    	allow update: if canUpdateFeedback();
     	allow delete: if false;
     }
-  }
+    
+    
+    // Functions Section
+    
+    function canUpdateFeedback() {
+    	return existingData().messages.size() < 500
+      	&& request.resource.size() == resource.size()
+      	&& incomingData().messages.size() == existingData().messages.size() + 1;
+    }
+    
+    function isValidForConnectionDoc() {
+      return isValid() 
+        && incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
+    }
   
-  function isValidForConnectionDoc() {
-  	return isValid() 
-    	&& incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
-  }
-  
-  function isValidForConnectionCreateDoc() {
-  	return isValidForConnectionDoc()
-    	&& incomingData().createdAt == request.time;
-  }
-  
-  function isValidForConnectionUpdateDoc() {
-  	return isValidForConnectionDoc()
-      && ((request.writeFields.size() == 1)
-      && (('isNewMatch' in request.writeFields)
-      		|| ('isBlocked' in request.writeFields)
-      		|| ('basicInfo' in request.writeFields)));
-  }
-  
-  function isValid() {
-  	return incomingData().user_id == request.auth.uid;
-  }
-  
-  function isValidProfile() {
-  	return isValid() && incomingData().fcmTokens.size() <= 5;
-  }
-  
-  function isValidChat() {
-  	return incomingData().id == existingData().id 
-  		&& incomingData().participates == existingData().participates
-      && incomingData().firstParty.user_id == existingData().firstParty.user_id
-      && incomingData().firstParty.user_mobile == existingData().firstParty.user_mobile
-      && incomingData().secondParty.user_id == existingData().secondParty.user_id
-      && incomingData().secondParty.user_mobile == existingData().secondParty.user_mobile
-      && incomingData().messages.hasAll(existingData().messages)
-      && (incomingData().messages.size() == existingData().messages.size() + 1
-      || (incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages
-      || incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages))
-      && request.resource.size() == resource.size();
-  }
-  
-  function isOwner() {
-  	return isSignedIn() && request.auth.uid == existingData().user_id;
-  }
-  
-  function isSignedIn() {
-  	return request.auth != null;
-	}
-  
-  function isParticipate() {
-  	return request.auth.uid in existingData().participates;
-  }
-  
-  function canReadChat() {
-		return isParticipate();
-  }
-  
-  function canUpdateChat() {
-		return canReadChat() && isValidChat();   
-  }
+    function isValidForConnectionCreateDoc() {
+      return isValidForConnectionDoc()
+        && incomingData().createdAt == request.time;
+    }
 
-  
-  function existingData() {
-  	return resource.data;
-  }
-  
-  function incomingData() {
-  	return request.resource.data;
+    function isValidForConnectionUpdateDoc() {
+      return isValidForConnectionDoc()
+        && ((request.writeFields.size() == 1)
+        && (('isNewMatch' in request.writeFields)
+            || ('isBlocked' in request.writeFields)
+            || ('basicInfo' in request.writeFields)));
+    }
+
+    function isValid() {
+      return incomingData().user_id == request.auth.uid;
+    }
+
+    function isValidProfile() {
+      return isValid() && incomingData().fcmTokens.size() <= 5;
+    }
+
+    function isValidChat() {
+      return incomingData().id == existingData().id 
+        && incomingData().participates == existingData().participates
+        && incomingData().firstParty.user_id == existingData().firstParty.user_id
+        && incomingData().firstParty.user_mobile == existingData().firstParty.user_mobile
+        && incomingData().secondParty.user_id == existingData().secondParty.user_id
+        && incomingData().secondParty.user_mobile == existingData().secondParty.user_mobile
+        && incomingData().messages.hasAll(existingData().messages)
+        && (incomingData().messages.size() == existingData().messages.size() + 1
+        || (incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages
+        || incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages))
+        && request.resource.size() == resource.size();
+    }
+
+    function isOwner() {
+      return isSignedIn() && request.auth.uid == existingData().user_id;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isParticipate() {
+      return request.auth.uid in existingData().participates;
+    }
+
+    function canReadChat() {
+      return isParticipate();
+    }
+
+    function canUpdateChat() {
+      return canReadChat() && isValidChat();   
+    }
+
+
+    function existingData() {
+      return resource.data;
+    }
+
+    function incomingData() {
+      return request.resource.data;
+    }
+    
   }
 }
