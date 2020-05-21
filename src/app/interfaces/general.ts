@@ -10,6 +10,7 @@ export interface FcmState {
 }
 
 export interface Feedback {
+  user_id?: string; // for feedback from registered users
   name: string;
   email: string;
   message: string;

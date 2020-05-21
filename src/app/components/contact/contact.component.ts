@@ -39,6 +39,7 @@ export class ContactComponent implements OnInit {
       message: ''
     }
     if (this.profile) {
+      this.feedback.user_id = this.profile.user_id;
       this.feedback.name = this.profile.basicInfo.name;
       this.feedback.email = this.profile.basicInfo.email;
     }
