@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, ViewChild, ElementRef } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { Match } from 'src/app/interfaces/profile';
@@ -11,9 +11,12 @@ import { Match } from 'src/app/interfaces/profile';
 })
 export class ChatInputViewComponent implements OnInit {
 
+  @ViewChild('inputbar') inputBar: ElementRef;
+
   @Input() 
   set match(m: Match) {
     this.activeMatch = m;
+    this.setActiveInputWithRetries();
     this.markForCheck();
   }
 
@@ -28,6 +31,9 @@ export class ChatInputViewComponent implements OnInit {
   inputDisabled = true;
   showEmojiPicker = false;
   lastCursorPos = 0;
+  isMobile = this.sharedService.isMobileApp();
+  activeInputLock = false;
+  activeInputCounter = 1;
 
   constructor(private cd: ChangeDetectorRef,
     public sharedService: SharedService,
@@ -37,6 +43,39 @@ export class ChatInputViewComponent implements OnInit {
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  setActiveInputWithRetries() {
+    if (this.isMobile || this.activeInputLock) {
+      return ;
+    }
+    this.activeInputLock = true;
+    this.retrySetActiveInput();
+  }
+
+  retrySetActiveInput() {
+    setTimeout(() => {
+      const st = this.setActiveInput();
+      if (!st && this.activeInputCounter <= 3) {
+        this.activeInputCounter++;
+        this.retrySetActiveInput();
+      } else {
+        this.activeInputCounter = 1;
+        this.activeInputLock = false; 
+      }
+    }, 100);
+  }
+
+  setActiveInput(): boolean {
+    if (!this.inputBar || !this.inputBar.nativeElement) {
+      return false;
+    }
+    const el = this.inputBar.nativeElement.querySelector('textarea');
+    if (el) {
+      el.focus();
+      return true;
+    }
+    return false;
   }
 
   ctrlEnterPressed() {
@@ -80,7 +119,7 @@ export class ChatInputViewComponent implements OnInit {
       this.inputDisabled = true;
       this.inputAutoGrow = true;
       try {
-        const ta = <any>document.getElementById('i-textarea');
+        const ta = <any>document.getElementById(this.activeMatch.id);
         const el = await ta.getInputElement();
         el.value = '';
         el.setSelectionRange(0, 0);
@@ -94,7 +133,7 @@ export class ChatInputViewComponent implements OnInit {
   async emojiSelected(event) {
     try {
       const emoji = event.emoji.native;
-      const ta = <any>document.getElementById('i-textarea');
+      const ta = <any>document.getElementById(this.activeMatch.id);
       const el = await ta.getInputElement();
       let textCursorPos = this.lastCursorPos;
       if (el.selectionStart) {

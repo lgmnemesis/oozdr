@@ -1,5 +1,5 @@
 <div class="text-area basic-text">
-  <ion-textarea id="i-textarea" (keydown.control.enter)="ctrlEnterPressed()"
+  <ion-textarea #inputbar [id]="activeMatch?.id" (keydown.control.enter)="ctrlEnterPressed()"
     color="dark"
     rows="1" 
     spellcheck="true"

@@ -79,7 +79,10 @@ export class MatchesPage implements OnInit, OnDestroy {
   updateActiveMatch() {
     if (this.connection && this.matches) {
       const matchId = this.connection.match_id;
-      this.activeMatch = this.matches.find(m => m.id === matchId);
+      const found = this.matches.find(m => m.id === matchId);
+      if (found) {
+        this.activeMatch = JSON.parse(JSON.stringify(found));
+      }
       this.scrollToBottom();
     }
   }
