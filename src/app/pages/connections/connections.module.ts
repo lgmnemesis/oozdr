@@ -7,6 +7,7 @@ import { ConnectionsPage } from './connections.page';
 import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { ConnectionsModule } from 'src/app/components/connections/connections.module';
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
+import { AlertsModule } from 'src/app/components/alerts/alerts.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directi
     ConnectionsPageRoutingModule,
     TopMenuModule,
     ConnectionsModule,
-    ScrollbarThemeModule
+    ScrollbarThemeModule,
+    AlertsModule
   ],
   declarations: [ConnectionsPage]
 })

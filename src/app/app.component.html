@@ -11,15 +11,17 @@
         </ion-toolbar>
       </ion-header>
 
-      <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections'">
-        <ion-item class="i-title" [class.item-active]="activeMenu === 'connections'"
-          lines="none" detail button (click)="connectionsClicked()">
-          <ion-icon slot="start" name="pulse-outline"></ion-icon>
-          <ion-label class="basic-text">Connections</ion-label>
-        </ion-item>
-      </ng-container>
-
       <ion-content appScrollbarTheme>
+        <app-alerts [isVisible]="true" *ngIf="isVisibleSplitPane"></app-alerts>
+
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections'">
+          <ion-item class="i-title" [class.item-active]="activeMenu === 'connections'"
+            lines="none" detail button (click)="connectionsClicked()">
+            <ion-icon slot="start" name="pulse-outline"></ion-icon>
+            <ion-label class="basic-text">Connections</ion-label>
+          </ion-item>
+        </ng-container>
+        
         <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
           <ion-item button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
             class="i-title" (click)="toggleMatches()">

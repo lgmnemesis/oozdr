@@ -1,0 +1,70 @@
+@import '../../styles/fonts-text';
+
+.alert-container {
+  animation-duration: 1s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  to {
+    max-height: 200px;
+    opacity: 1;
+  }
+}
+
+.close-alert {
+  animation-name: slideout !important;
+}
+
+@keyframes slideout {
+  from {
+    max-height: 200px;
+    opacity: 1;
+  }
+
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.alert-container-visible ion-item {
+  --background: var(--ion-color-minor);
+}
+
+.alert-container-invisible {
+  margin: 0 10px;
+}
+
+.alert-container-invisible ion-item {
+  --background: rgba(var(--ion-color-success-rgb), 0.2);
+}
+
+.alert-container-invisible .alert-title-item {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.alert-title-item {
+  --padding-bottom: 0;
+}
+
+.alert-container-invisible .alert-bt-item {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.alert-bt-item {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  border-bottom: 1px solid var(--ion-color-light);
+}
+
+.alert-title-item ion-icon {
+  margin-inline-end: 10px;
+}

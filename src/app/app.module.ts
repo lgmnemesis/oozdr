@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatchesModule } from './components/matches/matches.module';
 import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
 import { InviteFriendsModalModule } from './components/invite-friends-modal/invite-friends-modal.module';
+import { AlertsModule } from './components/alerts/alerts.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +39,8 @@ import { InviteFriendsModalModule } from './components/invite-friends-modal/invi
     HttpClientModule,
     MatchesModule,
     ScrollbarThemeModule,
-    InviteFriendsModalModule
+    InviteFriendsModalModule,
+    AlertsModule
   ],
   providers: [
     StatusBar,

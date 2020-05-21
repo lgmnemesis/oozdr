@@ -21,6 +21,7 @@
 </ion-header>
 
 <ion-content appScrollbarTheme>
+  <app-alerts [isVisible]="isVisibleSplitPane" *ngIf="!isVisibleSplitPane"></app-alerts>
   <app-profile-menu 
     [saveButtonClicked]="saveButtonAction"
     (isChangedEvent)="profileChanged($event)">
