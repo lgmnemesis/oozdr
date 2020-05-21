@@ -85,8 +85,10 @@ service cloud.firestore {
         && incomingData().messages.hasAll(existingData().messages)
         && existingData().messages.size() < 500
         && (incomingData().messages.size() == existingData().messages.size() + 1
-        	|| (incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages
-          	|| incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages));
+         || ((incomingData().firstParty.hasNewMessages == false
+          && incomingData().firstParty.hasNewMessages != existingData().firstParty.hasNewMessages)
+           || (incomingData().secondParty.hasNewMessages == false
+          && incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages)));
     }
 
     function isOwner() {
