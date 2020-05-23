@@ -1,7 +1,11 @@
 @import '../../styles/fonts-text';
 
-#top-menu {
+.top-menu-not-mobile {
   border-bottom: 1px solid var(--ion-color-light);
+}
+
+.top-menu-mobile {
+  border-top: 1px solid var(--ion-color-light);
 }
 
 ion-item {

@@ -30,6 +30,7 @@ export class MatchesPage implements OnInit, OnDestroy {
   matches: Match[];
   activeMatch: Match;
   inOpenOptionsProcess = false;
+  isMobile = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -70,6 +71,8 @@ export class MatchesPage implements OnInit, OnDestroy {
       }
       this.markForCheck();
     });
+
+    this.isMobile = this.sharedService.isMobileApp();
   }
 
   markForCheck() {

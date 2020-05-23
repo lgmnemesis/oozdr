@@ -1,2 +1,11 @@
 @import '../../styles/animation';
 @import '../../styles/fonts-text';
+
+ion-header,
+ion-footer {
+  background: var(--ion-color-minor);
+}
+
+ion-header ion-item {
+  padding: 10px 0;
+}

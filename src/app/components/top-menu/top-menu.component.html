@@ -1,4 +1,4 @@
-<div id="top-menu">
+<div id="top-menu" [class.top-menu-mobile]="isMobile" [class.top-menu-not-mobile]="!isMobile">
   <ion-item lines="none" [class.visible-item]="isVisible">
 
     <ion-button *ngIf="useToggle"

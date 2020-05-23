@@ -1,5 +1,5 @@
 <ion-header class="ion-no-border" [class.large-header]="isVisibleSplitPane">
-  <ion-toolbar *ngIf="!isVisibleSplitPane">
+  <ion-toolbar *ngIf="!isMobile && !isVisibleSplitPane">
     <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
   <ion-toolbar class="second-toolbar">
@@ -27,3 +27,9 @@
     (isChangedEvent)="profileChanged($event)">
   </app-profile-menu>
 </ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="!isVisibleSplitPane && isMobile">
+  <ion-toolbar>
+    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
+  </ion-toolbar>
+</ion-footer>

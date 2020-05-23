@@ -38,6 +38,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   isVisible = false;
   useToggle = false;
   isNewMatches = false;
+  isMobile = false;
 
   constructor(private cd: ChangeDetectorRef,
     public sharedStoreService: SharedStoreService,
@@ -59,6 +60,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
       this.isNewMatches = isNew;
       this.markForCheck();
     });
+
+    this.isMobile = this.sharedService.isMobileApp();
   }
 
   markForCheck() {

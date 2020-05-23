@@ -1,10 +1,14 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
+ion-header,
+ion-footer {
+  background: var(--ion-color-minor);
+}
+
 .large-header {
   display: flex;
   justify-content: center;
-  background: var(--ion-color-minor);
 }
 
 .second-toolbar {

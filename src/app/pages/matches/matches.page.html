@@ -1,4 +1,4 @@
-<ion-header class="ion-no-border">
+<ion-header class="ion-no-border" *ngIf="!isMobile || isInsideChat">
   <ion-toolbar [class.border-buttom]="isInsideChat" [class.chat-container]="isInsideChat">
 
     <ng-container *ngIf="!isVisibleSplitPane">
@@ -33,8 +33,12 @@
   </div>
 </ion-content>
 
-<ion-footer class="ion-no-border" *ngIf="isInsideChat">
-  <div class="chat-container">
+<ion-footer class="ion-no-border">
+  <app-top-menu *ngIf="isMobile && !isVisibleSplitPane && !isInsideChat"
+    [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false">
+  </app-top-menu>
+
+  <div class="chat-container" *ngIf="isInsideChat">
     <app-chat-input-view [match]="activeMatch"></app-chat-input-view>
   </div>
 </ion-footer>

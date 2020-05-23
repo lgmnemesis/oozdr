@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestro
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ProfilePage implements OnInit, OnDestroy {
 
+  isMobile = false;
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
   isProfileChanged = false;
@@ -19,7 +21,8 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private router: Router) { }
+    private router: Router,
+    private sharedService: SharedService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -27,6 +30,8 @@ export class ProfilePage implements OnInit, OnDestroy {
       this.isVisibleSplitPane = isVisible;
       this.markForCheck();
     });
+
+    this.isMobile = this.sharedService.isMobileApp();
   }
 
   markForCheck() {

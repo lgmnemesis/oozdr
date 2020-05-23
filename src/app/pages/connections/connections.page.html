@@ -1,19 +1,25 @@
-<ion-header class="ion-no-border" *ngIf="!isVisibleSplitPane">
-  <ion-toolbar>
+<ion-header class="ion-no-border">
+  <ion-toolbar *ngIf="!isVisibleSplitPane && !isMobile">
     <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
   </ion-toolbar>
+
+  <ion-item lines="none" *ngIf="connectionsState.state === 'view'">
+    <ion-chip (click)="addConnectionButton()"
+      color="primary" slot="start" class="animated fadeIn">
+      <ion-icon name="pulse-outline"></ion-icon>
+      <ion-label class="basic-text">Add Connection</ion-label>
+    </ion-chip>
+  </ion-item>
+
 </ion-header>
-
-<ion-item lines="none" *ngIf="connectionsState.state === 'view'">
-  <ion-chip (click)="addConnectionButton()"
-    color="primary" slot="start" class="animated fadeIn">
-    <ion-icon name="pulse-outline"></ion-icon>
-    <ion-label class="basic-text">Add Connection</ion-label>
-  </ion-chip>
-</ion-item>
-
 
 <ion-content appScrollbarTheme>
   <app-alerts [isVisible]="isVisibleSplitPane" *ngIf="!isVisibleSplitPane"></app-alerts>
   <app-connections></app-connections>
 </ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="!isVisibleSplitPane && isMobile">
+  <ion-toolbar>
+    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
+  </ion-toolbar>
+</ion-footer>
