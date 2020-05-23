@@ -1,5 +1,6 @@
 <ion-grid>
-  <ion-row class="ion-justify-content-center ion-align-items-center">
+  <ion-row *ngIf="connectionsState?.state === 'view'"
+    class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <app-toast-notification 
         type="connection_added" 
@@ -16,12 +17,13 @@
         [class.fadeInDown]="showNotificaionsAnimationIn"
         [class.fadeOutUp]="!showNotificaionsAnimationIn">
         <ion-spinner name="dots" color="minor" *ngIf="showNotificaionsInProgress"></ion-spinner>
-        <ion-card-header>
-          <ion-card-title class="title-text">Important notifications</ion-card-title>
-        </ion-card-header>
+        <ion-item color="secondary" lines="none">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <ion-label class="title-text">Enable push notifications</ion-label>
+        </ion-item>
 
         <ion-card-content>
-          <p class="basic-text">Do you want to be notified if and when you have a new match?</p>
+          <p class="basic-text">Instantly know when you have a new match</p>
           <p class="small-text">You can always change your selection, from your Profile -> Settings tab</p>
         </ion-card-content>
         
@@ -30,7 +32,7 @@
             <ion-label class="basic-text ion-text-capitalize">Not Now</ion-label>
           </ion-button>
           <ion-button [disabled]="showNotificaionsInProgress" class="bt-notif" slot="end" fill="clear" (click)="sure()">
-            <ion-label class="basic-text ion-text-capitalize">Sure</ion-label>
+            <ion-label class="basic-text ion-text-capitalize">Enable</ion-label>
           </ion-button>
         </ion-item>
       </ion-card>
@@ -48,11 +50,11 @@
   <ng-container *ngIf="connectionsState?.state === 'view'">
     <ion-row *ngIf="connections?.length > 0"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
-      <ion-col size="auto" *ngFor="let connection of connections; trackBy: trackById">
-        <app-connection *ngIf="!connection.isMatched || connection.isNewMatch"
-          [connectionInput]="connection">
-        </app-connection>
-      </ion-col>
+      <ng-container *ngFor="let connection of connections; trackBy: trackById">
+        <ion-col size="auto" *ngIf="!connection.isMatched || connection.isNewMatch">
+          <app-connection [connectionInput]="connection"></app-connection>
+        </ion-col>
+      </ng-container>
     </ion-row>
 
     <!-- Incase connections page is empty(no connections nor matches) -->

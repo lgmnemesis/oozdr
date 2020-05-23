@@ -1,7 +1,7 @@
 <ion-card 
   [button]="connection?.isNewMatch" 
   (click)="cardClicked()">
-  <ion-item lines="full" class="i-title">
+  <ion-item lines="none" class="i-title">
     <ion-avatar *ngIf="connection?.basicInfo?.profile_img_url"
       slot="start" [class.active-animation]="connection?.isNewMatch">
       <img [src]="connection?.basicInfo?.profile_img_url" alt="profile image" crossorigin="anonymous">

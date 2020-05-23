@@ -55,6 +55,7 @@ export class ToastNotificationComponent implements OnInit, OnDestroy {
   getStoragePath() {
     return `${this.toastNotificationsStoragePerfix}${this.type}`;
   }
+  
   cloneMessage() {
     return JSON.parse(JSON.stringify(this.message));
   }

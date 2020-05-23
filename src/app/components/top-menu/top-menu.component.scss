@@ -1,5 +1,9 @@
 @import '../../styles/fonts-text';
 
+#top-menu {
+  border-bottom: 1px solid var(--ion-color-light);
+}
+
 ion-item {
   --padding-bottom: 5px;
   --padding-top: 5px;
