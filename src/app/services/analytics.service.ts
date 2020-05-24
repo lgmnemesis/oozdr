@@ -38,6 +38,11 @@ export class AnalyticsService {
     this.sendEvent(type, {user_id: userCredential.user.uid});
   }
 
+  loginErrorEvent(error: string) {
+    const type = 'login_error';
+    this.sendEvent(type, {msg: error});
+  }
+
   logoutEvent(userId: string) {
     this.sendEvent('logout', {user_id: userId});
   }

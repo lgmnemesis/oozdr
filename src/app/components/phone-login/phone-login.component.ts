@@ -74,6 +74,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       })
       .catch(error => { 
         console.error(error);
+        const jError = JSON.stringify(error);
+        this.analyticsService.loginErrorEvent(jError);
         this.isContinueButtonDisabled = false;
         this.markForCheck();
       });
