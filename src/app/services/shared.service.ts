@@ -19,7 +19,7 @@ export class SharedService {
 
   INITIAL_PHONE_COUNTRY_CODE = 'us';
 
-  dynamicLinkInvitationUrl = 'https://oozdr.page.link/invitation';
+  dynamicLinkInvitationUrl = 'https://oozdr.page.link/invite';
   ipInfoUrl = 'https://ipapi.co/json';
   defaultPhoneCountryCode: string = null;
   countryCodeStoreKeyName = 'country_code';
