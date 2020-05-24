@@ -2,7 +2,7 @@
   "name": "Oozdr",
   "short_name": "Oozdr",
   "theme_color": "#1976d2",
-  "background_color": "#ff6666",
+  "background_color": "#ff0000",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
