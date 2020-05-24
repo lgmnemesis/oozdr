@@ -6,10 +6,6 @@
   .margin-height {
     padding: 10px 0 !important;
   }
-
-  h1 {
-    font-size: 1em !important;
-  }
 }
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
@@ -18,9 +14,9 @@
     padding-right: 10px !important;
   }
 
-  #footer-header ion-item,
   #start-header ion-item {
     width: 100% !important;
+    margin-inline-start: 10px !important;
   }
 }
 
@@ -47,7 +43,6 @@ ion-content {
   --ion-background-color-rgb: 0,0,0;
 }
 
-#footer-header,
 #start-header {
   position: absolute;
   left: 0;
@@ -58,18 +53,15 @@ ion-content {
   top: 0;
 }
 
-#footer-header {
-  bottom: 0;
-}
-
-#footer-header ion-item,
 #start-header ion-item {
-  width: 90%;
+  width: 80%;
   --background: transparent;
+  --padding-start: 0;
+  --inner-padding-start: 0;
   --inner-padding-end: 0;
+  margin-inline-start: 10%;
 }
 
-#footer-header ion-button,
 #start-header ion-button {
   margin-inline-start: 2px;
 }
@@ -88,9 +80,6 @@ ion-content {
   left: 0;
   width: 100vw;
   height: 100vh;
-  // background-image:
-  //   linear-gradient(rgba(0, 0, 0, 0.3),rgba(255, 255, 255, 0.01)),
-  //   url('../../../assets/images/reconnect.jpg');
   background-image: 
     linear-gradient(rgba(30, 73, 250, 0.72), rgba(3, 40, 64, 0.2)), 
     url('../../../assets/images/reconnect.jpg');
@@ -100,8 +89,14 @@ ion-content {
   background-size: cover;
 }
 
+#bt-info,
 #bt-signin {
   height: 30px;
+}
+
+#bt-info {
+  border: 1px solid var(--ion-color-minor);
+  border-radius: 20px;
 }
 
 #bt-signup {
@@ -116,7 +111,7 @@ ion-text {
 }
 
 h1 {
-  text-transform: uppercase;
+  text-transform: lowercase;
   font-size: 2em;
   font-weight: 200;
   letter-spacing: 3px;
@@ -155,5 +150,5 @@ h1 {
 }
 
 .reconnect h1 {
-  margin-inline-start: 45px;
+  margin-inline-start: 43px;
 }

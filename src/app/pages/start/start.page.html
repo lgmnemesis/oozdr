@@ -4,6 +4,15 @@
 
   <div id="start-header">
     <ion-item lines="none">
+      <ion-button id="bt-info"
+        slot="start" 
+        color="minor" 
+        shape="round" 
+        fill="clear"
+        (click)="gotoSupport()">
+        <ion-label class="basic-text ion-text-capitalize">Why Oozdr</ion-label>
+      </ion-button>
+
       <ion-button id="bt-signin"
         slot="end"
         color="minor"
@@ -11,6 +20,7 @@
         (click)="signIn()">
         <ion-label class="basic-text ion-text-capitalize">Log In</ion-label>
       </ion-button>
+      
       <ion-button
         slot="end"
         size="large"
@@ -18,19 +28,6 @@
         color="minor"
         (click)="openSiteMenu($event)">
         <ion-icon name="menu"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </div>
-
-  <div id="footer-header">
-    <ion-item lines="none">
-      <ion-button
-        slot="end"
-        size="large"
-        fill="clear"
-        color="minor"
-        (click)="gotoSupport()">
-        <ion-icon name="information-circle-outline"></ion-icon>
       </ion-button>
     </ion-item>
   </div>
@@ -44,7 +41,7 @@
           <ion-text color="minor">
             <div class="reconnect margin-height" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               <img width="40" src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
-              <h1>Oozdr</h1>
+              <h1>ozdr</h1>
             </div>
             <p class="margin-height animated" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
               Have you ever thought about your soulmate? your Ex? the love of your life?
@@ -58,7 +55,7 @@
           </ion-text>
         </ion-col>
       </ion-row>
-      <ion-row class="margin-height ion-justify-content-start ion-align-items-start animated delay-3s" 
+      <ion-row class="margin-height ion-justify-content-start ion-align-items-center animated delay-3s" 
         [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
         <ion-col class="t-col" size="auto">
           <ion-button 
