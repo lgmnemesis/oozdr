@@ -121,7 +121,6 @@ export class StartPage implements OnInit, OnDestroy {
   openSiteMenu(event) {
     if (!this.isSiteMenuActive) {
       this.isSiteMenuActive = true;
-      this.sharedStoreService.isModalOpen = true;
       this.presentSiteMenu(event);
     }
   }
@@ -135,7 +134,6 @@ export class StartPage implements OnInit, OnDestroy {
 
     modal.onDidDismiss().finally(() => {
       this.isSiteMenuActive = false;
-      this.sharedStoreService.isModalOpen = false;
     })
     this.analyticsService.siteMenuEvent();
     return await modal.present();
@@ -144,7 +142,6 @@ export class StartPage implements OnInit, OnDestroy {
   signIn() {
     if (!this.isSignInButtonActive) {
       this.isSignInButtonActive = true;
-      this.sharedStoreService.isModalOpen = true;
       this.presentSignIn();
     }
   }
@@ -158,7 +155,6 @@ export class StartPage implements OnInit, OnDestroy {
 
     modal.onDidDismiss().finally(() => {
       this.isSignInButtonActive = false;
-      this.sharedStoreService.isModalOpen = false;
     })
     return await modal.present();
   }

@@ -17,11 +17,6 @@ export class HomeGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
     const canEnter = this.sharedStoreService.canEnterHome;
-    const isModalOpen = this.sharedStoreService.isModalOpen;
-    if (isModalOpen) {
-      this.sharedStoreService.isModalOpen = false;
-      return false;
-    }
     if (canEnter) {
       this.navCtrl.navigateRoot('/connections');
       return false;

@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { Connection, Match, Message, LastMessage } from 'src/app/interfaces/profile';
+import { Connection, Match, LastMessage } from 'src/app/interfaces/profile';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -13,6 +13,7 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class MatchesComponent implements OnInit, OnDestroy {
 
+  @Input() nobox = false;
   @Output() matchClicked = new EventEmitter();
 
   activeMenu: string;

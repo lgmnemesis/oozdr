@@ -33,7 +33,7 @@
           </ion-item>
 
           <ng-container *ngIf="sharedStoreService?.isMatchesOpen">
-            <app-matches (matchClicked)="matchClicked()"></app-matches>
+            <app-matches [nobox]="true" (matchClicked)="matchClicked()"></app-matches>
           </ng-container>
         </ng-container>
 
