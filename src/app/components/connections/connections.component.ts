@@ -48,6 +48,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
     this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
+      if (state && (state.state === 'view')) {
+        this.modalCtrl.dismiss().catch(error => {});
+      }
       if (state && (state.state === 'add' || state.state === 'edit')) {
         this.manageConnections(state);
       } else if (state && state.prevState === 'add') {
