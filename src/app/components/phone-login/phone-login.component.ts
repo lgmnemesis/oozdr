@@ -162,7 +162,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   openTerms() {
-    const url = 'https://reqonneqt.com/terms';
+    const url = 'https://oozdr.com/terms';
     try {
       window.open(url, '');
     } catch (error) {

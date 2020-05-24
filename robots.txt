@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://reqonneqt.com/sitemap.txt
+Sitemap: https://oozdr.com/sitemap.txt

@@ -13,17 +13,17 @@ export class ContactLinksComponent implements OnInit {
   ngOnInit() {}
 
   mailTo() {
-    const url = `mailto:contact@reqonneqt.com`;
+    const url = `mailto:contact@oozdr.com`;
     this.sharedService.openNewWindow(url);
   }
 
   openTwitter() {
-    const url = 'https://twitter.com/reqonneqt';
+    const url = 'https://twitter.com/oozdr';
     this.openNewTab(url);
   }
 
   openFaceBook() {
-    const url = 'https://www.facebook.com/Reqonneqt';
+    const url = 'https://www.facebook.com/oozdr';
     this.openNewTab(url);
   }
 
