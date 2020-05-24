@@ -4,13 +4,15 @@ import { ConnectionsComponent } from './connections.component';
 import { ConnectionModule } from '../connection/connection.module';
 import { ManageConnectionModule } from '../manage-connection/manage-connection.module';
 import { ToastNotificationModule } from '../toast-notification/toast-notification.module';
+import { ManageConnectionModalModule } from '../manage-connection-modal/manage-connection-modal.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ConnectionModule, 
     ManageConnectionModule,
-    ToastNotificationModule
+    ToastNotificationModule,
+    ManageConnectionModalModule
   ],
   declarations: [ConnectionsComponent],
   exports: [ConnectionsComponent],

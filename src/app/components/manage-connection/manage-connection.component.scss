@@ -1,11 +1,7 @@
 @import '../../styles/global-styles';
 @import '../../styles/fonts-text';
 
-@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
-  ion-col {
-    padding: 0px 0px !important;
-  }
-  
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) { 
   .item-input {
     min-width: 290px !important;
   }
@@ -23,8 +19,8 @@ p {
   @extend .basic-text;
 }
 
-ion-col {
-  padding: 15px 30px;
+ion-toggle {
+  margin-inline-end: 10px;
 }
 
 .item-input {
@@ -64,11 +60,6 @@ input:focus {
 
 ::placeholder {
   opacity: 0.6;
-}
-
-.p-title {
-  color: var(--ion-color-primary);
-  text-align: center;
 }
 
 .p-note {
