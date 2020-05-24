@@ -1,8 +1,8 @@
 {
-  "name": "Reconnect",
-  "short_name": "Reconnect",
+  "name": "Oozdr",
+  "short_name": "Oozdr",
   "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "background_color": "#ff6666",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
