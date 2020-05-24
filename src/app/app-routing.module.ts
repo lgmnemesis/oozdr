@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { WelcomeGuard } from './core/welcome.guard';
 import { AuthGuard } from './core/auth.guard';
+import { HomeGuard } from './core/home.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
   {
     path: 'start',
-    loadChildren: () => import('./pages/start/start.module').then( m => m.StartPageModule)
+    loadChildren: () => import('./pages/start/start.module').then( m => m.StartPageModule),
+    canActivate: [HomeGuard]
   },
   {
     path: 'welcome',

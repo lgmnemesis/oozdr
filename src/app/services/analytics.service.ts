@@ -14,14 +14,14 @@ export class AnalyticsService {
 
   private sendEvent(eventName: string, eventParams?: { [key: string]: any; }, options?: firebase.analytics.AnalyticsCallOptions) {
     if (!this.onlyInProd || environment.production) {
-      console.log('Sending event:', eventName, eventParams, options);
+      // console.log('Sending event:', eventName, eventParams, options);
       this.analytics.logEvent(eventName, eventParams, options).catch(error => console.error(error));
     }
   }
 
   setUserId(user: User) {
     if (!this.onlyInProd || environment.production) {
-      console.log('setUserId:', user.uid);
+      // console.log('setUserId:', user.uid);
       this.analytics.setUserId(user.uid).catch(error => console.error(error));
     }
   }
@@ -39,8 +39,7 @@ export class AnalyticsService {
   }
 
   loginErrorEvent(error: string) {
-    const type = 'login_error';
-    this.sendEvent(type, {msg: error});
+    this.sendEvent('login_error', {msg: error});
   }
 
   logoutEvent(userId: string) {

@@ -22,6 +22,7 @@ export class SharedStoreService {
   connections: Connection[] = [];
   lastActiveMessage: LastMessage = null;
   userDeleted = false;
+  isModalOpen = false;
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();
@@ -71,6 +72,7 @@ export class SharedStoreService {
     this.activeMatchConnectionId = null;
     this.connections = [];
     this.lastActiveMessage = null;
+    this.isModalOpen = false;
     
     this.activeMenuSubject.next('connections');
     this.useSplitPaneSubject.next(false);
@@ -133,7 +135,6 @@ export class SharedStoreService {
   }
 
   updateConnectionData(connection: Connection, data: any): Promise<void> {
-    console.log('moshe updating connection data DB');
     return this.databaseService.updateConnectionData(connection, data);
   }
 

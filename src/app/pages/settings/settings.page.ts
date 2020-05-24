@@ -112,6 +112,7 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   inviteFriends() {
+    this.sharedStoreService.isModalOpen = true;
     this.presentModal();
   }
 
@@ -121,10 +122,10 @@ export class SettingsPage implements OnInit, OnDestroy {
       cssClass: 'present-modal-properties'
     });
 
-    // modal.onWillDismiss()
-    // .then((res) => {
-
-    // }).catch(error => console.error(error));
+    modal.onWillDismiss()
+    .then(() => {
+      this.sharedStoreService.isModalOpen = false;
+    }).catch(error => console.error(error));
 
     return await modal.present();
   }

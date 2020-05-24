@@ -43,7 +43,6 @@ export class DatabaseService {
   }
 
   async updateProfileDataByUserId(id: string, data: any) {
-    console.log('moshe DB update profile with:', data);
     const path = 'profiles/';
     try {
       await this.afs.collection(path).doc(id).update(data);
@@ -144,7 +143,6 @@ export class DatabaseService {
     } else {
       data.secondParty.hasNewMessages = false;
     }
-    console.log('moshe DB setMatchPartyHasReadMessages');
     try {
       await this.afs.doc(path).update(data);
     } catch (error) {
@@ -169,7 +167,6 @@ export class DatabaseService {
       data.firstParty.hasNewMessages = true;
       data.secondParty.hasNewMessages = false;
     }
-    console.log('moshe DB addMatchMessage');
     try {
       await this.afs.doc(path).update(data);
     } catch (error) {

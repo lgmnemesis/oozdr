@@ -132,6 +132,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       this.isVerificationError = true;
       this.verificationError = 'Wrong Verification Code';
       this.isVerifyButtonDisabled = false;
+      const jError = JSON.stringify(error);
+      this.analyticsService.loginErrorEvent(jError);
       this.markForCheck();
       console.error(error);
     }

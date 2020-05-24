@@ -1,30 +1,32 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SharedStoreService } from '../services/shared-store.service';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class HomeGuard implements CanActivate {
 
   constructor(private sharedStoreService: SharedStoreService,
-    private router: Router) {}
+    private navCtrl: NavController) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
+      
     const canEnter = this.sharedStoreService.canEnterHome;
     const isModalOpen = this.sharedStoreService.isModalOpen;
-    if (canEnter) {
-      if (isModalOpen) {
-        this.sharedStoreService.isModalOpen = false;
-        return false;
-      }
-      return true;
+    if (isModalOpen) {
+      this.sharedStoreService.isModalOpen = false;
+      return false;
     }
-    this.router.navigate(['/']).catch((error => console.error(error)));
-    return false;
+    if (canEnter) {
+      this.navCtrl.navigateRoot('/connections');
+      return false;
+    }
+    return true;
   }
+  
 }

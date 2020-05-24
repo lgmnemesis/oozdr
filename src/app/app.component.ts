@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Platform, ModalController, MenuController } from '@ionic/angular';
+import { Platform, ModalController, MenuController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
 import { SharedStoreService } from './services/shared-store.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Profile } from './interfaces/profile';
 import { User } from 'firebase';
 import { InviteFriendsModalComponent } from './components/invite-friends-modal/invite-friends-modal.component';
@@ -39,7 +39,8 @@ export class AppComponent {
     private modalCtrl: ModalController,
     private menuCtrl: MenuController,
     private analyticsService: AnalyticsService,
-    private alertsService: AlertsService
+    private alertsService: AlertsService,
+    private alertCtrl: AlertController
   ) {
     this.authService.init();
     this.initializeApp();
@@ -88,7 +89,21 @@ export class AppComponent {
   }
 
   subscribeToRouterEvents() {
-    this.router.events.subscribe(e => {
+
+    this.router.events.subscribe(async e => {
+      if (e instanceof NavigationStart) {
+        try {
+          const isModal = await this.modalCtrl.getTop();
+          if (isModal) {
+            this.sharedStoreService.isModalOpen = false;
+            this.modalCtrl.dismiss().catch(error => console.error(error));
+          }
+          this.alertCtrl.dismiss().catch(error => {});
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
       if (e instanceof NavigationEnd) {
 
         // Manage unread messages indication
@@ -148,6 +163,7 @@ export class AppComponent {
   }
 
   inviteFriends() {
+    this.sharedStoreService.isModalOpen = true;
     this.presentModal();
   }
 
@@ -155,6 +171,9 @@ export class AppComponent {
     const modal = await this.modalCtrl.create({
       component: InviteFriendsModalComponent,
       cssClass: 'present-modal-properties'
+    });
+    modal.onDidDismiss().then(() => {
+      this.sharedStoreService.isModalOpen = false;
     });
     return await modal.present();
   }

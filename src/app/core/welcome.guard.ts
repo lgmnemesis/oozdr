@@ -16,7 +16,14 @@ export class WelcomeGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
     const canEnter = this.sharedStoreService.canEnterWelcome;
+    const isModalOpen = this.sharedStoreService.isModalOpen;
     if (canEnter) {
+      console.log('can enter');
+      if (isModalOpen) {
+        console.log('is open:', isModalOpen);
+        this.sharedStoreService.isModalOpen = false;
+        return false;
+      }
       return true;
     }
     this.router.navigate(['/']).catch((error => console.error(error)));

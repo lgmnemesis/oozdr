@@ -154,6 +154,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       return;
     }
     this.isPresentActive = true;
+    this.sharedStoreService.isModalOpen = true;
     this.presentManageConnections(state);
   }
 
@@ -166,6 +167,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
     modal.onDidDismiss().finally(() => {
       this.isPresentActive = false;
+      this.sharedStoreService.isModalOpen = false;
       this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
     })
     return await modal.present();
