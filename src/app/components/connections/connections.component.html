@@ -1,15 +1,13 @@
 <ion-grid>
-  <ion-row *ngIf="connectionsState?.state === 'view'"
-    class="ion-justify-content-center ion-align-items-center">
+  <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <app-toast-notification 
-        type="connection_added" 
-        [hide]="connectionsState?.state !== 'view'">
+        type="connection_added">
       </app-toast-notification>
     </ion-col>
   </ion-row>
   
-  <ion-row *ngIf="showNotificaionsPermission && connectionsState?.state === 'view'"
+  <ion-row *ngIf="showNotificaionsPermission"
     class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
 
@@ -40,14 +38,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row *ngIf="connectionsState?.state === 'add' || connectionsState?.state === 'edit'"
-    class="ion-justify-content-center ion-align-items-center animated zoomIn">
-    <ion-col size="auto">
-      <app-manage-connection [state]="connectionsState"></app-manage-connection>
-    </ion-col>
-  </ion-row>
-
-  <ng-container *ngIf="connectionsState?.state === 'view'">
+  <ng-container>
     <ion-row *ngIf="connections?.length > 0"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ng-container *ngFor="let connection of connections; trackBy: trackById">

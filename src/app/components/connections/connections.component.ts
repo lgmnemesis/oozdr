@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FcmService } from 'src/app/services/fcm.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { ModalController } from '@ionic/angular';
+import { ManageConnectionModalComponent } from '../manage-connection-modal/manage-connection-modal.component';
 
 @Component({
   selector: 'app-connections',
@@ -25,6 +27,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   showNotificaionsAnimationIn = true;
   connectionsState: ConnectionsState;
   matchNotifStorageIndicator: string;
+  isPresentActive = false;
 
   _connectionsState: Subscription;
   _connections: Subscription;
@@ -35,7 +38,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private fcmService: FcmService,
     private sharedService: SharedService,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private modalCtrl: ModalController) { }
 
   async ngOnInit() {
     const user = await this.authService.getUser();
@@ -44,7 +48,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
     this._connectionsState = this.sharedStoreService.connectionsState$.subscribe((state) => {
       this.connectionsState = state;
-      if (state && state.prevState === 'add') {
+      if (state && (state.state === 'add' || state.state === 'edit')) {
+        this.manageConnections(state);
+      } else if (state && state.prevState === 'add') {
         this.displayNotificaionsPermission();
       }
       this.markForCheck();
@@ -138,6 +144,28 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   addConnectionButton() {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
     this.analyticsService.addConnectionEvent();
+  }
+
+  manageConnections(state: ConnectionsState) {
+    if (this.isPresentActive) {
+      return;
+    }
+    this.isPresentActive = true;
+    this.presentManageConnections(state);
+  }
+
+  async presentManageConnections(state: ConnectionsState) {
+    const modal = await this.modalCtrl.create({
+      component: ManageConnectionModalComponent,
+      cssClass: 'present-modal-properties',
+      componentProps: {connectionsState: state}
+    });
+
+    modal.onDidDismiss().finally(() => {
+      this.isPresentActive = false;
+      this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
+    })
+    return await modal.present();
   }
 
   trackById(i, connection) {
