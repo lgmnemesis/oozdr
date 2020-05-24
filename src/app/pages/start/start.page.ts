@@ -26,9 +26,6 @@ export class StartPage implements OnInit, OnDestroy {
   canShowPage = false;
   isLoggedIn = false;
   isSiteMenuActive = false;
-  testAuthForProduction = false; // temp for now
-  isProduction = false; // temp for now
-
 
   constructor(private modalCtrl: ModalController,
     public sharedStoreService: SharedStoreService,
@@ -41,9 +38,6 @@ export class StartPage implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
-    // Test auth for production
-    this.checkTestAuthForProduction();
-
     this.navigateAccordingly();
 
     setTimeout(() => {
@@ -171,22 +165,6 @@ export class StartPage implements OnInit, OnDestroy {
 
   disableAnimation() {
     this.sharedStoreService.shouldAnimateStartPage = false;
-  }
-
-  checkTestAuthForProduction() {
-    if (environment.production) {
-      this.isProduction = true;
-    } else {
-      this.testAuthForProduction = true;
-    }
-    this.markForCheck();
-  }
-
-  testAuthForProductionInput(event) {
-    if (event.detail.value === '12gin21') {
-      this.testAuthForProduction = true;
-      this.markForCheck();
-    }
   }
 
   ngOnDestroy() {

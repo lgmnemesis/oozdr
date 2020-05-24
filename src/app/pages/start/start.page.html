@@ -1,15 +1,6 @@
 <ion-spinner color="main" name="dots" *ngIf="!canShowPage"></ion-spinner>
 
-<!-- Temp Test Auth For Production -->
-<ion-item *ngIf="isProduction && !testAuthForProduction">
-  <ion-label>Label</ion-label>
-  <ion-input
-    debounce="5000"
-    (ionChange)="testAuthForProductionInput($event)">
-  </ion-input>
-</ion-item>
-
-<ion-content *ngIf="canShowPage && !sharedStoreService?.userDeleted && testAuthForProduction">
+<ion-content *ngIf="canShowPage && !sharedStoreService?.userDeleted">
 
   <div id="start-header">
     <ion-item lines="none">
