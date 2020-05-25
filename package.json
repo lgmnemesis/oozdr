@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.6",
     "@angular/router": "~9.1.6",
     "@angular/service-worker": "~9.1.6",
+    "@bugfender/sdk": "^0.8.0",
     "@capacitor/core": "^2.1.0",
     "@ctrl/ngx-emoji-mart": "^3.1.0",
     "@ionic-native/core": "^5.25.0",

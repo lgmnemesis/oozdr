@@ -86,7 +86,11 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   }
 
   async fcmAction() {
-    this.fcmService.fcmInit();
+    try {
+      await this.fcmService.fcmInit();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async displayNotificaionsPermission() {

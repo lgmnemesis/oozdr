@@ -1,4 +1,5 @@
 @import './styles/fonts-text';
+@import './styles/animation';
 
 ion-split-pane {
   --side-width: 350px;
@@ -28,3 +29,36 @@ ion-item {
 .color-medium-t {
   color: var(--ion-color-medium-tint);
 }
+
+// .loading-state {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 100vh;
+//   background: #ff0000;
+//   background-image: url('../assets/icons/icon-72x72.png');
+//   background-repeat: no-repeat;
+//   background-position: center center;
+//   background-attachment: fixed;
+// }
+
+// .show {
+//   visibility: visible;
+//   z-index: 99;
+// }
+
+// .hide {
+//   visibility: hidden;
+//   z-index: -1;
+//   opacity: 0;
+// }
+
+// ion-spinner {
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   margin: auto;
+// }

@@ -234,21 +234,21 @@ export class WelcomeService {
 
   async registerAndUpdate(profile: Profile) {
     
-      const file = this.basicInfo.profile_img_file;
-      if (file) {
-        // Save profile img
-        const uploadDir = `${this.sharedService.uploadProfileImgDir}/${profile.user_id}`;
-        try {
-          const imgUrl = await this.fileStorageService.uploadImgFile(uploadDir, file);
-          this.basicInfo.profile_img_url = imgUrl;
-          profile.basicInfo.profile_img_url = imgUrl;
-        } catch (error) {
-          console.error(error);
-          this.basicInfo.profile_img_url = '';
-          profile.basicInfo.profile_img_url = '';
-        }
+    const file = this.basicInfo.profile_img_file;
+    if (file) {
+      // Save profile img
+      const uploadDir = `${this.sharedService.uploadProfileImgDir}/${profile.user_id}`;
+      try {
+        const imgUrl = await this.fileStorageService.uploadImgFile(uploadDir, file);
+        this.basicInfo.profile_img_url = imgUrl;
+        profile.basicInfo.profile_img_url = imgUrl;
+      } catch (error) {
+        console.error(error);
+        this.basicInfo.profile_img_url = '';
+        profile.basicInfo.profile_img_url = '';
       }
-      delete profile.basicInfo.profile_img_file;
+    }
+    delete profile.basicInfo.profile_img_file;
     try {
       const updateProfile = await this.sharedStoreService.updateProfile(profile);
       const register = await this.sharedStoreService.registerToProfile(profile.user_id);

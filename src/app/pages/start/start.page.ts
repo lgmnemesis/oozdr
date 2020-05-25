@@ -4,7 +4,6 @@ import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-m
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription, Observable, of } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
-import { environment } from '../../../environments/environment';
 import { SharedService } from 'src/app/services/shared.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';

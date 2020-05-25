@@ -65,6 +65,7 @@ export class WelcomeInfoComponent implements OnInit {
     if (isValid) {
       this.inputChangedEvent.next(true);
     }
+    this.markForCheck();
   }
 
   setGender(gender: string) {
@@ -72,6 +73,7 @@ export class WelcomeInfoComponent implements OnInit {
     this.welcomeService.genderError = 'no errors';
     this.welcomeService.isGenderError = false;
     this.inputChangedEvent.next(true);
+    this.markForCheck();
   }
 
   setEmail(event) {
@@ -80,6 +82,7 @@ export class WelcomeInfoComponent implements OnInit {
     if (isValid) {
       this.inputChangedEvent.next(true);
     }
+    this.markForCheck();
   }
 
   setBirthday(event) {
@@ -88,6 +91,7 @@ export class WelcomeInfoComponent implements OnInit {
     if (isValid) {
       this.inputChangedEvent.next(true);
     }
+    this.markForCheck();
   }
 
   async selectPhoto(files: File[]) {

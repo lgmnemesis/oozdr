@@ -72,6 +72,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isPhoneError = false;
     this.showWelcomeMessage = false;
     this.saveConnectionButtonText = 'Add Connection';
+    this.markForCheck();
   }
 
   async getProfile() {
@@ -93,11 +94,13 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   setName(event) {
     this.Q.name = event.detail.value;
     this.isValidName();
+    this.markForCheck();
   }
 
   setEmail(event) {
     this.Q.email = event.detail.value;
     this.isValidEmail();
+    this.markForCheck();
   }
 
   isValidName(): boolean {
@@ -155,10 +158,12 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   toggleWelcomeMessage(event) {
     this.showWelcomeMessage = event.detail.checked;
+    this.markForCheck();
   }
 
   setWelcomeMessage(event) {
     this.Q.welcomeMessage = event.detail.value;
+    this.markForCheck();
   }
 
   addOrSaveConnection() {

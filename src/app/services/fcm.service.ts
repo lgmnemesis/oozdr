@@ -11,7 +11,7 @@ import { SharedStoreService } from './shared-store.service';
 })
 export class FcmService {
 
-  messaging = firebase.messaging();
+  messaging: firebase.messaging.Messaging;
   currentMessage = new BehaviorSubject(null);
   _msg: firebase.Unsubscribe;
   swRegistration: ServiceWorkerRegistration
@@ -23,11 +23,16 @@ export class FcmService {
 
 
   async fcmInit() {
-    const reg = await this.registerToServiceWorker();
-    const subs = await this.getSubscription();
-    if (subs) {
-      this.finishSubscriptionProcess();
-      return subs;
+    try {
+      this.messaging = firebase.messaging();
+      const reg = await this.registerToServiceWorker();
+      const subs = await this.getSubscription();
+      if (subs) {
+        this.finishSubscriptionProcess();
+        return subs;
+      }
+    } catch (error) {
+      console.error(error);
     }
     return null;
   }
@@ -109,6 +114,9 @@ export class FcmService {
   }
 
   async getPermission() {
+    if (!this.messaging) {
+      return false;
+    }
     try {
       const token = await this.messaging.getToken();
       this.updateToken(token);
@@ -121,13 +129,15 @@ export class FcmService {
   }
 
   subscribeToTokenRefresh() {
-    this.messaging.onTokenRefresh(() => {
-      return this.getPermission();
-    })
+    if (this.messaging) {
+      this.messaging.onTokenRefresh(() => {
+        return this.getPermission();
+      })
+    }
   }
 
   subscribeToMessages() {
-    if (this._msg) {
+    if (this._msg || !this.messaging) {
       return;
     }
     this._msg = this.messaging.onMessage((payload) => {

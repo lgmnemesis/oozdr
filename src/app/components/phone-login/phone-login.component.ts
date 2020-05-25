@@ -95,6 +95,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.isVerificationError = false;
     this.verificationError = 'no errors';
     if (!this.confirmationResult) {
+      this.analyticsService.loginErrorEvent('Erorr code m1');
       return;
     }
     if (!this.verificationCode) {
@@ -159,6 +160,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
 
   setVerificationInput(event) {
     this.verificationCode = event.detail.value;
+    this.markForCheck();
   }
 
   openTerms() {

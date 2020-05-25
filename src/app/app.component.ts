@@ -26,6 +26,7 @@ export class AppComponent {
   activeMenu: string;
   profile: Profile;
   user: User;
+  // canShowPage = false;
 
   constructor(
     private platform: Platform,
@@ -56,6 +57,9 @@ export class AppComponent {
       this.subscribeToRouterEvents();
       this.sharedService.showInfo();
       this.analyticsService.versionEvent(this.sharedService.getClientVersion());
+      // setTimeout(() => {
+      //   this.canShowPage = true;
+      // }, 5000);
     });
   }
 

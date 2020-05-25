@@ -1,5 +1,9 @@
 <ion-app>
 
+  <!-- <div class="loading-state animated" [class.show]="!canShowPage" [class.hide]="canShowPage" [class.fadeOut]="canShowPage">
+    <ion-spinner color="minor" name="crescent"></ion-spinner>
+  </div> -->
+
   <ion-split-pane when="md" contentId="main" 
     [disabled]="!useSplitPane" 
     (ionSplitPaneVisible)="ionSplitPaneOutputEvent($event)"> 
