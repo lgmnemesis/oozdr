@@ -32,6 +32,26 @@
         (intlTelInputObject)="telInputObject($event)"/>
         <p class="basic-text p-error" [class.p-error-active]="isPhoneError">{{ phoneError }}</p>
     </ion-col>
+
+    <ion-col size="auto">
+      <p>Email (Optional)</p>
+      <ion-item lines="none" class="item-input">
+        <ion-input 
+          type="email"
+          inputmode="email"
+          placeholder="Connection Email" 
+          maxLength="100" 
+          debounce="300"
+          [value]="Q?.email"
+          (ionChange)="setEmail($event)">
+          <ion-icon name="mail-outline"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p class="p-error" [class.p-error-active]="isEmailError">{{ emailError }}</p>
+      <p class="small-12-text p-sub-text">
+        We will send an invitation email stating that someone is looking for them(without revealing who it is from)
+      </p>
+    </ion-col>
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">

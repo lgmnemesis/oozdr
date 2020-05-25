@@ -13,6 +13,10 @@
   .p-note {
     margin-bottom: 10px !important;
   }
+
+  .p-sub-text {
+    max-width: 290px !important;
+  }
 }
 
 p {
@@ -70,6 +74,7 @@ input:focus {
 }
 
 .p-sub-text {
+  max-width: 350px;
   margin: 0;
   margin-bottom: 2px;
   text-align: center;

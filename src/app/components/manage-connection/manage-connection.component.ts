@@ -8,6 +8,7 @@ import { ConnectionsState } from 'src/app/interfaces/connections-state';
 export class Q {
   name = '';
   phoneNumber = '';
+  email = '';
   welcomeMessage = '';  
 }
 
@@ -32,9 +33,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   Q = new Q();
 
   isNameError = false;
+  isEmailError = false;
+  isPhoneError = false;
   nameError = 'no errors';
   phoneError = 'no errors';
-  isPhoneError = false;
+  emailError = 'no errors';
   showWelcomeMessage = false;
   saveConnectionButtonText = 'Add Connection';
   profile: Profile;
@@ -57,11 +60,14 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   reset() {
     this.Q.name = '';
+    this.Q.email = '';
     this.Q.phoneNumber = '',
     this.Q.welcomeMessage = '';
 
     this.isNameError = false;
     this.nameError = 'no errors';
+    this.isEmailError = false;
+    this.emailError = 'no errors';
     this.phoneError = 'no errors';
     this.isPhoneError = false;
     this.showWelcomeMessage = false;
@@ -75,6 +81,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   setForEdit(connectionState: ConnectionsState) {
     const connection = connectionState.connection;
     this.Q.name = connection.basicInfo.name;
+    this.Q.email = connection.basicInfo.email;
     this.Q.phoneNumber = connection.basicInfo.mobile;
     this.Q.welcomeMessage = connection.basicInfo.welcome_msg;
     if (this.Q.welcomeMessage) {
@@ -86,6 +93,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   setName(event) {
     this.Q.name = event.detail.value;
     this.isValidName();
+  }
+
+  setEmail(event) {
+    this.Q.email = event.detail.value;
+    this.isValidEmail();
   }
 
   isValidName(): boolean {
@@ -103,6 +115,17 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       this.isNameError = true;
     }
     return !this.isNameError;
+  }
+
+  isValidEmail(): boolean {
+    this.emailError = 'no errors';
+    this.isEmailError = false;
+    const email = this.Q.email.trim();
+    if (email && !email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+      this.emailError = 'Invalid email address';
+      this.isEmailError = true;
+    }
+    return !this.isEmailError;
   }
 
   getAndVerifyNumber(): boolean {
@@ -156,6 +179,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
     connection.basicInfo.name = this.Q.name;
     connection.basicInfo.mobile = this.Q.phoneNumber;
+    connection.basicInfo.email = this.Q.email;
     connection.basicInfo.welcome_msg = this.Q.welcomeMessage;
     if (!this.showWelcomeMessage) {
       connection.basicInfo.welcome_msg = '';
@@ -182,7 +206,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
         name: this.Q.name,
         mobile: this.Q.phoneNumber,
         birthday: '',
-        email: '',
+        email: this.Q.email,
         gender: '',
         profile_img_url: '',
         profile_img_file: '',
@@ -208,6 +232,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isNameError = false;
     this.isPhoneError = false;
     const isValidName = this.isValidName();
+    const isValidEmail = this.isValidEmail();
     const isValidNumber = this.getAndVerifyNumber();
     const isUsingOwnNuber = this.profile.basicInfo.mobile === this.Q.phoneNumber;
     if (!isValidNumber || isUsingOwnNuber) {
@@ -215,7 +240,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       isUsingOwnNuber ? 'Can\'t use your own mumber' : 'Invalid Number';
       this.isPhoneError = true;
     }
-    if (!isValidName || !isValidNumber || isUsingOwnNuber) {
+    if (!isValidName || !isValidEmail || !isValidNumber || isUsingOwnNuber) {
       return false;
     }
     return true;
