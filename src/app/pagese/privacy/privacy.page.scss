@@ -18,6 +18,19 @@
   border-radius: 20px;
 }
 
+.bt-logo {
+  height: 50px;
+  width: 50px;
+}
+
+.bt-logo img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--ion-color-light);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 10px;
+}
+
 h2, h3 {
   @extend .font-params;
 }
