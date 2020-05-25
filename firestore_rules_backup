@@ -8,9 +8,9 @@ service cloud.firestore {
     }
     
     match /profiles/{userId} {
-    	allow read: if isOwner();
+    	allow read: if isProfileOwner(userId);
     	allow create: if canCreateProfileDoc(userId) && isValidProfile();
-    	allow update: if isOwner() && isValidProfile();
+    	allow update: if isProfileOwner(userId) && isValidProfile();
     	allow delete: if false; // TODO: delete user data from functions, when user is deleted
     }
     
@@ -50,6 +50,7 @@ service cloud.firestore {
     
     function isValidForConnectionDoc() {
     	return isValid()
+      	&& incomingData().user_mobile == request.auth.token.phone_number
       	&& incomingData().id == request.auth.uid + '_' + incomingData().basicInfo.mobile;
     }
   
@@ -91,6 +92,10 @@ service cloud.firestore {
           && incomingData().secondParty.hasNewMessages != existingData().secondParty.hasNewMessages)));
     }
 
+		function isProfileOwner(userId) {
+    	return isOwner() && request.auth.uid == userId;
+    }
+    
     function isOwner() {
       return isSignedIn() && request.auth.uid == existingData().user_id;
     }
