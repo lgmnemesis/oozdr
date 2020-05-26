@@ -1,9 +1,12 @@
 <ion-app>
 
-  <div class="loading-state animated" 
+  <div class="loading-state animated"
     [class.show]="loadingApp" 
     [class.fadeOut]="!loadingApp">
-    <ion-spinner color="minor" name="crescent" *ngIf="loadingApp"></ion-spinner>
+    <ng-container *ngIf="loadingApp">
+      <div class="show-logo animated fadeIn delay-500ms"></div>
+      <div class="lds-ripple"><div></div><div></div></div>
+    </ng-container>
   </div>
 
   <ion-split-pane when="md" contentId="main" 
