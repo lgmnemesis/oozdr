@@ -1,7 +1,8 @@
 {
-  "name": "Oozdr",
   "short_name": "Oozdr",
-  "theme_color": "#1976d2",
+  "name": "Oozdr",
+  "description": "Reconnect with people from your past",
+  "theme_color": "#ff0000",
   "background_color": "#ff0000",
   "display": "standalone",
   "scope": "./",
