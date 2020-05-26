@@ -254,6 +254,7 @@ export class WelcomeService {
       const register = await this.sharedStoreService.registerToProfile(profile.user_id);
     } catch (error) {
       console.error(error);
+      this.sharedStoreService.loadingAppSubject.next(false);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { Platform, ModalController, MenuController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -17,7 +17,8 @@ import { AlertsService } from './services/alerts.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 
@@ -26,7 +27,7 @@ export class AppComponent {
   activeMenu: string;
   profile: Profile;
   user: User;
-  // canShowPage = false;
+  loadingApp = true;
 
   constructor(
     private platform: Platform,
@@ -41,7 +42,8 @@ export class AppComponent {
     private menuCtrl: MenuController,
     private analyticsService: AnalyticsService,
     private alertsService: AlertsService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private cd: ChangeDetectorRef
   ) {
     this.authService.init();
     this.initializeApp();
@@ -50,17 +52,28 @@ export class AppComponent {
     this.subscribeToUser();
   }
 
+  markForCheck() {
+    this.cd.markForCheck();
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.subscribeToVersionUpdate();
       this.subscribeToProfile();
       this.subscribeToRouterEvents();
+      this.subscribeToLoadingAppEvents();
       this.sharedService.showInfo();
       this.analyticsService.versionEvent(this.sharedService.getClientVersion());
-      // setTimeout(() => {
-      //   this.canShowPage = true;
-      // }, 5000);
     });
+  }
+
+  subscribeToLoadingAppEvents() {
+    this.sharedStoreService.loadingApp$.subscribe((isLoading) => {
+      setTimeout(() => {
+        this.loadingApp = isLoading;
+        this.markForCheck();
+      }, 1000);
+    })
   }
 
   subscribeToVersionUpdate() {

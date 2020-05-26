@@ -71,6 +71,7 @@ export class WelcomeContainerComponent implements OnInit {
     const info = this.welcomeService.basicInfo;
     const user = await this.authService.getUser();
     if (user) {
+      this.sharedStoreService.loadingAppSubject.next(true);
       delete info.mobile; // already created at first registration
       const profile: Profile = {
         user_id: user.uid,

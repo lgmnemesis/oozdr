@@ -60,6 +60,10 @@ export class SharedStoreService {
   alertsSubject: BehaviorSubject<Alert[]> = new BehaviorSubject(null);
   alerts$ = this.alertsSubject.asObservable();
 
+  _loadingApp: Subscription;
+  loadingAppSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  loadingApp$ = this.loadingAppSubject.asObservable();
+
   constructor(private databaseService: DatabaseService) { }
 
   resetStore() {
@@ -84,6 +88,7 @@ export class SharedStoreService {
     this.newMatchesIndicatorSubject.next(false);
     this.toastNotificationsSubject.next(null);
     this.alertsSubject.next(null);
+    this.loadingAppSubject.next(false);
   }
 
   unsubscribe() {

@@ -105,6 +105,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     }
 
     this.isVerifyButtonDisabled = true;
+    this.sharedStoreService.loadingAppSubject.next(true);
     try {
       const confirm = await this.confirmationResult.confirm(this.verificationCode);
       this.analyticsService.loginEvent(confirm);
@@ -133,6 +134,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       this.isVerificationError = true;
       this.verificationError = 'Wrong Verification Code';
       this.isVerifyButtonDisabled = false;
+      this.sharedStoreService.loadingAppSubject.next(false);
       const jError = JSON.stringify(error);
       this.analyticsService.loginErrorEvent(jError);
       this.markForCheck();

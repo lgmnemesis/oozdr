@@ -68,6 +68,7 @@ export class StartPage implements OnInit, OnDestroy {
       } else {
         if (user === null) {
           this.canShowPage = true;
+          this.sharedStoreService.loadingAppSubject.next(false);
           this.sharedService.setDefaultPhoneCountryCode();
         }
         this.markForCheck();
@@ -112,6 +113,9 @@ export class StartPage implements OnInit, OnDestroy {
   
   goto(url) {
     this.navCtrl.navigateRoot(url)
+    .then(() => {
+      this.sharedStoreService.loadingAppSubject.next(false);
+    })
     .catch((error) => {
       console.error(error);
     });
