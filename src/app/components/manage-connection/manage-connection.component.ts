@@ -4,6 +4,7 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection, Profile } from 'src/app/interfaces/profile';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
+import { ContactPickerApiService } from 'src/app/services/contact-picker-api.service';
 
 export class Q {
   name = '';
@@ -48,7 +49,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private sharedStoreService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService,
+    public contactPickerApiService: ContactPickerApiService) { }
 
   ngOnInit() {
     this.getProfile();

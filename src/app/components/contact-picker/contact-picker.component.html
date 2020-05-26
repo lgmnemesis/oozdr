@@ -1,0 +1,6 @@
+<ion-item lines="none">
+  <ion-button fill="clear" (click)="getContacts()">Select from your contacts</ion-button>
+</ion-item>
+<p *ngIf="contacts">
+  {{ contacts | json }}
+</p>
