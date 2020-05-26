@@ -30,10 +30,18 @@ ion-item {
   color: var(--ion-color-medium-tint);
 }
 
-.loading-state {
+.center-abs {
+  display: inline-block;
   position: absolute;
   top: 0;
+  bottom: 0;
   left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.loading-state {
+  @extend .center-abs;
   width: 100vw;
   height: 100vh;
   z-index: 0;
@@ -46,11 +54,9 @@ ion-item {
 }
 
 .show-logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  @extend .center-abs;
+  width: 72px;
+  height: 72px;
   background-image: url('../assets/icons/icon-72x72.png');
   background-repeat: no-repeat;
   background-position: center center;
@@ -58,16 +64,13 @@ ion-item {
 }
 
 .lds-ripple {
-  display: inline-block;
-  position: absolute;
-  top: 15px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+  @extend .center-abs;
+  top: 20px;
+  right: 5px;
   width: 80px;
   height: 80px;
 }
+
 .lds-ripple div {
   position: absolute;
   border: 4px solid #fff;
@@ -75,9 +78,11 @@ ion-item {
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 .lds-ripple div:nth-child(2) {
   animation-delay: -0.5s;
 }
+
 @keyframes lds-ripple {
   0% {
     top: 36px;
