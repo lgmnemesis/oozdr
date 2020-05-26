@@ -21,6 +21,10 @@
         <ion-icon name="call-outline" slot="start" color="success"></ion-icon>
         <ion-label class="ion-text-wrap">{{ connection?.basicInfo?.mobile }}</ion-label>
       </ion-item>
+      <ion-item lines="none" *ngIf="connection?.basicInfo?.email">
+        <ion-icon name="mail-outline" slot="start" color="success"></ion-icon>
+        <ion-label class="ion-text-wrap">{{ connection?.basicInfo?.email }}</ion-label>
+      </ion-item>
       <ion-item lines="none">
         <ion-icon name="time-outline" slot="start" color="success"></ion-icon>
         <ion-label class="ion-text-wrap">Added on {{ connection?.createdAt?.toDate() | date }}</ion-label>
