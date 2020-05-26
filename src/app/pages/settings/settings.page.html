@@ -20,7 +20,8 @@
 <ion-content appScrollbarTheme>
 
   <ion-grid>
-    <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-row *ngIf="fcmService?.messaging"
+      class="ion-justify-content-center ion-align-items-center">
       <ion-col size="12">
         <ion-item lines="none">
           <ion-label class="title-text bold-text">Notifications</ion-label>

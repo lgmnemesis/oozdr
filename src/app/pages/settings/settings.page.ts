@@ -41,7 +41,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private sharedService: SharedService,
     private alertCtrl: AlertController,
-    private fcmService: FcmService,
+    public fcmService: FcmService,
     private modalCtrl: ModalController,
     private analyticsService: AnalyticsService) { }
 
@@ -78,6 +78,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.isSubscribedLocaly = !!subs;
     if (this.profile && this.profile.settings) {
       this.showNotifications = this.profile.settings.notifications === 'enabled' && !!this.isSubscribedLocaly;
+      this.markForCheck();
     }
   }
 

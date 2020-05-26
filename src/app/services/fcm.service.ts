@@ -24,6 +24,10 @@ export class FcmService {
 
   async fcmInit() {
     try {
+      if (!('showNotification' in ServiceWorkerRegistration.prototype) || !('PushManager' in window)) {
+        // Web Push notifications not supported (this is true in IOS for now)
+        return null;
+      }
       this.messaging = firebase.messaging();
       const reg = await this.registerToServiceWorker();
       const subs = await this.getSubscription();
