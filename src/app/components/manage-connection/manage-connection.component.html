@@ -9,7 +9,7 @@
     <ion-col size="12">
       <ion-item class="header-item" lines="none">
         <!-- TODO: REMOVE TRUE -->
-        <app-contact-picker *ngIf="contactPickerApiService?.supported"
+        <app-contact-picker *ngIf="true || contactPickerApiService?.supported"
           (contactsEvent)="gotContacts($event)">
         </app-contact-picker>
         <ion-button class="bt-round" slot="end" fill="clear" shape="round" color="dark" (click)="close()">

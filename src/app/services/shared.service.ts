@@ -144,4 +144,17 @@ export class SharedService {
     }
     return false;
   }
+
+  isInStandaloneMode() {
+    try {
+      const nav: any = window.navigator;
+      if (window.matchMedia('(display-mode: standalone)').matches || nav.standalone || document.referrer.includes('android-app://')) {
+        return true;
+      }
+    } catch (error) {
+      console.error(error);  
+    }
+    return false;
+  }
+
 }
