@@ -1,5 +1,8 @@
 <ion-content *ngIf="canShowPage && !sharedStoreService?.userDeleted">
 
+  <div class="star star-1"></div>
+  <div class="star star-2"></div>
+
   <div id="start-header">
     <ion-item lines="none">
       <ion-button id="bt-info"
@@ -37,24 +40,24 @@
       <ion-row class="ion-justify-content-start ion-align-items-start">
         <ion-col class="t-col" size="auto">
           <ion-text color="minor">
-            <div class="reconnect margin-height" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
+            <div class="reconnect margin-height">
               <img width="40" src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
               <h1>ozdr</h1>
             </div>
-            <p class="margin-height animated" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
+            <p class="margin-height">
               Have you ever thought about your soulmate? your Ex? the love of your life?
             </p>
-            <p class="margin-height animated delay-1s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
+            <p class="margin-height title-text">
               Maybe they're thinking about you as well?
             </p>
-            <div class="margin-height animated delay-2s" [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
-              <p class="margin-0">Find out if they are looking for you as well...</p>
-            </div>
+            <p class="margin-height title-text">
+              Find out if they are looking for you as well...
+            </p>
           </ion-text>
         </ion-col>
       </ion-row>
-      <ion-row class="margin-height ion-justify-content-start ion-align-items-center animated delay-3s" 
-        [class.fadeInDown]="sharedStoreService?.shouldAnimateStartPage">
+
+      <ion-row class="let-start-row margin-height ion-justify-content-start ion-align-items-center">
         <ion-col class="t-col" size="auto">
           <ion-button 
             id="bt-signup" 

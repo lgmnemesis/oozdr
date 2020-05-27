@@ -2,11 +2,11 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
-@media only screen and (max-height: 570px) {
-  .margin-height {
-    padding: 10px 0 !important;
-  }
-}
+// @media only screen and (max-height: 570px) {
+//   .margin-height {
+//     padding: 10px 0 !important;
+//   }
+// }
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .t-col {
@@ -17,6 +17,10 @@
   #start-header ion-item {
     width: 100% !important;
     margin-inline-start: 10px !important;
+  }
+
+  .let-start-row {
+    justify-content: center !important;
   }
 }
 
@@ -104,13 +108,13 @@ ion-text {
 h1 {
   text-transform: lowercase;
   font-size: 2em;
-  font-weight: 200;
+  font-weight: 300;
   letter-spacing: 3px;
 }
 
 .margin-height {
   margin: 0;
-  padding: 15px 0;
+  padding: 7px 0;
 }
 
 .margin-0 {
@@ -142,4 +146,51 @@ h1 {
 
 .reconnect h1 {
   margin-inline-start: 43px;
+}
+
+
+@keyframes particleAnimation
+{
+    from {
+        left: -100px;
+    }
+    to {
+        left: calc( 100% + 100px );
+    }
+}
+
+body{
+  background:black;
+}
+
+.star{
+  position:fixed;
+  left:0px;
+  top:50px;
+  width:1px;
+  height:1px;
+  background-color:white;
+  position:fixed;
+  animation-name:particleAnimation;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  z-index: 1;
+}
+.star::before{
+  position:absolute;
+  display:block;
+  content:"";
+  width:100px;
+  right:1px;
+  top:0px;
+  height:1px;
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%); 
+}
+.star-1{
+  animation-duration: 10s;
+  top:10%;
+}
+.star-2{
+  animation-duration: 5s;
+  top:15%;
 }
