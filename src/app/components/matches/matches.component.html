@@ -1,8 +1,7 @@
 <ion-grid *ngIf="noMatches">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-card [class.no-box]="nobox"
-        [color]="nobox? 'tertiary' : 'secondary'">
+      <ion-card [class.no-box]="nobox">
         <ion-card-content>
           <p>No Matches Yet.</p>
           <p>When a connection is matched, it will appear here, and you will be notified</p>

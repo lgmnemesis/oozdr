@@ -6,6 +6,8 @@ ion-card {
   min-height: 100px;
   display: flex;
   justify-content: center;
+  background: var(--ion-color-secondary);
+  color: var(--ion-color-minor);
 }
 
 ion-card-content {
@@ -19,4 +21,5 @@ ion-card-content p {
 
 .no-box {
   box-shadow: none;
+  background: transparent !important;
 }
