@@ -1,6 +1,5 @@
 <ion-item lines="none">
-  <ion-button fill="clear" (click)="getContacts()">Select from your contacts</ion-button>
+  <ion-button slot="start" fill="clear" shape="round" (click)="getContacts()">
+    <ion-icon size="large" name="people-outline"></ion-icon>
+  </ion-button>
 </ion-item>
-<p *ngIf="contacts">
-  {{ contacts | json }}
-</p>

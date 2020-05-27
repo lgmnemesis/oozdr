@@ -81,6 +81,10 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.profile = await this.sharedStoreService.getProfile();
   }
 
+  gotContacts(event) {
+    console.log('moshe:', event);
+  }
+
   setForEdit(connectionState: ConnectionsState) {
     const connection = connectionState.connection;
     this.Q.name = connection.basicInfo.name;

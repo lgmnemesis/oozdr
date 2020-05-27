@@ -1,14 +1,21 @@
 <ion-grid>
-  <ion-row class="ion-justify-content-center ion-align-items-center">
+  <!-- <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p class="title-text p-title">Who do you want to reconnect with?</p>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
   
-  <ion-row *ngIf="contactPickerApiService?.supported"
-    class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto">
-      <app-contact-picker></app-contact-picker>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12">
+      <ion-item class="header-item" lines="none">
+        <!-- TODO: REMOVE TRUE -->
+        <app-contact-picker *ngIf="contactPickerApiService?.supported"
+          (contactsEvent)="gotContacts($event)">
+        </app-contact-picker>
+        <ion-button class="bt-round" slot="end" fill="clear" shape="round" color="dark" (click)="close()">
+          <ion-icon size="large" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
     </ion-col>
   </ion-row>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { ContactPickerApiService } from 'src/app/services/contact-picker-api.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ContactPickerApiService } from 'src/app/services/contact-picker-api.ser
 })
 export class ContactPickerComponent implements OnInit {
 
-  contacts;
+  @Output() contactsEvent = new EventEmitter();
 
   constructor(private contactPickerApiService: ContactPickerApiService,
     private cd: ChangeDetectorRef) { }
@@ -21,7 +21,16 @@ export class ContactPickerComponent implements OnInit {
   }
 
   async getContacts() {
-    this.contacts = await this.contactPickerApiService.getContacts();
+    // const contacts = await this.contactPickerApiService.getContacts();
+    
+    // TMP
+    const contacts = [{
+      "email": ["lgm@nemesis.co.il", "moshe@nemesis.co.il"],
+      "name": ["Moshe Levy", "Moshe Levy2"],
+      "tel": ["(077) 360 4438", "+972543989404", "098783577"]
+    }];
+
+    this.contactsEvent.next(contacts);
     this.markForCheck();
   }
 }

@@ -29,6 +29,15 @@
   .present-modal-properties {
     --border-radius: 20px;
   }
+
+  .present-wide-modal-properties {
+    --width: 90%;
+    --height: 90%;
+  }
+
+  .present-wide-modal-properties .modal-wrapper {
+    max-width: 1000px;
+  }
 }
 
 .iti__country-list { 

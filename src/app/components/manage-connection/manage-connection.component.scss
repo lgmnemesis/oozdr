@@ -85,3 +85,15 @@ input:focus {
   color: var(--ion-color-primary);
   text-align: center;
 }
+
+.header-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+}
+
+.bt-round {
+  width: 40px;
+  height: 40px;
+}

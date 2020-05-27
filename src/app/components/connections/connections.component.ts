@@ -165,7 +165,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   async presentManageConnections(state: ConnectionsState) {
     const modal = await this.modalCtrl.create({
       component: ManageConnectionModalComponent,
-      cssClass: 'present-modal-properties',
+      cssClass: ['present-modal-properties', 'present-wide-modal-properties'],
       componentProps: {connectionsState: state}
     });
 
