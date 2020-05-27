@@ -73,7 +73,6 @@ export class AppComponent {
     this.sharedStoreService.loadingApp$.subscribe((isLoading) => {
       setTimeout(() => {
         this.loadingApp = isLoading;
-        this.setToolbarColor(isLoading);
         this.markForCheck();
       }, 1000);
     })
@@ -196,14 +195,5 @@ export class AppComponent {
       this.sharedStoreService.isModalOpen = false;
     });
     return await modal.present();
-  }
-
-  setToolbarColor(isLoading: boolean) {
-  //   if (!this.sharedService.isInStandaloneMode()) {
-  //     return;
-  //   }
-  //   let color = '#2343C4';
-  //   if (isLoading) color = '#ff0000';
-  //   this.meta.updateTag({ name: 'theme-color', content: color });
   }
 }
