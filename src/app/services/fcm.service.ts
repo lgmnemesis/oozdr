@@ -96,6 +96,7 @@ export class FcmService {
   }
 
   async getSubscription() {
+    if (!this.messaging) return null;
     try {
       return this.swRegistration.pushManager.getSubscription();
     }
@@ -150,6 +151,7 @@ export class FcmService {
   }
 
   isNotificationDenied() {
+    if (!this.messaging) return true;
     return Notification.permission === 'denied';
   }
 
