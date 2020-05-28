@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Connection } from 'src/app/interfaces/profile';
 import { PopoverController } from '@ionic/angular';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-match-details',
@@ -10,8 +11,10 @@ import { PopoverController } from '@ionic/angular';
 export class MatchDetailsComponent implements OnInit {
 
   @Input() connection: Connection;
+  defaultProfileImg = this.sharedService.defaultProfileImg;
 
-  constructor(private popoverCtrl: PopoverController) { }
+  constructor(private popoverCtrl: PopoverController,
+    private sharedService: SharedService) { }
 
   ngOnInit() {}
 
