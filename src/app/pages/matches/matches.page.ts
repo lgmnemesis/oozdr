@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController, AlertController } from '@ionic/angular';
 import { MatchOptionsComponent } from 'src/app/components/match-options/match-options.component';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { MatchDetailsComponent } from 'src/app/components/match-details/match-details.component';
 
 @Component({
   selector: 'app-matches-page',
@@ -31,6 +32,7 @@ export class MatchesPage implements OnInit, OnDestroy {
   activeMatch: Match;
   inOpenOptionsProcess = false;
   isMobile = false;
+  inOpenDetailsProcess = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -98,6 +100,32 @@ export class MatchesPage implements OnInit, OnDestroy {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async openDetails(ev) {
+    if (this.inOpenDetailsProcess) {
+      return;
+    }
+    this.inOpenOptionsProcess = true;
+
+    const popover = await this.popoverCtrl.create({
+      component: MatchDetailsComponent,
+      event: ev,
+      componentProps: {connection: this.connection},
+      mode: 'ios',
+      cssClass: 'match-details-popover'
+    });
+
+    popover.onWillDismiss().then((res) => {
+    }).catch(error => {
+      console.error(error);
+      this.inOpenDetailsProcess = false;
+    });
+
+    return await popover.present().catch(error => {
+      console.error(error);
+      this.inOpenOptionsProcess = false;
+    });
   }
 
   async openOptions(ev) {

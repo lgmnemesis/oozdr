@@ -6,6 +6,10 @@ ion-footer {
   background: var(--ion-color-minor);
 }
 
+ion-avatar {
+  cursor: pointer;
+}
+
 .border-buttom {
   border-bottom: 1px solid var(--ion-color-light);
 }

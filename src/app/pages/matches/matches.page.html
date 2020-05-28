@@ -14,7 +14,7 @@
     </ng-container>
 
     <ion-item lines="none" class="top-item" *ngIf="isInsideChat">
-      <ion-avatar slot="start">
+      <ion-avatar (click)="openDetails($event)" slot="start">
         <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
       </ion-avatar>
       <ion-label class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</ion-label>
