@@ -8,8 +8,8 @@
     [class.active-input]="isActiveInput"
     [autoGrow]="inputAutoGrow"
     [value]="messageText"
-    (ionFocus)="isActiveInput = true"
-    (ionBlur)="isActiveInput = false"
+    (ionFocus)="onFocus()"
+    (ionBlur)="onBlur()"
     (ionChange)="inputChange($event)">
   </ion-textarea>
   <ion-item lines="none">

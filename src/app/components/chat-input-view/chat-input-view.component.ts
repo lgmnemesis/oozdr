@@ -45,6 +45,17 @@ export class ChatInputViewComponent implements OnInit {
     this.cd.markForCheck();
   }
 
+  onFocus() {
+    this.isActiveInput = true;
+    this.setActiveInput();
+    this.markForCheck();
+  }
+
+  onBlur() {
+    this.isActiveInput = false;
+    this.markForCheck();
+  }
+
   setActiveInputWithRetries() {
     if (this.isMobile || this.activeInputLock) {
       return ;
