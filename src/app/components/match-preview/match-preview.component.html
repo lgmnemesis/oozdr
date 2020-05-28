@@ -7,7 +7,7 @@
   </ion-avatar>
   <ion-label>
     <h2 class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</h2>
-    <p class="last-msg">{{ lastMessage?.message?.content }}</p>
+    <p dir="auto" class="last-msg">{{ lastMessage?.message?.content }}</p>
   </ion-label>
   <ion-icon *ngIf="connection?.isNewMatch"
     class="animated zoomIn"

@@ -73,6 +73,7 @@ export class ChatInputViewComponent implements OnInit {
     const el = this.inputBar.nativeElement.querySelector('textarea');
     if (el) {
       el.focus();
+      el.setAttribute('dir', 'auto');
       return true;
     }
     return false;
