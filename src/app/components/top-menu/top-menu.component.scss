@@ -1,4 +1,5 @@
 @import '../../styles/fonts-text';
+@import '../../styles/animation';
 
 .top-menu-not-mobile {
   border-bottom: 1px solid var(--ion-color-light);
@@ -45,4 +46,13 @@ ion-button {
   height: 5px;
   background: var(--ion-color-danger);
   border-radius: 50%;
+}
+
+.swipe-icon {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 2px;
+  margin: auto;
 }

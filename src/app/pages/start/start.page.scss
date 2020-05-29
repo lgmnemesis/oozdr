@@ -22,6 +22,31 @@
   .let-start-row {
     justify-content: center !important;
   }
+
+  .p-in-app {
+    font-size: 16px !important;
+    margin: 0;
+  }
+
+  #bt-signup {
+    --padding-start: 30px !important;
+    --padding-end: 30px !important;
+    font-size: 18px !important;
+    height: 44px;
+  }
+
+  .p-t-sm {
+    font-size: 20px !important;
+    padding-top: 0 !important;
+  }
+
+  .reconnect img {
+    top: 13px !important
+  }
+
+  .reconnect h1 {
+    margin-bottom: 0;
+  }
 }
 
 .top-logo {
@@ -40,12 +65,12 @@ ion-content {
 
 #start-header {
   position: absolute;
-  left: 0;
   width: 100vw;
 }
 
 #start-header {
   top: 0;
+  left: 0;
 }
 
 #start-header ion-item {
@@ -193,4 +218,8 @@ body{
 .star-2{
   animation-duration: 5s;
   top:15%;
+}
+
+.color-minor {
+  color: var(--ion-color-minor);
 }

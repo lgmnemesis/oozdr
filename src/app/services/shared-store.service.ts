@@ -23,6 +23,7 @@ export class SharedStoreService {
   lastActiveMessage: LastMessage = null;
   userDeleted = false;
   isModalOpen = false;
+  menuWasOpenOnce = this.isMenuWasOpenOnce();
 
   activeMenuSubject: BehaviorSubject<string> = new BehaviorSubject('connections');
   activeMenu$ = this.activeMenuSubject.asObservable();
@@ -63,6 +64,11 @@ export class SharedStoreService {
   _loadingApp: Subscription;
   loadingAppSubject: BehaviorSubject<boolean> = new BehaviorSubject(true);
   loadingApp$ = this.loadingAppSubject.asObservable();
+
+  _installAsAppState: Subscription;
+  installAsAppStateSubject: BehaviorSubject<{isInstalled: boolean, canInstall: boolean, canShowInMenu: boolean}> = 
+    new BehaviorSubject({isInstalled: false, canInstall: false, canShowInMenu:false});
+  installAsAppState$ = this.installAsAppStateSubject.asObservable();
 
   constructor(private databaseService: DatabaseService) { }
 
@@ -189,5 +195,24 @@ export class SharedStoreService {
 
   createId(): string {
     return this.databaseService.createId();
+  }
+
+  isMenuWasOpenOnce() {
+    try {
+      const val = localStorage.getItem('menu_open');
+      return val === 'true' ? true : false;
+    } catch (error) {
+      console.error(error);
+    }
+    return false;
+  }
+
+  setMenuWasOpenOnce(was: 'true' | 'false' = 'true') {
+    try {
+      this.menuWasOpenOnce = was == 'true' ? true : false;
+      localStorage.setItem('menu_open', was);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

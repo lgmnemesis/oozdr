@@ -13,7 +13,7 @@
     [disabled]="!useSplitPane" 
     (ionSplitPaneVisible)="ionSplitPaneOutputEvent($event)"> 
     <!--  our side menu  -->
-    <ion-menu contentId="main" [disabled]="!user">
+    <ion-menu contentId="main" [disabled]="!user" (ionDidOpen)="menuOpen()">
       <ion-header class="ion-no-border">
         <ion-toolbar>
           <app-top-menu [visible]="isVisibleSplitPane" [isLarge]="false" [showChat]="false"></app-top-menu>
@@ -56,6 +56,11 @@
             lines="none" detail button (click)="settingsClicked()">
             <ion-icon slot="start" name="settings-outline"></ion-icon>
             <ion-label class="basic-text">Settings</ion-label>
+          </ion-item>
+          <ion-item *ngIf="canShowInstallApp"
+            lines="none" button (click)="installAsApp()">
+            <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+            <ion-label class="basic-text">Install App</ion-label>
           </ion-item>
           <ion-item
             lines="none" button (click)="inviteFriends()">

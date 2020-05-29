@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-
 import { Platform, ModalController, MenuController, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -29,6 +28,7 @@ export class AppComponent {
   profile: Profile;
   user: User;
   loadingApp = true;
+  canShowInstallApp = false;
 
   constructor(
     private platform: Platform,
@@ -47,6 +47,7 @@ export class AppComponent {
     private cd: ChangeDetectorRef,
     private meta: Meta
   ) {
+    this.addAsApp();
     this.authService.init();
     this.initializeApp();
     this.subscribeToSplitPaneEvents();
@@ -65,8 +66,40 @@ export class AppComponent {
       this.subscribeToRouterEvents();
       this.subscribeToLoadingAppEvents();
       this.sharedService.showInfo();
+      this.subscribeToInstallAsAppState();
       this.analyticsService.versionEvent(this.sharedService.getClientVersion());
     });
+  }
+
+  subscribeToInstallAsAppState() {
+    this.sharedStoreService.installAsAppState$.subscribe((state) => {
+      this.canShowInstallApp = false;
+      if (state && !state.isInstalled && state.canInstall && state.canShowInMenu) {
+        this.canShowInstallApp = true;
+      }
+      this.markForCheck();
+    })
+  }
+
+  addAsApp() {
+    // 'add as app to home screen event'
+    // https://developers.google.com/web/fundamentals/app-install-banners/
+    try {
+      window.addEventListener('beforeinstallprompt', (evt) => {
+        evt.preventDefault();
+        // Stash the event so it can be triggered later.
+        this.sharedService.deferredPrompt = evt;
+        this.alertsService.sendAddAsAppAlert();
+        this.analyticsService.canBeAddedAsAppEvent();
+      });
+
+      window.addEventListener('appinstalled', (evt) => {
+        evt.preventDefault();
+        this.sharedService.pwaAppInstalled()
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   subscribeToLoadingAppEvents() {
@@ -195,5 +228,15 @@ export class AppComponent {
       this.sharedStoreService.isModalOpen = false;
     });
     return await modal.present();
+  }
+
+  menuOpen() {
+    if (!this.sharedStoreService.menuWasOpenOnce) {
+      this.sharedStoreService.setMenuWasOpenOnce();
+    }
+  }
+
+  installAsApp() {
+    this.sharedService.promptForPwaInstallation();
   }
 }

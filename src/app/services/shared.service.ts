@@ -3,6 +3,8 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Platform, ToastController, LoadingController } from '@ionic/angular';
 import { IonToastMessage } from '../interfaces/toast-message';
+import { AnalyticsService } from './analytics.service';
+import { SharedStoreService } from './shared-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +31,7 @@ export class SharedService {
   uploadProfileImgDir = 'profiles';
   currentUrlPath = null;
   private canSendFeedBack = true;
+  deferredPrompt: any;
 
   menu1 = 'profile';
   menu2 = 'connections';
@@ -37,7 +40,9 @@ export class SharedService {
   constructor(private httpClient: HttpClient,
     private platform: Platform,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private analyticsService: AnalyticsService,
+    private sharedStoreService: SharedStoreService) { }
 
   showInfo() {
     console.log(`Client Version: ${this.getClientVersion()}`);
@@ -145,6 +150,10 @@ export class SharedService {
     return false;
   }
 
+  isPwaMode() {
+    return this.isInStandaloneMode();
+  }
+
   isInStandaloneMode() {
     try {
       const nav: any = window.navigator;
@@ -155,6 +164,32 @@ export class SharedService {
       console.error(error);  
     }
     return false;
+  }
+
+  promptForPwaInstallation() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          this.pwaAppInstalled();
+          this.analyticsService.addAsAppAcceptedEvent();
+        } else {
+          this.analyticsService.addAsAppDismissedEvent();
+        }
+        this.deferredPrompt = null;
+      });
+    }
+  }
+
+  pwaAppInstalled() {
+    this.sharedStoreService.installAsAppStateSubject.next({isInstalled: true, canInstall: false, canShowInMenu: false});
+    const message: IonToastMessage = {
+      message: 'Oozdr App installed successfully',
+    }
+    this.presentToast(message);
+    this.analyticsService.installedAsAppEvent();
   }
 
 }

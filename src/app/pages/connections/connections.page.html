@@ -20,6 +20,10 @@
 
 <ion-footer class="ion-no-border" *ngIf="!isVisibleSplitPane && isMobile">
   <ion-toolbar>
-    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
+    <app-top-menu 
+      [visible]="isVisibleSplitPane" 
+      [showChat]="true" 
+      [isLarge]="false"
+      [showSwipeIndication]="true"></app-top-menu>
   </ion-toolbar>
 </ion-footer>

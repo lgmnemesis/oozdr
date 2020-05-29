@@ -44,7 +44,7 @@
               <img width="40" src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
               <h1>ozdr</h1>
             </div>
-            <p class="margin-height">
+            <p class="margin-height p-t-sm">
               Have you ever thought about your soulmate? your Ex? the love of your life?
             </p>
             <p class="margin-height title-text">
@@ -68,6 +68,18 @@
             routerDirection="forward"
             (click)="signUp()">
             LET'S START
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="canShowInstallApp"
+        class="let-start-row margin-height ion-justify-content-start ion-align-items-center">
+        <ion-col class="t-col" size="auto">
+          <p class="title-text p-in-app color-minor">Get the app. Install instantly, find what you need faster, anytime.</p>
+          <ion-button 
+            color="success"
+            (click)="installAsApp()">
+            INSTALL APP
           </ion-button>
         </ion-col>
       </ion-row>

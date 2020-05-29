@@ -24,7 +24,7 @@ export interface Alert {
   okText: string;
   action: {
     isAction: boolean;
-    actionName: 'new_version';
+    actionName: 'new_version' | 'add_as_app';
     delay: number;
   }
 }

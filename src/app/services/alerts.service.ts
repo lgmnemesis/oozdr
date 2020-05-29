@@ -4,14 +4,18 @@ import { Observable } from 'rxjs';
 import { Alert } from '../interfaces/general';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertsService {
 
+  addAsAppAlertLock = false;
+
   constructor(private sharedStoreService: SharedStoreService,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private sharedService: SharedService) { }
 
   getAlertsAsObservable(): Observable<Alert[]> {
     return this.sharedStoreService.alerts$;
@@ -48,6 +52,35 @@ export class AlertsService {
     }
   }
 
+  sendAddAsAppAlert() {
+    if (this.addAsAppAlertLock) return;
+    this.addAsAppAlertLock = true;
+    try {
+      const val = localStorage.getItem('add_as_app');
+      if (val && val === 'false') {
+        this.sharedStoreService.installAsAppStateSubject.next({isInstalled: false, canInstall: true, canShowInMenu: true});
+        return;
+      } else {
+        this.sharedStoreService.installAsAppStateSubject.next({isInstalled: false, canInstall: true, canShowInMenu: false});
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    const alert: Alert = {
+      id: this.sharedStoreService.createId(),
+      title: 'Oozdr - Get the app',
+      content: 'Install instantly, find what you need faster, anytime.',
+      dismissText: 'Not now',
+      okText: 'Install',
+      action: {
+        actionName: 'add_as_app',
+        isAction: true,
+        delay: 800
+      }
+    }
+    this.addAlert(alert);
+  }
+
   sendNewVersionAlert() {
     const alert: Alert = {
       id: this.sharedStoreService.createId(),
@@ -65,6 +98,14 @@ export class AlertsService {
   }
 
   dismissAlert(alert: Alert) {
+    if (alert.action.actionName === 'add_as_app') {
+      try {
+        localStorage.setItem('add_as_app', 'false');
+        this.sharedStoreService.installAsAppStateSubject.next({isInstalled: false, canInstall: true, canShowInMenu: true});
+      } catch (error) {
+        console.error(error);
+      }
+    }
     this.removeAlert(alert);
   }
 
@@ -79,7 +120,10 @@ export class AlertsService {
             console.error(error);
           }
         }, 2000);
+      } else if (alert.action.actionName === 'add_as_app') {
+        this.sharedService.promptForPwaInstallation();
       }
+
       this.removeAlert(alert);
     }
   }

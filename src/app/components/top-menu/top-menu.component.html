@@ -1,4 +1,8 @@
 <div id="top-menu" [class.top-menu-mobile]="isMobile" [class.top-menu-not-mobile]="!isMobile">
+  <ion-icon *ngIf="showSwipeIndication && !sharedStoreService?.menuWasOpenOnce"
+    class="swipe-icon animated animate__bounceInRight" 
+    color="tertiary" size="small" name="swap-horizontal-outline">
+  </ion-icon>
   <ion-item lines="none" [class.visible-item]="isVisible">
 
     <ion-button *ngIf="useToggle"

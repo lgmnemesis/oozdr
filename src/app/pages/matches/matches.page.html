@@ -35,7 +35,7 @@
 
 <ion-footer class="ion-no-border">
   <app-top-menu *ngIf="isMobile && !isVisibleSplitPane && !isInsideChat"
-    [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false">
+    [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false" [showSwipeIndication]="true">
   </app-top-menu>
 
   <div class="chat-container" *ngIf="isInsideChat">

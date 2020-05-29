@@ -81,4 +81,20 @@ export class AnalyticsService {
   socialShareEvent(shareVia: string) {
     this.sendEvent('social_share', { via: shareVia, clicked: 1 });
   }
+
+  canBeAddedAsAppEvent() {
+    this.sendEvent('can_be_app');
+  }
+
+  installedAsAppEvent() {
+    this.sendEvent('installed_app');
+  }
+
+  addAsAppAcceptedEvent() {
+    this.sendEvent('acceped_as_app');
+  }
+
+  addAsAppDismissedEvent() {
+    this.sendEvent('dismissed_as_app');
+  }
 }

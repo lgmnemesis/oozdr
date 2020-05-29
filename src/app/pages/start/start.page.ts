@@ -21,10 +21,12 @@ export class StartPage implements OnInit, OnDestroy {
 
   private isSignInButtonActive = false;
   _profile: Subscription;
+  _installAsAppState: Subscription;
   profile$: Observable<Profile>;
   canShowPage = false;
   isLoggedIn = false;
   isSiteMenuActive = false;
+  canShowInstallApp = false;
 
   constructor(private modalCtrl: ModalController,
     public sharedStoreService: SharedStoreService,
@@ -37,6 +39,14 @@ export class StartPage implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
+    this._installAsAppState = this.sharedStoreService.installAsAppState$.subscribe((state) => {
+      this.canShowInstallApp = false;
+      if (state && !state.isInstalled && state.canInstall) {
+        this.canShowInstallApp = true;
+      }
+      this.markForCheck();
+    })
+
     this.navigateAccordingly();
 
     setTimeout(() => {
@@ -166,6 +176,10 @@ export class StartPage implements OnInit, OnDestroy {
     this.disableAnimation();
   }
 
+  installAsApp() {
+    this.sharedService.promptForPwaInstallation();
+  }
+
   disableAnimation() {
     this.sharedStoreService.shouldAnimateStartPage = false;
   }
@@ -173,6 +187,9 @@ export class StartPage implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this._profile) {
       this._profile.unsubscribe();
+    }
+    if (this._installAsAppState) {
+      this._installAsAppState.unsubscribe();
     }
   }
 }
