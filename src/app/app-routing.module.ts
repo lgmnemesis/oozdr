@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { WelcomeGuard } from './core/welcome.guard';
 import { AuthGuard } from './core/auth.guard';
 import { HomeGuard } from './core/home.guard';
+import { NoGuard } from './core/no.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'start', pathMatch: 'full' },
@@ -43,19 +44,23 @@ const routes: Routes = [
   },
   {
     path: 'terms',
-    loadChildren: () => import('./pagese/terms/terms.module').then( m => m.TermsPageModule)
+    loadChildren: () => import('./pagese/terms/terms.module').then( m => m.TermsPageModule),
+    canActivate: [NoGuard]
   },
   {
     path: 'privacy',
-    loadChildren: () => import('./pagese/privacy/privacy.module').then( m => m.PrivacyPageModule)
+    loadChildren: () => import('./pagese/privacy/privacy.module').then( m => m.PrivacyPageModule),
+    canActivate: [NoGuard]
   },
   {
     path: 'contact',
-    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule)
+    loadChildren: () => import('./pages/contact/contact.module').then( m => m.ContactPageModule),
+    canActivate: [NoGuard]
   },
   {
     path: 'support',
-    loadChildren: () => import('./pagese/support/support.module').then( m => m.SupportPageModule)
+    loadChildren: () => import('./pagese/support/support.module').then( m => m.SupportPageModule),
+    canActivate: [NoGuard]
   },
   // Default redirect route rule if non of the above matches
   { path: '**', redirectTo: 'start', pathMatch: 'full' }
