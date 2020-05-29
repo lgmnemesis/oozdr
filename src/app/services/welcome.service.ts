@@ -127,7 +127,7 @@ export class WelcomeService {
     if (!email) {
       this.emailError = 'Please enter your email';
       this.isEmailError = true;      
-    } else if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+    } else if (!email.match(this.sharedService.mailformat)) {
       this.emailError = 'Invalid email address';
       this.isEmailError = true;
     }

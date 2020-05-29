@@ -78,7 +78,7 @@ export class ContactComponent implements OnInit {
 
   validate() {
     return this.feedback.name.length > 1 
-      && this.feedback.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+      && this.feedback.email.match(this.sharedService.mailformat)
       && this.feedback.message.length > 3
       && this.sharedService.canSendFeedBackTimer();
   }

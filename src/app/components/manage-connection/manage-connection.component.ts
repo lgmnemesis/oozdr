@@ -130,7 +130,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.emailError = 'no errors';
     this.isEmailError = false;
     const email = this.Q.email.trim();
-    if (email && !email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+    if (email && !email.match(this.sharedService.mailformat)) {
       this.emailError = 'Invalid email address';
       this.isEmailError = true;
     }
