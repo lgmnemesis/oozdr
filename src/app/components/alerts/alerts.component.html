@@ -1,20 +1,34 @@
-<div class="alert-container" *ngFor="let alert of alerts; trackBy: trackById"
-  [class.close-alert]="alert?.id == closedAlertId"
-  [class.alert-container-visible]="isVisible" 
-  [class.alert-container-invisible]="!isVisible">
-  <ion-item lines="none" class="alert-title-item">
-    <ion-icon color="danger" name="notifications-outline"></ion-icon>
-    <ion-label>
-      <p class="title-text bold-text ion-text-wrap">{{ alert?.title }}</p>
-      <p class="basic-text ion-text-wrap">{{ alert?.content }}</p>
-    </ion-label>
-  </ion-item>
-  <ion-item lines="none" class="alert-item alert-bt-item">
-    <ion-button slot="end" fill="clear" color="tertiary" (click)="dismissAlert(alert)">
-      <ion-label class="basic-text ion-text-capitalize">{{ alert?.dismissText }}</ion-label>
-    </ion-button>
-    <ion-button slot="end" fill="clear" color="tertiary" (click)="acceptAlert(alert)">
-      <ion-label class="basic-text ion-text-capitalize">{{ alert?.okText }}</ion-label>
-    </ion-button>
-  </ion-item>
-</div>
+<ion-grid class="ion-no-padding">
+  <ion-row class="ion-no-padding ion-justify-content-center ion-align-items-center animated fadeIn">
+    <ion-col size="auto" *ngFor="let alert of alerts; trackBy: trackById">
+      <div class="alert-container"
+        [class.close-alert]="alert?.id == closedAlertId"
+        [class.alert-container-visible]="isVisible" 
+        [class.alert-container-invisible]="!isVisible">
+        <ion-item lines="none" 
+          class="alert-title-item"
+          [class.bg-color-danger]="alert?.color === 'danger'"
+          [class.bg-color-success]="alert?.color === 'success'"
+          [class.bg-color-primary]="alert?.color === 'primary'">
+          <ion-icon color="minor" name="notifications-outline"></ion-icon>
+          <ion-label>
+            <p class="title-text color-title ion-text-wrap">{{ alert?.title }}</p>
+            <p class="basic-text color-title ion-text-wrap">{{ alert?.content }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" 
+          class="alert-item alert-bt-item"
+          [class.bg-color-danger]="alert?.color === 'danger'"
+          [class.bg-color-success]="alert?.color === 'success'"
+          [class.bg-color-primary]="alert?.color === 'primary'">
+          <ion-button slot="end" fill="clear" color="minor" (click)="dismissAlert(alert)">
+            <ion-label class="basic-text ion-text-capitalize">{{ alert?.dismissText }}</ion-label>
+          </ion-button>
+          <ion-button slot="end" fill="clear" color="minor" (click)="acceptAlert(alert)">
+            <ion-label class="basic-text ion-text-capitalize">{{ alert?.okText }}</ion-label>
+          </ion-button>
+        </ion-item>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

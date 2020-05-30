@@ -1,6 +1,8 @@
 @import '../../styles/fonts-text';
 
 .alert-container {
+  min-width: 250px;
+  max-width: 390px;
   animation-duration: 1s;
   animation-name: slidein;
 }
@@ -33,16 +35,20 @@
   }
 }
 
-.alert-container-visible ion-item {
-  --background: var(--ion-color-minor);
+.bg-color-danger {
+   --background: var(--ion-color-danger);
+}
+
+.bg-color-success {
+  --background: var(--ion-color-success);
+}
+
+.bg-color-primary {
+  --background: var(--ion-color-primary);
 }
 
 .alert-container-invisible {
   margin: 0 10px;
-}
-
-.alert-container-invisible ion-item {
-  --background: rgba(var(--ion-color-success-rgb), 0.2);
 }
 
 .alert-container-invisible .alert-title-item {
@@ -67,4 +73,8 @@
 
 .alert-title-item ion-icon {
   margin-inline-end: 10px;
+}
+
+.color-title {
+  color: var(--ion-color-minor);
 }

@@ -76,6 +76,7 @@ export class AlertsService {
       content: 'Install instantly, find what you need faster, anytime.',
       dismissText: 'Not now',
       okText: 'Install',
+      color: 'success',
       action: {
         actionName: 'add_as_app',
         isAction: true,
@@ -92,6 +93,7 @@ export class AlertsService {
       content: 'Please refresh to reload the new version.',
       dismissText: 'Dismiss',
       okText: 'Refresh',
+      color: 'primary',
       action: {
         actionName: 'new_version',
         isAction: true,

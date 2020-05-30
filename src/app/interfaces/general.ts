@@ -22,6 +22,7 @@ export interface Alert {
   content: string;
   dismissText: string;
   okText: string;
+  color: 'danger' | 'success' | 'primary',
   action: {
     isAction: boolean;
     actionName: 'new_version' | 'add_as_app';
