@@ -55,9 +55,9 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   customSelectText = [
     'Hey... Just wondering :)',
     'Hey... After all.. Still thinking about you!',
-    'Did it finally... couldn`t help it',
+    'Did it finally... Couldn\'t help it',
     'What do you think about a little chat?',
-    'Isn`t it a pity? to throw it all away?',
+    'Isn\'t it a pity? to throw it all away?',
     'Passion is momentary, love is enduring'
   ];
 
