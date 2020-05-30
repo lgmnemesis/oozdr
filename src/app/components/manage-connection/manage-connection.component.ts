@@ -298,7 +298,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   selectedMessages(event) {
-    console.log('moshe:', event);
     const selected: any[] = event.detail.value;
     if (selected) {
       if (this.Q.welcomeMessage && this.Q.welcomeMessage.length > 0) {
@@ -307,7 +306,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       selected.forEach(s => {
         this.Q.welcomeMessage += `${this.customSelectText[s]}\n`;
       });
-      console.log('moshe:', this.Q.welcomeMessage);
       this.markForCheck();
     }
   }
