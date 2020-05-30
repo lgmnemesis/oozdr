@@ -162,11 +162,24 @@ export class AlertsService {
 
   pwaAppInstalled() {
     this.addAsAppAlertLock = true;
+    this.removeAllAddAsAppAlerts();
     this.sharedStoreService.installAsAppStateSubject.next({isInstalled: true, canInstall: false, canShowInMenu: false});
     const message: IonToastMessage = {
       message: 'Oozdr App installed successfully',
     }
-    this.sharedService.presentToast(message);
+    setTimeout(() => {
+      this.sharedService.presentToast(message);
+    }, 1000);
     this.analyticsService.installedAsAppEvent();
+  }
+
+  async removeAllAddAsAppAlerts() {
+    const alerts = await this.getAlerts();
+    if (!alerts) return;
+    alerts.forEach(alert => {
+      if (alert.action.actionName === 'add_as_app') {
+        this.removeAlert(alert);
+      }
+    });
   }
 }
