@@ -47,6 +47,20 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
   connectionState: ConnectionsState;
 
+  customSelectOptions: any = {
+    header: 'Select one or more',
+    cssClass: 'manage-connection-select-option'
+  };
+
+  customSelectText = [
+    'Hey... Just wondering :)',
+    'Hey... After all.. Still thinking about you!',
+    'Did it finally... couldn`t help it',
+    'What do you think about a little chat?',
+    'Isn`t it a pity? to throw it all away?',
+    'Passion is momentary, love is enduring'
+  ];
+
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
     private sharedStoreService: SharedStoreService,
@@ -281,6 +295,21 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       console.error(error);
     }
     this.sharedStoreService.toastNotificationsSubject.next(message);
+  }
+
+  selectedMessages(event) {
+    console.log('moshe:', event);
+    const selected: any[] = event.detail.value;
+    if (selected) {
+      if (this.Q.welcomeMessage && this.Q.welcomeMessage.length > 0) {
+        this.Q.welcomeMessage += '\n';
+      }
+      selected.forEach(s => {
+        this.Q.welcomeMessage += `${this.customSelectText[s]}\n`;
+      });
+      console.log('moshe:', this.Q.welcomeMessage);
+      this.markForCheck();
+    }
   }
 
   close(action?: string) {

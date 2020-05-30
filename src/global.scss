@@ -67,9 +67,17 @@
   to {opacity: 1;}
 }
 
+.manage-connection-select-option,
 .match-details-popover,
 .match-options-popover {
   --min-width: 300px;
+}
+
+.manage-connection-select-option .alert-checkbox-label {
+  font-family: 'Roboto', sans-serif !important;
+  letter-spacing: 1px !important;
+  font-weight: 300 !important;
+  white-space: pre-line;
 }
 
 .site-footer-popover .popover-content,

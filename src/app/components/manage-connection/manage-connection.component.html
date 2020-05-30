@@ -82,6 +82,17 @@
   </ion-row>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto" *ngIf="showWelcomeMessage">
+      <ion-item class="item-select" lines="none">
+        <ion-label class="basic-text">suggested messages</ion-label>
+        <ion-select
+           mode="ios" multiple="true" cancel-text="Cancel" ok-text="Ok" selected-text=" " 
+           [interfaceOptions]="customSelectOptions"
+           (ionChange)="selectedMessages($event)">
+          <ion-select-option 
+            [value]="i" *ngFor="let valueTxt of customSelectText; let i = index;">{{ valueTxt }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
       <ion-item lines="none">
         <ion-textarea 
           color="dark"
