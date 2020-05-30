@@ -29,10 +29,11 @@
   }
 
   #bt-signup {
-    --padding-start: 30px !important;
-    --padding-end: 30px !important;
-    font-size: 18px !important;
     height: 44px;
+  }
+
+  #bt-signup ion-label {
+    font-size: 18px !important;
   }
 
   .p-t-sm {
@@ -117,11 +118,6 @@ ion-content {
 #bt-info {
   border: 1px solid var(--ion-color-minor);
   border-radius: 20px;
-}
-
-#bt-signup {
-  --padding-start: 70px;
-  --padding-end: 70px;
 }
 
 ion-text {
