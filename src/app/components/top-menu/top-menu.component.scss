@@ -16,27 +16,20 @@ ion-item {
 
 ion-button {
   margin: auto;
-}
-
-.visible-item {
-  --background: var(--visible-split-pane-color);
+  --padding-bottom: 0;
+  --padding-top: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 40px;
+  height: 40px;
 }
 
 .passive {
-  --color: var(--ion-color-medium);
+  --color: var(--ion-color-medium-tint);
 }
 
 .active {
-  --color: var(--ion-color-primary);
-}
-
-.passive-visible {
-  --color: var(--ion-color-dark);
-}
-
-.active-visible {
-  --color: var(--ion-color-minor);
-  border-radius: 10px;
+  --color: var(--ion-color-secondary-shade);
 }
 
 .new-matches-ind {
