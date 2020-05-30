@@ -31,8 +31,8 @@ export class MatchesPage implements OnInit, OnDestroy {
   matches: Match[];
   activeMatch: Match;
   inOpenOptionsProcess = false;
-  isMobile = false;
   inOpenDetailsProcess = false;
+  isMobile = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -106,7 +106,7 @@ export class MatchesPage implements OnInit, OnDestroy {
     if (this.inOpenDetailsProcess) {
       return;
     }
-    this.inOpenOptionsProcess = true;
+    this.inOpenDetailsProcess = true;
 
     const popover = await this.popoverCtrl.create({
       component: MatchDetailsComponent,
@@ -117,6 +117,7 @@ export class MatchesPage implements OnInit, OnDestroy {
     });
 
     popover.onWillDismiss().then((res) => {
+      this.inOpenDetailsProcess = false;
     }).catch(error => {
       console.error(error);
       this.inOpenDetailsProcess = false;
@@ -124,7 +125,7 @@ export class MatchesPage implements OnInit, OnDestroy {
 
     return await popover.present().catch(error => {
       console.error(error);
-      this.inOpenOptionsProcess = false;
+      this.inOpenDetailsProcess = false;
     });
   }
 
