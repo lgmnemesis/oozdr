@@ -3,8 +3,6 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Platform, ToastController, LoadingController } from '@ionic/angular';
 import { IonToastMessage } from '../interfaces/toast-message';
-import { AnalyticsService } from './analytics.service';
-import { SharedStoreService } from './shared-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +30,6 @@ export class SharedService {
   currentUrlPath = null;
   private canSendFeedBack = true;
   mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  deferredPrompt: any;
 
   menu1 = 'profile';
   menu2 = 'connections';
@@ -41,9 +38,7 @@ export class SharedService {
   constructor(private httpClient: HttpClient,
     private platform: Platform,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController,
-    private analyticsService: AnalyticsService,
-    private sharedStoreService: SharedStoreService) { }
+    private loadingCtrl: LoadingController) { }
 
   showInfo() {
     console.log(`Client Version: ${this.getClientVersion()}`);
@@ -165,32 +160,6 @@ export class SharedService {
       console.error(error);  
     }
     return false;
-  }
-
-  promptForPwaInstallation() {
-    if (this.deferredPrompt) {
-      this.deferredPrompt.prompt();
-      // Wait for the user to respond to the prompt
-      this.deferredPrompt.userChoice
-      .then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          this.pwaAppInstalled();
-          this.analyticsService.addAsAppAcceptedEvent();
-        } else {
-          this.analyticsService.addAsAppDismissedEvent();
-        }
-        this.deferredPrompt = null;
-      });
-    }
-  }
-
-  pwaAppInstalled() {
-    this.sharedStoreService.installAsAppStateSubject.next({isInstalled: true, canInstall: false, canShowInMenu: false});
-    const message: IonToastMessage = {
-      message: 'Oozdr App installed successfully',
-    }
-    this.presentToast(message);
-    this.analyticsService.installedAsAppEvent();
   }
 
 }

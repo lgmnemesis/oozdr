@@ -88,14 +88,14 @@ export class AppComponent {
       window.addEventListener('beforeinstallprompt', (evt) => {
         evt.preventDefault();
         // Stash the event so it can be triggered later.
-        this.sharedService.deferredPrompt = evt;
+        this.alertsService.deferredPrompt = evt;
         this.alertsService.sendAddAsAppAlert();
         this.analyticsService.canBeAddedAsAppEvent();
       });
 
       window.addEventListener('appinstalled', (evt) => {
         evt.preventDefault();
-        this.sharedService.pwaAppInstalled()
+        this.alertsService.pwaAppInstalled()
       });
     } catch (error) {
       console.error(error);
@@ -237,6 +237,6 @@ export class AppComponent {
   }
 
   installAsApp() {
-    this.sharedService.promptForPwaInstallation();
+    this.alertsService.promptForPwaInstallation();
   }
 }

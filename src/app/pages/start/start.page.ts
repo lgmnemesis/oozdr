@@ -10,6 +10,7 @@ import { Profile } from 'src/app/interfaces/profile';
 import { switchMap } from 'rxjs/operators';
 import { SiteFooterModalComponent } from 'src/app/components/site-footer-modal/site-footer-modal.component';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-start',
@@ -36,7 +37,8 @@ export class StartPage implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef,
     private welcomeService: WelcomeService,
     private popoverCtrl: PopoverController,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private alertsService: AlertsService) { }
 
   ngOnInit() {
     this._installAsAppState = this.sharedStoreService.installAsAppState$.subscribe((state) => {
@@ -177,7 +179,7 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   installAsApp() {
-    this.sharedService.promptForPwaInstallation();
+    this.alertsService.promptForPwaInstallation();
   }
 
   disableAnimation() {

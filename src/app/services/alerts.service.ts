@@ -5,6 +5,8 @@ import { Alert } from '../interfaces/general';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
 import { SharedService } from './shared.service';
+import { IonToastMessage } from '../interfaces/toast-message';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +14,12 @@ import { SharedService } from './shared.service';
 export class AlertsService {
 
   addAsAppAlertLock = false;
+  deferredPrompt: any;
 
   constructor(private sharedStoreService: SharedStoreService,
     private loadingCtrl: LoadingController,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private analyticsService: AnalyticsService) { }
 
   getAlertsAsObservable(): Observable<Alert[]> {
     return this.sharedStoreService.alerts$;
@@ -121,7 +125,7 @@ export class AlertsService {
           }
         }, 2000);
       } else if (alert.action.actionName === 'add_as_app') {
-        this.sharedService.promptForPwaInstallation();
+        this.promptForPwaInstallation();
       }
 
       this.removeAlert(alert);
@@ -137,5 +141,32 @@ export class AlertsService {
     await loading.present();
 
     const { role, data } = await loading.onDidDismiss();
+  }
+
+  promptForPwaInstallation() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          this.pwaAppInstalled();
+          this.analyticsService.addAsAppAcceptedEvent();
+        } else {
+          this.analyticsService.addAsAppDismissedEvent();
+        }
+        this.deferredPrompt = null;
+      });
+    }
+  }
+
+  pwaAppInstalled() {
+    this.addAsAppAlertLock = true;
+    this.sharedStoreService.installAsAppStateSubject.next({isInstalled: true, canInstall: false, canShowInMenu: false});
+    const message: IonToastMessage = {
+      message: 'Oozdr App installed successfully',
+    }
+    this.sharedService.presentToast(message);
+    this.analyticsService.installedAsAppEvent();
   }
 }
