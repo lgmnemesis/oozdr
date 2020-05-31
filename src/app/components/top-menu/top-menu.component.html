@@ -6,6 +6,7 @@
 
   <ion-item lines="none">
     <ion-button *ngIf="useToggle"
+      class="bt-round"
       color="primary"
       [size]="isLarge ? 'large' : 'default'" fill="clear"
       (click)="toggleMenus()">
@@ -16,6 +17,7 @@
 
     <ng-container *ngIf="!useToggle || !isVisible">
       <ion-button
+        class="bt-round"
         [class.passive]="sharedStoreService?.activeTopMenu !== sharedService.menu1"
         [class.active]="sharedStoreService?.activeTopMenu === sharedService.menu1"
         [size]="isLarge ? 'large' : 'default'"
@@ -24,6 +26,7 @@
         <ion-icon slot="icon-only" name="person"></ion-icon>
       </ion-button>
       <ion-button
+        class="bt-round"
         [class.passive]="sharedStoreService?.activeTopMenu !== sharedService.menu2"
         [class.active]="sharedStoreService?.activeTopMenu === sharedService.menu2"
         [size]="isLarge ? 'large' : 'default'"
@@ -34,6 +37,7 @@
     </ng-container>
     
     <ion-button *ngIf="showChat"
+      class="bt-round"
       [class.passive]="sharedStoreService?.activeTopMenu !== sharedService.menu3"
       [class.active]="sharedStoreService?.activeTopMenu === sharedService.menu3"
       [size]="isLarge ? 'large' : 'default'"

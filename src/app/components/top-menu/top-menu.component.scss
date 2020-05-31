@@ -1,5 +1,6 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
+@import '../../styles/custom-global';
 
 .border-bottom {
   border-bottom: 1px solid var(--ion-color-light);
@@ -12,16 +13,6 @@
 ion-item {
   --padding-bottom: 5px;
   --padding-top: 5px;
-}
-
-ion-button {
-  margin: auto;
-  --padding-bottom: 0;
-  --padding-top: 0;
-  --padding-start: 0;
-  --padding-end: 0;
-  width: 40px;
-  height: 40px;
 }
 
 .passive {

@@ -1,11 +1,20 @@
 @import '../../styles/animation';
 @import '../../styles/fonts-text';
+@import '../../styles/custom-global';
 
 ion-header,
 ion-footer {
   background: var(--ion-color-minor);
 }
 
-ion-header ion-item {
-  padding: 10px 0;
+
+.border-bottom {
+  border-bottom: solid 1px var(--ion-color-light);
+}
+
+.icon-add {
+  position: absolute;
+  font-size: 14px;
+  top: 5px;
+  left: 20px;
 }
