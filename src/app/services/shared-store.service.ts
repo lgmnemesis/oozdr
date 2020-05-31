@@ -164,6 +164,17 @@ export class SharedStoreService {
     }
   }
 
+  async getConnections(): Promise<Connection[]> {
+    try {
+      const connections = await this.connections$.pipe(first()).toPromise();
+      return connections;
+    }
+    catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   registerToMatches(userId: string) {
     if (userId && (!this._matchesDB || this._matchesDB.closed)) {
       this._matchesDB = this.databaseService.getMatchesAsObservable(userId).subscribe((matches) => {

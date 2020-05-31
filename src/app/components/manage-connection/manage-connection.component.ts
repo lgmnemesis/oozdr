@@ -42,6 +42,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   showWelcomeMessage = false;
   saveConnectionButtonText = 'Add Connection';
   profile: Profile;
+  isValidForm = true;
 
   telInputObj: any
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
@@ -194,8 +195,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveConnection() {
-    const valid = this.validateConnection();
+  async saveConnection() {
+    const valid = await this.validateConnection();
     if (!valid) {
       return false;
     }
@@ -220,7 +221,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   async addConnection() {
-    const valid = this.validateConnection();
+    const valid = await this.validateConnection();
     if (!valid) {
       return false;
     }
@@ -253,7 +254,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.close('added');
   }
 
-  validateConnection(): boolean {
+  async validateConnection(): Promise<boolean> {
+    this.isValidForm = true;
     this.isNameError = false;
     this.isPhoneError = false;
     const isValidName = this.isValidName();
@@ -265,10 +267,22 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       isUsingOwnNuber ? 'Can\'t use your own mumber' : 'Invalid Number';
       this.isPhoneError = true;
     }
+
     if (!isValidName || !isValidEmail || !isValidNumber || isUsingOwnNuber) {
-      return false;
+      this.isValidForm = false;
+    } else {
+      // Check if connection already exists
+      const connections = await this.sharedStoreService.getConnections();
+      const connectionExists = connections.find((c) => c.basicInfo.mobile === this.Q.phoneNumber);
+      if (connectionExists) {
+        this.phoneError = `Number belongs to ${connectionExists.basicInfo.name}`;
+        this.isPhoneError = true;
+        this.isValidForm = false;
+      }
     }
-    return true;
+
+    this.markForCheck();
+    return this.isValidForm;
   }
 
   sendToastMessage(connection: Connection) {
