@@ -23,7 +23,7 @@
       <ion-content appScrollbarTheme>
         <app-alerts [isVisible]="true" *ngIf="isVisibleSplitPane"></app-alerts>
 
-        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections'">
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
           <ion-item class="i-title" [class.item-active]="activeMenu === 'connections'"
             lines="none" detail button (click)="connectionsClicked()">
             <ion-icon slot="start" name="pulse-outline"></ion-icon>

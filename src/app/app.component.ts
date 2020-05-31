@@ -45,7 +45,6 @@ export class AppComponent {
     private alertsService: AlertsService,
     private alertCtrl: AlertController,
     private cd: ChangeDetectorRef,
-    private meta: Meta
   ) {
     this.addAsApp();
     this.authService.init();
@@ -131,6 +130,7 @@ export class AppComponent {
   subscribeToActiveMenu() {
     this.sharedStoreService.activeMenu$.subscribe((active) => {
       this.activeMenu = active;
+      this.markForCheck();
     });
   }
 
