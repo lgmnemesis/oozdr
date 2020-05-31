@@ -2,12 +2,6 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
-// @media only screen and (max-height: 570px) {
-//   .margin-height {
-//     padding: 10px 0 !important;
-//   }
-// }
-
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .t-col {
     padding-left: 10px !important;
@@ -67,9 +61,6 @@ ion-content {
 #start-header {
   position: absolute;
   width: 100vw;
-}
-
-#start-header {
   top: 0;
   left: 0;
 }
@@ -169,53 +160,37 @@ h1 {
   margin-inline-start: 43px;
 }
 
-
-@keyframes particleAnimation
-{
-    from {
-        left: -100px;
-    }
-    to {
-        left: calc( 100% + 100px );
-    }
+@keyframes particleAnimation {
+  from { left: -100px; }
+    to { left: calc( 100% + 100px ); }
 }
-
-body{
-  background:black;
-}
-
-.star{
-  position:fixed;
-  left:0px;
-  top:50px;
-  width:1px;
-  height:1px;
-  background-color:white;
-  position:fixed;
-  animation-name:particleAnimation;
+.star {
+  position: fixed;
+  left: 0;
+  top: 50px;
+  width: 1px;
+  height: 1px;
+  background-color: white;
+  animation-name: particleAnimation;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   z-index: 1;
 }
-.star::before{
-  position:absolute;
-  display:block;
-  content:"";
-  width:100px;
-  right:1px;
-  top:0px;
-  height:1px;
+.star::before {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100px;
+  right: 1px;
+  top: 0;
+  height: 1px;
   background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%); 
 }
-.star-1{
+.star-1 {
   animation-duration: 10s;
-  top:10%;
+  top: 10%;
 }
-.star-2{
+.star-2 {
   animation-duration: 5s;
-  top:15%;
-}
-
-.color-minor {
-  color: var(--ion-color-minor);
+  top: 15%;
 }
