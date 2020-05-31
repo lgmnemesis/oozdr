@@ -173,8 +173,9 @@ export class AuthService {
 
     modal.onWillDismiss()
     .then((res) => {
-      this.deleteCurrentUserLastStep().catch(error => console.error(error));
-
+      if (res && res.data && res.data.userCredential) {
+        this.deleteCurrentUserLastStep().catch(error => console.error(error));
+      }
     }).catch(error => console.error(error));
 
     return await modal.present();

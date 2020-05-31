@@ -62,7 +62,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
       this.connections = connections;
       if (connections && connections.length > 0) {
-        this.isOnlyMatches = connections.filter(c => !(c.isMatched && !c.isNewMatch && !c.isBlocked)).length === 0;
+        this.isOnlyMatches = connections.filter(c => !c.isMatched || c.isNewMatch || !c.isBlocked).length > 0;
         this.isOnlyBlockedMatches = connections.filter(c => !c.isBlocked).length === 0;
         const isNewMatches = connections.findIndex(c => c.isNewMatch) > -1;
         this.sharedStoreService.newMatchesIndicatorSubject.next(isNewMatches);

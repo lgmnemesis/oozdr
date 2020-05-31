@@ -18,9 +18,7 @@ export class WelcomeGuard implements CanActivate {
     const canEnter = this.sharedStoreService.canEnterWelcome;
     const isModalOpen = this.sharedStoreService.isModalOpen;
     if (canEnter) {
-      console.log('can enter');
       if (isModalOpen) {
-        console.log('is open:', isModalOpen);
         this.sharedStoreService.isModalOpen = false;
         return false;
       }
