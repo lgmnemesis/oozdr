@@ -1,10 +1,10 @@
-<ion-header class="ion-no-border" [class.border-bottom]="isMobile">
+<ion-header class="ion-no-border border-bottom">
   <ion-toolbar>
     <app-top-menu *ngIf="!isVisibleSplitPane && !isMobile"
       [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false">
     </app-top-menu>
 
-    <ion-item lines="none">
+    <ion-item class="item-top" lines="none">
       <ion-button slot="start" class="bt-round" color="secondary" fill="clear" shape="round" (click)="addConnectionButton()">
         <ion-icon size="large" name="pulse-outline"></ion-icon>
         <ion-icon class="icon-add" name="add-outline"></ion-icon>
