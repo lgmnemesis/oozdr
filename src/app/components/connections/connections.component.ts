@@ -22,6 +22,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   profile: Profile;
   isOnlyMatches = false;
   isOnlyBlockedMatches = false;
+  isNewMatches = false;
   showNotificaionsPermission = false;
   showNotificaionsInProgress = false;
   showNotificaionsAnimationIn = true;
@@ -61,15 +62,11 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {
       this.connections = connections;
-      if (connections && connections.length > 0) {
-        this.isOnlyMatches = connections.filter(c => !c.isMatched || c.isNewMatch || !c.isBlocked).length > 0;
-        this.isOnlyBlockedMatches = connections.filter(c => !c.isBlocked).length === 0;
-        const isNewMatches = connections.findIndex(c => c.isNewMatch) > -1;
-        this.sharedStoreService.newMatchesIndicatorSubject.next(isNewMatches);
-      } else {
-        this.isOnlyMatches = false;
-        this.sharedStoreService.newMatchesIndicatorSubject.next(false);
-      }
+      const isConnections = connections && connections.length > 0;
+      this.isOnlyMatches = isConnections && connections.filter(c => !c.isMatched).length === 0;
+      this.isOnlyBlockedMatches = isConnections && connections.filter(c => !c.isBlocked).length === 0;
+      this.isNewMatches = isConnections && connections.findIndex(c => c.isNewMatch) > -1;
+      this.sharedStoreService.newMatchesIndicatorSubject.next(this.isNewMatches);
       this.markForCheck();
     });
 

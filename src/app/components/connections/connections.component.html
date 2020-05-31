@@ -99,7 +99,7 @@
     </ng-container>
 
     <!-- Incase connections page is empty(but has matches found) -->
-    <ion-row *ngIf="isOnlyMatches"
+    <ion-row *ngIf="isOnlyMatches && !isOnlyBlockedMatches && !isNewMatches"
       class="ion-justify-content-center ion-align-items-center animated fadeIn">
       <ion-col size="auto">
         <ion-card class="msg-card" color="secondary">
