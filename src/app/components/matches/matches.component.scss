@@ -2,12 +2,13 @@
 @import '../../styles/fonts-text';
 
 ion-card {
-  max-width: 600px;
+  max-width: 400px;
   min-height: 100px;
   display: flex;
   justify-content: center;
-  background: var(--ion-color-secondary);
-  color: var(--ion-color-minor);
+  color: var(--ion-color-dark);
+  box-shadow: none;
+  background: transparent !important;
 }
 
 ion-card-content {
@@ -20,6 +21,5 @@ ion-card-content p {
 }
 
 .no-box {
-  box-shadow: none;
-  background: transparent !important;
+  color: var(--ion-color-minor);
 }

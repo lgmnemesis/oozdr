@@ -193,6 +193,7 @@ export class MatchesPage implements OnInit, OnDestroy {
     if (action === 'block') {
       this.sharedStoreService.updateConnectionData(this.connection, {isBlocked: true});
       this.analyticsService.matchBlockedEvent();
+      this.sharedStoreService.activeMenuSubject.next(this.sharedService.menu2);
       this.goto('/connections');
     }
   }
