@@ -52,7 +52,7 @@
     <ng-container *ngIf="connections?.length === 0 || isOnlyBlockedMatches">
       <ion-row class="ion-justify-content-center ion-align-items-start animated fadeIn">
         <ion-col size="auto">
-          <ion-card class="msg-card">
+          <ion-card button (click)="addConnectionButton()" class="msg-card">
             <ion-card-content>
               <p class="larger-text ion-text-center">Start by adding connections</p>
               <p class="basic-text ion-text-center">people, loved ones, soulmate you are looking to reconnect...</p>

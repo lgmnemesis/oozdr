@@ -7,6 +7,7 @@
         <app-contact-picker *ngIf="false && contactPickerApiService?.supported"
           (contactsEvent)="gotContacts($event)">
         </app-contact-picker>
+        <ion-label class="title-text" color="secondary">Add Connection</ion-label>
         <ion-button class="bt-round" slot="end" fill="clear" shape="round" color="dark" (click)="close()">
           <ion-icon size="large" name="close-outline"></ion-icon>
         </ion-button>
