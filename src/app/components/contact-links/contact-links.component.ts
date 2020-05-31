@@ -18,7 +18,7 @@ export class ContactLinksComponent implements OnInit {
   }
 
   openTwitter() {
-    const url = 'https://twitter.com/oozdr';
+    const url = 'https://twitter.com/oozdrapp';
     this.openNewTab(url);
   }
 
