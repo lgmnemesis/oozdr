@@ -89,6 +89,14 @@ export class SharedService {
     return false;
   }
 
+  getPlatforms() {
+    return this.platform.platforms();
+  }
+
+  getPlatformsStr() {
+    return this.getPlatforms().join('_').replace(/\s+/g, '');
+  }
+
   async presentToast(toastMessage: IonToastMessage) {
     const toast = await this.toastCtrl.create({
       header: toastMessage.header || '',

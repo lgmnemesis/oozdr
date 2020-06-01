@@ -5,6 +5,8 @@ import 'firebase/messaging';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
 import { SharedStoreService } from './shared-store.service';
+import { SharedService } from './shared.service';
+import { fcmToken } from '../interfaces/profile';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class FcmService {
 
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
-    private sharedStoreService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService,
+    private sharedService: SharedService) { }
 
 
   async fcmInit() {
@@ -53,21 +56,27 @@ export class FcmService {
     const profile = await this.sharedStoreService.getProfile();
     let shouldUpdateDb = false;
     if (user && profile) {
-      let fcmTokens = profile.fcmTokens;
+      let fcmTokens: fcmToken[] = JSON.parse(JSON.stringify(profile.fcmTokens));
+      const platform = this.sharedService.getPlatformsStr();
       if (fcmTokens && fcmTokens.length > 0) {
-        const found = fcmTokens.find(t => t === token);
+        const found = fcmTokens.find(t => t.token && t.token === token);
         if (!found) {
-          const tokens = fcmTokens.slice(0, 4);
-          if (tokens.length === 5) {
-            tokens.shift();
+          const tokens = fcmTokens.slice(0, 5);
+          const index = tokens.findIndex((t) => t.platform && t.platform === platform);
+          if (index > -1) {
+            tokens[index] = {platform: platform, token: token};
+          } else {
+            if (tokens.length === 5) {
+              tokens.shift();
+            }
+            tokens.push({platform: platform, token: token});
           }
-          tokens.push(token);
           fcmTokens = tokens;
           shouldUpdateDb = true;
         }
       } else {
         fcmTokens = [];
-        fcmTokens.push(token);
+        fcmTokens.push({platform: platform, token: token});
         shouldUpdateDb = true;
       }
       if (shouldUpdateDb) {

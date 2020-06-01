@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { Profile, Connection, Match, Message, LastMessage } from '../interfaces/profile';
+import { Profile, Connection, Match, Message, LastMessage, fcmToken } from '../interfaces/profile';
 import * as firebase from 'firebase/app'; 
 import 'firebase/firestore';
 import { Feedback } from '../interfaces/general';
@@ -176,7 +176,7 @@ export class DatabaseService {
     }
   }
 
-  updateNotificationsState(user: firebase.User, tokens: string[], enabled: string): Promise<void> {
+  updateNotificationsState(user: firebase.User, tokens: fcmToken[], enabled: string): Promise<void> {
     const data = {
       fcmTokens: tokens,
       settings: {

@@ -2,10 +2,15 @@ export interface Profile {
   user_id: string,
   timestamp: number,
   basicInfo: BasicInfo;
-  fcmTokens: string[];
+  fcmTokens: fcmToken[];
   settings: {
     notifications: 'initial' | 'enabled' | 'disabled';
   }
+}
+
+export interface fcmToken {
+  platform: string;
+  token: string;
 }
 
 export interface Connection {
