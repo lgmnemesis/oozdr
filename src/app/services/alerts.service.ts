@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SharedStoreService } from './shared-store.service';
 import { Observable } from 'rxjs';
-import { Alert } from '../interfaces/general';
+import { Alert, FcmMessage } from '../interfaces/general';
 import { take } from 'rxjs/operators';
 import { LoadingController } from '@ionic/angular';
 import { SharedService } from './shared.service';
@@ -103,6 +103,23 @@ export class AlertsService {
     this.addAlert(alert);
   }
 
+  sendFcmMessage(fcmMessage: FcmMessage) {
+    const alert: Alert = {
+      id: this.sharedStoreService.createId(),
+      title: fcmMessage.title,
+      content: fcmMessage.content,
+      dismissText: '',
+      okText: 'Dismiss',
+      color: 'success',
+      action: {
+        actionName: 'fcm',
+        isAction: false,
+        delay: 800
+      }
+    }
+    this.addAlert(alert);
+  }
+
   dismissAlert(alert: Alert) {
     if (alert.action.actionName === 'add_as_app') {
       try {
@@ -129,9 +146,8 @@ export class AlertsService {
       } else if (alert.action.actionName === 'add_as_app') {
         this.promptForPwaInstallation();
       }
-
-      this.removeAlert(alert);
     }
+    this.removeAlert(alert);
   }
 
   async presentReloadingVersion() {

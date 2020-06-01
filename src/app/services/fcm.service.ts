@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { DatabaseService } from './database.service';
 import * as firebase from 'firebase/app';
 import 'firebase/messaging';
-import { BehaviorSubject } from 'rxjs';
 import { AuthService } from './auth.service';
 import { SharedStoreService } from './shared-store.service';
 import { SharedService } from './shared.service';
 import { fcmToken } from '../interfaces/profile';
+import { AlertsService } from './alerts.service';
+import { FcmMessage } from '../interfaces/general';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,6 @@ import { fcmToken } from '../interfaces/profile';
 export class FcmService {
 
   messaging: firebase.messaging.Messaging;
-  currentMessage = new BehaviorSubject(null);
   _msg: firebase.Unsubscribe;
   swRegistration: ServiceWorkerRegistration
   registeredLock = false;
@@ -22,7 +22,8 @@ export class FcmService {
   constructor(private authService: AuthService,
     private databaseService: DatabaseService,
     private sharedStoreService: SharedStoreService,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private alertsService: AlertsService) { }
 
 
   async fcmInit() {
@@ -155,7 +156,13 @@ export class FcmService {
       return;
     }
     this._msg = this.messaging.onMessage((payload) => {
-      this.currentMessage.next(payload);
+    
+      if (payload && payload.data && payload.data.type === 'looking4u') {
+        const body = 'Do you know who it is? Can you guess?';
+        const message: FcmMessage = {title: payload.notification.title, content: body};
+        this.alertsService.sendFcmMessage(message);
+      }
+      
     })
   }
 

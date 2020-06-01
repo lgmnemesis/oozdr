@@ -21,7 +21,7 @@
           [class.bg-color-danger]="alert?.color === 'danger'"
           [class.bg-color-success]="alert?.color === 'success'"
           [class.bg-color-primary]="alert?.color === 'primary'">
-          <ion-button slot="end" fill="clear" color="minor" (click)="dismissAlert(alert)">
+          <ion-button slot="end" fill="clear" color="minor" (click)="dismissAlert(alert)" *ngIf="alert?.dismissText">
             <ion-label class="basic-text ion-text-capitalize">{{ alert?.dismissText }}</ion-label>
           </ion-button>
           <ion-button slot="end" fill="clear" color="minor" (click)="acceptAlert(alert)">

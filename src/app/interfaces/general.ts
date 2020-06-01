@@ -25,7 +25,12 @@ export interface Alert {
   color: 'danger' | 'success' | 'primary',
   action: {
     isAction: boolean;
-    actionName: 'new_version' | 'add_as_app';
+    actionName: 'new_version' | 'add_as_app' | 'fcm';
     delay: number;
   }
+}
+
+export interface FcmMessage {
+  title: string;
+  content: string;
 }

@@ -34,7 +34,8 @@
         ],
         "cacheConfig": {
             "maxSize": 250,
-            "maxAge": "180d"
+            "maxAge": "180d",
+            "timeout": "5s"
         }
     }
   ]
