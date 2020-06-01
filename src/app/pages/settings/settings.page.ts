@@ -74,10 +74,9 @@ export class SettingsPage implements OnInit, OnDestroy {
   async setProfile() {
     this.toggling = this.fcmService.isNotificationDenied();
     this.profile = await this.sharedStoreService.getProfile();
-    const subs = await this.fcmService.getSubscription();
-    this.isSubscribedLocaly = !!subs;
+    this.isSubscribedLocaly = this.fcmService.isNotificationGranted();
     if (this.profile && this.profile.settings) {
-      this.showNotifications = this.profile.settings.notifications === 'enabled' && !!this.isSubscribedLocaly;
+      this.showNotifications = this.profile.settings.notifications === 'enabled' && this.isSubscribedLocaly;
       this.markForCheck();
     }
   }
@@ -91,7 +90,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     let isChecked = event.detail.checked;
     if (isChecked && 
       (!this.profile.settings || (this.profile.settings && this.profile.settings.notifications !== 'enabled') || !this.isSubscribedLocaly)) {
-      isChecked = await this.fcmService.finishSubscriptionProcess();
+      isChecked = await this.fcmService.getPermission(true);
     } else if (!isChecked) {
       this.unsubscribeMarker = true;
     }

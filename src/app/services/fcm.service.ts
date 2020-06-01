@@ -16,6 +16,7 @@ export class FcmService {
 
   messaging: firebase.messaging.Messaging;
   _msg: firebase.Unsubscribe;
+  _tokenRefresh: firebase.Unsubscribe;
   swRegistration: ServiceWorkerRegistration
   registeredLock = false;
 
@@ -29,27 +30,17 @@ export class FcmService {
   async fcmInit() {
     try {
       if (!('showNotification' in ServiceWorkerRegistration.prototype) || !('PushManager' in window)) {
-        // Web Push notifications not supported (this is true in IOS for now)
-        return null;
+        // Web Push notifications are not supported (this is true in IOS for now)
+        return false;
       }
       this.messaging = firebase.messaging();
-      const reg = await this.registerToServiceWorker();
-      const subs = await this.getSubscription();
-      if (subs) {
-        this.finishSubscriptionProcess();
-        return subs;
-      }
+      this.getPermission();
+      this.subscribeToTokenRefresh();
+      this.subscribeToMessages();
     } catch (error) {
       console.error(error);
     }
-    return null;
-  }
-
-  async finishSubscriptionProcess(): Promise<boolean> {
-    const got = await this.getPermission();
-    this.subscribeToTokenRefresh();
-    this.subscribeToMessages();
-    return got;
+    return this.messaging ? true : false;
   }
 
   private async updateToken(token: string) {
@@ -86,53 +77,14 @@ export class FcmService {
     }
   }
 
-  private async registerToServiceWorker() {
-    if (this.registeredLock) {
-      return null;
-    }
-    this.registeredLock = true;
-    if (!('serviceWorker' in navigator)) {
-      console.error('serviceWorker not supported.');
-      return null;
-    } 
-    try {
-      this.swRegistration = await navigator.serviceWorker.register('fcm-sw.js');
-      this.messaging.useServiceWorker(this.swRegistration);
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-    return this.swRegistration;
-  }
-
-  async getSubscription() {
-    if (!this.messaging) return null;
-    try {
-      return this.swRegistration.pushManager.getSubscription();
-    }
-    catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
-
-  async unsubscribe() {
-    const subs = await this.getSubscription();
-    if (subs) {
-      try {
-        await subs.unsubscribe();
-        await this.removeAllTokensFromDB();
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-
-  async getPermission() {
+  async getPermission(canAskUserForPermission = false) {
     if (!this.messaging) {
       return false;
     }
     try {
+      if (!this.isNotificationGranted() && !this.isNotificationDenied() && !canAskUserForPermission) {
+        return false;
+      }
       const token = await this.messaging.getToken();
       this.updateToken(token);
       return true;
@@ -143,18 +95,40 @@ export class FcmService {
     }
   }
 
-  subscribeToTokenRefresh() {
-    if (this.messaging) {
-      this.messaging.onTokenRefresh(() => {
-        return this.getPermission();
-      })
+  isNotificationDenied() {
+    if (!this.messaging) return true;
+    return Notification.permission === 'denied';
+  }
+
+  isNotificationGranted() {
+    if (!this.messaging) return true;
+    return Notification.permission === 'granted';
+  }
+
+  private subscribeToTokenRefresh() {
+    if (this._tokenRefresh || !this.messaging)  return;
+    this.messaging.onTokenRefresh(() => {
+      return this.getPermission();
+    })
+  }
+
+  async unsubscribe() {
+    if (this.messaging && this.isNotificationGranted()) {
+      try {
+        const token = await this.messaging.getToken();
+        this.messaging.deleteToken(token).catch(error => error.log(error));
+        
+        const user = await this.authService.getUser();
+        this.databaseService.updateNotificationsSettingsState(user, 'disabled');
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 
-  subscribeToMessages() {
-    if (this._msg || !this.messaging) {
-      return;
-    }
+  private subscribeToMessages() {
+    if (this._msg || !this.messaging) return;
+
     this._msg = this.messaging.onMessage((payload) => {
     
       if (payload && payload.data && payload.data.type === 'looking4u') {
@@ -162,13 +136,8 @@ export class FcmService {
         const message: FcmMessage = {title: payload.notification.title, content: body};
         this.alertsService.sendFcmMessage(message);
       }
-      
-    })
-  }
 
-  isNotificationDenied() {
-    if (!this.messaging) return true;
-    return Notification.permission === 'denied';
+    })
   }
 
   private async removeAllTokensFromDB() {

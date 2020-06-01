@@ -176,6 +176,15 @@ export class DatabaseService {
     }
   }
 
+  updateNotificationsSettingsState(user: firebase.User, enabled: string): Promise<void> {
+    const data = {
+      settings: {
+        notifications: enabled
+      }
+    }
+    return this.updateProfileDataByUserId(user.uid, data);
+  }
+
   updateNotificationsState(user: firebase.User, tokens: fcmToken[], enabled: string): Promise<void> {
     const data = {
       fcmTokens: tokens,

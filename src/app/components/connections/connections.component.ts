@@ -112,7 +112,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       return;
     }
     this.showNotificaionsInProgress = true;
-    await this.fcmService.finishSubscriptionProcess();
+    await this.fcmService.getPermission(true);
     this.closeDisplayNotificationElement();
     this.markForCheck();
   }
@@ -136,10 +136,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       console.error(error);
     }
     const isNotifDenied = this.fcmService.isNotificationDenied();
-    const subs = await this.fcmService.getSubscription();
-    const isSubscribed = !!subs;
+    const isNotifGranted = this.fcmService.isNotificationGranted();
     const disabled = this.profile && this.profile.settings && this.profile.settings.notifications === 'disabled';
-    if (isNotifDenied || isSubscribed || disabled) {
+    if (isNotifDenied || disabled || isNotifGranted) {
       return false;
     }
     return true;
