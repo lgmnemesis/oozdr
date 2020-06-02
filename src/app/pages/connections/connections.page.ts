@@ -12,7 +12,6 @@ import { SharedService } from 'src/app/services/shared.service';
 })
 export class ConnectionsPage implements OnInit, OnDestroy {
 
-  isMobile = false;
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
   connectionsState: ConnectionsState;
@@ -34,7 +33,6 @@ export class ConnectionsPage implements OnInit, OnDestroy {
       this.markForCheck();
     });
 
-    this.isMobile = this.sharedService.isMobileApp();
     this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
     this.sharedStoreService.activeMenuSubject.next('connections');
 

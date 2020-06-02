@@ -1,6 +1,10 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 
+ion-back-button {
+  display: block;
+}
+
 ion-col {
   max-width: 500px !important;
 }

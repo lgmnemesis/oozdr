@@ -1,5 +1,6 @@
-<ion-header class="ion-no-border" [class.large-header]="isVisibleSplitPane">
-  <ion-toolbar class="second-toolbar">
+<ion-content [scrollEvents]="true" appScrollbarTheme appParallaxHeader>
+
+  <ion-toolbar class="parallax-header second-toolbar" [class.large-header]="isVisibleSplitPane">
     <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
       <ion-back-button text="" (click)="goBack()"></ion-back-button>
       <ion-icon name="settings-outline"></ion-icon>
@@ -15,153 +16,144 @@
         [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
 
-<ion-content appScrollbarTheme>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row *ngIf="fcmService?.messaging"
+        class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label class="title-text bold-text">Notifications</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label color="dark">
+              <p class="basic-text">Matches Notifications</p>
+              <p class="small-text color-medium ion-text-wrap">So you'll know when you have new matches</p>
+            </ion-label>
+            <ion-toggle 
+              slot="end"
+              [checked]="showNotifications"
+              [disabled]="toggling"
+              (ionChange)="toggleNotifications($event)">
+            </ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-  <ion-grid>
-    <ion-row *ngIf="fcmService?.messaging"
-      class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item lines="none">
-          <ion-label class="title-text bold-text">Notifications</ion-label>
-        </ion-item>
-        <ion-item lines="none">
-          <ion-label color="dark">
-            <p class="basic-text">Matches Notifications</p>
-            <p class="small-text color-medium ion-text-wrap">So you'll know when you have new matches</p>
-          </ion-label>
-          <ion-toggle 
-            slot="end"
-            [checked]="showNotifications"
-            [disabled]="toggling"
-            (ionChange)="toggleNotifications($event)">
-          </ion-toggle>
-        </ion-item>
-        <!-- <ion-item lines="none">
-          <ion-label class="basic-text">Email Notifications</ion-label>
-          <ion-toggle 
-            slot="end" 
-            [checked]="showNotifications"
-            (ionChange)="toggleNotifications($event)">
-          </ion-toggle>
-        </ion-item> -->
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item button lines="none" [disabled]="blockedMachesCount === 0" (click)="toggleBlockedMatches()">
+            <ion-label> 
+              <p class="title-text bold-text">Blocked Matches</p>
+              <p class="basic-text">{{ blockedMachesCount > 0 ? blockedMachesCount : 'None' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item button lines="none" [disabled]="blockedMachesCount === 0" (click)="toggleBlockedMatches()">
-          <ion-label> 
-            <p class="title-text bold-text">Blocked Matches</p>
-            <p class="basic-text">{{ blockedMachesCount > 0 ? blockedMachesCount : 'None' }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="isOpenBlockedMatchesList">
+        <ion-col size="12">
+          <ion-list lines="none" class="blocked-list">
+            <ng-container *ngFor="let connection of connections; trackBy: trackById">
+              <ion-item class="i-match" *ngIf="connection?.isMatched && connection?.isBlocked"
+                lines="none" button [detail]="false" (click)="unBlockButton(connection)">
+                <ion-avatar slot="start">
+                  <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
+                </ion-avatar>
+                <ion-label>
+                  <h2 class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</h2>
+                </ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-list>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="isOpenBlockedMatchesList">
-      <ion-col size="12">
-        <ion-list lines="none" class="blocked-list">
-          <ng-container *ngFor="let connection of connections; trackBy: trackById">
-            <ion-item class="i-match" *ngIf="connection?.isMatched && connection?.isBlocked"
-              lines="none" button [detail]="false" (click)="unBlockButton(connection)">
-              <ion-avatar slot="start">
-                <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
-              </ion-avatar>
-              <ion-label>
-                <h2 class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</h2>
-              </ion-label>
-            </ion-item>
-          </ng-container>
-        </ion-list>
-      </ion-col>
-    </ion-row>
+      <ion-row *ngIf="!isVisibleSplitPane"
+        class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item lines="none" class="item-invite">
+            <ion-button class="bt-theme" fill="clear" (click)="inviteFriends()">
+              <ion-icon name="people-outline"></ion-icon>
+              <ion-label class="basic-text padding-x">Invite Your Friends</ion-label>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row *ngIf="!isVisibleSplitPane"
-      class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item lines="none" class="item-invite">
-          <ion-button class="bt-theme" fill="clear" (click)="inviteFriends()">
-            <ion-icon name="people-outline"></ion-icon>
-            <ion-label class="basic-text padding-x">Invite Your Friends</ion-label>
-          </ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label> 
+              <p class="title-text bold-text">About</p>
+              <p class="basic-text">Version: {{ version }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item lines="none">
-          <ion-label> 
-            <p class="title-text bold-text">About</p>
-            <p class="basic-text">Version: {{ version }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item button lines="none" (click)="goto('terms')">
+            <ion-label> 
+              <p class="title-text bold-text">Terms of Service</p>
+              <p class="basic-text">Good to know.</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item button lines="none" (click)="goto('terms')">
-          <ion-label> 
-            <p class="title-text bold-text">Terms of Service</p>
-            <p class="basic-text">Good to know.</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item button lines="none" (click)="goto('privacy')">
+            <ion-label> 
+              <p class="title-text bold-text">Privacy Policy</p>
+              <p class="basic-text">Please read.</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item button lines="none" (click)="goto('privacy')">
-          <ion-label> 
-            <p class="title-text bold-text">Privacy Policy</p>
-            <p class="basic-text">Please read.</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <ion-item button lines="none" (click)="goto('support')">
+            <ion-label> 
+              <p class="title-text bold-text">Support</p>
+              <p class="basic-text">Get help, contact us.</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <ion-item button lines="none" (click)="goto('support')">
-          <ion-label> 
-            <p class="title-text bold-text">Support</p>
-            <p class="basic-text">Get help, contact us.</p>
-          </ion-label>
-        </ion-item>
-      </ion-col>
-    </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <div class="divider"></div>
+        </ion-col>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="12">
-        <div class="divider"></div>
-      </ion-col>
-    </ion-row>
-
-    <ion-row *ngIf="!isVisibleSplitPane"
-      class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="auto">
-        <ion-item lines="none">
-          <ion-button class="bt-theme" (click)="logout()">
-            <ion-icon slot="start" name="log-out-outline" color="minor"></ion-icon>
-            <ion-label class="basic-text">Log Out</ion-label>
-          </ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-col size="auto">
-        <ion-item lines="none">
-          <ion-button class="bt-theme" color="danger" (click)="deleteAccount()">
-            <ion-icon slot="start" name="trash-outline" color="minor"></ion-icon>
-            <ion-label class="basic-text">Delete Account</ion-label>
-          </ion-button>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      <ion-row *ngIf="!isVisibleSplitPane"
+        class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="auto">
+          <ion-item lines="none">
+            <ion-button class="bt-theme" (click)="logout()">
+              <ion-icon slot="start" name="log-out-outline" color="minor"></ion-icon>
+              <ion-label class="basic-text">Log Out</ion-label>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="auto">
+          <ion-item lines="none">
+            <ion-button class="bt-theme" color="danger" (click)="deleteAccount()">
+              <ion-icon slot="start" name="trash-outline" color="minor"></ion-icon>
+              <ion-label class="basic-text">Delete Account</ion-label>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
  
 </ion-content>

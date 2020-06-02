@@ -2,10 +2,6 @@
   <ion-toolbar [class.border-buttom]="isInsideChat" [class.chat-container]="isInsideChat">
 
     <ng-container *ngIf="!isVisibleSplitPane">
-      <app-top-menu *ngIf="!isInsideChat"
-        [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false">
-      </app-top-menu>
-    
       <ion-buttons slot="start" *ngIf="isInsideChat">
         <ion-button fill="clear" (click)="goBack()">
           <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
@@ -34,7 +30,7 @@
 </ion-content>
 
 <ion-footer class="ion-no-border">
-  <app-top-menu *ngIf="isMobile && !isVisibleSplitPane && !isInsideChat"
+  <app-top-menu *ngIf="!isVisibleSplitPane && !isInsideChat"
     [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false" [showSwipeIndication]="true">
   </app-top-menu>
 

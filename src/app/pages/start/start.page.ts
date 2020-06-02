@@ -75,6 +75,7 @@ export class StartPage implements OnInit, OnDestroy {
           this.modalCtrl.dismiss().catch(error => {});
         } catch (error) {
         }
+        console.log('user:', JSON.stringify(user));
         this.sharedStoreService.registerToProfile(user.uid);
         return this.sharedStoreService.profile$;
       } else {
@@ -89,8 +90,10 @@ export class StartPage implements OnInit, OnDestroy {
     }));
 
     this._profile = this.profile$.subscribe((profile: Profile) => {
+      console.log('profile');
       if (profile) {
         if (profile.basicInfo && profile.basicInfo.name) {
+          console.log('going home: profile:', JSON.stringify(profile));
           this.gotoHome();
         } else {
           // if there is info object, fill it, update and go home

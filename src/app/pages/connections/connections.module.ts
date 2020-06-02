@@ -8,6 +8,7 @@ import { TopMenuModule } from 'src/app/components/top-menu/top-menu.module';
 import { ConnectionsModule } from 'src/app/components/connections/connections.module';
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
 import { AlertsModule } from 'src/app/components/alerts/alerts.module';
+import { ParallaxHeaderModule } from 'src/app/directives/parallax-header.directive';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { AlertsModule } from 'src/app/components/alerts/alerts.module';
     TopMenuModule,
     ConnectionsModule,
     ScrollbarThemeModule,
+    ParallaxHeaderModule,
     AlertsModule
   ],
   declarations: [ConnectionsPage]

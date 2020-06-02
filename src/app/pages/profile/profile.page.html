@@ -1,8 +1,6 @@
-<ion-header class="ion-no-border" [class.large-header]="isVisibleSplitPane">
-  <ion-toolbar *ngIf="!isMobile && !isVisibleSplitPane">
-    <app-top-menu [visible]="isVisibleSplitPane" [showChat]="true" [isLarge]="false"></app-top-menu>
-  </ion-toolbar>
-  <ion-toolbar class="second-toolbar">
+<ion-content [scrollEvents]="true" appScrollbarTheme appParallaxHeader>
+
+  <ion-toolbar class="parallax-header second-toolbar" [class.large-header]="isVisibleSplitPane">
     <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
       <ion-button (click)="gotoSettings()" color="dark" fill="clear" shape="round">
         <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
@@ -18,17 +16,18 @@
         [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
 
-<ion-content appScrollbarTheme>
-  <app-alerts [isVisible]="isVisibleSplitPane" *ngIf="!isVisibleSplitPane"></app-alerts>
-  <app-profile-menu 
+  <div class="main-content">
+    <app-alerts [isVisible]="isVisibleSplitPane" *ngIf="!isVisibleSplitPane"></app-alerts>
+    <app-profile-menu 
     [saveButtonClicked]="saveButtonAction"
     (isChangedEvent)="profileChanged($event)">
   </app-profile-menu>
+</div>
+
 </ion-content>
 
-<ion-footer class="ion-no-border" *ngIf="!isVisibleSplitPane && isMobile">
+<ion-footer class="ion-no-border" *ngIf="!isVisibleSplitPane">
   <ion-toolbar>
     <app-top-menu 
       [visible]="isVisibleSplitPane" 
