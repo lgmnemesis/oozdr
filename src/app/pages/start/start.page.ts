@@ -28,6 +28,7 @@ export class StartPage implements OnInit, OnDestroy {
   isLoggedIn = false;
   isSiteMenuActive = false;
   canShowInstallApp = false;
+  observer: IntersectionObserver;
 
   constructor(private modalCtrl: ModalController,
     public sharedStoreService: SharedStoreService,
@@ -50,11 +51,6 @@ export class StartPage implements OnInit, OnDestroy {
     })
 
     this.navigateAccordingly();
-
-    setTimeout(() => {
-      this.sharedStoreService.shouldAnimateStartPage = false;
-      this.markForCheck();
-    }, 7000);
   }
 
   markForCheck() {
@@ -81,7 +77,10 @@ export class StartPage implements OnInit, OnDestroy {
       } else {
         if (user === null) {
           this.canShowPage = true;
-          this.sharedStoreService.loadingAppSubject.next(false);
+          setTimeout(() => {
+            this.observeAndTriggerScrollAnimation();
+          }, 0);
+            this.sharedStoreService.loadingAppSubject.next(false);
           this.sharedService.setDefaultPhoneCountryCode();
         }
         this.markForCheck();
@@ -115,6 +114,9 @@ export class StartPage implements OnInit, OnDestroy {
   gotoHome() {
     this.sharedStoreService.canEnterWelcome = false;
     this.sharedStoreService.canEnterHome = true;
+    setTimeout(() => {
+      this.unobserveScrollAnimation();
+    }, 5000);
     this.goto('/connections');
   }
 
@@ -177,16 +179,49 @@ export class StartPage implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  signUp() {
-    this.disableAnimation();
-  }
-
   installAsApp() {
     this.alertsService.promptForPwaInstallation();
   }
 
-  disableAnimation() {
-    this.sharedStoreService.shouldAnimateStartPage = false;
+  unobserveScrollAnimation() {
+    try {
+      if (this.observer) this.observer.disconnect();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  observeAndTriggerScrollAnimation() {
+    try {
+      this.observer = new IntersectionObserver((entries, observer) => { 
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          if (entry.intersectionRatio >= 0) {
+            const id = entry.target.id;
+            let className = '';
+            if (id === 'scroll1' || id === 'scroll5') {
+              className = 'slideInLeftTint';
+            } else if (id === 'scroll2' || id === 'scroll4' || id === 'scroll6') {
+              className="fadeInUpTint";
+            } else if (id === 'scroll3') {
+              className="slideInRightTint";
+            }
+            entry.target.classList.toggle(className);
+            entry.target.classList.remove('hide');
+            observer.unobserve(entry.target);
+            this.markForCheck();
+          }
+        });
+      }, { threshold: [0.1] });
+      
+      const animatedSections = document.querySelectorAll(".scroll-animation");
+      animatedSections.forEach(section => {
+        this.observer.observe(section);
+      })
+    } catch (error) {
+     console.error(error); 
+    }
   }
 
   ngOnDestroy() {
@@ -196,5 +231,6 @@ export class StartPage implements OnInit, OnDestroy {
     if (this._installAsAppState) {
       this._installAsAppState.unsubscribe();
     }
+    this.unobserveScrollAnimation();
   }
 }

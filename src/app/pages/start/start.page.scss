@@ -3,79 +3,173 @@
 @import '../../styles/animation';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
-  .t-col {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+  .sm-hide {
+    display: none;
   }
 
-  #start-header ion-item {
-    width: 100% !important;
-    margin-inline-start: 10px !important;
-  }
-
-  .let-start-row {
-    justify-content: center !important;
-  }
-
-  .p-in-app {
-    font-size: 16px !important;
-    margin: 0;
-  }
-
-  #bt-signup {
-    height: 44px;
-  }
-
-  #bt-signup ion-label {
-    font-size: 18px !important;
-  }
-
-  .p-t-sm {
-    font-size: 20px !important;
-    padding-top: 0 !important;
-  }
-
-  .reconnect img {
-    top: 13px !important
-  }
-
-  .reconnect h1 {
-    margin-bottom: 0;
+  .sm-show {
+    display: initial !important;
   }
 }
 
-.top-logo {
-  border-radius: 50%;
-}
-
-ion-grid {
-  margin: auto;
+.sm-show {
+  display: none;
 }
 
 ion-content {
   position: relative;
-  --ion-background-color: #000000;
-  --ion-background-color-rgb: 0,0,0;
+  // --ion-background-color: #EEF1FA;
 }
 
-#start-header {
+.header-container {
+  width: 100%;
+  background: var(--ion-color-minor);
+}
+
+.header-bt-container {
+  position: relative;
+  max-width: 1300px;
+  height: 100%;
+  margin: auto;
+}
+
+.r-logo {
+  position: relative;
+  height: 100%;
+  margin-inline-start: 20px;
+}
+
+.r-logo img {
   position: absolute;
-  width: 100vw;
   top: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: 32px;
+  border-radius: 50%;
+}
+
+.r-logo p {
+  @extend .font-params;
+  position: absolute;
+  left: 40px;
+  font-size: 28px;
+  font-weight: 500;
+  margin: auto;
+  top: 50%;
+  transform: translate(0, -50%);
+  letter-spacing: unset !important;
+}
+
+.header-bt {
+  position: absolute;
+  top: 50%; 
+  transform:translate(0, -50%); 
+}
+
+.header-bt ion-label {
+  font-weight: 600 !important;
+}
+
+.header-bt-start {
   left: 0;
 }
 
-#start-header ion-item {
-  width: 80%;
-  --background: transparent;
-  --padding-start: 0;
-  --inner-padding-start: 0;
-  --inner-padding-end: 0;
-  margin-inline-start: 10%;
+.header-bt-end {
+  right: 0;
 }
 
-#start-header ion-button {
-  margin-inline-start: 2px;
+.d-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  z-index: 1;
+  // box-shadow: 0 24px 48px rgba(17,16,62,0.12);
+}
+
+.top-s {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  // background: var(--ion-color-minor);
+  // background: goldenrod; // indianred
+  // background-image: radial-gradient( circle 636.6px at 10% 20%,  rgba(243,94,125,1) 0%, rgba(213,200,111,1) 90% );
+  // background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+}
+
+.top-s-center {
+  padding: 10px;
+  color: black;
+}
+
+.p-title {
+  @extend .font-params;
+  font-size: 2.9rem;
+  font-weight: 400;
+  margin: 0 0 10px;
+}
+
+.p-sub-title {
+  @extend .title-text;
+  padding: 0 10px 0 20px;
+}
+
+.top-bt-c {
+  position: relative;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.top-bt-c ion-button {
+  height: 40px;
+}
+
+.top-bt-c ion-label {
+  text-transform: none;
+}
+
+.col-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-container p {
+  max-width: 500px;
+  width: 100%;
+}
+
+.img-container {
+  border-radius: 10px;
+  border: 1px solid var(--ion-color-light);
+}
+
+.p-only-text {
+  @extend .title-text;
+  max-width: 700px;
+  padding: 0 20px;
+}
+
+.p-sol {
+  font-size: 22px;
+  text-align: center;
+}
+
+.sec-divider {
+  padding: 30px 0;
+  width: 100%;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+// -----------------------------------------------------------
+.del-background {
+  --background: var(--ion-color-minor);
 }
 
 .flex-container {
@@ -84,113 +178,4 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-#bg-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: 
-    linear-gradient(rgba(25, 50, 140, 0.72), rgba(25, 50, 140, 0.2)), 
-    url('../../../assets/images/reconnect.jpg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
-#bt-info,
-#bt-signin {
-  height: 30px;
-}
-
-#bt-info {
-  border: 1px solid var(--ion-color-minor);
-  border-radius: 20px;
-}
-
-ion-text {
-  @extend .large-text;
-  text-align: start;
-  font-weight: 300;
-}
-
-h1 {
-  text-transform: lowercase;
-  font-size: 2em;
-  font-weight: 300;
-  letter-spacing: 3px;
-}
-
-.margin-height {
-  margin: 0;
-  padding: 7px 0;
-}
-
-.margin-0 {
-  margin: 0;
-}
-
-.del-background {
-  --background: var(--ion-color-minor);
-}
-
-.t-col {
-  padding-left: 10vw;
-  padding-right: 10vw;
-}
-
-.reconnect {
-  position: relative;
-}
-
-.reconnect img {
-  position: absolute;
-  top: 5px;
-  bottom: 0;
-  width: 40px;
-  border: 2px solid;
-  border-radius: 50%;
-  margin: auto;
-}
-
-.reconnect h1 {
-  margin-inline-start: 43px;
-}
-
-@keyframes particleAnimation {
-  from { left: -100px; }
-    to { left: calc( 100% + 100px ); }
-}
-.star {
-  position: fixed;
-  left: 0;
-  top: 50px;
-  width: 1px;
-  height: 1px;
-  background-color: white;
-  animation-name: particleAnimation;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  z-index: 1;
-}
-.star::before {
-  position: absolute;
-  display: block;
-  content: "";
-  width: 100px;
-  right: 1px;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(255,255,255,0.4) 100%); 
-}
-.star-1 {
-  animation-duration: 10s;
-  top: 10%;
-}
-.star-2 {
-  animation-duration: 5s;
-  top: 15%;
 }

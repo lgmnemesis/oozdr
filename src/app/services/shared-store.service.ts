@@ -15,7 +15,6 @@ export class SharedStoreService {
   canEnterWelcome = false;
   canEnterHome = false;
   activeTopMenu = 'connections';
-  shouldAnimateStartPage = true;
   isMatchesOpen = true;
   needToFinishInfoRegistration = false;
   activeMatchConnectionId: string = null;
@@ -76,7 +75,6 @@ export class SharedStoreService {
     this.canEnterWelcome = false;
     this.canEnterHome = false;
     this.activeTopMenu = 'connections';
-    this.shouldAnimateStartPage = false;
     this.isMatchesOpen = true;
     this.needToFinishInfoRegistration = false;
     this.activeMatchConnectionId = null;

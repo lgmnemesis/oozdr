@@ -1,91 +1,158 @@
-<ion-content *ngIf="canShowPage && !sharedStoreService?.userDeleted">
+<ion-content [scrollEvents]="true" appScrollbarTheme appParallaxHeader *ngIf="canShowPage && !sharedStoreService?.userDeleted">
 
-  <div class="star star-1"></div>
-  <div class="star star-2"></div>
+  <div class="parallax-header header-container border-bottom">
+    <div class="header-bt-container">
+      <div class="r-logo">
+        <img width="32" src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
+        <p class="color-logo sm-hide">oozdr</p>
+      </div>
+      <div class="header-bt header-bt-end">
+        <ion-button color="dark" fill="clear" shape="round">
+          <ion-label class="basic-text ion-text-capitalize">Log In</ion-label>
+        </ion-button>
+        <ion-button class="sm-hide" color="dark" fill="clear" shape="round">
+          <ion-label class="basic-text ion-text-capitalize">About</ion-label>
+        </ion-button>
+        <ion-button class="sm-hide" color="dark" fill="clear" shape="round">
+          <ion-label class="basic-text ion-text-capitalize">Help</ion-label>
+        </ion-button>
+      </div>
+    </div>
+  </div>
 
-  <div id="start-header">
-    <ion-item lines="none">
-      <ion-button id="bt-info"
-        slot="start" 
-        color="minor" 
-        shape="round" 
-        fill="clear"
-        (click)="gotoSupport()">
-        <ion-label class="basic-text ion-text-capitalize">Why Oozdr?</ion-label>
-      </ion-button>
+  <div class="main-content">
+    
+    <div class="d-container">
 
-      <ion-button id="bt-signin"
-        slot="end"
-        color="minor"
-        fill="outline"
-        (click)="signIn()">
-        <ion-label class="basic-text ion-text-capitalize">Log In</ion-label>
-      </ion-button>
+      <div class="top-s">
+        <div class="top-s-center sm-hide">
+          <p class="p-title ion-text-center">Reconnect with your Ex lover משה</p>
+          <p class="p-sub-title">Have you משה לוי ever thought about your soulmate? your Ex? the love of your life?</p>
+          <p class="p-sub-title">Maybe they're thinking about you as well?</p>
+          <p class="p-sub-title">Maybe they're looking for you too!</p>
+          <div class="top-bt-c">
+            <ion-button>
+              <ion-label class="basic-text">Join us and find out</ion-label>
+            </ion-button>
+          </div>
+        </div>
+
+        <div class="top-s-center sm-show">
+          <p class="p-title ion-text-center">Reconnect SM</p>
+          <p class="p-sub-title">Have you ever thought about your soulmate? your Ex? the love of your life?</p>
+          <div class="top-bt-c">
+            <ion-button>
+              <ion-label class="basic-text">Join us and find out</ion-label>
+            </ion-button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sec-divider"></div>
+
+      <ion-grid>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="auto">
+            <p class="main-title color-secondary">Why Oozdr?</p>
+            <p class="p-only-text">There are plenty of 'Reasons' why you are not reconnecting with someone you lost touch with.</p>
       
-      <ion-button
-        slot="end"
-        size="large"
-        fill="clear"
-        color="minor"
-        (click)="openSiteMenu($event)">
-        <ion-icon name="menu"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </div>
+            <ion-item lines="none">
+              <ion-icon color="danger" name="flag-outline"></ion-icon>
+              <p class="p-only-text">
+                What if they don't want to reconnect? Maybe they already moved on?
+              </p>
+            </ion-item>
+      
+            <ion-item lines="none">
+              <ion-icon color="danger" name="flag-outline"></ion-icon>
+              <p class="p-only-text">
+                What if it's not the right time to reach out?
+              </p>
+            </ion-item>
+      
+            <ion-item lines="none">
+              <ion-icon color="danger" name="flag-outline"></ion-icon>
+              <p class="p-only-text">
+                What if they DO want to reconnect but are not sure how? or just afraid to do so?
+              </p>
+            </ion-item>
+      
+            <p class="p-only-text p-sol color-tertiary">'Oozdr' takes all these unanswered questions out of the way</p>
+          </ion-col>
+        </ion-row>
 
-  <div id="bg-img"></div>
+        <div class="sec-divider"></div>
 
-  <div class="flex-container">
-    <ion-grid>
-      <ion-row class="ion-justify-content-start ion-align-items-start">
-        <ion-col class="t-col" size="auto">
-          <ion-text color="minor">
-            <div class="reconnect margin-height">
-              <img width="40" src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
-              <h1>ozdr</h1>
+        <ion-row class="ion-justify-content-center ion-align-items-center bck-light">
+          <ion-col size="auto">
+            <p class="main-title color-secondary">How Oozdr?</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-lg="6" id="scroll1" class="scroll-animation animated hide">
+            <div class="col-container">
+              <p class="large-text">Add Connection(s)</p>
+              <p class="title-text ion-text-wrap">
+                Fill in the name and mobile number of the person you want to reconnect with.
+              </p>
             </div>
-            <p class="margin-height p-t-sm">
-              Have you ever thought about your soulmate? your Ex? the love of your life?
-            </p>
-            <p class="margin-height title-text">
-              Maybe they're thinking about you as well?
-            </p>
-            <p class="margin-height title-text">
-              Find out if they are looking for you too!
-            </p>
-          </ion-text>
-        </ion-col>
-      </ion-row>
+          </ion-col>
+          <ion-col size="12" size-lg="6" id="scroll2" class="scroll-animation animated hide">
+            <div class="col-container">
+              <div class="img-container">
+                <img src="../../assets/images/support_t1.png" alt="Add Connection" crossorigin="anonymous">
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
 
-      <ion-row class="let-start-row margin-height ion-justify-content-start ion-align-items-center">
-        <ion-col class="t-col" size="auto">
-          <ion-button 
-            id="bt-signup" 
-            size="large" 
-            shape="round" 
-            color="main"
-            routerLink="/welcome"
-            routerDirection="forward"
-            (click)="signUp()">
-            <ion-label class="large-text ion-text-capitalize">Let's Start - It's Free</ion-label>
-          </ion-button>
-        </ion-col>
-      </ion-row>
+        <div class="sec-divider"></div>
 
-      <ion-row *ngIf="canShowInstallApp"
-        class="animated fadeIn zoomIn let-start-row margin-height ion-justify-content-start ion-align-items-center">
-        <ion-col class="t-col" size="auto">
-          <p class="title-text p-in-app color-minor">Get the app. Install instantly, find what you need faster, anytime.</p>
-          <ion-button 
-            color="success"
-            (click)="installAsApp()">
-            INSTALL APP
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-lg="6" push-lg="6" id="scroll3" class="scroll-animation animated hide">
+            <div class="col-container">
+              <p class="large-text">Hope for the best</p>
+              <p class="title-text ion-text-wrap">
+                This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.
+              </p>
+            </div>
+          </ion-col>
+          <ion-col size="12" size-lg="6" pull-lg="6" id="scroll4" class="scroll-animation animated hide">
+            <div class="col-container">
+              <div class="img-container">
+                <img src="../../assets/images/support_2.png" alt="support2" crossorigin="anonymous">
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+        <div class="sec-divider"></div>
+
+        <ion-row class="ion-justify-content-center ion-align-items-center">
+          <ion-col size="12" size-lg="6" id="scroll5" class="scroll-animation animated hide">
+            <div class="col-container">
+              <p class="large-text">You Have a Match</p>
+              <p class="title-text ion-text-wrap">
+                After we find your match, we will send each of you an invitation to start chatting and re-establish your lost connection.
+              </p>
+            </div>
+          </ion-col>
+          <ion-col size="12" size-lg="6" id="scroll6" class="scroll-animation animated hide">
+            <div class="col-container">
+              <div class="img-container">
+                <img src="../../assets/images/support_3.png" alt="You Have a Match" crossorigin="anonymous">
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+
+    <app-site-footer></app-site-footer>
   </div>
-  
 </ion-content>
 
 <ion-content class="del-background" *ngIf="sharedStoreService?.userDeleted">

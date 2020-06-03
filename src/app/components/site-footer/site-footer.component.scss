@@ -1,5 +1,12 @@
 @import '../../styles/fonts-text';
 
+ion-grid {
+  position: relative;
+  z-index: 2;
+  padding: 100px 0 140px;
+  background: var(--ion-color-light-tint);
+}
+
 .flex-col {
   display: flex;
   flex-direction: column;
@@ -7,13 +14,4 @@
   align-items: center;
   padding: 10px;
   width: 250px;
-}
-
-.head-row {
-  border-bottom: 1px solid var(--ion-color-light);
-}
-
-.c-links {
-  border-top: 1px solid var(--ion-color-light);
-  padding: 10px 0;
 }

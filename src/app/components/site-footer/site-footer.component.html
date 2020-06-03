@@ -1,14 +1,4 @@
-<ion-grid>
-  <ion-row class="head-row ion-justify-content-center ion-align-items-start">
-    <ion-col size="12">
-      <ion-item lines="none">
-        <ion-avatar slot="start">
-          <img src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
-        </ion-avatar>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
+<ion-grid class="ion-no=padding">
   <ion-row class="ion-justify-content-center ion-align-items-start">
     <ion-col size="auto">
       <div class="flex-col">
@@ -25,9 +15,6 @@
     <ion-col size="auto">
       <div class="flex-col">
         <ion-label class="title-text bold-text ion-text-uppercase">Information</ion-label>
-        <!-- <ion-button fill="clear" color="dark">
-          <ion-label class="basic-text ion-text-capitalize">Help</ion-label>
-        </ion-button> -->
         <ion-button fill="clear" color="dark" (click)="gotoContact()">
           <ion-label class="basic-text ion-text-capitalize">Contact</ion-label>
         </ion-button>
@@ -37,7 +24,10 @@
       </div>
     </ion-col>
   </ion-row>
+
+  <ion-row class="ion-justify-content-center ion-align-items-start">
+    <ion-col size="auto">
+      <app-contact-links></app-contact-links>
+    </ion-col>
+  </ion-row>
 </ion-grid>
-<div class="c-links">
-  <app-contact-links></app-contact-links>
-</div>

@@ -1,6 +1,10 @@
 .font-params {
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: 1px;
+  // font-family: 'Roboto', sans-serif;
+  // font-family: 'IBM Plex Serif', serif;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 38px;
+  letter-spacing: -0.003em;
+  // letter-spacing: 1px;
   font-weight: 300;
 }
 
@@ -10,22 +14,23 @@
 
 .basic-text {
   @extend .font-params;
-  font-size: 16px;
+  font-size: 21px;
 }
 
 .title-text {
   @extend .font-params;
-  font-size: 18px;
+  font-size: 28px;
+  font-weight: 400;
 }
 
 .larger-text {
   @extend .font-params;
-  font-size: 20px;
+  font-size: 27px;
 }
 
 .large-text {
   @extend .font-params;
-  font-size: 22px;
+  font-size: 30px;
 }
 
 
@@ -76,4 +81,12 @@
 
 .color-minor {
   color: var(--ion-color-minor);
+}
+
+.color-main {
+  color: var(--ion-color-main);
+}
+
+.color-logo {
+  color: red;
 }
