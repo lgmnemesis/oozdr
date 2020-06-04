@@ -40,10 +40,9 @@
 }
 
 @media only screen and (max-width: $LARGE_WINDOW_WIDTH) {
-  .start-margin,
-  .end-margin {
-    margin-inline-start: 0 !important;
-    margin-inline-end: 0 !important;
+  .c-align-start,
+  .c-align-end {
+    align-items: center !important;
   }
 
   .p-md-params {
@@ -87,12 +86,12 @@ ion-item {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.start-margin {
-  margin-inline-start: 50px;
+.c-align-start {
+  align-items: flex-start;
 }
 
-.end-margin {
-  margin-inline-end: 50px;
+.c-align-end {
+  align-items: flex-end;
 }
 
 .sec-divider {
