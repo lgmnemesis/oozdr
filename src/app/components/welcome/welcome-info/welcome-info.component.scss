@@ -53,6 +53,7 @@ ion-col {
 }
 
 .p-error {
+  @extend .smaller-text;
   visibility: hidden;
   color: var(--ion-color-danger);
   margin: 0;
