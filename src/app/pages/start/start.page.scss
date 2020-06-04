@@ -45,15 +45,13 @@
     padding: 0 !important;
   }
 
+  .col-container p {
+    max-width: 350px !important;
+  }
+  
   .title-text {
     font-size: 18px !important;
     font-weight: 300 !important;
-  }
-
-  .start-margin,
-  .end-margin {
-    margin-inline-start: 0 !important;
-    margin-inline-end: 0 !important;
   }
 
   .img-container {
@@ -63,6 +61,18 @@
   .img-container img {
     border-radius: 0 !important;
     box-shadow: none !important;
+  }
+}
+
+@media only screen and (max-width: $LARGE_WINDOW_WIDTH) {
+  .start-margin,
+  .end-margin {
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
+  }
+
+  .p-md-params {
+    margin-bottom: 20px !important;
   }
 }
 
@@ -204,7 +214,7 @@ ion-content {
 
 .img-container img {
   border-radius: 10px;
-  box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .start-margin {
