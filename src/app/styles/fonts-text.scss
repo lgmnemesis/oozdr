@@ -1,5 +1,15 @@
 @import './font-family';
 
+.smallest-text {
+  @extend .font-params;
+  font-size: 12px;
+}
+
+.small-text {
+  @extend .font-params;
+  font-size: 14px;
+}
+
 .medium-text {
   @extend .font-params;
   font-size: 21px;
@@ -20,29 +30,7 @@
   font-weight: 400;
 }
 
-
-.large-24-text {
-  @extend .font-params;
-  font-size: 24px;
-}
-
-.large-26-text {
-  @extend .font-params;
-  font-size: 26px;
-  line-height: 1;
-}
-
-.small-text {
-  @extend .font-params;
-  font-size: 14px;
-}
-
-.small-12-text {
-  @extend .font-params;
-  font-size: 12px;
-}
-
-.main-title {
+.biggest-title {
   @extend .font-params;
   text-align: center;
   font-size: 50px;

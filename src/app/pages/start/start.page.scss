@@ -55,11 +55,18 @@
 
   .col-container {
     text-align: center;
+    padding: 0 !important;
   }
 
   .title-text {
     font-size: 18px !important;
     font-weight: 300 !important;
+  }
+
+  .start-margin,
+  .end-margin {
+    margin-inline-start: 0 !important;
+    margin-inline-end: 0 !important;
   }
 }
 
@@ -192,6 +199,7 @@ ion-content {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 }
 
 .col-container p {
@@ -203,6 +211,14 @@ ion-content {
 .img-container {
   border-radius: 10px;
   border: 1px solid var(--ion-color-light);
+}
+
+.start-margin {
+  margin-inline-start: 50px;
+}
+
+.end-margin {
+  margin-inline-end: 50px;
 }
 
 .p-only-text {
