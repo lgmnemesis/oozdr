@@ -192,6 +192,7 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   observeAndTriggerScrollAnimation() {
+    let delay = 0;
     try {
       this.observer = new IntersectionObserver((entries, observer) => { 
         entries.forEach(entry => {
@@ -203,14 +204,20 @@ export class StartPage implements OnInit, OnDestroy {
             if (id === 'scroll1' || id === 'scroll5') {
               className = 'slideInLeftTint';
             } else if (id === 'scroll2' || id === 'scroll4' || id === 'scroll6') {
-              className="fadeInUpTint";
+              className = "fadeInUpTint";
             } else if (id === 'scroll3') {
-              className="slideInRightTint";
+              className = "slideInRightTint";
             }
-            entry.target.classList.toggle(className);
-            entry.target.classList.remove('hide');
-            observer.unobserve(entry.target);
-            this.markForCheck();
+            
+            if (delay > 0) {
+              const tDelay = delay;
+              delay = 0;
+              setTimeout(() => {
+                this.runAnimation(entry, className, observer);  
+              }, tDelay);
+            } else {
+              this.runAnimation(entry, className, observer);
+            }
           }
         });
       }, { threshold: [0.1] });
@@ -222,6 +229,13 @@ export class StartPage implements OnInit, OnDestroy {
     } catch (error) {
      console.error(error); 
     }
+  }
+
+  runAnimation(entry: IntersectionObserverEntry, className: string, observer: IntersectionObserver) {
+    entry.target.classList.toggle(className);
+    entry.target.classList.remove('hide');
+    observer.unobserve(entry.target);
+    this.markForCheck();
   }
 
   ngOnDestroy() {

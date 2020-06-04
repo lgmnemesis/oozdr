@@ -7,7 +7,7 @@ import { DomController } from '@ionic/angular';
 		'(ionScroll)': 'onContentScroll($event)'
 	}
 })
-export class ParallaxHeaderDirective implements AfterViewInit{
+export class ParallaxHeaderDirective implements AfterViewInit {
 
 	@Input('parallaxHeight') parallaxHeight: number = 59;
 
@@ -25,9 +25,9 @@ export class ParallaxHeaderDirective implements AfterViewInit{
 
 		this.domCtrl.write(() => {
       this.renderer.setStyle(this.header, 'position', 'fixed');
-      this.renderer.setStyle(this.header, 'top', '0');
-      this.renderer.setStyle(this.header, 'left', '0');
       this.renderer.setStyle(this.header, 'z-index', '99');
+      this.renderer.setStyle(this.header, 'top', '0');
+      this.renderer.setStyle(this.header, 'width', '100%');
       this.renderer.setStyle(this.header, 'height', this.parallaxHeight + 'px');
 
       this.renderer.setStyle(this.mainContent, 'padding-top', this.parallaxHeight + 'px');
@@ -43,8 +43,13 @@ export class ParallaxHeaderDirective implements AfterViewInit{
     if (this.headerTopPosition > 0) this.headerTopPosition = 0;
     this.currentPosition = ev.detail.scrollTop;
 
+    const position = this.headerTopPosition;
+    this.renderPosition(position);
+  }
+
+  renderPosition(position: number) {
     this.domCtrl.write(() => {
-      this.renderer.setStyle(this.header, 'top', `${this.headerTopPosition}px`);
+      this.renderer.setStyle(this.header, 'top', `${position}px`);
     });
   }
 }

@@ -1,0 +1,12 @@
+.font-params {
+  // font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  // line-height: 38px;
+  letter-spacing: -0.003em;
+  font-weight: 300;
+}
+
+.basic-text {
+  @extend .font-params;
+  font-size: 18px;
+}

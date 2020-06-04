@@ -1,36 +1,23 @@
-.font-params {
-  // font-family: 'Roboto', sans-serif;
-  // font-family: 'IBM Plex Serif', serif;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 38px;
-  letter-spacing: -0.003em;
-  // letter-spacing: 1px;
-  font-weight: 300;
-}
+@import './font-family';
 
-.bold-text {
-  font-weight: 500 !important;
-}
-
-.basic-text {
+.medium-text {
   @extend .font-params;
   font-size: 21px;
 }
 
-.title-text {
-  @extend .font-params;
-  font-size: 28px;
-  font-weight: 400;
-}
-
 .larger-text {
   @extend .font-params;
-  font-size: 27px;
+  font-size: 24px;
 }
 
 .large-text {
   @extend .font-params;
-  font-size: 30px;
+  font-size: 27px;
+}
+
+.title-text {
+  @extend .large-text;
+  font-weight: 400;
 }
 
 
@@ -61,6 +48,14 @@
   font-size: 50px;
   line-height: 1;
   margin: 50px 0;
+}
+
+.bold-text {
+  font-weight: 400 !important;
+}
+
+.bold-max-text {
+  font-weight: 600 !important;
 }
 
 .color-primary {

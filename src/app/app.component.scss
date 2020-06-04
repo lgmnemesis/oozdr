@@ -45,7 +45,9 @@ ion-item {
   width: 100vw;
   height: 100vh;
   z-index: 0;
-  background: #19328c;
+  // background: #19328c;
+  background: rgb(2,175,232);
+  background: linear-gradient(90deg, rgba(2,175,232,1) 0%, rgba(7,189,226,1) 100%);
 }
 
 .show {

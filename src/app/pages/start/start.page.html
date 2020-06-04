@@ -4,11 +4,12 @@
     <div class="header-bt-container">
       <div class="r-logo">
         <img width="32" src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
-        <p class="color-logo sm-hide">oozdr</p>
+        <p class="color-logo ion-text-uppercase">oozdr</p>
       </div>
       <div class="header-bt header-bt-end">
-        <ion-button color="dark" fill="clear" shape="round">
-          <ion-label class="basic-text ion-text-capitalize">Log In</ion-label>
+        <ion-button color="dark" fill="clear" shape="round" class="sm-login-bt" (click)="signIn()">
+          <ion-label class="basic-text ion-text-capitalize sm-hide">Log In</ion-label>
+          <ion-icon class="sm-show" size="large" name="log-in-outline"></ion-icon>
         </ion-button>
         <ion-button class="sm-hide" color="dark" fill="clear" shape="round">
           <ion-label class="basic-text ion-text-capitalize">About</ion-label>
@@ -25,75 +26,45 @@
     <div class="d-container">
 
       <div class="top-s">
-        <div class="top-s-center sm-hide">
-          <p class="p-title ion-text-center">Reconnect with your Ex lover משה</p>
-          <p class="p-sub-title">Have you משה לוי ever thought about your soulmate? your Ex? the love of your life?</p>
+
+        <div class="top-s-center ion-text-center sm-hide">
+          <p class="p-title">Reconnect with your EX...</p>
+          <p class="p-sub-title">Have you ever thought about your soulmate? your Ex? the love of your life?</p>
           <p class="p-sub-title">Maybe they're thinking about you as well?</p>
           <p class="p-sub-title">Maybe they're looking for you too!</p>
           <div class="top-bt-c">
-            <ion-button>
+            <ion-button shape="round">
               <ion-label class="basic-text">Join us and find out</ion-label>
             </ion-button>
           </div>
         </div>
 
-        <div class="top-s-center sm-show">
-          <p class="p-title ion-text-center">Reconnect SM</p>
+        <div class="top-s-center ion-text-center sm-show">
+          <p class="p-title ion-text-center">Reconnect with</p>
+          <p class="p-title ion-text-center extra-space">Your EX...</p>
           <p class="p-sub-title">Have you ever thought about your soulmate? your Ex? the love of your life?</p>
+          <p class="p-sub-title">Maybe they're thinking about you as well?</p>
+          <p class="p-sub-title">Maybe they're looking for you too!</p>
           <div class="top-bt-c">
-            <ion-button>
+            <ion-button shape="round">
               <ion-label class="basic-text">Join us and find out</ion-label>
             </ion-button>
           </div>
         </div>
 
+        <ul class="circles">
+          <li [class.sm-hide]="circle > 5" *ngFor="let circle of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"></li>
+        </ul>
       </div>
 
       <div class="sec-divider"></div>
 
       <ion-grid>
-        <ion-row class="ion-justify-content-center ion-align-items-center">
-          <ion-col size="auto">
-            <p class="main-title color-secondary">Why Oozdr?</p>
-            <p class="p-only-text">There are plenty of 'Reasons' why you are not reconnecting with someone you lost touch with.</p>
-      
-            <ion-item lines="none">
-              <ion-icon color="danger" name="flag-outline"></ion-icon>
-              <p class="p-only-text">
-                What if they don't want to reconnect? Maybe they already moved on?
-              </p>
-            </ion-item>
-      
-            <ion-item lines="none">
-              <ion-icon color="danger" name="flag-outline"></ion-icon>
-              <p class="p-only-text">
-                What if it's not the right time to reach out?
-              </p>
-            </ion-item>
-      
-            <ion-item lines="none">
-              <ion-icon color="danger" name="flag-outline"></ion-icon>
-              <p class="p-only-text">
-                What if they DO want to reconnect but are not sure how? or just afraid to do so?
-              </p>
-            </ion-item>
-      
-            <p class="p-only-text p-sol color-tertiary">'Oozdr' takes all these unanswered questions out of the way</p>
-          </ion-col>
-        </ion-row>
-
-        <div class="sec-divider"></div>
-
-        <ion-row class="ion-justify-content-center ion-align-items-center bck-light">
-          <ion-col size="auto">
-            <p class="main-title color-secondary">How Oozdr?</p>
-          </ion-col>
-        </ion-row>
 
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size="12" size-lg="6" id="scroll1" class="scroll-animation animated hide">
             <div class="col-container">
-              <p class="large-text">Add Connection(s)</p>
+              <p class="medium-text color-secondary">Add Connection(s)</p>
               <p class="title-text ion-text-wrap">
                 Fill in the name and mobile number of the person you want to reconnect with.
               </p>
@@ -113,7 +84,7 @@
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size="12" size-lg="6" push-lg="6" id="scroll3" class="scroll-animation animated hide">
             <div class="col-container">
-              <p class="large-text">Hope for the best</p>
+              <p class="medium-text color-secondary">Hope for the best</p>
               <p class="title-text ion-text-wrap">
                 This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.
               </p>
@@ -133,7 +104,7 @@
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size="12" size-lg="6" id="scroll5" class="scroll-animation animated hide">
             <div class="col-container">
-              <p class="large-text">You Have a Match</p>
+              <p class="medium-text color-secondary">You Have a Match</p>
               <p class="title-text ion-text-wrap">
                 After we find your match, we will send each of you an invitation to start chatting and re-establish your lost connection.
               </p>
