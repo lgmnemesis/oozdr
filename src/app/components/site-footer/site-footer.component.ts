@@ -31,6 +31,10 @@ export class SiteFooterComponent implements OnInit {
     this.goto('support');
   }
 
+  gotoAbout() {
+    this.goto('about');
+  }
+
   goto(url: string) {
     this.popoverCtrl.dismiss().catch(error => console.error(error));
     this.router.navigate([url]).catch(error => console.error(error));

@@ -2,7 +2,7 @@
   <div class="header">
     <div id="bt-back">
       <ion-button *ngIf="!sharedStoreService?.needToFinishInfoRegistration"
-        fill="clear" [disabled]="disableBackButton" (click)="back()">
+        fill="clear" color="dark" [disabled]="disableBackButton" (click)="back()">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
       <ion-button color="medium" fill="clear" (click)="logout()" *ngIf="sharedStoreService?.needToFinishInfoRegistration">

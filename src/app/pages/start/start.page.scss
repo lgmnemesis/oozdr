@@ -55,6 +55,15 @@
     margin-inline-start: 0 !important;
     margin-inline-end: 0 !important;
   }
+
+  .img-container {
+    margin-top: 15px;
+  }
+  
+  .img-container img {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
 }
 
 .sm-show {
@@ -128,7 +137,6 @@ ion-content {
   position: relative;
   max-width: 1300px;
   margin: auto;
-  // box-shadow: 0 24px 48px rgba(17,16,62,0.12);
 }
 
 .top-s {
@@ -194,9 +202,9 @@ ion-content {
   margin: 7px 0;
 }
 
-.img-container {
+.img-container img {
   border-radius: 10px;
-  border: 1px solid var(--ion-color-light);
+  box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);
 }
 
 .start-margin {
@@ -205,17 +213,6 @@ ion-content {
 
 .end-margin {
   margin-inline-end: 50px;
-}
-
-.p-only-text {
-  @extend .title-text;
-  max-width: 700px;
-  padding: 0 20px;
-}
-
-.p-sol {
-  font-size: 22px;
-  text-align: center;
 }
 
 .sec-divider {

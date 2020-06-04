@@ -1,105 +1,105 @@
-<ion-grid class="ion-no-padding">
+<ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <p class="biggest-title color-secondary">Why Oozdr?</p>
-      <p class="p-only-text">There are plenty of 'Reasons' why you are not reconnecting with someone you lost touch with.</p>
+      <p class="p-only-text title-text ion-text-center">
+        There are plenty of 'Reasons' why you are not reconnecting with someone you lost touch with.
+      </p>
 
       <ion-item lines="none">
         <ion-icon color="danger" name="flag-outline"></ion-icon>
-        <p class="p-only-text">
+        <p class="p-only-text medium-text">
           What if they don't want to reconnect? Maybe they already moved on?
         </p>
       </ion-item>
 
       <ion-item lines="none">
         <ion-icon color="danger" name="flag-outline"></ion-icon>
-        <p class="p-only-text">
+        <p class="p-only-text medium-text">
           What if it's not the right time to reach out?
         </p>
       </ion-item>
 
       <ion-item lines="none">
         <ion-icon color="danger" name="flag-outline"></ion-icon>
-        <p class="p-only-text">
+        <p class="p-only-text medium-text">
           What if they DO want to reconnect but are not sure how? or just afraid to do so?
         </p>
       </ion-item>
 
-      <p class="p-only-text p-sol color-tertiary">'Oozdr' takes all these unanswered questions out of the way</p>
+      <p class="p-only-text medium-text color-tertiary ion-text-center">'Oozdr' takes all these unanswered questions out of the way</p>
     </ion-col>
   </ion-row>
+
+  <div class="sec-divider"></div>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto">
-      <div class="t-divider"></div>
-    </ion-col>
-  </ion-row>
-
-  <ion-row class="ion-justify-content-center ion-align-items-center bck-light">
     <ion-col size="auto">
       <p class="biggest-title color-secondary">How Oozdr?</p>
     </ion-col>
   </ion-row>
 
-  <ion-row class="ion-justify-content-center ion-align-items-center bck-light">
-    <ion-col size="auto">
-      <div class="t-container">
-
-        <div class="t-divider hide-sm"></div>
-
-        <div class="show-sm hide-md">
-          <ion-icon color="primary" name="pulse-outline"></ion-icon>
-        </div>
-        <ion-item lines="none" (click)="showSupportImg(1)">
-          <ion-icon class="hide-sm" color="primary" name="pulse-outline" slot="start"></ion-icon>
-          <ion-label>
-            <p class="p-title" [class.active-title]="supportImg === 1">Add Connection(s)</p>
-            <p class="p-text ion-text-wrap">Fill in the name and mobile number of the person you want to reconnect with.</p>
-          </ion-label>
-        </ion-item>
-
-        <div class="t-divider"></div>
-
-        <div class="show-sm hide-md">
-          <ion-icon color="success" name="fitness-outline"></ion-icon>
-        </div>
-        <ion-item lines="none" (click)="showSupportImg(2)">
-          <ion-icon class="hide-sm" color="success" name="fitness-outline" slot="start"></ion-icon>
-          <ion-label>
-            <p class="p-title" [class.active-title]="supportImg === 2">Hope for the best</p>
-            <p class="p-text ion-text-wrap">This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.</p>
-          </ion-label>
-        </ion-item>
-
-        <div class="t-divider"></div>
-
-        <div class="show-sm hide-md">
-          <ion-icon color="main" name="bonfire-outline"></ion-icon>
-        </div>
-        <ion-item lines="none" (click)="showSupportImg(3)">
-          <ion-icon class="hide-sm" color="main" name="bonfire-outline" slot="start"></ion-icon>
-          <ion-label>
-            <p class="p-title" [class.active-title]="supportImg === 3">You Have a Match</p>
-            <p class="p-text ion-text-wrap">After we find your match, we will send each of you an invitation to start chatting and re-establish your lost connection.</p>
-          </ion-label>
-        </ion-item>
-
-        <div class="t-divider"></div>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" size-lg="6">
+      <div class="col-container start-margin">
+        <p class="medium-text color-secondary">Add Connection(s)</p>
+        <p class="title-text ion-text-wrap">
+          Fill in the name and mobile number of the person you want to reconnect with.
+        </p>
       </div>
     </ion-col>
+    <ion-col size="12" size-lg="6">
+      <div class="col-container">
+        <div class="img-container">
+          <img src="../../assets/images/support_1.png" alt="Add Connection" crossorigin="anonymous">
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
 
-    <ion-col size="auto" class="img-col hide-sm">
-      <img src="../../assets/images/support_1.png" alt="Add Connection" crossorigin="anonymous" [class.active-img]="supportImg === 1">
-      <img src="../../assets/images/support_2.png" alt="support2" crossorigin="anonymous" [class.active-img]="supportImg === 2">
-      <img src="../../assets/images/support_3.png" alt="You Have a Match" crossorigin="anonymous" [class.active-img]="supportImg === 3">
+  <div class="sec-divider sm-hide"></div>
+  <div class="sec-divider sm-hide"></div>
+
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" size-lg="6" push-lg="6">
+      <div class="col-container end-margin">
+        <p class="medium-text color-secondary">Hope for the best</p>
+        <p class="title-text ion-text-wrap">
+          This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.
+        </p>
+      </div>
+    </ion-col>
+    <ion-col size="12" size-lg="6" pull-lg="6">
+      <div class="col-container">
+        <div class="img-container">
+          <img src="../../assets/images/support_2.png" alt="support2" crossorigin="anonymous">
+        </div>
+      </div>
     </ion-col>
   </ion-row>
-  
-  <ion-row class="ion-justify-content-center ion-align-items-center bck-light hide-sm">
-    <ion-col size="auto">
-      <div class="t-divider"></div>
-      <div class="t-divider"></div>
+
+  <div class="sec-divider sm-hide"></div>
+  <div class="sec-divider sm-hide"></div>
+
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12" size-lg="6">
+      <div class="col-container start-margin">
+        <p class="medium-text color-secondary">You Have a Match</p>
+        <p class="title-text ion-text-wrap">
+          After we find your match, we will send each of you an invitation to start chatting and re-establish your lost connection.
+        </p>
+      </div>
+    </ion-col>
+    <ion-col size="12" size-lg="6">
+      <div class="col-container">
+        <div class="img-container">
+          <img src="../../assets/images/support_3.png" alt="You Have a Match" crossorigin="anonymous">
+        </div>
+      </div>
     </ion-col>
   </ion-row>
+
+  <div class="sec-divider"></div>
+  <div class="sec-divider"></div>
 
 </ion-grid>

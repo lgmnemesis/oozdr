@@ -19,8 +19,11 @@
 
 .p-title {
   position: absolute;
-  width: 100%;
   top: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  margin: auto;
+  width: 100%;
   color: var(--ion-color-secondary);
   letter-spacing: 3px;
 }
@@ -39,7 +42,7 @@
 
 #bt-back {
   position: absolute;
-  top: 3px;
+  top: 0;
   left: 0;
   z-index: 99;
 }
