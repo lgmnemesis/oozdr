@@ -1,9 +1,9 @@
 <ion-content [scrollEvents]="!isVisibleSplitPane" appScrollbarTheme appParallaxHeader>
 
   <ion-toolbar class="parallax-header second-toolbar" [class.large-header]="isVisibleSplitPane">
-    <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
-      <ion-button (click)="gotoSettings()" color="dark" fill="clear" shape="round">
-        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+    <ion-buttons class="btns-start" slot="start" *ngIf="!isVisibleSplitPane">
+      <ion-button class="bt-round" color="dark" fill="clear" shape="round" (click)="gotoSettings()">
+        <ion-icon size="small" name="settings-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end" class="animated"

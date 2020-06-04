@@ -1,6 +1,5 @@
 @import '../../styles/animation';
 @import '../../styles/fonts-text';
-@import '../../styles/global-styles';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .m-notif-item {
@@ -16,8 +15,10 @@
   max-width: 600px;
   min-height: 100px;
   margin: 0;
-  --background: blueviolet;
   --color: var(--ion-color-minor);
+  background-color: #21D4FD;
+  background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+
 }
 
 .msg-card ion-card-content {
@@ -82,17 +83,6 @@ ion-spinner {
   padding: 10px 0;
 }
 
-.p-section {
-  display: flex;
-  align-items: center;
-  padding: 5px 0;
-}
-
-.p-section ion-icon {
-  font-size: 20px;
-  margin-inline-end: 10px;
-}
-
-.p-section p {
-  max-width: calc(100% - 30px);
+.pp {
+  margin-inline-start: 20px;
 }

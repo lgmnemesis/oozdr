@@ -16,11 +16,11 @@ ion-item {
 }
 
 .passive {
-  --color: var(--ion-color-medium-tint);
+  --color: var(--ion-color-light-shade);
 }
 
 .active {
-  --color: var(--ion-color-secondary-shade);
+  --color: var(--theme-color);
 }
 
 .new-matches-ind {

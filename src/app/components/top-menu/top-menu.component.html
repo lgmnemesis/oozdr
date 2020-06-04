@@ -20,7 +20,7 @@
         class="bt-round"
         [class.passive]="sharedStoreService?.activeTopMenu !== sharedService.menu1"
         [class.active]="sharedStoreService?.activeTopMenu === sharedService.menu1"
-        [size]="isLarge ? 'large' : 'default'"
+        [size]="isLarge ? 'large' : 'small'"
         fill="clear" shape="round"
         (click)="clickedOn(sharedService.menu1)">
         <ion-icon slot="icon-only" name="person"></ion-icon>
@@ -29,10 +29,10 @@
         class="bt-round"
         [class.passive]="sharedStoreService?.activeTopMenu !== sharedService.menu2"
         [class.active]="sharedStoreService?.activeTopMenu === sharedService.menu2"
-        [size]="isLarge ? 'large' : 'default'"
+        [size]="isLarge ? 'large' : 'small'"
         fill="clear" shape="round"
         (click)="clickedOn(sharedService.menu2)">
-        <ion-icon slot="icon-only" name="leaf"></ion-icon>
+        <ion-icon slot="icon-only" name="fitness"></ion-icon>
       </ion-button>
     </ng-container>
     
@@ -40,10 +40,10 @@
       class="bt-round"
       [class.passive]="sharedStoreService?.activeTopMenu !== sharedService.menu3"
       [class.active]="sharedStoreService?.activeTopMenu === sharedService.menu3"
-      [size]="isLarge ? 'large' : 'default'"
+      [size]="isLarge ? 'large' : 'small'"
       fill="clear" shape="round"
       (click)="clickedOn(sharedService.menu3)">
-      <ion-icon slot="icon-only" name="fitness"></ion-icon>
+      <ion-icon slot="icon-only" name="chatbubbles"></ion-icon>
       <div class="new-matches-ind" *ngIf="isNewMatches"></div>
     </ion-button>
   </ion-item>

@@ -1,4 +1,23 @@
 @import './font-family';
+@import './global-styles';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .sm-basic-text {
+    font-size: 16px !important;
+  }
+
+  .sm-medium-text {
+    font-size: 18px !important;
+  }
+}
+
+.sm-basic-text {
+  @extend .sm-basic-text;
+}
+
+.sm-medium-text {
+  @extend .medium-text;
+}
 
 .smallest-text {
   @extend .font-params;

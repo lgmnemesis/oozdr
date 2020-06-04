@@ -1,8 +1,15 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
+@import '../../styles/custom-global';
 
 ion-footer {
   background: var(--ion-color-minor);
+}
+
+.btns-start {
+  position: relative;
+  top: 5px;
+  left: 5px;
 }
 
 .large-header {

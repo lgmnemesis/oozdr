@@ -30,7 +30,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   @Input() showChat = true;
   @Input() showSwipeIndication = false;
-  @Input() isLarge = true;
+  @Input() isLarge = false;
 
   _activeMenu: Subscription;
   _newMatchesIndicator: Subscription;

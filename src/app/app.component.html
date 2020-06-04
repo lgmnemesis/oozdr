@@ -24,21 +24,21 @@
         <app-alerts [isVisible]="true" *ngIf="isVisibleSplitPane"></app-alerts>
 
         <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
-          <ion-item class="i-title" [class.item-active]="activeMenu === 'connections'"
+          <ion-item [class.item-active]="activeMenu === 'connections'"
             lines="none" detail button (click)="connectionsClicked()">
-            <ion-icon slot="start" name="pulse-outline"></ion-icon>
-            <ion-label class="basic-text">Connections</ion-label>
+            <ion-icon slot="start" size="small" color="tertiary" name="fitness-outline"></ion-icon>
+            <ion-label class="basic-text bold-text">Connections</ion-label>
           </ion-item>
         </ng-container>
         
         <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
           <ion-item button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
-            class="i-title" (click)="toggleMatches()">
+            (click)="toggleMatches()">
             <ion-icon 
-              slot="start" 
+              slot="start" size="small"
               [name]="sharedStoreService?.isMatchesOpen ? 'chevron-down-outline' : 'chevron-forward-outline'">
             </ion-icon>
-            <ion-label class="basic-text">Matches</ion-label>
+            <ion-label class="basic-text bold-text">Matches</ion-label>
           </ion-item>
 
           <ng-container *ngIf="sharedStoreService?.isMatchesOpen">
@@ -47,31 +47,31 @@
         </ng-container>
 
         <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'profile'">
-          <ion-item class="i-title" [class.item-active]="activeMenu === 'profile'"
+          <ion-item [class.item-active]="activeMenu === 'profile'"
             lines="none" detail button (click)="profileClicked()">
-            <ion-icon slot="start" name="person-outline"></ion-icon>
-            <ion-label class="basic-text">Profile</ion-label>
+            <ion-icon slot="start" size="small" color="tertiary" name="person-outline"></ion-icon>
+            <ion-label class="basic-text bold-text">Profile</ion-label>
           </ion-item>
-          <ion-item class="i-title" [class.item-active]="activeMenu === 'settings'"
+          <ion-item [class.item-active]="activeMenu === 'settings'"
             lines="none" detail button (click)="settingsClicked()">
-            <ion-icon slot="start" name="settings-outline"></ion-icon>
-            <ion-label class="basic-text">Settings</ion-label>
+            <ion-icon slot="start" size="small" color="main" name="settings-outline"></ion-icon>
+            <ion-label class="basic-text bold-text">Settings</ion-label>
           </ion-item>
           <ion-item *ngIf="canShowInstallApp"
             lines="none" button (click)="installAsApp()">
-            <ion-icon slot="start" name="phone-portrait-outline"></ion-icon>
+            <ion-icon slot="start" size="small" color="warning" name="phone-portrait-outline"></ion-icon>
             <ion-label class="basic-text">Install App</ion-label>
           </ion-item>
           <ion-item
             lines="none" button (click)="inviteFriends()">
-            <ion-icon slot="start" name="people-outline"></ion-icon>
+            <ion-icon slot="start" size="small" color="success" name="people-outline"></ion-icon>
             <ion-label class="basic-text">Invite Your Friends</ion-label>
           </ion-item>
           <ion-item
             lines="none" button (click)="logoutClicked()">
-            <ion-icon slot="start" name="log-out-outline"></ion-icon>
+            <ion-icon slot="start" size="small" name="log-out-outline"></ion-icon>
             <ion-label>
-              <p class="basic-text">Log Out</p>
+              <p class="smaller-text">Log Out</p>
               <p class="small-text color-medium-t">{{ profile?.basicInfo?.email }}</p>
             </ion-label>
           </ion-item>

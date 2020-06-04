@@ -17,7 +17,7 @@
         <ion-spinner name="dots" color="minor" *ngIf="showNotificaionsInProgress"></ion-spinner>
         <ion-item color="secondary" lines="none">
           <ion-icon name="notifications-outline"></ion-icon>
-          <ion-label class="title-text">Enable push notifications</ion-label>
+          <ion-label class="medium-text">Enable push notifications</ion-label>
         </ion-item>
 
         <ion-card-content>
@@ -54,28 +54,15 @@
         <ion-col size="auto">
           <ion-card button (click)="addConnectionButton()" class="msg-card">
             <ion-card-content>
-              <p class="larger-text ion-text-center">Start by adding connections</p>
+              <p class="larger-text ion-text-center p-space">Start by adding connections</p>
               <p class="basic-text ion-text-center">people, loved ones, soulmate you are looking to reconnect...</p>
               <p class="p-space"></p>
-              <p class="title-text">How It Works</p>
-              <div class="p-section">
-                <ion-icon name="pulse-outline"></ion-icon>
-                <p class="basic-text">Fill in the name and mobile number of the person you are looking to reconnect with.</p>
-              </div>
-              <div class="p-section">
-                <ion-icon name="fitness-outline"></ion-icon>
-                <p class="basic-text">
-                  If at any time, the person you are looking for is looking for you too, we will match you up.
-                </p>
-              </div>
-              <div class="p-section">
-                <ion-icon name="bonfire-outline"></ion-icon>
-                <p class="basic-text">
-                  And that's it! we will send you both an invitation to start chatting and re-establish your lost connection.
-                </p>
-              </div>
+              <p class="medium-text p-space">How It Works</p>
+              <p class="pp basic-text">Fill in the name and mobile number of the person you are looking to reconnect with.</p>
+              <p class="pp basic-text p-space">If at any time, the person you are looking for is looking for you too, we will match you up.</p>
+              <p class="pp basic-text">And that's it! we will send you both an invitation to start chatting and re-establish your lost connection.</p>
               <p class="p-space"></p>
-              <p class="p-space basic-text ion-text-capitalize ion-text-center">So, who do you want to reconnect with?<p>
+              <p class="medium-text ion-text-capitalize ion-text-center p-space">So, who do you want to reconnect with?<p>
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -83,17 +70,17 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
         <ion-col size="auto">
-          <p class="title-text p-quote">
+          <p class="sm-medium-text p-quote">
             Doesn’t matter if you can dream it or not, all that matters is if you can begin it or not? Take that first step.
           </p>
-          <p class="basic-text p-quote-n">― Vikrmn, Corpkshetra</p>
+          <p class="sm-basic-text p-quote-n">― Vikrmn, Corpkshetra</p>
         </ion-col>
       </ion-row>
 
       <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
         <ion-col size="auto">
           <ion-button color="tertiary" size="large" shape="round" (click)="addConnectionButton()">
-            <ion-icon class="padding-x" name="pulse-outline"></ion-icon>
+            <ion-icon class="padding-x" size="small" name="fitness-outline"></ion-icon>
             <ion-label class="basic-text ion-text-capitalize">Add Connection</ion-label>
           </ion-button>
         </ion-col>
@@ -106,9 +93,9 @@
       <ion-col size="auto">
         <ion-card class="msg-card" color="secondary">
           <ion-card-content>
-            <p class="title-text">Looks like you found what you were looking for.</p>
+            <p class="medium-text">Looks like you found what you were looking for.</p>
             <p></p>
-            <p class="top-padding title-text">You can always add more connections.</p>
+            <p class="top-padding medium-text">You can always add more connections.</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
