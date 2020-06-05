@@ -2,7 +2,8 @@
 
   <ion-toolbar class="parallax-header border-bottom">
     <ion-item class="item-top" lines="none">
-      <ion-button slot="start" class="bt-round" color="secondary" fill="clear" shape="round" (click)="addConnectionButton()">
+      <ion-button class="bt-round" [class.heartbeat]="animateHeart"
+        slot="start" color="secondary" fill="clear" shape="round" (click)="addConnectionButton()">
         <ion-icon size="small" name="fitness-outline"></ion-icon>
         <ion-icon class="icon-add" name="add-outline"></ion-icon>
       </ion-button>
@@ -11,7 +12,7 @@
 
   <div class="main-content">
     <app-alerts [isVisible]="isVisibleSplitPane" *ngIf="!isVisibleSplitPane"></app-alerts>
-    <app-connections></app-connections>
+    <app-connections (connectionsEvent)="gotConnectionsEvent($event)"></app-connections>
   </div>
 
 </ion-content>

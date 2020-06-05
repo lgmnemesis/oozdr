@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
@@ -17,6 +17,8 @@ import { ManageConnectionModalComponent } from '../manage-connection-modal/manag
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConnectionsComponent implements OnInit, OnDestroy {
+
+  @Output() connectionsEvent = new EventEmitter();
 
   connections: Connection[];
   profile: Profile;
@@ -67,6 +69,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       this.isOnlyBlockedMatches = isConnections && connections.filter(c => !c.isBlocked).length === 0;
       this.isNewMatches = isConnections && connections.findIndex(c => c.isNewMatch) > -1;
       this.sharedStoreService.newMatchesIndicatorSubject.next(this.isNewMatches);
+      if (this.connections && this.connections.length === 0) this.connectionsEvent.next({noConnections: true});
       this.markForCheck();
     });
 

@@ -16,6 +16,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
+  animateHeart = false;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -46,6 +47,15 @@ export class ConnectionsPage implements OnInit, OnDestroy {
 
   addConnectionButton() {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
+  }
+
+  gotConnectionsEvent(event) {
+    if (event && event.noConnections) {
+      setTimeout(() => {
+        this.animateHeart = true;
+        this.markForCheck();
+      }, 5000);
+    } 
   }
 
   ngOnDestroy() {
