@@ -26,7 +26,8 @@ export class WelcomeService {
   birthdayError = 'no errors';
   isBirthdayError = false;
   isDisableNextButton = false;
-  profilePhotoText = 'Profile Photo (optional)';
+  defProfilePhotoText = 'Profile Photo (optional)';
+  profilePhotoText = this.defProfilePhotoText;
 
   constructor(private authService: AuthService,
     private sharedService: SharedService,
@@ -91,6 +92,7 @@ export class WelcomeService {
       console.error(error);
     }
     this.basicInfo = this.getInfo();
+    this.profilePhotoText = this.defProfilePhotoText;
   }
 
   isValidName(): boolean {
