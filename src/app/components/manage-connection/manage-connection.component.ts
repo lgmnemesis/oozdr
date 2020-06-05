@@ -40,7 +40,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   phoneError = 'no errors';
   emailError = 'no errors';
   showWelcomeMessage = false;
-  saveConnectionButtonText = 'Add Heartbeat';
+  saveConnectionButtonText = 'Add Beat';
   profile: Profile;
   isValidForm = true;
 
@@ -88,7 +88,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.phoneError = 'no errors';
     this.isPhoneError = false;
     this.showWelcomeMessage = false;
-    this.saveConnectionButtonText = 'Add Heartbeat';
+    this.saveConnectionButtonText = 'Add Beat';
     this.markForCheck();
   }
 
@@ -109,7 +109,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     if (this.Q.welcomeMessage) {
       this.showWelcomeMessage = true;
     }
-    this.saveConnectionButtonText = 'Save Heartbeat';
+    this.saveConnectionButtonText = 'Save Beat';
   }
 
   setName(event) {
