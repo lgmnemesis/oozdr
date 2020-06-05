@@ -6,7 +6,9 @@
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-label class="basic-text text-trans-none" color="secondary">Make a Beat</ion-label>
+    <ion-label class="basic-text text-trans-none" color="secondary">
+      {{ connectionsState?.state === 'edit' ? 'Edit Beat' : 'Make a Beat' }}
+    </ion-label>
     <ion-buttons slot="end">
       <ion-button shape="round" color="dark" (click)="close()">
         <ion-icon slot="icon-only" name="close"></ion-icon>

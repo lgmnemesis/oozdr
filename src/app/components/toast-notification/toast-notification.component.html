@@ -2,12 +2,10 @@
   [class.hide]="!(message?.isVisible && message?.id === id) || hide"
   [class.show]="message?.isVisible && message?.id === id">
   <ion-card-header>
-    <ion-card-title class="medium-text">{{ message?.header }}</ion-card-title>
+    <ion-card-title class="basic-text bolder-text">{{ message?.header }}</ion-card-title>
   </ion-card-header>
 
-  <ion-card-content class="basic-text">
-    {{ message?.message }}
-  </ion-card-content>
+  <ion-card-content class="basic-text">{{ message?.message }}</ion-card-content>
   
   <ion-item color="main" lines="none" *ngIf="message?.dismissButton">
     <ion-button slot="end" fill="clear" color="minor" (click)="clicked()">
