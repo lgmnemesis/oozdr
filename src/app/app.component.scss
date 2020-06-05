@@ -59,10 +59,14 @@ ion-item {
   background-attachment: fixed;
 }
 
+.hide {
+  opacity: 0;
+}
+
 .lds-ripple {
   @extend .center-abs;
-  top: 20px;
-  right: 5px;
+  top: -110px;
+  right: 120px;
   width: 80px;
   height: 80px;
 }
@@ -72,7 +76,7 @@ ion-item {
   border: 4px solid #fff;
   opacity: 1;
   border-radius: 50%;
-  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  animation: lds-ripple 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
 .lds-ripple div:nth-child(2) {
@@ -81,8 +85,8 @@ ion-item {
 
 @keyframes lds-ripple {
   0% {
-    top: 36px;
-    left: 36px;
+    top: 100px;
+    left: 100px;
     width: 0;
     height: 0;
     opacity: 1;
@@ -90,8 +94,8 @@ ion-item {
   100% {
     top: 0px;
     left: 0px;
-    width: 72px;
-    height: 72px;
+    width: 200px;
+    height: 200px;
     opacity: 0;
   }
 }

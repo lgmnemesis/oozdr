@@ -80,7 +80,7 @@
 
 ion-content {
   position: relative;
-  // --ion-background-color: #EEF1FA;
+  // --ion-background-color: rgb(2,175,232);
 }
 
 .header-container {
@@ -106,21 +106,8 @@ ion-content {
   bottom: 0;
   left: 0;
   margin: auto;
-  width: 32px;
+  width: 100px;
   border-radius: 50%;
-}
-
-.r-logo p {
-  @extend .font-params;
-  position: absolute;
-  left: 40px;
-  font-size: 28px;
-  font-weight: 500;
-  margin: auto;
-  top: 50%;
-  transform: translate(0, -50%);
-  letter-spacing: unset !important;
-  color: var(--theme-color);
 }
 
 .header-bt {
@@ -233,7 +220,7 @@ ion-content {
 }
 
 
-// -----------------------------------------------------------
+// User deleted
 .del-background {
   --background: var(--ion-color-minor);
 }
