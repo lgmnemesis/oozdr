@@ -9,8 +9,17 @@
 
 ion-card {
   width: 350px;
+  width: 340px;
+  border-radius: 15px;
   margin: 0;
-  border-radius: 15px;;
+}
+
+ion-item {
+ --background: transparent;
+}
+
+ion-button {
+  margin-inline-start: 5px;
 }
 
 .card-content {
@@ -26,27 +35,69 @@ ion-card {
   width: 100%;
 }
 
-p,
-ion-label {
-  @extend .basic-text;
+.name-avatar {
+  display: flex;
+  padding: 20px 0;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
 
-.i-title {
-  --background: rgba(var(--ion-color-primary-rgb), 0.08);
-  --inner-padding-bottom: 10px;
-  --inner-padding-top: 10px;
-}
-
-ion-chip {
-  margin: 0;
-}
-
-.active-animation {
-  @extend .animated;
-  @extend .zoomIn;
+ion-avatar {
+  margin: 0 15px;
 }
 
 .p-s-theme {
+  @extend .smaller-text;
   width: 100%;
   margin: 2px;
+  color: var(--ion-color-minor);
+  text-align: center;
+}
+
+.p-s-icon {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+}
+
+// Setting random class name in maange-connection componnent(1-8)
+.bg-1 {
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+}
+
+.bg-2 {
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.bg-3 {
+  background-color: #FF9A8B;
+  background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 55%, #FF99AC 100%);
+}
+
+.bg-4 {
+  background-color: #FBAB7E;
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
+}
+
+.bg-5 {
+  background-color: #8EC5FC;
+  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+}
+
+.bg-6 {
+  background-color: #08AEEA;
+  background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+}
+
+.bg-7 {
+  background-color: #FFE53B;
+  background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
+}
+
+.bg-8 {
+  background-color: #74EBD5;
+  background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
 }

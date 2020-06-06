@@ -244,7 +244,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       match_user_id: '',
       user_id: profile.user_id,
       user_mobile: profile.basicInfo.mobile,
-      user_profle_img_url: profile.basicInfo.profile_img_url
+      user_profle_img_url: profile.basicInfo.profile_img_url,
+      className: this.randomClassName()
     }
     this.sharedStoreService.addConnection(connection)
     .then(() => {
@@ -324,6 +325,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       });
       this.markForCheck();
     }
+  }
+
+  randomClassName() {
+    const id = Math.floor(Math.random() * 8) + 1;
+    return `bg-${id}`;
   }
 
   close(action?: string) {

@@ -26,6 +26,7 @@ export interface Connection {
   isNewMatch: boolean;
   lastMessage?: Message;
   isBlocked?: boolean;
+  className?: string;
 }
 
 export interface BasicInfo {

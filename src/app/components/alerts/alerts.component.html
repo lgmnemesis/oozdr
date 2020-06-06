@@ -12,7 +12,7 @@
           [class.bg-color-primary]="alert?.color === 'primary'">
           <ion-icon color="minor" name="notifications-outline"></ion-icon>
           <ion-label>
-            <p class="medium-text color-title ion-text-wrap">{{ alert?.title }}</p>
+            <p class="basic-text color-title ion-text-wrap">{{ alert?.title }}</p>
             <p class="basic-text color-title ion-text-wrap">{{ alert?.content }}</p>
           </ion-label>
         </ion-item>
@@ -22,10 +22,10 @@
           [class.bg-color-success]="alert?.color === 'success'"
           [class.bg-color-primary]="alert?.color === 'primary'">
           <ion-button slot="end" fill="clear" color="minor" (click)="dismissAlert(alert)" *ngIf="alert?.dismissText">
-            <ion-label class="basic-text ion-text-capitalize">{{ alert?.dismissText }}</ion-label>
+            <ion-label class="smaller-text ion-text-capitalize">{{ alert?.dismissText }}</ion-label>
           </ion-button>
           <ion-button slot="end" fill="clear" color="minor" (click)="acceptAlert(alert)">
-            <ion-label class="basic-text ion-text-capitalize">{{ alert?.okText }}</ion-label>
+            <ion-label class="smaller-text ion-text-capitalize">{{ alert?.okText }}</ion-label>
           </ion-button>
         </ion-item>
       </div>
