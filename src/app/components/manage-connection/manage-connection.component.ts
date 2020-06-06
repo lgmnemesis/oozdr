@@ -286,9 +286,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   sendToastMessage(connection: Connection) {
+    const name = connection.basicInfo.name;
+    const cName = name.charAt(0).toUpperCase() + name.slice(1);
     const message: ToastMessage = {
-      header: `${connection.basicInfo.name} is now a new connection. Great first step!`,
-      message: `If ${connection.basicInfo.name} has you as a connection, or will add you in the future, We will update both of you immediately.`,
+      header: `${cName} is now a new beat. Sounds great!`,
+      message: `If and when we'll hear ${cName}'s heart beats in your direction, we'll update both of you immediately. Lets make some music together!`,
       type: 'connection_added',
       id: connection.id,
       isVisible: true,
