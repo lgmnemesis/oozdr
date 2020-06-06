@@ -51,6 +51,13 @@
           </div>
         </div>
 
+        <div class="p-in-app animated fadeIn zoomIn" *ngIf="canShowInstallApp">
+          <p class="basic-text color-minor">Get the app. Install instantly, find what you need faster, anytime.</p>
+          <ion-button color="success" (click)="installAsApp()">
+            <ion-label class="smaller-text">INSTALL APP</ion-label>
+          </ion-button>
+        </div>
+
         <ul class="circles">
           <li [class.sm-hide]="circle > 5" *ngFor="let circle of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"></li>
         </ul>
