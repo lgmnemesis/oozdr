@@ -1,6 +1,11 @@
 @import '../../styles/fonts-text';
 @import '../../styles/animation';
 @import '../../styles/circles-animation';
+@import '../../styles/fade-in-animation';
+@import '../../styles/fade-in-up-tint.scss';
+@import '../../styles/slide-in-right-tint-animation';
+@import '../../styles/slide-in-left-tint-animation';
+@import '../../styles/zoom-in-animation';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .sm-hide {

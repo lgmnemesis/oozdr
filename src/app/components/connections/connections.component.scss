@@ -1,5 +1,8 @@
-@import '../../styles/animation';
 @import '../../styles/fonts-text';
+@import '../../styles/animation';
+@import '../../styles/fade-in-animation';
+@import '../../styles/fade-in-down-animation';
+@import '../../styles/fade-out-up-animation';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .m-notif-item {
