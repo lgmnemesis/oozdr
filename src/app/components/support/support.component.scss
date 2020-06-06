@@ -30,6 +30,7 @@
 
   .img-container {
     margin-top: 15px;
+    min-width: 0;
   }
 
   .img-container img {
@@ -78,6 +79,11 @@ ion-item {
   width: 100%;
   max-width: 500px;
   margin: 7px 0;
+}
+
+.img-container {
+  text-align: center;
+  min-width: 500px;
 }
 
 .img-container img {
