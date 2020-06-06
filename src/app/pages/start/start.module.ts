@@ -9,6 +9,7 @@ import { SiteFooterModalModule } from 'src/app/components/site-footer-modal/site
 import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directive';
 import { ParallaxHeaderModule } from 'src/app/directives/parallax-header.directive';
 import { SiteFooterModule } from 'src/app/components/site-footer/site-footer.module';
+import { WhyOozdrModule } from 'src/app/components/why-oozdr/why-oozdr.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { SiteFooterModule } from 'src/app/components/site-footer/site-footer.mod
     SiteFooterModalModule,
     ScrollbarThemeModule,
     ParallaxHeaderModule,
+    WhyOozdrModule,
     SiteFooterModule
   ],
   declarations: [StartPage]

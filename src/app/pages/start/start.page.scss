@@ -55,11 +55,16 @@
 
   .img-container {
     margin-top: 15px;
+    min-width: 0 !important;
   }
   
   .img-container img {
     border-radius: 0 !important;
     box-shadow: none !important;
+  }
+
+  .how-title {
+    font-size: 35px !important;
   }
 }
 
@@ -71,6 +76,11 @@
 
   .p-md-params {
     margin-bottom: 20px !important;
+  }
+
+  .how-title {
+    position: relative !important;
+    left: 0 !important;
   }
 }
 
@@ -197,8 +207,13 @@ ion-content {
   margin: 7px 0;
 }
 
+.img-container {
+  text-align: center;
+  min-width: 500px;
+}
+
 .img-container img {
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -231,4 +246,20 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.how-title {
+  position: absolute;
+  @extend .font-params;
+  font-size: 50px;
+  font-weight: 600;
+  top: 0;
+  left: -25%;
+  right: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.how-title-row {
+  position: relative;
 }

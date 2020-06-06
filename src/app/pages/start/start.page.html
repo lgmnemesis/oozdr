@@ -13,9 +13,9 @@
         <!-- <ion-button class="sm-hide" color="dark" fill="clear" shape="round">
           <ion-label class="basic-text ion-text-capitalize">About</ion-label>
         </ion-button> -->
-        <ion-button class="sm-hide" color="dark" fill="clear" shape="round" (click)="gotoSupport()">
+        <!-- <ion-button class="sm-hide" color="dark" fill="clear" shape="round" (click)="gotoSupport()">
           <ion-label class="basic-text ion-text-capitalize">Support</ion-label>
-        </ion-button>
+        </ion-button> -->
       </div>
     </div>
   </div>
@@ -60,10 +60,11 @@
 
       <ion-grid>
 
-        <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-row class="how-title-row ion-justify-content-center ion-align-items-center">
+          <p class="how-title color-dark">How It Works</p>
           <ion-col size="12" size-lg="6" id="scroll1" class="scroll-animation animated hide">
             <div class="col-container c-align-end">
-              <p class="medium-text color-secondary">Add Connection(s)</p>
+              <p class="medium-text color-secondary">Add Beat(s)</p>
               <p class="title-text ion-text-wrap p-md-params">
                 Fill in the name and mobile number of the person you want to reconnect with.
               </p>
@@ -84,7 +85,7 @@
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size="12" size-lg="6" push-lg="6" id="scroll3" class="scroll-animation animated hide">
             <div class="col-container c-align-start">
-              <p class="medium-text color-secondary">Hope for the best</p>
+              <p class="medium-text color-secondary">Wait for It</p>
               <p class="title-text ion-text-wrap p-md-params">
                 This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.
               </p>
@@ -120,7 +121,9 @@
           </ion-col>
         </ion-row>
 
-        <div class="sec-divider"></div>
+        <div class="sec-divider sm-hide"></div>
+        <app-why-oozdr></app-why-oozdr>
+        <div class="sec-divider sm-hide"></div>
       </ion-grid>
     </div>
 
