@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "app",
+      "target": "production",
       "public": "www",
       "ignore": [
         "firebase.json",

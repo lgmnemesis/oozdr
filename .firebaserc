@@ -2,7 +2,7 @@
   "targets": {
     "reconnect-i": {
       "hosting": {
-        "app": [
+        "production": [
           "reconnect-i"
         ],
         "staging": [
