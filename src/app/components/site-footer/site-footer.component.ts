@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-site-footer',
@@ -10,8 +9,7 @@ import { PopoverController } from '@ionic/angular';
 })
 export class SiteFooterComponent implements OnInit {
 
-  constructor(private router: Router,
-    private popoverCtrl: PopoverController) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
@@ -36,7 +34,6 @@ export class SiteFooterComponent implements OnInit {
   }
 
   goto(url: string) {
-    this.popoverCtrl.dismiss().catch(error => console.error(error));
     this.router.navigate([url]).catch(error => console.error(error));
   }
 }

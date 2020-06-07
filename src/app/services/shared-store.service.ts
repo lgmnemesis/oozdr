@@ -108,7 +108,9 @@ export class SharedStoreService {
   }
 
   async registerToProfile(userId: string) {
+    console.log('in profile1');
     if (userId && (!this._profileDB || this._profileDB.closed)) {
+      console.log('in profile2');
       this._profileDB = this.databaseService.getProfileAsObservable(userId).subscribe((profile) => {
         this.profileSubject.next(profile);
       });
@@ -116,7 +118,9 @@ export class SharedStoreService {
   }
 
   async registerToConnections(userId: string) {
+    console.log('in connections1');
     if (userId && (!this._connectionsDB || this._connectionsDB.closed)) {
+      console.log('in connections2');
       this._connectionsDB = this.databaseService.getConnectionsAsObservable(userId).subscribe((connections) => {
         this.connections = connections;
         this.connectionsSubject.next(connections);
