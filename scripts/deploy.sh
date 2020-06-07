@@ -25,8 +25,8 @@ options="$2"
 buildProd="ionic build --prod -- --aot"
 buildStaging="ionic build --prod --aot --configuration=staging -- --output-path=staging"
 buildWithStats="${buildProd} --stats-json"
-#deployProduction="firebase deploy --only hosting:production"
-deployProduction="firebase deploy --only hosting"
+deployProduction="firebase deploy --only hosting:production"
+# deployProduction="firebase deploy --only hosting"
 deployStaging="firebase deploy --only hosting:staging"
 deployFunctions="firebase deploy --only functions"
 stagingAfterScript="./scripts/staging-after.sh"
@@ -101,5 +101,5 @@ fi
 
 if [ $? -eq 0 ] ; then
   echo
-  echo 'Holonotes Version: '`cat ${versionFile}`
+  echo 'Oozdr Version: '`cat ${versionFile}`
 fi

@@ -4,6 +4,9 @@
       "hosting": {
         "app": [
           "reconnect-i"
+        ],
+        "staging": [
+          "staging-reconnect-i"
         ]
       }
     }
