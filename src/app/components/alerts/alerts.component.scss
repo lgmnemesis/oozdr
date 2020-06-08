@@ -2,6 +2,12 @@
 @import '../../styles/animation';
 @import '../../styles/fade-in-animation';
 
+@media only screen and (max-width: $MEDIUM_WINDOW_WIDTH) {
+  ion-grid {
+    padding-top: 5px;
+  }
+}
+
 .alert-container {
   min-width: 250px;
   max-width: 390px;
