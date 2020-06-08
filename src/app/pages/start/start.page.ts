@@ -77,7 +77,7 @@ export class StartPage implements OnInit, OnDestroy {
       } else {
         if (user === null) {
           this.canShowPage = true;
-          this.showMobileStartPage = this.sharedService.isMobileApp();
+          this.showMobileStartPage = this.sharedService.isPwaMode();
           console.log('moshe: isMobile:', this.showMobileStartPage);
           setTimeout(() => {
             this.observeAndTriggerScrollAnimation();
