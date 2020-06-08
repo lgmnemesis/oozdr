@@ -3,6 +3,7 @@
 @import '../../styles/fade-in-animation';
 @import '../../styles/fade-in-down-animation';
 @import '../../styles/fade-out-up-animation';
+@import '../../styles/heartbeat-animation';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .m-notif-item {
@@ -89,4 +90,10 @@ ion-spinner {
 .pp {
   margin-inline-start: 10px;
   margin-inline-end: 10px;
+}
+
+.mk-beat {
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
 }

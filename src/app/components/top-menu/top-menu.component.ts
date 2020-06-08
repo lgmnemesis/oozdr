@@ -3,6 +3,7 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-top-menu',
@@ -44,7 +45,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef,
     public sharedStoreService: SharedStoreService,
     public sharedService: SharedService,
-    private router: Router) { }
+    private router: Router,
+    private menuCtrl: MenuController) { }
 
   ngOnInit() {
     this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
@@ -69,6 +71,14 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  openSideMenu() {
+    this.menuCtrl.open().catch(error => error.log(error));
+    if (!this.sharedStoreService.menuWasOpenOnce) {
+      this.sharedStoreService.setMenuWasOpenOnce();
+    }
+    this.markForCheck();
   }
 
   clickedOn(url: string) {

@@ -31,6 +31,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   connectionsState: ConnectionsState;
   matchNotifStorageIndicator: string;
   isPresentActive = false;
+  canHeartBeatAnimation = false;
 
   _connectionsState: Subscription;
   _connections: Subscription;
@@ -70,6 +71,14 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       this.isNewMatches = isConnections && connections.findIndex(c => c.isNewMatch) > -1;
       this.sharedStoreService.newMatchesIndicatorSubject.next(this.isNewMatches);
       if (this.connections && this.connections.length === 0) this.connectionsEvent.next({noConnections: true});
+
+      if (!this.connections || this.connections.length === 0 || this.isOnlyBlockedMatches) {
+        console.log('moshe');
+        setTimeout(() => {
+          this.canHeartBeatAnimation = true;
+          this.markForCheck();
+        }, 5000);
+      }
       this.markForCheck();
     });
 

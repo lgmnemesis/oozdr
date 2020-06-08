@@ -1,12 +1,29 @@
-<ion-grid class="ion-no=padding">
+<ion-grid>
   <ion-row class="ion-justify-content-center ion-align-items-start">
+
+    <!-- <ion-col size="auto">
+      <ion-button fill="clear" color="minor" shape="round" (click)="gotoContact()">
+        <ion-label class="basic-text ion-text-capitalize">Contact</ion-label>
+      </ion-button>
+    </ion-col>
     <ion-col size="auto">
+      <ion-button fill="clear" color="minor" shape="round" (click)="gotoPrivacy()">
+        <ion-label class="basic-text ion-text-capitalize">Privacy Policy</ion-label>
+      </ion-button>
+    </ion-col>
+    <ion-col size="auto">
+      <ion-button fill="clear" color="minor" shape="round" (click)="gotoTerms()">
+        <ion-label class="basic-text ion-text-capitalize">Terms of Service</ion-label>
+      </ion-button>
+    </ion-col> -->
+
+    <ion-col size="auto">  
       <div class="flex-col">
         <ion-label class="basic-text bold-text ion-text-uppercase sm-hide">Legal</ion-label>
-        <ion-button fill="clear" color="minor" (click)="gotoPrivacy()">
+        <ion-button fill="clear" color="minor" shape="round" (click)="gotoPrivacy()">
           <ion-label class="basic-text ion-text-capitalize">Privacy Policy</ion-label>
         </ion-button>
-        <ion-button fill="clear" color="minor" (click)="gotoTerms()">
+        <ion-button fill="clear" color="minor" shape="round" (click)="gotoTerms()">
           <ion-label class="basic-text ion-text-capitalize">Terms of Service</ion-label>
         </ion-button>
       </div>
@@ -15,17 +32,18 @@
     <ion-col size="auto">
       <div class="flex-col">
         <ion-label class="basic-text bold-text ion-text-uppercase sm-hide">Information</ion-label>
-        <!-- <ion-button fill="clear" color="minor" (click)="gotoAbout()">
+        <!-- <ion-button fill="clear" color="minor" shape="round" (click)="gotoAbout()">
           <ion-label class="basic-text ion-text-capitalize">About</ion-label>
         </ion-button> -->
-        <!-- <ion-button fill="clear" color="minor" (click)="gotoSupport()">
-          <ion-label class="basic-text ion-text-capitalize">Support</ion-label>
-        </ion-button> -->
-        <ion-button fill="clear" color="minor" (click)="gotoContact()">
+        <ion-button fill="clear" color="minor" shape="round" (click)="gotoContact()">
           <ion-label class="basic-text ion-text-capitalize">Contact</ion-label>
+        </ion-button>
+        <ion-button fill="clear" color="minor" shape="round" (click)="gotoSupport()">
+          <ion-label class="basic-text ion-text-capitalize">Support</ion-label>
         </ion-button>
       </div>
     </ion-col>
+
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-start">

@@ -27,6 +27,12 @@
 
 @import './app/styles/font-family';
 
+@media only screen and (max-width: 576px) {
+  .manage-connection-select-option {
+    --min-width: 90% !important;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .present-modal-properties {
     --border-radius: 20px;
@@ -69,15 +75,23 @@
   to {opacity: 1;}
 }
 
-.manage-connection-select-option,
 .match-details-popover,
 .match-options-popover {
   --min-width: 300px;
 }
 
+.manage-connection-select-option {
+  --min-width: 70%;
+}
+
 .manage-connection-select-option .alert-checkbox-label {
-  @extend .basic-text;
+  @extend .font-params;
+  font-size: 16px;
   white-space: pre-line;
+}
+
+.manage-connection-select-option .alert-checkbox-group {
+  max-height: 70%;
 }
 
 .site-footer-popover .popover-content,

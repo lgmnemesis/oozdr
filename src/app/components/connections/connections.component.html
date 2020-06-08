@@ -60,25 +60,15 @@
               <p class="medium-text ion-text-capitalize ion-text-center">Don't miss a beat!</p> 
               <p class="basic-text ion-text-center p-space">Who do you want to reconnect with?<p>
             </ion-card-content>
+            <div class="mk-beat">
+              <ion-button color="minor" size="large" fill="clear">
+                <ion-icon 
+                  class="padding-x" [class.heartbeat]="canHeartBeatAnimation"
+                  size="small" name="fitness-outline"></ion-icon>
+                <ion-label class="basic-text text-trans-none">Make a Beat</ion-label>
+              </ion-button>
+            </div>
           </ion-card>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
-        <ion-col size="auto">
-          <p class="sm-medium-text p-quote">
-            Doesn’t matter if you can dream it or not, all that matters is if you can begin it or not? Take that first step.
-          </p>
-          <p class="sm-basic-text p-quote-n">― Vikrmn, Corpkshetra</p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-justify-content-center ion-align-items-center animated fadeIn">
-        <ion-col size="auto">
-          <ion-button color="tertiary" size="large" shape="round" (click)="addConnectionButton()">
-            <ion-icon class="padding-x" size="small" name="fitness-outline"></ion-icon>
-            <ion-label class="basic-text text-trans-none">Make a Beat</ion-label>
-          </ion-button>
         </ion-col>
       </ion-row>
     </ng-container>
