@@ -25,6 +25,7 @@ export class StartPage implements OnInit, OnDestroy {
   _installAsAppState: Subscription;
   profile$: Observable<Profile>;
   canShowPage = false;
+  showMobileStartPage = false;
   isLoggedIn = false;
   isSiteMenuActive = false;
   canShowInstallApp = false;
@@ -71,12 +72,13 @@ export class StartPage implements OnInit, OnDestroy {
           this.modalCtrl.dismiss().catch(error => {});
         } catch (error) {
         }
-        console.log('user:', JSON.stringify(user));
         this.sharedStoreService.registerToProfile(user.uid);
         return this.sharedStoreService.profile$;
       } else {
         if (user === null) {
           this.canShowPage = true;
+          this.showMobileStartPage = this.sharedService.isMobileApp();
+          console.log('moshe: isMobile:', this.showMobileStartPage);
           setTimeout(() => {
             this.observeAndTriggerScrollAnimation();
           }, 0);
@@ -89,10 +91,8 @@ export class StartPage implements OnInit, OnDestroy {
     }));
 
     this._profile = this.profile$.subscribe((profile: Profile) => {
-      console.log('profile');
       if (profile) {
         if (profile.basicInfo && profile.basicInfo.name) {
-          console.log('going home: profile:', JSON.stringify(profile));
           this.gotoHome();
         } else {
           // if there is info object, fill it, update and go home

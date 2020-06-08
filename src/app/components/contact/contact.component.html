@@ -25,7 +25,7 @@
           placeholder="What's your email?" [value]="feedback?.email" (ionChange)="setEmail($event)">
         </ion-input>
         <ion-textarea 
-          placeholder="Your questions, comments..."
+          placeholder="How can we help?"
           rows="5"
           spellcheck="true"
           autoGrow="true"
@@ -33,7 +33,7 @@
           (ionChange)="setMessage($event)">
         </ion-textarea>
         <ion-button (click)="sendMessage()">
-          <ion-label>Send Message</ion-label>
+          <ion-label>SEND</ion-label>
         </ion-button>
       </div>
     </ion-col>

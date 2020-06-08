@@ -73,7 +73,6 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       if (this.connections && this.connections.length === 0) this.connectionsEvent.next({noConnections: true});
 
       if (!this.connections || this.connections.length === 0 || this.isOnlyBlockedMatches) {
-        console.log('moshe');
         setTimeout(() => {
           this.canHeartBeatAnimation = true;
           this.markForCheck();

@@ -56,6 +56,11 @@ p {
   height: 45px;
 }
 
+.q-div ion-button {
+  --padding-start: 25px;
+  --padding-end: 25px;
+}
+
 .sec-divider {
   padding: 30px 0;
   width: 100%;
