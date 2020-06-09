@@ -31,7 +31,7 @@
   }
 
   .extra-space {
-    padding-bottom: 30px;
+    padding-bottom: 20px;
   }
 
   .sm-login-bt {
@@ -60,11 +60,6 @@
 
   .img-container {
     margin-top: 15px;
-  }
-  
-  .img-container img {
-    border-radius: 0 !important;
-    box-shadow: none !important;
   }
 
   .how-title {
@@ -188,8 +183,8 @@ ion-content {
 .p-sub-title {
   @extend .basic-text;
   padding: 0 10px 0 20px;
-  margin-top: 4px;
-  margin-bottom: 4px;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
 .top-bt-c {
