@@ -1,16 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { ModalController, NavController, PopoverController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { SignInModalComponent } from 'src/app/components/sign-in-modal/sign-in-modal.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { Subscription, Observable, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { WelcomeService } from 'src/app/services/welcome.service';
-import { Profile } from 'src/app/interfaces/profile';
-import { switchMap } from 'rxjs/operators';
 import { SiteFooterModalComponent } from 'src/app/components/site-footer-modal/site-footer-modal.component';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { WelcomeService } from 'src/app/services/welcome.service';
 
 @Component({
   selector: 'app-start',
@@ -21,12 +19,10 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class StartPage implements OnInit, OnDestroy {
 
   private isSignInButtonActive = false;
-  _profile: Subscription;
+  _user: Subscription;
   _installAsAppState: Subscription;
-  profile$: Observable<Profile>;
   canShowPage = false;
   showMobileStartPage = false;
-  isLoggedIn = false;
   isSiteMenuActive = false;
   canShowInstallApp = false;
   observer: IntersectionObserver;
@@ -35,12 +31,11 @@ export class StartPage implements OnInit, OnDestroy {
     public sharedStoreService: SharedStoreService,
     private sharedService: SharedService,
     private authService: AuthService,
-    private navCtrl: NavController,
     private cd: ChangeDetectorRef,
-    private welcomeService: WelcomeService,
     private popoverCtrl: PopoverController,
     private analyticsService: AnalyticsService,
-    private alertsService: AlertsService) { }
+    private alertsService: AlertsService,
+    public welcomeService: WelcomeService) { }
 
   ngOnInit() {
     this._installAsAppState = this.sharedStoreService.installAsAppState$.subscribe((state) => {
@@ -63,17 +58,17 @@ export class StartPage implements OnInit, OnDestroy {
     this.sharedStoreService.canEnterHome = false;
     this.sharedStoreService.needToFinishInfoRegistration = false;
   
-    this.profile$ = this.authService.user$.pipe(switchMap(user => {
+    this._user = this.authService.user$.subscribe(user => {
       this.canShowPage = false;
       if (user) {
-        this.isLoggedIn = true;
         this.canShowPage = false;
         try {
           this.modalCtrl.dismiss().catch(error => {});
         } catch (error) {
         }
-        this.sharedStoreService.registerToProfile(user.uid);
-        return this.sharedStoreService.profile$;
+        setTimeout(() => {
+          this.unobserveScrollAnimation();
+        }, 5000);
       } else {
         if (user === null) {
           this.canShowPage = true;
@@ -81,59 +76,11 @@ export class StartPage implements OnInit, OnDestroy {
           setTimeout(() => {
             this.observeAndTriggerScrollAnimation();
           }, 0);
-            this.sharedStoreService.loadingAppSubject.next(false);
+          this.sharedStoreService.loadingAppSubject.next(false);
           this.sharedService.setDefaultPhoneCountryCode();
         }
-        this.markForCheck();
-        return of(null);
       }
-    }));
-
-    this._profile = this.profile$.subscribe((profile: Profile) => {
-      if (profile) {
-        if (profile.basicInfo && profile.basicInfo.name) {
-          this.gotoHome();
-        } else {
-          // if there is info object, fill it, update and go home
-          const info = this.welcomeService.basicInfo;
-          if (info && info.name && info.mobile) {
-            const profileJ: Profile = JSON.parse(JSON.stringify(profile));
-            profileJ.basicInfo = info;
-            this.sharedStoreService.updateProfile(profile).catch(error => console.error(error));
-            this.gotoHome();
-          } else {
-            this.sharedStoreService.needToFinishInfoRegistration = true;
-            this.gotoWelcome();
-          }
-        }
-      }
-    });
-  }
-
-  gotoHome() {
-    this.sharedStoreService.canEnterWelcome = false;
-    this.sharedStoreService.canEnterHome = true;
-    setTimeout(() => {
-      this.unobserveScrollAnimation();
-    }, 5000);
-    this.goto('/connections');
-  }
-
-  gotoWelcome() {
-    this.goto('/welcome');
-  }
-
-  gotoSupport() {
-    this.navCtrl.navigateForward('/support').catch(error => console.error(error));
-  }
-  
-  goto(url) {
-    this.navCtrl.navigateRoot(url)
-    .then(() => {
-      this.sharedStoreService.loadingAppSubject.next(false);
-    })
-    .catch((error) => {
-      console.error(error);
+      this.markForCheck();
     });
   }
 
@@ -238,8 +185,8 @@ export class StartPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this._profile) {
-      this._profile.unsubscribe();
+    if (this._user) {
+      this._user.unsubscribe();
     }
     if (this._installAsAppState) {
       this._installAsAppState.unsubscribe();

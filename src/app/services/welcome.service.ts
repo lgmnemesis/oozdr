@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { SharedService } from './shared.service';
 import { SharedStoreService } from './shared-store.service';
 import { FileStorageService } from './file-storage.service';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class WelcomeService {
 
   basicInfo: BasicInfo = this.getInfo();
   croppie: Croppie;
-
+  defProfilePhotoText = 'Profile Photo (optional)';
+  
   nameError = 'no errors';
   isNameError = false;
   genderError = 'no errors';
@@ -26,19 +28,23 @@ export class WelcomeService {
   birthdayError = 'no errors';
   isBirthdayError = false;
   isDisableNextButton = false;
-  defProfilePhotoText = 'Profile Photo (optional)';
   profilePhotoText = this.defProfilePhotoText;
+  goHomeOnceLock = false;
 
   constructor(private authService: AuthService,
     private sharedService: SharedService,
     private sharedStoreService: SharedStoreService,
-    private fileStorageService: FileStorageService) { 
+    private fileStorageService: FileStorageService,
+    private navCtrl: NavController) { 
       this.authService.signingOut$.subscribe((isSigningOut) => {
         if (isSigningOut) {
           this.sharedStoreService.needToFinishInfoRegistration = false;
+          this.goHomeOnceLock = false;
+          this.resetParams();
           this.resetStore();
         }
       });
+      this.subscribeToProfile();
     }
 
   private getInfoFromStore(): BasicInfo {
@@ -83,6 +89,20 @@ export class WelcomeService {
     }
   }
 
+  resetParams() {
+    this.nameError = 'no errors';
+    this.isNameError = false;
+    this.genderError = 'no errors';
+    this.isGenderError = false;
+    this.emailError = 'no errors';
+    this.isEmailError = false;
+    this.birthdayError = 'no errors';
+    this.isBirthdayError = false;
+    this.isDisableNextButton = false;
+    this.profilePhotoText = this.defProfilePhotoText;
+    this.goHomeOnceLock = false;
+  }
+  
   resetStore() {
     this.basicInfo = null;
     this.infoStore = null;
@@ -92,7 +112,6 @@ export class WelcomeService {
       console.error(error);
     }
     this.basicInfo = this.getInfo();
-    this.profilePhotoText = this.defProfilePhotoText;
   }
 
   isValidName(): boolean {
@@ -258,5 +277,54 @@ export class WelcomeService {
       console.error(error);
       this.sharedStoreService.loadingAppSubject.next(false);
     }
+  }
+
+  gotoHome() {
+    this.sharedStoreService.canEnterWelcome = false;
+    this.sharedStoreService.canEnterHome = true;
+    this.goto('/connections');
+  }
+
+  gotoWelcome() {
+    this.goto('/welcome');
+  }
+
+  gotoSupport() {
+    this.navCtrl.navigateForward('/support').catch(error => console.error(error));
+  }
+  
+  goto(url) {
+    this.navCtrl.navigateRoot(url)
+    .then(() => {
+      this.sharedStoreService.loadingAppSubject.next(false);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
+  subscribeToProfile() {
+    this.sharedStoreService.profile$.subscribe((profile: Profile) => {
+      if (profile) {
+        if (profile.basicInfo && profile.basicInfo.name) {
+          if (!this.goHomeOnceLock)  {
+            this.goHomeOnceLock = true;
+            this.gotoHome();
+          }
+        } else {
+          // if there is info object, fill it, update and go home
+          const info = this.basicInfo;
+          if (info && info.name && info.mobile) {
+            const profileJ: Profile = JSON.parse(JSON.stringify(profile));
+            profileJ.basicInfo = info;
+            this.sharedStoreService.updateProfile(profile).catch(error => console.error(error));
+            this.gotoHome();
+          } else {
+            this.sharedStoreService.needToFinishInfoRegistration = true;
+            this.gotoWelcome();
+          }
+        }
+      }
+    });
   }
 }

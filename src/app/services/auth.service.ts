@@ -48,6 +48,7 @@ export class AuthService {
       }
       this.userSubject.next(user);
       if (user) {
+        this.sharedStoreService.registerToProfile(user.uid);
         this.analyticsService.setUserId(user);
       }
     });

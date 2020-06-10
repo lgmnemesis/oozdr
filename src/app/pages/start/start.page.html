@@ -33,7 +33,7 @@
           <p class="p-sub-title">Maybe they're thinking about you as well?</p>
           <p class="p-sub-title">Maybe they're looking for you too!</p>
           <div class="top-bt-c">
-            <ion-button shape="round" (click)="gotoWelcome()">
+            <ion-button shape="round" (click)="welcomeService?.gotoWelcome()">
               <ion-label class="basic-text">Join us and find out</ion-label>
             </ion-button>
           </div>
@@ -46,7 +46,7 @@
           <p class="p-sub-title">Maybe they're thinking about you as well?</p>
           <p class="p-sub-title">Maybe they're looking for you too!</p>
           <div class="top-bt-c">
-            <ion-button shape="round" (click)="gotoWelcome()">
+            <ion-button shape="round" (click)="welcomeService?.gotoWelcome()">
               <ion-label class="basic-text">Join us and find out</ion-label>
             </ion-button>
           </div>
@@ -150,7 +150,7 @@
     <p class="p-title color-minor">Your EX...</p>
     
     <div class="top-bt-c">
-      <ion-button size="large" shape="round" (click)="gotoWelcome()">
+      <ion-button size="large" shape="round" (click)="welcomeService?.gotoWelcome()">
         <ion-label class="basic-text ion-text-uppercase">Get Started</ion-label>
       </ion-button>
       <p class="basic-text color-minor">Already a member?<span class="sp-signin" (click)="signIn()">Log In</span></p>
