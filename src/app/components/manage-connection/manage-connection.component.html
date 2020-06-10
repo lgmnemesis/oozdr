@@ -16,7 +16,7 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <p>Name</p>
+      <p class="basic-text">Name</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
           placeholder="Connection Name" 
@@ -31,7 +31,7 @@
     </ion-col>
     
     <ion-col size="auto">
-      <p>Mobile Number</p>
+      <p class="basic-text">Mobile Number</p>
       <input id="tel-input"
         [disabled]="connectionState?.state === 'edit'"
         type="tel" ng2TelInput
@@ -43,7 +43,7 @@
     </ion-col>
 
     <ion-col size="auto">
-      <p>Email (Optional)</p>
+      <p class="basic-text">Email (Optional)</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
           type="email"
