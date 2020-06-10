@@ -290,8 +290,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     const name = connection.basicInfo.name;
     const cName = name.charAt(0).toUpperCase() + name.slice(1);
     const message: ToastMessage = {
-      header: `${cName} is now a new beat. Sounds great!`,
-      message: `If and when we'll hear ${cName}'s heart beats in your direction, we'll update both of you immediately. Lets make some music together!`,
+      header: `${cName} is a new beat. Sounds great!`,
+      message: `If ${cName} adds you to their beats, it's a groove! and we'll update both of you immediately. Let's make some music together!`,
       type: 'connection_added',
       id: connection.id,
       isVisible: true,
