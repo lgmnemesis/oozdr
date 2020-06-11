@@ -2,9 +2,12 @@
 
   <ion-toolbar class="parallax-header ion-text-center">
     <ion-buttons slot="start">
-      <ion-button [disabled]="true" shape="round" color="minor">
+      <ion-button [disabled]="true" shape="round" color="minor" *ngIf="!contactPickerApiService?.supported">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
+      <app-contact-picker *ngIf="contactPickerApiService?.supported"
+        (contactsEvent)="gotContacts($event)">
+      </app-contact-picker>
     </ion-buttons>
     <ion-label class="basic-text text-trans-none" color="secondary">
       {{ connectionsState?.state === 'edit' ? 'Edit Beat' : 'Make a Beat' }}
@@ -17,7 +20,7 @@
   </ion-toolbar>
 
   <div class="main-content">
-    <app-manage-connection [state]="connectionsState"></app-manage-connection>
+    <app-manage-connection [contacts]="contacts" [state]="connectionsState"></app-manage-connection>
   </div>
 </ion-content>
 

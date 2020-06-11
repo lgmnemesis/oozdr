@@ -2,11 +2,11 @@
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) { 
   .item-input {
-    min-width: 290px !important;
+    min-width: 300px !important;
   }
 
   #tel-input {
-    min-width: 290px !important;
+    min-width: 300px !important;
   }
 
   .p-note {
@@ -14,7 +14,7 @@
   }
 
   .p-sub-text {
-    max-width: 290px !important;
+    max-width: 300px !important;
   }
 }
 
@@ -110,4 +110,17 @@ input:focus {
 
 .padding-top {
   padding-top: 20px;
+}
+
+.contact-select {
+  --padding-start: 0;
+  z-index: 0;
+}
+
+.contact-select-tel {
+  position: absolute;
+  top: 35px;
+  bottom: 0;
+  margin: auto;
+  right: 15px;
 }

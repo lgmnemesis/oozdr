@@ -1,18 +1,4 @@
 <ion-grid>
-  
-  <!-- <ion-row class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="12">
-      <ion-item class="header-item" lines="none">
-        <app-contact-picker *ngIf="false && contactPickerApiService?.supported"
-          (contactsEvent)="gotContacts($event)">
-        </app-contact-picker>
-        <ion-label class="title-text" color="secondary">Add Connection</ion-label>
-        <ion-button class="bt-round" slot="end" fill="clear" shape="round" color="dark" (click)="close()">
-          <ion-icon size="large" name="close-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-col>
-  </ion-row> -->
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
@@ -26,6 +12,16 @@
           (ionChange)="setName($event)">
           <ion-icon name="person-outline"></ion-icon>
         </ion-input>
+
+        <ion-select *ngIf="internalContact?.name?.length > 1"
+          class="contact-select" mode="ios" selected-text=" "
+          [value]="selectedContactNameValue"
+          (ionChange)="selectedContactName($event)">
+          <ion-select-option [value]="i" *ngFor="let valueTxt of internalContact?.name; let i = index;">
+            {{ valueTxt }}
+          </ion-select-option>
+        </ion-select>
+
       </ion-item>
       <p class="p-error" [class.p-error-active]="isNameError">{{ nameError }}</p>
     </ion-col>
@@ -39,6 +35,16 @@
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 
         (intlTelInputObject)="telInputObject($event)"/>
+
+        <ion-select *ngIf="internalContact?.tel?.length > 1"
+          class="contact-select contact-select-tel" mode="ios" selected-text=" "
+          [value]="selectedContactTelValue"
+          (ionChange)="selectedContactTel($event)">
+          <ion-select-option [value]="i" *ngFor="let valueTxt of internalContact?.tel; let i = index;">
+            {{ valueTxt }}
+          </ion-select-option>
+        </ion-select>
+
         <p class="basic-text p-error" [class.p-error-active]="isPhoneError">{{ phoneError }}</p>
     </ion-col>
 
@@ -55,6 +61,16 @@
           (ionChange)="setEmail($event)">
           <ion-icon name="mail-outline"></ion-icon>
         </ion-input>
+
+        <ion-select *ngIf="internalContact?.email?.length > 1"
+          class="contact-select" mode="ios" selected-text=" "
+          [value]="selectedContactEmailValue"
+          (ionChange)="selectedContactEmail($event)">
+          <ion-select-option [value]="i" *ngFor="let valueTxt of internalContact?.email; let i = index;">
+            {{ valueTxt }}
+          </ion-select-option>
+        </ion-select>
+
       </ion-item>
       <p class="p-error" [class.p-error-active]="isEmailError">{{ emailError }}</p>
       <p class="smallest-text p-sub-text">

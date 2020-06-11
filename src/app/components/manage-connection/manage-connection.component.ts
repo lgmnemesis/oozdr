@@ -4,7 +4,6 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection, Profile } from 'src/app/interfaces/profile';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
-import { ContactPickerApiService } from 'src/app/services/contact-picker-api.service';
 
 export class Q {
   name = '';
@@ -31,8 +30,14 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     }
   }
 
+  @Input() 
+  set contacts(c: any[]) {
+    this.setContacts(c);
+  }
+
   Q = new Q();
 
+  internalContact = null;
   isNameError = false;
   isEmailError = false;
   isPhoneError = false;
@@ -43,6 +48,9 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   saveConnectionButtonText = 'Add Beat';
   profile: Profile;
   isValidForm = true;
+  selectedContactNameValue = -1;
+  selectedContactEmailValue = -1;
+  selectedContactTelValue = -1;
 
   telInputObj: any
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
@@ -64,8 +72,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private sharedStoreService: SharedStoreService,
-    public contactPickerApiService: ContactPickerApiService) { }
+    private sharedStoreService: SharedStoreService) { }
 
   ngOnInit() {
     this.getProfile();
@@ -96,10 +103,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.profile = await this.sharedStoreService.getProfile();
   }
 
-  gotContacts(event) {
-    console.log('moshe:', event);
-  }
-
   setForEdit(connectionState: ConnectionsState) {
     const connection = connectionState.connection;
     this.Q.name = connection.basicInfo.name;
@@ -112,14 +115,58 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.saveConnectionButtonText = 'Save Beat';
   }
 
+  setContacts(contacts: any[]) {
+    if (contacts && contacts.length > 0) {
+      const contact = contacts[0];
+      this.internalContact = contact;
+      if (contact.name && contact.name.length > 0) this.Q.name = contact.name[0];
+      if (contact.email && contact.email.length > 0) this.Q.email = contact.email[0];
+      if (contact.tel && contact.tel.length > 0) {
+        this.Q.phoneNumber = contact.tel[0];
+        this.setNumber();
+      }
+      this.markForCheck();
+    }
+  }
+
+  selectedContactName(event) {
+    const index = event.detail.value;
+    if (index >= 0 && this.internalContact 
+      && this.internalContact.name 
+      && index < this.internalContact.name.length) {
+        const name = this.internalContact.name[index];
+        this.Q.name = name;
+        this.selectedContactNameValue = index;
+        this.markForCheck();
+    }
+  }
+
   setName(event) {
     this.Q.name = event.detail.value;
+    if (this.internalContact && this.internalContact.name) {
+      this.selectedContactNameValue = this.internalContact.name.findIndex((n) => n === this.Q.name);
+    }
     this.isValidName();
     this.markForCheck();
   }
 
+  selectedContactEmail(event) {
+    const index = event.detail.value;
+    if (index >= 0 && this.internalContact 
+      && this.internalContact.email 
+      && index < this.internalContact.email.length) {
+        const email = this.internalContact.email[index];
+        this.Q.email = email;
+        this.selectedContactEmailValue = index;
+        this.markForCheck();
+    }
+  }
+
   setEmail(event) {
     this.Q.email = event.detail.value;
+    if (this.internalContact && this.internalContact.email) {
+      this.selectedContactEmailValue = this.internalContact.email.findIndex((e) => e === this.Q.email);
+    }
     this.isValidEmail();
     this.markForCheck();
   }
@@ -165,12 +212,34 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   telInputObject(obj) {
     this.telInputObj = obj;
-    if (this.connectionState && this.connectionState.state === 'edit' && obj) {
+    if (this.connectionState && this.connectionState.state === 'edit') {
+      this.setNumber();
+    }
+  }
+
+  setNumber() {
+    if (this.telInputObj) {
       try {
         this.telInputObj.setNumber(this.Q.phoneNumber);
+        if (this.internalContact && this.internalContact.tel) {
+          this.selectedContactTelValue = this.internalContact.tel.findIndex((t) => t === this.Q.phoneNumber);
+        }
       } catch (error) {
         console.error(error);
       }
+    }
+  }
+
+  selectedContactTel(event) {
+    const index = event.detail.value;
+    if (index >= 0 && this.internalContact 
+      && this.internalContact.tel 
+      && index < this.internalContact.tel.length) {
+        const tel = this.internalContact.tel[index];
+        this.Q.phoneNumber = tel;
+        this.setNumber();
+        this.selectedContactTelValue = index;
+        this.markForCheck();
     }
   }
 

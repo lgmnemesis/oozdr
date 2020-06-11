@@ -21,14 +21,14 @@ export class ContactPickerComponent implements OnInit {
   }
 
   async getContacts() {
-    // const contacts = await this.contactPickerApiService.getContacts();
+    const contacts = await this.contactPickerApiService.getContacts();
     
     // TMP
-    const contacts = [{
-      "email": ["lgm@nemesis.co.il", "moshe@nemesis.co.il"],
-      "name": ["Moshe Levy", "Moshe Levy2"],
-      "tel": ["(077) 360 4438", "+972543989404", "098783577"]
-    }];
+    // const contacts = [{
+    //   "email": ["lgm@nemesis.co.il", "moshe@nemesis.co.il"],
+    //   "name": ["Moshe Levy", "Moshe Levy2"],
+    //   "tel": ["(077) 360 4438", "+972543989404", "098783577"]
+    // }];
 
     this.contactsEvent.next(contacts);
     this.markForCheck();
