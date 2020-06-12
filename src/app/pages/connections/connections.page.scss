@@ -15,9 +15,13 @@ ion-footer {
   border-bottom: solid 1px var(--ion-color-light);
 }
 
+.bt-round {
+  margin-inline-end: 10px;
+}
+
 .icon-add {
   position: absolute;
   font-size: 15px;
-  top: 3px;
-  left: 22px;
+  top: 2px;
+  left: 23px;
 }
