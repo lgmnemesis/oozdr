@@ -13,12 +13,21 @@ export class ManageConnectionModalComponent implements OnInit {
 
   connectionsState: ConnectionsState;
   contacts = null;
+  title =  '';
 
   constructor(private modalCtrl: ModalController,
     public contactPickerApiService: ContactPickerApiService,
     private cd: ChangeDetectorRef) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    const state = this.connectionsState && this.connectionsState.state ? this.connectionsState.state : null;
+    if (state) {
+      if (state === 'add') this.title = 'Make Beat';
+      if (state === 'edit') this.title = 'Edit Beat';
+      if (state === 'add_closure') this.title = 'Add Closure';
+      if (state === 'edit_closure') this.title = 'Edit Closure';
+    }
+  }
 
   markForCheck() {
     this.cd.markForCheck();

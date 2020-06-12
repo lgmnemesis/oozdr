@@ -27,6 +27,7 @@ export interface Connection {
   lastMessage?: Message;
   isBlocked?: boolean;
   className?: string;
+  isClosure?: boolean;
 }
 
 export interface BasicInfo {

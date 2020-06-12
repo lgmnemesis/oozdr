@@ -35,7 +35,7 @@
 
   <ion-item lines="none" *ngIf="!connection?.isMatched">
     <ion-label color="minor" class="small-text ion-text-wrap">
-      Beat from {{ connection?.createdAt?.toDate() | date }}
+      {{ connection?.isClosure ? 'Closure' : 'Beat' }} from {{ connection?.createdAt?.toDate() | date }}
     </ion-label>
     <ion-button fill="clear" (click)="presentDisconnectConfirm()" color="minor" slot="end">
       <ion-icon name="heart-dislike-outline"></ion-icon>

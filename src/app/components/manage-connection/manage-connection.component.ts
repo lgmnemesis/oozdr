@@ -24,10 +24,14 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   set state(s: ConnectionsState) {
     this.connectionState = s;
     this.reset();
-    if (s && s.state === 'edit') {
+    if (s && s.state === 'add_closure') {
+      this.saveConnectionButtonText = 'Add Closure';
+    } else if (s && s.state === 'edit_closure') {
+      this.saveConnectionButtonText = 'Edit Closure';
+    } else if (s && s.state === 'edit') {
       this.setForEdit(s);
-      this.markForCheck();
     }
+    this.markForCheck();
   }
 
   @Input() 
@@ -96,7 +100,6 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isPhoneError = false;
     this.showWelcomeMessage = false;
     this.saveConnectionButtonText = 'Add Beat';
-    this.markForCheck();
   }
 
   async getProfile() {
@@ -257,9 +260,9 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   }
 
   addOrSaveConnection() {
-    if (this.connectionState && this.connectionState.state === 'add') {
+    if (this.connectionState && (this.connectionState.state === 'add' || this.connectionState.state === 'add_closure')) {
       this.addConnection();
-    } else if (this.connectionState && this.connectionState.state === 'edit') {
+    } else if (this.connectionState && (this.connectionState.state === 'edit' || this.connectionState.state === 'edit_closure')) {
       this.saveConnection();
     }
   }
@@ -314,7 +317,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       user_id: profile.user_id,
       user_mobile: profile.basicInfo.mobile,
       user_profle_img_url: profile.basicInfo.profile_img_url,
-      className: this.randomClassName()
+      className: this.randomClassName(),
+      isClosure: this.connectionState.state === 'add_closure'
     }
     this.sharedStoreService.addConnection(connection)
     .then(() => {
@@ -358,9 +362,15 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   sendToastMessage(connection: Connection) {
     const name = connection.basicInfo.name;
     const cName = name.charAt(0).toUpperCase() + name.slice(1);
+    let header = `${cName} is a new beat. Sounds great!`;
+    let content = `If ${cName} adds you to their beats, it's a groove! and we'll update both of you immediately. Let's make some music together!`;
+    if (connection.isClosure) {
+      header = `${cName} is a new closure for you.`;
+      content = `If ${cName} is looking for you, we'll send them your closure letter and update you immediately.`;
+    }
     const message: ToastMessage = {
-      header: `${cName} is a new beat. Sounds great!`,
-      message: `If ${cName} adds you to their beats, it's a groove! and we'll update both of you immediately. Let's make some music together!`,
+      header: header,
+      message: content,
       type: 'connection_added',
       id: connection.id,
       isVisible: true,
@@ -404,7 +414,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   close(action?: string) {
     let state: ConnectionsState;
     if (action === 'added') {
-      state = {state: 'view', prevState: 'add'};
+      state = {state: 'view', prevState: this.connectionState.state};
     } else {
       state = {state: 'view'};
     }

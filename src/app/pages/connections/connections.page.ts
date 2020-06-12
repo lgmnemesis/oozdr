@@ -49,6 +49,10 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
   }
 
+  addClosureButton() {
+    this.sharedStoreService.connectionsStateSubject.next({state: 'add_closure'});
+  }
+
   gotConnectionsEvent(event) {
     if (event && event.noConnections) {
       setTimeout(() => {
