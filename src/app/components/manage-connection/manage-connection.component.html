@@ -79,41 +79,63 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="padding-top ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto">
-      <ion-list>
-        <ion-item lines="none">
-          <ion-toggle 
-            color="secondary"
-            [value]="Q?.welcomeMessage"
-            [checked]="showWelcomeMessage" 
-            (ionChange)="toggleWelcomeMessage($event)">
-          </ion-toggle>
-          <ion-label class="basic-text ion-text-wrap">Welcome Message</ion-label>
-        </ion-item>
-        <p class="smallest-text p-sub-text">Show them you care. write them something inviting.</p>
-        <p class="smallest-text p-sub-text">(You can change it later)</p>
-      </ion-list>
-    </ion-col>
-  </ion-row>
+  <ng-container *ngIf="connectionState?.state !== 'add_closure' && connectionState?.state !== 'edit_closure'">
+    <ion-row class="padding-top ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <ion-list>
+          <ion-item lines="none">
+            <ion-toggle 
+              color="secondary"
+              [value]="Q?.welcomeMessage"
+              [checked]="showWelcomeMessage" 
+              (ionChange)="toggleWelcomeMessage($event)">
+            </ion-toggle>
+            <ion-label class="basic-text ion-text-wrap">Welcome Message</ion-label>
+          </ion-item>
+          <p class="smallest-text p-sub-text">Show them you care. write them something inviting.</p>
+          <p class="smallest-text p-sub-text">(You can change it later)</p>
+        </ion-list>
+      </ion-col>
+    </ion-row>
 
-  <ion-row class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto" *ngIf="showWelcomeMessage">
-      <ion-item class="item-select" lines="none">
-        <ion-label color="success" class="basic-text">Suggested messages</ion-label>
-        <ion-select
-           mode="ios" multiple="true" cancel-text="Cancel" ok-text="Ok" selected-text=" " 
-           [interfaceOptions]="customSelectOptions"
-           (ionChange)="selectedMessages($event)">
-          <ion-select-option 
-            [value]="i" *ngFor="let valueTxt of customSelectText; let i = index;">{{ valueTxt }}
-          </ion-select-option>
-        </ion-select>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto" *ngIf="showWelcomeMessage">
+        <ion-item class="item-select" lines="none">
+          <ion-label color="success" class="basic-text">Suggested messages</ion-label>
+          <ion-select
+            mode="ios" multiple="true" cancel-text="Cancel" ok-text="Ok" selected-text=" " 
+            [interfaceOptions]="customSelectOptions"
+            (ionChange)="selectedMessages($event)">
+            <ion-select-option 
+              [value]="i" *ngFor="let valueTxt of customSelectText; let i = index;">{{ valueTxt }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-textarea 
+            color="dark"
+            rows="6" 
+            spellcheck="true"
+            placeholder="Don't say it unless you mean it"
+            [autoGrow]="true"
+            [value]="Q?.welcomeMessage"
+            (ionChange)="setWelcomeMessage($event)">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+
+  <ion-row *ngIf="connectionState?.state === 'add_closure' || connectionState?.state === 'edit_closure'"
+    class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="12">
+      <ion-item lines="none">
+        <ion-label class="basic-text ion-text-wrap ion-text-center">Closure Message</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-textarea 
           color="dark"
-          rows="6" 
+          rows="10" 
           spellcheck="true"
           placeholder="Don't say it unless you mean it"
           [autoGrow]="true"

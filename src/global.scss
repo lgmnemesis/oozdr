@@ -31,6 +31,10 @@
   .manage-connection-select-option {
     --min-width: 90% !important;
   }
+
+  .manage-connection-help {
+    --min-width: 90% !important;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -78,6 +82,23 @@
 .match-details-popover,
 .match-options-popover {
   --min-width: 300px;
+}
+
+.manage-connection-help {
+  --min-width: 500px;
+}
+
+.manage-connection-help .alert-title {
+  @extend .font-params;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.manage-connection-help .alert-message {
+  @extend .font-params;
+  font-size: 16px;
+  white-space: pre-line;
+  text-align: start;
 }
 
 .manage-connection-select-option {
