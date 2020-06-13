@@ -46,8 +46,10 @@ export class ConnectionComponent implements OnInit {
     this.analyticsService.disconnectEvent();
   }
 
-  edit() {
-    this.sharedStoreService.connectionsStateSubject.next({connection: this.connection, state: 'edit'});
+  edit(fromContent = false) {
+    if (fromContent && !this.connection.isClosureMatched) return;
+    const state = this.connection.isClosure ? 'edit_closure' : 'edit';
+    this.sharedStoreService.connectionsStateSubject.next({connection: this.connection, state: state});
   }
 
   dismissToast() {

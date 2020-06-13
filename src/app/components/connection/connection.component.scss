@@ -35,6 +35,10 @@ ion-button {
   width: 100%;
 }
 
+.extra-padding-top {
+  padding-top: 20px;
+}
+
 .name-avatar {
   display: flex;
   padding: 20px 0;
@@ -50,7 +54,7 @@ ion-avatar {
 .p-s-theme {
   @extend .smaller-text;
   width: 100%;
-  margin: 2px;
+  margin: 5px 0;
   padding: 0 10px;
   color: var(--ion-color-minor);
   text-align: center;
@@ -60,6 +64,10 @@ ion-avatar {
   width: 100%;
   text-align: center;
   margin: 20px 0;
+}
+
+.as-btn {
+  cursor: pointer;
 }
 
 // Setting random class name in maange-connection componnent(1-8)

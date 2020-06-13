@@ -8,12 +8,13 @@
           placeholder="Connection Name" 
           maxLength="20" 
           debounce="300"
+          [disabled]="!canEdit"
           [value]="Q?.name"
           (ionChange)="setName($event)">
           <ion-icon name="person-outline"></ion-icon>
         </ion-input>
 
-        <ion-select *ngIf="internalContact?.name?.length > 1"
+        <ion-select *ngIf="internalContact?.name?.length > 1 && canEdit"
           class="contact-select" mode="ios" selected-text=" "
           [value]="selectedContactNameValue"
           (ionChange)="selectedContactName($event)">
@@ -29,14 +30,14 @@
     <ion-col size="auto">
       <p class="basic-text">Mobile Number</p>
       <input id="tel-input"
-        [disabled]="connectionState?.state === 'edit'"
+        [disabled]="connectionState?.state === 'edit' || connectionState?.state === 'edit_closure'"
         type="tel" ng2TelInput
         [name]="Q?.phoneNumber"
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
         (hasError)="telHasError($event)" 
         (intlTelInputObject)="telInputObject($event)"/>
 
-        <ion-select *ngIf="internalContact?.tel?.length > 1"
+        <ion-select *ngIf="internalContact?.tel?.length > 1 && canEdit"
           class="contact-select contact-select-tel" mode="ios" selected-text=" "
           [value]="selectedContactTelValue"
           (ionChange)="selectedContactTel($event)">
@@ -48,7 +49,7 @@
         <p class="basic-text p-error" [class.p-error-active]="isPhoneError">{{ phoneError }}</p>
     </ion-col>
 
-    <ion-col size="auto">
+    <ion-col size="auto" *ngIf="canEdit || (!canEdit && Q?.email)">
       <p class="basic-text">Email (Optional)</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
@@ -57,12 +58,13 @@
           placeholder="Connection Email" 
           maxLength="100" 
           debounce="300"
+          [disabled]="!canEdit"
           [value]="Q?.email"
           (ionChange)="setEmail($event)">
           <ion-icon name="mail-outline"></ion-icon>
         </ion-input>
 
-        <ion-select *ngIf="internalContact?.email?.length > 1"
+        <ion-select *ngIf="internalContact?.email?.length > 1 && canEdit"
           class="contact-select" mode="ios" selected-text=" "
           [value]="selectedContactEmailValue"
           (ionChange)="selectedContactEmail($event)">
@@ -73,13 +75,13 @@
 
       </ion-item>
       <p class="p-error" [class.p-error-active]="isEmailError">{{ emailError }}</p>
-      <p class="smallest-text p-sub-text">
+      <p class="smallest-text p-sub-text" *ngIf="canEdit">
         We will send an invitation email stating that someone is looking for them(without revealing who it is from)
       </p>
     </ion-col>
   </ion-row>
 
-  <ng-container *ngIf="connectionState?.state !== 'add_closure' && connectionState?.state !== 'edit_closure'">
+  <ng-container *ngIf="canEdit && (connectionState?.state !== 'add_closure' && connectionState?.state !== 'edit_closure')">
     <ion-row class="padding-top ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
         <ion-list>
@@ -126,7 +128,7 @@
     </ion-row>
   </ng-container>
 
-  <ion-row *ngIf="connectionState?.state === 'add_closure' || connectionState?.state === 'edit_closure'"
+  <ion-row *ngIf="canEdit && (connectionState?.state === 'add_closure' || connectionState?.state === 'edit_closure')"
     class="ion-justify-content-center ion-align-items-center">
     <ion-col size="12">
       <ion-item lines="none">
@@ -137,16 +139,17 @@
           color="dark"
           rows="10" 
           spellcheck="true"
-          placeholder="Don't say it unless you mean it"
+          placeholder="Write From Your Heart"
           [autoGrow]="true"
           [value]="Q?.welcomeMessage"
           (ionChange)="setWelcomeMessage($event)">
         </ion-textarea>
       </ion-item>
+      <p class="p-error" [class.p-error-active]="isClosureError">{{ closureError }}</p>
     </ion-col>
   </ion-row>
 
-  <ion-row class="padding-top ion-justify-content-center ion-align-items-center">
+  <ion-row class="padding-top ion-justify-content-center ion-align-items-center" *ngIf="canEdit">
     <ion-col size="auto" class="col-txt">
       <p class="small-text p-note">
         Don't worry, we are not doing anything yet.
@@ -155,7 +158,7 @@
     </ion-col>
   </ion-row>
 
-  <ion-row class="ion-justify-content-center ion-align-items-center">
+  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="canEdit">
     <ion-col size="auto">
       <ion-button class="basic-text ion-text-capitalize" fill="outline" color="secondary" (click)="close()">Cancel</ion-button>
     </ion-col>
@@ -166,5 +169,58 @@
       </ion-button>
     </ion-col>
   </ion-row>
+
+  <ng-container *ngIf="!canEdit && connectionState?.connection?.isClosureMatched">
+
+    <ng-container *ngIf="connectionState?.connection?.isClosure">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12" *ngIf="connectionState?.connection?.otherParty?.message">
+          <p class="message-display-title">
+            {{ connectionState?.connection?.basicInfo?.name }}'s
+            {{ connectionState?.connection?.otherParty?.isClosure ? 'Closure' : 'Welcome' }}  Message
+          </p>
+          <div class="message-display">
+            <p>{{ connectionState?.connection?.otherParty?.message }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <p class="message-display-title basic-text">Your Closure Message</p>
+          <div class="message-display">
+            <p>{{ connectionState?.connection?.basicInfo?.welcome_msg }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+
+    <ng-container *ngIf="!connectionState?.connection?.isClosure">
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12">
+          <p class="message-display-title">{{ connectionState?.connection?.basicInfo?.name }}'s Closure Message</p>
+          <div class="message-display">
+            <p>{{ connectionState?.connection?.otherParty?.message }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="connectionState?.connection?.basicInfo?.welcome_msg">
+        <ion-col size="12">
+          <p class="message-display-title">Your Welcome Message</p>
+          <div class="message-display">
+            <p>{{ connectionState?.connection?.basicInfo?.welcome_msg }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+
+    <ion-row class="ion-justify-content-center ion-align-items-center closure-btn">
+      <ion-col size="auto">
+        <ion-button class="basic-text ion-text-capitalize" color="secondary" (click)="close()">Close</ion-button>
+      </ion-col>
+    </ion-row>
+    
+  </ng-container>
 
 </ion-grid>

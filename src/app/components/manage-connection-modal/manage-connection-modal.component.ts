@@ -15,6 +15,7 @@ export class ManageConnectionModalComponent implements OnInit {
   contacts = null;
   title =  '';
   showHelpLock = false;
+  canEdit = true;
 
   constructor(private modalCtrl: ModalController,
     public contactPickerApiService: ContactPickerApiService,
@@ -22,12 +23,19 @@ export class ManageConnectionModalComponent implements OnInit {
     private alertCtrl: AlertController) { }
 
   ngOnInit() {
+    this.canEdit = true;
     const state = this.connectionsState && this.connectionsState.state ? this.connectionsState.state : null;
+    const connection = this.connectionsState ? this.connectionsState.connection : null;
     if (state) {
       if (state === 'add') this.title = 'Make Beat';
       if (state === 'edit') this.title = 'Edit Beat';
       if (state === 'add_closure') this.title = 'Add Closure';
       if (state === 'edit_closure') this.title = 'Edit Closure';
+
+      if (state === 'edit_closure' && connection && connection.isClosureMatched)  {
+        this.title = 'Closure';
+        this.canEdit = false;
+      }
     }
   }
 

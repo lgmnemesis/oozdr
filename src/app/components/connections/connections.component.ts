@@ -55,7 +55,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
       if (state && (state.state === 'view')) {
         this.modalCtrl.dismiss().catch(error => {});
       }
-      if (state && (state.state === 'add' || state.state === 'edit' || state.state === 'add_closure')) {
+      if (state && 
+        (state.state === 'add' || state.state === 'edit' || state.state === 'add_closure' || state.state === 'edit_closure')) {
         this.manageConnections(state);
       } else if (state && (state.prevState === 'add' || state.prevState === 'add_closure')) {
         this.displayNotificaionsPermission();

@@ -124,3 +124,30 @@ input:focus {
   margin: auto;
   right: 15px;
 }
+
+.message-display-title {
+  @extend .basic-text;
+  text-align: center;
+  color: var(--ion-color-secondary);
+}
+
+.message-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  min-height: 100px;
+  padding: 10px;
+  background: var(--ion-color-light);
+}
+
+.message-display p {
+  @extend .smaller-text;
+  white-space: pre-line;
+}
+
+.closure-btn {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

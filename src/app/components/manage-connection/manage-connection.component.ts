@@ -23,12 +23,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   @Input() 
   set state(s: ConnectionsState) {
     this.connectionState = s;
+    this.canEdit = !(s && s.connection && s.connection.isClosureMatched);
     this.reset();
     if (s && s.state === 'add_closure') {
       this.saveConnectionButtonText = 'Add Closure';
-    } else if (s && s.state === 'edit_closure') {
-      this.saveConnectionButtonText = 'Edit Closure';
-    } else if (s && s.state === 'edit') {
+    } else if (s && s.state === 'edit' || s.state === 'edit_closure') {
       this.setForEdit(s);
     }
     this.markForCheck();
@@ -41,13 +40,16 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   Q = new Q();
 
+  canEdit = true;
   internalContact = null;
   isNameError = false;
   isEmailError = false;
   isPhoneError = false;
+  isClosureError = false;
   nameError = 'no errors';
   phoneError = 'no errors';
   emailError = 'no errors';
+  closureError = 'no errors';
   showWelcomeMessage = false;
   saveConnectionButtonText = 'Add Beat';
   profile: Profile;
@@ -115,7 +117,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     if (this.Q.welcomeMessage) {
       this.showWelcomeMessage = true;
     }
-    this.saveConnectionButtonText = 'Save Beat';
+    this.saveConnectionButtonText = connectionState.state === 'edit_closure' ? 'Save Closure' : 'Save Beat';
   }
 
   setContacts(contacts: any[]) {
@@ -202,6 +204,16 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     return !this.isEmailError;
   }
 
+  isValidClosure(): boolean {
+    this.closureError = 'no errors';
+    const isClosure = this.connectionState && (this.connectionState.state === 'add_closure' || this.connectionState.state === 'edit_closure');
+    if (!isClosure) return true;
+    const message = this.Q.welcomeMessage ? this.Q.welcomeMessage.trim() : '';
+    this.isClosureError = message.length === 0;
+    if (this.isClosureError) this.closureError = 'Please Write Somthing';
+    return !this.isClosureError;
+  }
+
   getAndVerifyNumber(): boolean {
     try {
       const isValid = this.telInputObj.isValidNumber();
@@ -215,7 +227,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   telInputObject(obj) {
     this.telInputObj = obj;
-    if (this.connectionState && this.connectionState.state === 'edit') {
+    if (this.connectionState && (this.connectionState.state === 'edit' || this.connectionState.state === 'edit_closure')) {
       this.setNumber();
     }
   }
@@ -336,15 +348,17 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     const isValidEmail = this.isValidEmail();
     const isValidNumber = this.getAndVerifyNumber();
     const isUsingOwnNuber = this.profile.basicInfo.mobile === this.Q.phoneNumber;
+    const isValidClosure = this.isValidClosure();
+
     if (!isValidNumber || isUsingOwnNuber) {
       this.phoneError = !this.Q.phoneNumber  ? 'Enter Connection\'s Mobile Number' : 
       isUsingOwnNuber ? 'Can\'t use your own mumber' : 'Invalid Number';
       this.isPhoneError = true;
     }
 
-    if (!isValidName || !isValidEmail || !isValidNumber || isUsingOwnNuber) {
+    if (!isValidName || !isValidEmail || !isValidNumber || isUsingOwnNuber || !isValidClosure) {
       this.isValidForm = false;
-    } else {
+    } else if (this.connectionState.state !== 'edit' && this.connectionState.state !== 'edit_closure'){
       // Check if connection already exists
       const connections = await this.sharedStoreService.getConnections();
       const connectionExists = connections.find((c) => c.basicInfo.mobile === this.Q.phoneNumber);
@@ -366,7 +380,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     let content = `If ${cName} adds you to their beats, it's a groove! and we'll update both of you immediately. Let's make some music together!`;
     if (connection.isClosure) {
       header = `${cName} is a new closure for you.`;
-      content = `If ${cName} is looking for you, we'll send them your closure letter and update you immediately.`;
+      content = `If ${cName} is looking for you, we'll send them your closure message and update you immediately.`;
     }
     const message: ToastMessage = {
       header: header,

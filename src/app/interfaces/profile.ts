@@ -28,6 +28,11 @@ export interface Connection {
   isBlocked?: boolean;
   className?: string;
   isClosure?: boolean;
+  isClosureMatched?: boolean;
+  otherParty?: {
+    isClosure?: boolean;
+    message?: string;
+  }
 }
 
 export interface BasicInfo {

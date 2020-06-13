@@ -4,7 +4,8 @@
   [button]="connection?.isNewMatch"
   (click)="cardClicked()">
 
-  <div class="card-content">
+  <div class="card-content" (click)="edit(true)"
+    [class.as-btn]="connection?.isClosureMatched" [class.extra-padding-top]="!connection?.basicInfo?.profile_img_url">
 
     <div [class.name-avatar]="connection?.basicInfo?.profile_img_url">
       <ion-avatar *ngIf="connection?.basicInfo?.profile_img_url" slot="start">
@@ -17,6 +18,21 @@
 
     <ng-container *ngIf="!connection?.isMatched">
       <!-- Any extra content if not matched? -->
+    </ng-container>
+
+    <ng-container *ngIf="connection?.isClosureMatched">
+      <p class="ion-text-wrap p-s-theme">Congratulations! You've Got Closure.</p>
+      <p class="ion-text-wrap p-s-theme">
+        <span class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</span>
+        {{ connection?.isClosure ? 'got your closure message!' : 'wrote you a closure message.' }}
+      </p>
+      <p class="ion-text-wrap p-s-theme">
+        {{ connection?.isClosure && connection?.otherParty?.isClosure ? 'They have also wrote you a closure message.' 
+        : !connection?.otherParty?.isClosure && connection?.otherParty?.message ? 'They were looking to reconnect and wrote you a welcome message.' : !connection?.otherParty?.isClosure ? 'They were looking to reconnect.' : ''}}
+      </p>
+      <p class="p-s-icon">
+        <ion-icon size="large" color="minor" name="checkmark-done-outline"></ion-icon>
+      </p>
     </ng-container>
 
     <ng-container *ngIf="connection?.isNewMatch">
@@ -40,7 +56,7 @@
     <ion-button fill="clear" (click)="presentDisconnectConfirm()" color="minor" slot="end">
       <ion-icon name="heart-dislike-outline"></ion-icon>
     </ion-button>
-    <ion-button fill="clear" (click)="edit()" color="minor" slot="end">
+    <ion-button fill="clear" (click)="edit()" color="minor" slot="end" *ngIf="!connection?.isClosureMatched">
       <ion-icon name="create-outline"></ion-icon>
     </ion-button>
   </ion-item>
