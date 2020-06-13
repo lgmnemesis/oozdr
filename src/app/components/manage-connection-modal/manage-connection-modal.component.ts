@@ -62,7 +62,7 @@ Just like Beats, your closure will be matched and shown only if the other person
 
 The goal is to share your feelings about your relationship, 
 your breakup, and your thoughts about the future. 
-It meant to allow you to accept what happened, say goodbye, and move on.
+It meant to allow you to accept what has happened, say goodbye, and move on.
 
 `,
       mode: 'ios',

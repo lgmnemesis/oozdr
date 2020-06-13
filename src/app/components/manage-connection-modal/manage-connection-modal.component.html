@@ -8,6 +8,10 @@
       <app-contact-picker *ngIf="contactPickerApiService?.supported && canEdit"
         (contactsEvent)="gotContacts($event)">
       </app-contact-picker>
+      <ion-button *ngIf="canEdit && (connectionsState?.state === 'add_closure' || connectionsState?.state === 'edit_closure')"
+        [disabled]="true" shape="round" color="minor">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>  
     </ion-buttons>
     <ion-label class="basic-text text-trans-none" color="secondary">
       {{ title }}
