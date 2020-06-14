@@ -2,25 +2,16 @@
 
   <ion-toolbar class="parallax-header ion-text-center">
     <ion-buttons slot="start">
-      <ion-button [disabled]="true" shape="round" color="minor" *ngIf="!contactPickerApiService?.supported || !canEdit">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
+      <ion-button *ngIf="canShowHelp"
+        shape="round" color="success" (click)="showHelp()">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>    
+      <ion-label class="basic-text text-trans-none" [class.l-margin]="!canShowHelp" color="secondary">{{ title }}</ion-label>
+    </ion-buttons>
+    <ion-buttons slot="end">
       <app-contact-picker *ngIf="contactPickerApiService?.supported && canEdit"
         (contactsEvent)="gotContacts($event)">
       </app-contact-picker>
-      <ion-button *ngIf="canEdit && (connectionsState?.state === 'add_closure' || connectionsState?.state === 'edit_closure')"
-        [disabled]="true" shape="round" color="minor">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>  
-    </ion-buttons>
-    <ion-label class="basic-text text-trans-none" color="secondary">
-      {{ title }}
-    </ion-label>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="canEdit && (connectionsState?.state === 'add_closure' || connectionsState?.state === 'edit_closure')"
-        shape="round" color="success" (click)="showHelp()">
-        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
-      </ion-button>      
       <ion-button shape="round" color="dark" (click)="close()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>

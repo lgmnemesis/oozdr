@@ -16,6 +16,7 @@ export class ManageConnectionModalComponent implements OnInit {
   title =  '';
   showHelpLock = false;
   canEdit = true;
+  canShowHelp = false;
 
   constructor(private modalCtrl: ModalController,
     public contactPickerApiService: ContactPickerApiService,
@@ -23,7 +24,6 @@ export class ManageConnectionModalComponent implements OnInit {
     private alertCtrl: AlertController) { }
 
   ngOnInit() {
-    this.canEdit = true;
     const state = this.connectionsState && this.connectionsState.state ? this.connectionsState.state : null;
     const connection = this.connectionsState ? this.connectionsState.connection : null;
     if (state) {
@@ -36,6 +36,8 @@ export class ManageConnectionModalComponent implements OnInit {
         this.title = 'Closure';
         this.canEdit = false;
       }
+
+      this.canShowHelp = this.canEdit && (state === 'add_closure' || state === 'edit_closure');
     }
   }
 
@@ -49,7 +51,7 @@ export class ManageConnectionModalComponent implements OnInit {
   }
 
   async showHelp() {
-    if (this.showHelpLock) return;
+    if (this.showHelpLock || !this.canShowHelp) return;
     this.showHelpLock = true;
 
     const alert = await this.alertCtrl.create({
