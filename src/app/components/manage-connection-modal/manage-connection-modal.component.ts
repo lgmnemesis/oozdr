@@ -57,12 +57,9 @@ export class ManageConnectionModalComponent implements OnInit {
       message:
 `
 Writing a closure message can benefit you as well as your EX...
+It's meant to allow you to accept what has happened, say goodbye, and move on.
 
-Just like Beats, your closure will be matched and shown only if the other person is looking for you too (whether it is to reconnect or to give you their own closure message)
-
-The goal is to share your feelings about your relationship, 
-your breakup, and your thoughts about the future. 
-It meant to allow you to accept what has happened, say goodbye, and move on.
+<span>Just like Beats, your closure will be matched and shown only if the other person is looking for you too (whether it is to reconnect or to give you their own closure message).</span>
 
 `,
       mode: 'ios',
