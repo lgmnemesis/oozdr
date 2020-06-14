@@ -10,7 +10,10 @@
 
 .circles li {
   position: absolute;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.5);
   list-style: none;
   width: 20px;
   height: 20px;
@@ -22,8 +25,8 @@
 
 .circles li:nth-child(1) {
   left: 25%;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   animation-delay: 0s;
 }
 
@@ -82,8 +85,8 @@
 
 .circles li:nth-child(9) {
   left: 20%;
-  width: 15px;
-  height: 15px;
+  width: 95px;
+  height: 95px;
   animation-delay: 2s;
   animation-duration: 35s;
 }
