@@ -210,7 +210,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     if (!isClosure) return true;
     const message = this.Q.welcomeMessage ? this.Q.welcomeMessage.trim() : '';
     this.isClosureError = message.length === 0;
-    if (this.isClosureError) this.closureError = 'Please Write Somthing';
+    if (this.isClosureError) this.closureError = 'Write It Down';
     return !this.isClosureError;
   }
 
