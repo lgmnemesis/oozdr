@@ -295,5 +295,13 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     sendBtn: 'SEND',
     sendMessageHeader: 'THANK YOU!',
     sendMessage: 'We have received your question/feedback'
+  },
+  whyOozdrComponent: {
+    title: 'Why Oozdr?',
+    text_1: 'There are plenty of \'Reasons\' why you are not reconnecting with someone you lost touch with.',
+    text_2: 'What if they don\'t want to reconnect? Maybe they already moved on?',
+    text_3: 'What if it\'s not the right time to reach out?',
+    text_4: 'What if they DO want to reconnect but are not sure how? or just afraid to do so?',
+    text_5: '\'Oozdr\' takes all these unanswered questions out of the way'
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-why-oozdr',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WhyOozdrComponent implements OnInit {
 
-  constructor() { }
+  dictionary = this.localeService.dictionary;
+  dictWhy = this.dictionary.whyOozdrComponent;
+  
+  constructor(private localeService: LocaleService) { }
 
   ngOnInit() {}
 

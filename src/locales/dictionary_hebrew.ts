@@ -20,7 +20,7 @@ export const DictionaryHebrew = {
   supportTxt: {
     how_title: 'איך זה עובד',
     section1_title: 'הוספת ביט',
-    section1_1: 'ממלאים שם ומספר נייד של האדם איתו רוצים לחדש קשר',
+    section1_1: 'ממלאים שם ומספר הנייד של האדם איתו רוצים לחדש קשר',
     section1_2: 'האדם, בשלב זה, לא יהיה מודע לכך',
     section2_title: 'Wait for It',
     section2_1: 'This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.',
@@ -28,19 +28,19 @@ export const DictionaryHebrew = {
     section3_1: 'After we find your match, we will send each of you an invitation to start chatting and re-establish your lost connection.'
   },
   startPage: {
-    title_1: 'Reconnect with your EX...',
-    sub_title_1: 'Have you ever thought about your soulmate? your Ex? the love of your life?',
-    sub_title_2: 'Maybe they\'re thinking about you as well?',
-    sub_title_3: 'Maybe they\'re looking for you too!',
-    join_us_btn: 'Join us and find out',
-    title_1_sm: 'Reconnect with',
-    title_2_sm: 'Your EX...',
+    title_1: 'בחזרה לאקס...',
+    sub_title_1: 'מתי לאחרונה חשבתם על האקס/ית שלכם? אהבת חייכם? הנפש התאומה שלכם?',
+    sub_title_2: 'אולי גם הם חושבים עליכם?',
+    sub_title_3: 'אולי גם הם מחפשים לחדש את הקשר?',
+    join_us_btn: 'הצטרפו וגלו',
+    title_1_sm: 'בחזרה לאקס...',
+    title_2_sm: '',
     install_app: 'Get the app. Install instantly, find what you need faster, anytime.',
     install_app_btn: 'INSTALL APP',
-    title_1_as_app: 'Reconnect',
-    title_2_as_app: 'With',
-    title_3_as_app: 'Your EX...',
-    get_started: 'Get Started',
+    title_1_as_app: 'בחזרה',
+    title_2_as_app: 'לאקס...',
+    title_3_as_app: '',
+    get_started: 'תהליך הרשמה',
     title_1_delete: '“The story of life is quicker than the wink of an eye,',
     title_2_delete: 'the story of love is hello and goodbye... until we meet again”',
     title_3_delete: '― Jimi Hendrix',
@@ -136,18 +136,18 @@ export const DictionaryHebrew = {
     deleteActionMessage: 'מוחק חשבון...'
   },
   connectionsComponent: {
-    enableNotifications_1: 'Enable push notifications',
-    enableNotifications_2: 'Instantly know when you have a new match',
-    enableNotifications_3: 'You can always change your selection, from your Profile -> Settings tab',
-    enableNotifications_cancel: 'Not Now',
-    enableNotifications_accept: 'Enable',
+    enableNotifications_1: 'אפשר קבלת התראות',
+    enableNotifications_2: 'קבל/י התראה ברגע שקוראת התאמה',
+    enableNotifications_3: 'תמיד אפשר לשנות את הבחירה, תחת פרופיל -> הגדרות',
+    enableNotifications_cancel: 'לא עכשיו',
+    enableNotifications_accept: 'אפשר',
     initialMessage_1: 'Start by making \'Beats\'',
     initialMessage_2: '\'Beats\' are connections to people, loved ones, soulmate you are looking to reconnect...',
-    initialMessage_3: 'Don\'t miss a beat!',
-    initialMessage_4: 'Who do you want to reconnect with?',
-    initialMessage_5: 'Make a Beat',
-    foundMessage_1: 'Looks like you found what you were looking for.',
-    foundMessage_2: 'You can always make more beats.',
+    initialMessage_3: 'אל תפספס/י אף ביט',
+    initialMessage_4: 'אם מי תרצה/י לחדש קשר?',
+    initialMessage_5: 'צור/י ביט',
+    foundMessage_1: 'נראה שמצאת את מה שחיפשת עד כה!',
+    foundMessage_2: 'תמיד אפשר ליצור ביט נוסף.',
   },
   manageConnectionComponent: {
     input_1: 'שם',
@@ -272,9 +272,9 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     }
   },
   inviteFriendsComponent: {
-    text_1: 'Help a Friend',
+    text_1: 'עזרו לחבר להתחבר מחדש',
     text_2: 'Invite a friend, who would like to re-connect with someone and would benefit from using \'oozdr\'',
-    text_3: 'Who will you invite?'
+    text_3: 'את מי תרצה/י להזמין?'
   },
   supportPage: {
     title: 'תמיכה'
@@ -295,5 +295,13 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     sendBtn: 'שליחה',
     sendMessageHeader: 'תודה רבה!',
     sendMessage: 'קיבלנו את הפנייה'
+  },
+  whyOozdrComponent: {
+    title: 'למה OOZDR?',
+    text_1: 'There are plenty of \'Reasons\' why you are not reconnecting with someone you lost touch with.',
+    text_2: 'What if they don\'t want to reconnect? Maybe they already moved on?',
+    text_3: 'What if it\'s not the right time to reach out?',
+    text_4: 'What if they DO want to reconnect but are not sure how? or just afraid to do so?',
+    text_5: '\'Oozdr\' takes all these unanswered questions out of the way'
   }
 }
