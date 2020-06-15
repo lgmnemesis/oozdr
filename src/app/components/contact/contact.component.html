@@ -3,7 +3,7 @@
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <ion-label class="ion-text-center">
-        <p class="biggest-title color-dark">Have Some Questions?</p>
+        <p class="biggest-title color-dark">{{ dictContact.title }}</p>
       </ion-label>
     </ion-col>
   </ion-row>
@@ -11,21 +11,21 @@
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
       <div class="c-div">
-        <p class="larger-text">We’re here to help answer any question you might have.</p>
-        <p class="medium-text color-secondary">You can reach us by social media, email or directly using this form.</p>
+        <p class="larger-text">{{ dictContact.subTitle_1 }}</p>
+        <p class="medium-text color-secondary">{{ dictContact.subTitle_2 }}</p>
         <app-contact-links></app-contact-links>
       </div>
     </ion-col>
     <ion-col size="auto">
       <div class="q-div">
         <ion-input *ngIf="!profile"
-          placeholder="Your name" [value]="feedback?.name" (ionChange)="setName($event)">
+          [placeholder]="dictContact.placeholder_1" [value]="feedback?.name" (ionChange)="setName($event)">
         </ion-input>
         <ion-input *ngIf="!profile"
-          placeholder="What's your email?" [value]="feedback?.email" (ionChange)="setEmail($event)">
+          [placeholder]="dictContact.placeholder_2" [value]="feedback?.email" (ionChange)="setEmail($event)">
         </ion-input>
         <ion-textarea 
-          placeholder="How can we help?"
+          [placeholder]="dictContact.placeholder_3"
           rows="5"
           spellcheck="true"
           autoGrow="true"
@@ -33,7 +33,7 @@
           (ionChange)="setMessage($event)">
         </ion-textarea>
         <ion-button (click)="sendMessage()">
-          <ion-label>SEND</ion-label>
+          <ion-label>{{ dictContact.sendBtn }}</ion-label>
         </ion-button>
       </div>
     </ion-col>

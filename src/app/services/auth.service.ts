@@ -9,6 +9,7 @@ import { DatabaseService } from './database.service';
 import { SharedService } from './shared.service';
 import { SignInModalComponent } from '../components/sign-in-modal/sign-in-modal.component';
 import { AnalyticsService } from './analytics.service';
+import { LocaleService } from './locale.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,8 @@ export class AuthService {
   private signingOutSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   signingOut$ = this.signingOutSubject.asObservable();
   private inLogoutProcess = false;
+  dictionary = this.localeServoce.dictionary;
+  dictAuth = this.dictionary.authService;
 
   constructor(private afAuth: AngularFireAuth,
     private alertCtrl: AlertController,
@@ -29,7 +32,8 @@ export class AuthService {
     private sharedService: SharedService,
     private modalCtrl: ModalController,
     private navCtrl: NavController,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeServoce: LocaleService) { }
 
   init() {
     this.subscribeUser();
@@ -87,14 +91,14 @@ export class AuthService {
   }
 
   private async presentLogoutConfirm() {
-    const message = 'Are you sure you want to log out?';
-    const buttonText = 'Log out';
+    const message = this.dictAuth.logoutConfirmMessage;
+    const buttonText = this.dictAuth.logoutConfirmButton;
     this.presentConfirm(message, buttonText, false, 'signOut');
   }
 
   private async presentDeleteAccountConfirm() {
-    const message = 'Are you sure you want to delete your account and all its data?';
-    const buttonText = 'Delete';
+    const message = this.dictAuth.deleteAcountConfirmMessage;
+    const buttonText = this.dictAuth.deleteAcountConfirmButton;
     this.presentConfirm(message, buttonText, true, 'deleteCurrentUser');
   }
 
@@ -105,7 +109,7 @@ export class AuthService {
       cssClass: 'alert-confirm-conainer',
       buttons: [
         {
-          text: 'Cancel',
+          text: this.dictAuth.cancelBtn,
           role: 'cancel',
           handler: () => {
             this.inLogoutProcess = false;
@@ -183,7 +187,7 @@ export class AuthService {
   }
 
   async deleteCurrentUserLastStep() {
-    const loader = this.sharedService.presentLoading('Deleting your account...');
+    const loader = this.sharedService.presentLoading(this.dictAuth.deleteActionMessage);
     const user = await this.getUser();
     this.databaseService.deleteUserData();
     await user.delete();

@@ -87,7 +87,7 @@ export const DictionaryEnglish = {
     input_2_2: 'Female',
     input_2_3: 'Other',
     input_3: 'Email',
-    input_3_3: 'Your Email Address',
+    input_3_1: 'Your Email Address',
     input_4: 'Birthday',
     input_4_1: 'Select Date',
     input_5: 'Select Photo',
@@ -126,6 +126,14 @@ export const DictionaryEnglish = {
     },
     reloadingVersionMessage: 'Reloading new version...',
     pwaAppInstalled: 'Oozdr App installed successfully'
+  },
+  authService: {
+    logoutConfirmMessage: 'Are you sure you want to log out?',
+    logoutConfirmButton: 'Log out',
+    deleteAcountConfirmMessage: 'Are you sure you want to delete your account and all its data?',
+    deleteAcountConfirmButton: 'Delete',
+    cancelBtn: 'Cancel',
+    deleteActionMessage: 'Deleting your account...'
   },
   connectionsComponent: {
     enableNotifications_1: 'Enable push notifications',
@@ -227,5 +235,65 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
   chatInputViewComponent: {
     placeholder: 'Say something...',
     message: 'Ctrl + Enter for next line.'
+  },
+  profilePage: {
+    saveBtn: 'Save',
+    cancelBtn: 'Cancel'
+  },
+  settingsPage: {
+    saveBtn: 'Save',
+    cancelBtn: 'Cancel',
+    item_1: 'Notifications',
+    item_1_1: 'Matches Notifications',
+    item_1_2: 'So you\'ll know when you have new matches',
+    item_2: 'Blocked Matches',
+    item_2_1: 'None',
+    item_3: 'Invite Your Friends',
+    item_4: 'About',
+    item_4_1: 'Version:',
+    item_5: 'Terms of Service',
+    item_5_1: 'Good to know.',
+    item_6: 'Privacy Policy',
+    item_6_1: 'Please read.',
+    item_7: 'Support',
+    item_7_1: 'Get help, contact us.',
+    item_8: 'Log Out',
+    item_9: 'Delete Account',
+    unBlockHeader: 'Unblock',
+    unBlockButtonText: 'Unblock',
+    unblockButtonCancel: 'cancel'
+  },
+  socialShareComponent: {
+    copied: 'Copied',
+    invite: 'Invite',
+    share: {
+      title: 'App recommendation for you',
+      text: 'This app has helped me to reconnect with someone dear and I think it can help you as well.'
+    }
+  },
+  inviteFriendsComponent: {
+    text_1: 'Help a Friend',
+    text_2: 'Invite a friend, who would like to re-connect with someone and would benefit from using \'oozdr\'',
+    text_3: 'Who will you invite?'
+  },
+  supportPage: {
+    title: 'Support'
+  },
+  supportComponent: {
+    how_title: 'How Oozdr?'
+  },
+  contactPage: {
+    title: 'Contact'
+  },
+  contactComponent: {
+    title: 'Have Some Questions?',
+    subTitle_1: 'We’re here to help answer any question you might have.',
+    subTitle_2: 'You can reach us by social media, email or directly using this form.',
+    placeholder_1: 'Your name',
+    placeholder_2: 'What\'s your email?',
+    placeholder_3: 'How can we help?',
+    sendBtn: 'SEND',
+    sendMessageHeader: 'THANK YOU!',
+    sendMessage: 'We have received your question/feedback'
   }
 }

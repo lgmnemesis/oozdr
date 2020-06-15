@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-social-share',
@@ -12,11 +13,13 @@ export class SocialShareComponent implements OnInit {
 
   navigatorShareSupport = false;
   copyiedToClipboard = false;
+  dictionary = this.localeService.dictionary;
+  dictSocial = this.dictionary.socialShareComponent;
 
   share = {
     url: this.sharedService.dynamicLinkInvitationUrl,
-    title: 'App recommendation for you',
-    text: 'This app has helped me to reconnect with someone dear and I think it can help you as well.'
+    title: this.dictSocial.share.title,
+    text: this.dictSocial.share.title
   }
 
   copyToClipboard = (str: string) => {
@@ -41,7 +44,8 @@ export class SocialShareComponent implements OnInit {
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     const nav: any = navigator;

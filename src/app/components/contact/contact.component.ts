@@ -5,6 +5,7 @@ import { Feedback } from 'src/app/interfaces/general';
 import { IonToastMessage } from 'src/app/interfaces/toast-message';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-contact',
@@ -17,11 +18,14 @@ export class ContactComponent implements OnInit {
   sending = false;
   feedback: Feedback;
   profile: Profile;
+  dictionary = this.localeService.dictionary;
+  dictContact = this.dictionary.contactComponent;
 
   constructor(private databaseService: DatabaseService,
     private sharedService: SharedService,
     private sharedStoreService: SharedStoreService,
-    private cd: ChangeDetectorRef) { }
+    private cd: ChangeDetectorRef,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this.createFeedback();
@@ -64,8 +68,8 @@ export class ContactComponent implements OnInit {
       const feedback = JSON.parse(JSON.stringify(this.feedback));
       this.databaseService.addFeedback(feedback);
       const toast: IonToastMessage = {
-        header: 'THANK YOU!',
-        message: 'We have received your question/feedback',
+        header: this.dictContact.sendMessageHeader,
+        message: this.dictContact.sendMessage,
         duration: 5000,
         position: 'top',
       }

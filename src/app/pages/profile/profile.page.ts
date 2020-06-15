@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Router } from '@angular/router';
 import { SharedService } from 'src/app/services/shared.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-profile',
@@ -18,11 +19,14 @@ export class ProfilePage implements OnInit, OnDestroy {
   isProfileChanged = false;
   firstTime = true;
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
+  dictionary = this.localeService.dictionary;
+  dictProfile = this.dictionary.profilePage;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);

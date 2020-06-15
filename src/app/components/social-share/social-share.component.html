@@ -1,6 +1,6 @@
 <ion-grid>
   <ng-container *ngIf="!navigatorShareSupport">
-    <div class="copied" [class.show-copied]="copyiedToClipboard">Copied</div>
+    <div class="copied" [class.show-copied]="copyiedToClipboard">{{ dictSocial.copied }}</div>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
         <ion-button class="bt-share" (click)="shareOnWhatsapp()" 
@@ -45,7 +45,7 @@
         <ion-button class="bt-nav-share" (click)="navigatorShare()" 
           color="success" shape="round">
           <ion-icon name="share-outline"></ion-icon>
-          <ion-label class="basic-text ion-text-capitalize">Invite</ion-label>
+          <ion-label class="basic-text ion-text-capitalize">{{ dictSocial.invite }}</ion-label>
         </ion-button>
       </ion-col>
     </ion-row>

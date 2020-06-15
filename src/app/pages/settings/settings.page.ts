@@ -9,6 +9,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { FcmService } from 'src/app/services/fcm.service';
 import { InviteFriendsModalComponent } from 'src/app/components/invite-friends-modal/invite-friends-modal.component';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-settings',
@@ -34,6 +35,8 @@ export class SettingsPage implements OnInit, OnDestroy {
   isSubscribedLocaly: boolean;
   toggling = false;
   unsubscribeMarker = false;
+  dictionary = this.localeService.dictionary;
+  dictSettings = this.dictionary.settingsPage;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -43,7 +46,8 @@ export class SettingsPage implements OnInit, OnDestroy {
     private alertCtrl: AlertController,
     public fcmService: FcmService,
     private modalCtrl: ModalController,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -175,9 +179,9 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.lockModal = true;
     const name = connection.basicInfo.name;
     const nameC = name[0].toUpperCase() + name.slice(1);
-    const header = `Unblock ${nameC}?`;
+    const header = `${this.dictSettings.unBlockHeader} ${nameC}?`;
     const message = '';
-    const buttonText = 'Unblock';
+    const buttonText = this.dictSettings.unBlockButtonText;
     this.presentConfirm(header, message, buttonText, false, connection);
   }
 
@@ -189,7 +193,7 @@ export class SettingsPage implements OnInit, OnDestroy {
       cssClass: 'alert-confirm-conainer',
       buttons: [
         {
-          text: 'Cancel',
+          text: this.dictSettings.unblockButtonCancel,
           role: 'cancel',
           handler: () => {
             this.lockModal = false;

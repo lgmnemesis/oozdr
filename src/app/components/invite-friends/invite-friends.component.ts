@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-invite-friends',
@@ -8,7 +9,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class InviteFriendsComponent implements OnInit {
 
-  constructor() { }
+  dictionary = this.localeService.dictionary;
+  dictInvite = this.dictionary.inviteFriendsComponent;
+  
+  constructor(private localeService: LocaleService) { }
 
   ngOnInit() {}
 

@@ -11,9 +11,9 @@
       [class.fadeOutUp]="!isSettingsChanged"
       [class.fadeInDown]="isSettingsChanged">
       <ion-button class="bt-s-c" (click)="cancelSettingsChanges()"
-        [disabled]="saveButtonAction?.save" color="secondary" fill="outline">Cancel</ion-button>
+        [disabled]="saveButtonAction?.save" color="secondary" fill="outline">{{ dictSettings.cancelBtn }}</ion-button>
       <ion-button class="bt-s-c" (click)="saveSettings()"
-        [disabled]="saveButtonAction?.save" color="primary" fill="solid">Save</ion-button>
+        [disabled]="saveButtonAction?.save" color="primary" fill="solid">{{ dictSettings.saveBtn }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 
@@ -23,12 +23,12 @@
         class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
           <ion-item lines="none">
-            <ion-label class="basic-text bold-text">Notifications</ion-label>
+            <ion-label class="basic-text bold-text">{{ dictSettings.item_1 }}</ion-label>
           </ion-item>
           <ion-item lines="none">
             <ion-label color="dark">
-              <p class="basic-text">Matches Notifications</p>
-              <p class="small-text color-medium ion-text-wrap">So you'll know when you have new matches</p>
+              <p class="basic-text">{{ dictSettings.item_1_1 }}</p>
+              <p class="small-text color-medium ion-text-wrap">{{ dictSettings.item_1_2 }}</p>
             </ion-label>
             <ion-toggle 
               slot="end"
@@ -44,8 +44,8 @@
         <ion-col size="12">
           <ion-item button lines="none" [disabled]="blockedMachesCount === 0" (click)="toggleBlockedMatches()">
             <ion-label> 
-              <p class="basic-text bold-text">Blocked Matches</p>
-              <p class="smaller-text">{{ blockedMachesCount > 0 ? blockedMachesCount : 'None' }}</p>
+              <p class="basic-text bold-text">{{ dictSettings.item_2 }}</p>
+              <p class="smaller-text">{{ blockedMachesCount > 0 ? blockedMachesCount : dictSettings.item_2_1 }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -75,7 +75,7 @@
           <ion-item lines="none" class="item-invite">
             <ion-button class="bt-theme" fill="clear" (click)="inviteFriends()">
               <ion-icon name="people-outline"></ion-icon>
-              <ion-label class="basic-text padding-x">Invite Your Friends</ion-label>
+              <ion-label class="basic-text padding-x">{{ dictSettings.item_3 }}</ion-label>
             </ion-button>
           </ion-item>
         </ion-col>
@@ -85,8 +85,8 @@
         <ion-col size="12">
           <ion-item lines="none">
             <ion-label> 
-              <p class="basic-text bold-text">About</p>
-              <p class="smaller-text">Version: {{ version }}</p>
+              <p class="basic-text bold-text">{{ dictSettings.item_4 }}</p>
+              <p class="smaller-text">{{ dictSettings.item_4_1 }} {{ version }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -96,8 +96,8 @@
         <ion-col size="12">
           <ion-item button lines="none" (click)="goto('terms')">
             <ion-label> 
-              <p class="basic-text bold-text">Terms of Service</p>
-              <p class="smaller-text">Good to know.</p>
+              <p class="basic-text bold-text">{{ dictSettings.item_5 }}</p>
+              <p class="smaller-text">{{ dictSettings.item_5_1 }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -107,8 +107,8 @@
         <ion-col size="12">
           <ion-item button lines="none" (click)="goto('privacy')">
             <ion-label> 
-              <p class="basic-text bold-text">Privacy Policy</p>
-              <p class="smaller-text">Please read.</p>
+              <p class="basic-text bold-text">{{ dictSettings.item_6 }}</p>
+              <p class="smaller-text">{{ dictSettings.item_6_1 }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -118,8 +118,8 @@
         <ion-col size="12">
           <ion-item button lines="none" (click)="goto('support')">
             <ion-label> 
-              <p class="basic-text bold-text">Support</p>
-              <p class="smaller-text">Get help, contact us.</p>
+              <p class="basic-text bold-text">{{ dictSettings.item_7 }}</p>
+              <p class="smaller-text">{{ dictSettings.item_7_1 }}</p>
             </ion-label>
           </ion-item>
         </ion-col>
@@ -137,7 +137,7 @@
           <ion-item lines="none">
             <ion-button class="bt-theme" (click)="logout()">
               <ion-icon slot="start" name="log-out-outline" color="minor"></ion-icon>
-              <ion-label class="basic-text">Log Out</ion-label>
+              <ion-label class="basic-text">{{ dictSettings.item_8 }}</ion-label>
             </ion-button>
           </ion-item>
         </ion-col>
@@ -148,7 +148,7 @@
           <ion-item lines="none">
             <ion-button class="bt-theme" color="danger" (click)="deleteAccount()">
               <ion-icon slot="start" name="trash-outline" color="minor"></ion-icon>
-              <ion-label class="basic-text">Delete Account</ion-label>
+              <ion-label class="basic-text">{{ dictSettings.item_9 }}</ion-label>
             </ion-button>
           </ion-item>
         </ion-col>
