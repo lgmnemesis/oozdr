@@ -2,8 +2,8 @@
 <ion-grid *ngIf="!confirmationResult">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <p class="medium-text ion-text-center" *ngIf="reauthenticate">Please Sign in again to verify your account</p>
-      <p class="larger-text ion-text-center">Enter Your Mobile Number</p>
+      <p class="medium-text ion-text-center" *ngIf="reauthenticate">{{ dictPhone.verifyAccount }}</p>
+      <p class="larger-text ion-text-center">{{  dictPhone.title }}</p>
     </ion-col>
   </ion-row>
 
@@ -22,22 +22,18 @@
   
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto" class="col-txt">
-      <p class="smallest-text">
-        We will send a text message with your verification code.
-        Message and data rate may apply.
-        The verified phone number will be used to login.
-      </p>
+      <p class="smallest-text">{{ dictPhone.explanation_1 }}</p>
     </ion-col>
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="12" class="col-txt">
       <p class="smallest-text ion-text-center">
-        By continuing, you agree to our <span class="terms" (click)="openTerms()">Terms</span>
+        {{ dictPhone.term_s1 }}<span class="terms" (click)="openTerms()">{{ dictPhone.term_s2 }}</span>
       </p>
     </ion-col>
     <ion-col size="auto">
-      <ion-button [disabled]="isContinueButtonDisabled" (click)="sendLoginCode()">Continue</ion-button>
+      <ion-button [disabled]="isContinueButtonDisabled" (click)="sendLoginCode()">{{ dictPhone.continue_btn }}</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>
@@ -45,7 +41,7 @@
 <ion-grid class="animated fadeIn" *ngIf="confirmationResult">
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <p class="larger-text ion-text-center">Enter Your Verification Code</p>
+      <p class="larger-text ion-text-center">{{ dictPhone.verifyCode }}</p>
       <!-- <ion-item class="item-resend" lines="none">
         <p class="small-text">Code Sent to {{ phoneNumber?.line }}</p>
         <ion-button size="small" slot="end" fill="clear" color="primary">
@@ -71,7 +67,7 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <ion-button [disabled]="isVerifyButtonDisabled" (click)="verifyLoginCode()">Verify</ion-button>
+      <ion-button [disabled]="isVerifyButtonDisabled" (click)="verifyLoginCode()">{{ dictPhone.verify_btn }}</ion-button>
     </ion-col>
   </ion-row>
 </ion-grid>

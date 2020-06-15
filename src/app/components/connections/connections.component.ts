@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { ModalController } from '@ionic/angular';
 import { ManageConnectionModalComponent } from '../manage-connection-modal/manage-connection-modal.component';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-connections',
@@ -32,6 +33,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   matchNotifStorageIndicator: string;
   isPresentActive = false;
   canHeartBeatAnimation = false;
+  dictionary = this.localeService.dictionary;
+  dictConnections = this.dictionary.connectionsComponent;
 
   _connectionsState: Subscription;
   _connections: Subscription;
@@ -43,7 +46,8 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     private fcmService: FcmService,
     private sharedService: SharedService,
     private analyticsService: AnalyticsService,
-    private modalCtrl: ModalController) { }
+    private modalCtrl: ModalController,
+    private localeService: LocaleService) { }
 
   async ngOnInit() {
     const user = await this.authService.getUser();

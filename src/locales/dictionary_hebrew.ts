@@ -1,7 +1,12 @@
 export const DictionaryHebrew = {
   global: {
     log_in: 'Log In',
+    sign_up: 'Sign up',
     already_member: 'Already a member?'
+  },
+  signInComponent: {
+    log_into_account: 'Log into your account',
+    no_account: 'Don\'t have an account? ',
   },
   appComponent: {
     menu_1_1: 'Profile',
@@ -54,5 +59,47 @@ export const DictionaryHebrew = {
     col_2_title: 'Information',
     col_2_1: 'Contact',
     col_2_2: 'Support'
+  },
+  phoneLoginComponent: {
+    verifyAccount: 'Please Sign in again to verify your account',
+    title: 'Enter Your Mobile Number',
+    explanation_1: 'We will send a text message with your verification code. Message and data rate may apply. The verified phone number will be used to login.',
+    term_s1: 'By continuing, you agree to our ',
+    term_s2: 'Terms',
+    continue_btn: 'Continue',
+    verifyCode: 'Enter Your Verification Code',
+    verify_btn: 'Verify',
+    phoneError_1: 'Please Enter Your Mobile Number',
+    phoneError_2: 'Invalid Number',
+    verificationError_1: 'Please Enter Your Verification Code',
+    verificationError_2: 'Wrong Verification Code'
+  },
+  welcomeContainerComponent: {
+    title: 'GET STARTED'
+  },
+  welcomeInfoComponent: {
+    title: 'Personal Details',
+    input_1: 'Name',
+    input_2: 'Gender',
+    input_2_1: 'Male',
+    input_2_2: 'Female',
+    input_2_3: 'Other',
+    input_3: 'Email',
+    input_4: 'Birthday',
+    input_4_1: 'Select Date',
+    input_5: 'Select Photo',
+    input_5_error: 'Invalid photo',
+    nextStep: 'Continue',
+    profilePhoto: 'Profile Photo',
+  },
+  welcomeService: {
+    defProfilePhotoText: 'Profile Photo (optional)',
+    nameError_1: 'Please enter your name',
+    nameError_2: 'Only Letters please',
+    nameError_3: 'Sorry, name is too short',
+    genderError: 'Please select a gender',
+    emailError_1: 'Please enter your email',
+    emailError_2: 'Invalid email address',
+    birthdayError: 'Please enter your birthday'
   }
 }

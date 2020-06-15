@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, V
 import { SharedService } from 'src/app/services/shared.service';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { Match } from 'src/app/interfaces/profile';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-chat-input-view',
@@ -34,10 +35,13 @@ export class ChatInputViewComponent implements OnInit {
   isMobile = this.sharedService.isMobileApp();
   activeInputLock = false;
   activeInputCounter = 1;
+  dictionary = this.localeService.dictionary;
+  dictChat = this.dictionary.chatInputViewComponent;
 
   constructor(private cd: ChangeDetectorRef,
     public sharedService: SharedService,
-    private connectionsService: ConnectionsService) { }
+    private connectionsService: ConnectionsService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {}
 

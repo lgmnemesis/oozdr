@@ -7,6 +7,7 @@ import { LoadingController } from '@ionic/angular';
 import { SharedService } from './shared.service';
 import { IonToastMessage } from '../interfaces/toast-message';
 import { AnalyticsService } from './analytics.service';
+import { LocaleService } from './locale.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,14 @@ export class AlertsService {
 
   addAsAppAlertLock = false;
   deferredPrompt: any;
+  dictionary = this.localeService.dictionary;
+  dictAlertService = this.dictionary.alertsService;
 
   constructor(private sharedStoreService: SharedStoreService,
     private loadingCtrl: LoadingController,
     private sharedService: SharedService,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeService: LocaleService) { }
 
   getAlertsAsObservable(): Observable<Alert[]> {
     return this.sharedStoreService.alerts$;
@@ -72,10 +76,10 @@ export class AlertsService {
     }
     const alert: Alert = {
       id: this.sharedStoreService.createId(),
-      title: 'Oozdr - Get the app',
-      content: 'Install instantly, find what you need faster, anytime.',
-      dismissText: 'Not now',
-      okText: 'Install',
+      title: this.dictAlertService.addAsAppAlert.title,
+      content: this.dictAlertService.addAsAppAlert.content,
+      dismissText: this.dictAlertService.addAsAppAlert.dismissText,
+      okText: this.dictAlertService.addAsAppAlert.okText,
       color: 'success',
       action: {
         actionName: 'add_as_app',
@@ -89,10 +93,10 @@ export class AlertsService {
   sendNewVersionAlert() {
     const alert: Alert = {
       id: this.sharedStoreService.createId(),
-      title: 'New version available',
-      content: 'Please refresh to reload the new version.',
-      dismissText: 'Dismiss',
-      okText: 'Refresh',
+      title: this.dictAlertService.newVersionAlert.title,
+      content: this.dictAlertService.newVersionAlert.content,
+      dismissText: this.dictAlertService.newVersionAlert.dismissText,
+      okText: this.dictAlertService.newVersionAlert.okText,
       color: 'primary',
       action: {
         actionName: 'new_version',
@@ -108,8 +112,8 @@ export class AlertsService {
       id: this.sharedStoreService.createId(),
       title: fcmMessage.title,
       content: fcmMessage.content,
-      dismissText: '',
-      okText: 'Dismiss',
+      dismissText: this.dictAlertService.FcmMessage.dismissText,
+      okText: this.dictAlertService.FcmMessage.dismissText,
       color: 'success',
       action: {
         actionName: 'fcm',
@@ -152,7 +156,7 @@ export class AlertsService {
 
   async presentReloadingVersion() {
     const loading = await this.loadingCtrl.create({
-      message: 'Reloading new version...',
+      message: this.dictAlertService.reloadingVersionMessage,
       duration: 7000,
       mode: 'ios'
     });
@@ -183,7 +187,7 @@ export class AlertsService {
     this.removeAllAddAsAppAlerts();
     this.sharedStoreService.installAsAppStateSubject.next({isInstalled: true, canInstall: false, canShowInMenu: false});
     const message: IonToastMessage = {
-      message: 'Oozdr App installed successfully',
+      message: this.dictAlertService.pwaAppInstalled,
     }
     setTimeout(() => {
       this.sharedService.presentToast(message);

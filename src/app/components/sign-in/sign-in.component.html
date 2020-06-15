@@ -2,10 +2,10 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto">
-        <p class="m-0 larger-text ion-text-center color-secondary">Log into your account</p>
+        <p class="m-0 larger-text ion-text-center color-secondary">{{ dictSignin.log_into_account }}</p>
         <app-phone-login [reauthenticate]="reauthenticate" (processDone)="processDone($event)"></app-phone-login>
         <p class="basic-text ion-text-center">
-          Don't have an account? <span class="sp-signin" (click)="signUp()">Sign up</span>
+          {{ dictSignin.no_account }}<span class="sp-signin" (click)="signUp()">{{  dictionary.global.sign_up }}</span>
         </p>
       </ion-col>
     </ion-row>

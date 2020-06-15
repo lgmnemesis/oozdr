@@ -8,6 +8,7 @@ import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 export class PhoneNumber {
   country: string;
@@ -38,6 +39,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   isVerifyButtonDisabled = false;
   isContinueButtonDisabled = false;
   countryCode = this.sharedService.defaultPhoneCountryCode || this.sharedService.INITIAL_PHONE_COUNTRY_CODE;
+  dictionary = this.localeService.dictionary;
+  dictPhone = this.dictionary.phoneLoginComponent;
 
   constructor(private afAuth: AngularFireAuth,
     private cd: ChangeDetectorRef,
@@ -45,7 +48,8 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private welcomeService: WelcomeService,
     private sharedStoreService: SharedStoreService,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this.initRecaptcha();
@@ -60,7 +64,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.phoneError = 'no errors';
     this.isPhoneError = false;
     if (!this.getAndVerifyNumber()) {
-      this.phoneError = !this.phoneNumber.line  ? 'Please Enter Your Mobile Number' : 'Invalid Number';
+      this.phoneError = !this.phoneNumber.line  ? this.dictPhone.phoneError_1 : this.dictPhone.phoneError_2;
       this.isPhoneError = true;
       this.isContinueButtonDisabled = false;
       this.markForCheck();
@@ -100,7 +104,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     }
     if (!this.verificationCode) {
       this.isVerificationError = true;
-      this.verificationError = 'Please Enter Your Verification Code';
+      this.verificationError = this.dictPhone.verificationError_1;
       return;
     }
 
@@ -132,7 +136,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       }
     } catch (error) {
       this.isVerificationError = true;
-      this.verificationError = 'Wrong Verification Code';
+      this.verificationError = this.dictPhone.verificationError_2;
       this.isVerifyButtonDisabled = false;
       this.sharedStoreService.loadingAppSubject.next(false);
       const jError = JSON.stringify(error);

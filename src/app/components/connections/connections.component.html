@@ -17,20 +17,20 @@
         <ion-spinner name="dots" color="minor" *ngIf="showNotificaionsInProgress"></ion-spinner>
         <ion-item color="secondary" lines="none">
           <ion-icon name="notifications-outline"></ion-icon>
-          <ion-label class="medium-text">Enable push notifications</ion-label>
+          <ion-label class="medium-text">{{ dictConnections.enableNotifications_1 }}</ion-label>
         </ion-item>
 
         <ion-card-content>
-          <p class="basic-text">Instantly know when you have a new match</p>
-          <p class="small-text">You can always change your selection, from your Profile -> Settings tab</p>
+          <p class="basic-text">{{ dictConnections.enableNotifications_2 }}</p>
+          <p class="small-text">{{ dictConnections.enableNotifications_3 }}</p>
         </ion-card-content>
         
         <ion-item class="m-notif-item" color="secondary" lines="none">
           <ion-button [disabled]="showNotificaionsInProgress" class="bt-notif" slot="start" fill="clear" (click)="notNow()">
-            <ion-label class="basic-text ion-text-capitalize">Not Now</ion-label>
+            <ion-label class="basic-text ion-text-capitalize">{{ dictConnections.enableNotifications_cancel }}</ion-label>
           </ion-button>
           <ion-button [disabled]="showNotificaionsInProgress" class="bt-notif" slot="end" fill="clear" (click)="sure()">
-            <ion-label class="basic-text ion-text-capitalize">Enable</ion-label>
+            <ion-label class="basic-text ion-text-capitalize">{{ dictConnections.enableNotifications_accept }}</ion-label>
           </ion-button>
         </ion-item>
       </ion-card>
@@ -54,18 +54,18 @@
         <ion-col size="auto">
           <ion-card button (click)="addConnectionButton()" class="msg-card">
             <ion-card-content>
-              <p class="larger-text ion-text-center p-space">Start by making 'Beats'</p>
-              <p class="basic-text ion-text-center">'Beats' are connections to people, loved ones, soulmate you are looking to reconnect...</p>
+              <p class="larger-text ion-text-center p-space">{{ dictConnections.initialMessage_1 }}</p>
+              <p class="basic-text ion-text-center">{{ dictConnections.initialMessage_2 }}</p>
               <p class="p-space"></p>
-              <p class="medium-text ion-text-capitalize ion-text-center">Don't miss a beat!</p> 
-              <p class="basic-text ion-text-center p-space">Who do you want to reconnect with?<p>
+              <p class="medium-text ion-text-capitalize ion-text-center">{{ dictConnections.initialMessage_3 }}</p> 
+              <p class="basic-text ion-text-center p-space">{{ dictConnections.initialMessage_4 }}<p>
             </ion-card-content>
             <div class="mk-beat">
               <ion-button color="minor" size="large" fill="clear">
                 <ion-icon 
                   class="padding-x" [class.heartbeat]="canHeartBeatAnimation"
                   size="small" name="fitness-outline"></ion-icon>
-                <ion-label class="basic-text text-trans-none">Make a Beat</ion-label>
+                <ion-label class="basic-text text-trans-none">{{ dictConnections.initialMessage_5 }}</ion-label>
               </ion-button>
             </div>
           </ion-card>
@@ -79,9 +79,9 @@
       <ion-col size="auto">
         <ion-card class="msg-card" color="secondary">
           <ion-card-content>
-            <p class="medium-text ion-text-center">Looks like you found what you were looking for.</p>
+            <p class="medium-text ion-text-center">{{ dictConnections.foundMessage_1 }}</p>
             <p></p>
-            <p class="top-padding basic-text ion-text-center">You can always make more beats.</p>
+            <p class="top-padding basic-text ion-text-center">{{ dictConnections.foundMessage_2 }}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>

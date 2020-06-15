@@ -4,6 +4,7 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection, Match, LastMessage } from 'src/app/interfaces/profile';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-matches',
@@ -23,11 +24,14 @@ export class MatchesComponent implements OnInit, OnDestroy {
   _matches: Subscription;
   noMatches = false;
   matches: Match[];
+  dictionary = this.localeService.dictionary;
+  dictMatches = this.dictionary.matchesComponent;
 
   constructor(public sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private connetionsService: ConnectionsService,
-    public sharedService: SharedService) {}
+    public sharedService: SharedService,
+    private localeService: LocaleService) {}
 
   ngOnInit() {
     this._connections = this.sharedStoreService.connections$.subscribe((connections) => {

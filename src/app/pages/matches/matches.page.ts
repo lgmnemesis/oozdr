@@ -9,6 +9,7 @@ import { PopoverController, AlertController } from '@ionic/angular';
 import { MatchOptionsComponent } from 'src/app/components/match-options/match-options.component';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { MatchDetailsComponent } from 'src/app/components/match-details/match-details.component';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-matches-page',
@@ -33,6 +34,8 @@ export class MatchesPage implements OnInit, OnDestroy {
   inOpenOptionsProcess = false;
   inOpenDetailsProcess = false;
   isMobile = false;
+  dictionary = this.localeService.dictionary;
+  dictMatches = this.dictionary.matchePage;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -42,7 +45,8 @@ export class MatchesPage implements OnInit, OnDestroy {
     private router: Router,
     private popoverCtrl: PopoverController,
     private alertCtrl: AlertController,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeService: LocaleService) { }
 
   async ngOnInit() {
     this.user = await this.authService.getUser();
@@ -147,9 +151,9 @@ export class MatchesPage implements OnInit, OnDestroy {
       if (res && res.data && res.data.block) {
         const name = this.connection.basicInfo.name;
         const nameC = name[0].toUpperCase() + name.slice(1);
-        const header = `You will no longer be able to send or recieve messages from ${nameC}`;
-        const message = 'Blocked matches can be unblocked at any time (under settings)';
-        const buttonText = 'Block';
+        const header = `${this.dictMatches.blockHeader} ${nameC}`;
+        const message = this.dictMatches.blockMessage;
+        const buttonText = this.dictMatches.blockButtonText;
         this.presentConfirm(header, message, buttonText, true, 'block');
       }
       this.inOpenOptionsProcess = false;
@@ -172,7 +176,7 @@ export class MatchesPage implements OnInit, OnDestroy {
       cssClass: 'alert-confirm-conainer',
       buttons: [
         {
-          text: 'Cancel',
+          text: this.dictMatches.confirmCancel,
           role: 'cancel',
           handler: () => {
           }

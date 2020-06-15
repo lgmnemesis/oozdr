@@ -4,6 +4,7 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-welcome-container',
@@ -17,12 +18,15 @@ export class WelcomeContainerComponent implements OnInit {
   isBack = false;
   isNext = false;
   disableBackButton = false;
+  dictionary = this.localeService.dictionary;
+  dictWelcome = this.dictionary.welcomeContainerComponent;
 
   constructor(private cd: ChangeDetectorRef,
     private navCtrl: NavController,
     public sharedStoreService: SharedStoreService,
     private authService: AuthService,
-    private welcomeService: WelcomeService) { }
+    private welcomeService: WelcomeService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
   }

@@ -14,7 +14,7 @@
   </ion-textarea>
   <ion-item lines="none">
     <ion-label slot="start" class="basic-text" *ngIf="!inputDisabled && !sharedService.isMobileApp()">
-      Ctrl + Enter for next line.
+     {{ dictChat.message }}
     </ion-label>
     <ion-button slot="end" fill="clear" (click)="toggleEmoji()" *ngIf="!sharedService.isMobileApp()">
       <ion-icon slot="icon-only" name="happy-outline"></ion-icon>

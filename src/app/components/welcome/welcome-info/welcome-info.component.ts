@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmi
 import { Profile } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-welcome-info',
@@ -26,10 +27,13 @@ export class WelcomeInfoComponent implements OnInit {
   profile: Profile = null;
   customPickerOptions: any = {};
   cropImgMode = false;
+  dictionary = this.localeService.dictionary;
+  dictWelcome = this.dictionary.welcomeInfoComponent;
 
   constructor(public welcomeService: WelcomeService,
     private cd: ChangeDetectorRef,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     if (!this.sharedService.isMobileApp()) {
@@ -48,7 +52,7 @@ export class WelcomeInfoComponent implements OnInit {
   setProfile() {
     if (this.profile) {
       this.welcomeService.basicInfo = JSON.parse(JSON.stringify(this.profile.basicInfo));
-      this.welcomeService.profilePhotoText = 'Profile Photo';
+      this.welcomeService.profilePhotoText = this.dictWelcome.profilePhoto;
       this.inputChangedEvent.next(true);
     }
     if (!this.welcomeService.basicInfo.profile_img_url) {

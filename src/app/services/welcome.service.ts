@@ -6,6 +6,7 @@ import { SharedService } from './shared.service';
 import { SharedStoreService } from './shared-store.service';
 import { FileStorageService } from './file-storage.service';
 import { NavController } from '@ionic/angular';
+import { LocaleService } from './locale.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,7 @@ export class WelcomeService {
 
   basicInfo: BasicInfo = this.getInfo();
   croppie: Croppie;
-  defProfilePhotoText = 'Profile Photo (optional)';
-  
+
   nameError = 'no errors';
   isNameError = false;
   genderError = 'no errors';
@@ -28,14 +28,18 @@ export class WelcomeService {
   birthdayError = 'no errors';
   isBirthdayError = false;
   isDisableNextButton = false;
-  profilePhotoText = this.defProfilePhotoText;
   goHomeOnceLock = false;
+  dictionary = this.localeService.dictionary;
+  dictWelcomeService = this.dictionary.welcomeService;
+  defProfilePhotoText = this.dictWelcomeService.defProfilePhotoText;
+  profilePhotoText = this.defProfilePhotoText;
 
   constructor(private authService: AuthService,
     private sharedService: SharedService,
     private sharedStoreService: SharedStoreService,
     private fileStorageService: FileStorageService,
-    private navCtrl: NavController) { 
+    private navCtrl: NavController,
+    private localeService: LocaleService) { 
       this.authService.signingOut$.subscribe((isSigningOut) => {
         if (isSigningOut) {
           this.sharedStoreService.needToFinishInfoRegistration = false;
@@ -119,13 +123,13 @@ export class WelcomeService {
     this.isNameError = false;
     const name = this.basicInfo.name.trim();
     if (!name) {
-      this.nameError = 'Please enter your name';
+      this.nameError = this.dictWelcomeService.nameError_1;
       this.isNameError = true;      
     } else if (!name.match(/^[\u0590-\u05FF\w ]+$/)) {
-      this.nameError = 'Only Letters please';
+      this.nameError = this.dictWelcomeService.nameError_2;
       this.isNameError = true;
     } else if (name.length < 2) {
-      this.nameError = 'Sorry, name is too short';
+      this.nameError = this.dictWelcomeService.nameError_3;
       this.isNameError = true;
     }
     return !this.isNameError;
@@ -135,7 +139,7 @@ export class WelcomeService {
     this.genderError = 'no errors';
     this.isGenderError = false;
     if (this.basicInfo.gender === '') {
-      this.genderError = 'Please select a gender';
+      this.genderError = this.dictWelcomeService.genderError;
       this.isGenderError = true;
     }
     return !this.isGenderError;
@@ -146,10 +150,10 @@ export class WelcomeService {
     this.isEmailError = false;
     const email = this.basicInfo.email.trim();
     if (!email) {
-      this.emailError = 'Please enter your email';
+      this.emailError = this.dictWelcomeService.emailError_1;
       this.isEmailError = true;      
     } else if (!email.match(this.sharedService.mailformat)) {
-      this.emailError = 'Invalid email address';
+      this.emailError = this.dictWelcomeService.emailError_2;
       this.isEmailError = true;
     }
     return !this.isEmailError;
@@ -160,7 +164,7 @@ export class WelcomeService {
     this.isBirthdayError = false;
     const birthday = this.basicInfo.birthday.trim();
     if (!birthday) {
-      this.birthdayError = 'Please enter your birthday';
+      this.birthdayError = this.dictWelcomeService.birthdayError;
       this.isBirthdayError = true;   
     }
     return !this.isBirthdayError;

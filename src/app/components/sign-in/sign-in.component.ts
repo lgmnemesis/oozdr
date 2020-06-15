@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,8 +13,12 @@ export class SignInComponent implements OnInit {
   @Input() reauthenticate = false;
   @Output() processDoneEvent = new EventEmitter();
 
+  dictionary = this.localeService.dictionary;
+  dictSignin = this.dictionary.signInComponent;
+
   constructor(private modalCtrl: ModalController,
-    private router: Router) { }
+    private router: Router,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
   }
