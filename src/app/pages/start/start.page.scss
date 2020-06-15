@@ -6,6 +6,7 @@
 @import '../../styles/slide-in-right-tint-animation';
 @import '../../styles/slide-in-left-tint-animation';
 @import '../../styles/zoom-in-animation';
+@import '../../styles/custom-global';
 
 @media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
   .sm-hide {
@@ -107,6 +108,11 @@ ion-content {
   max-width: 1300px;
   height: 100%;
   margin: auto;
+}
+
+.header-bt ion-button {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .r-logo {

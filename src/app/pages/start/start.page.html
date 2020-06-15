@@ -14,6 +14,10 @@
           <ion-label class="basic-text ion-text-capitalize sm-hide">{{ dictionary.global.log_in }}</ion-label>
           <ion-icon class="sm-show" size="large" name="log-in-outline"></ion-icon>
         </ion-button>
+        <ion-button *ngIf="localeService.canShowToggleLangButton"
+          color="dark" fill="clear" shape="round" class="bt-round" (click)="toggleLang()">
+          <ion-label class="small-text">{{ localeService.lang === 'en' ? 'עב' : 'EN' }}</ion-label>
+        </ion-button>
         <!-- <ion-button class="sm-hide" color="dark" fill="clear" shape="round">
           <ion-label class="basic-text ion-text-capitalize">About</ion-label>
         </ion-button> -->

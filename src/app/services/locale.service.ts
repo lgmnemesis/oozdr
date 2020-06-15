@@ -9,33 +9,52 @@ export class LocaleService {
 
   lang = 'en';
   dir = 'ltr';
-  browserLang: string; 
   isRightToLeft = false;
   dictionary = DictionaryEnglish;
   backArrow = 'arrow-back-outline';
+  canShowToggleLangButton = true;
+  preferHeb = false;
 
   constructor() {
   }
 
-  getBrowserLang(): string {
+  isBrowserSupportHeb(): boolean {
+    this.preferHeb = false;
     try {
-      this.browserLang = navigator.language;
-      console.log('browser lang:', this.browserLang);
+      const langs = navigator.languages;
+      if (langs[0].includes('he')) this.preferHeb = true;
+      return langs.findIndex(l => l.includes('he')) > -1;
     } catch (error) {
       console.error(error);
     }
-    return this.browserLang;
+    return false;
   }
 
   setDefaultLang() {
-    const lang = this.getBrowserLang();
-    this.setLang(lang);
+    try {
+      let lang = localStorage.getItem('lang');
+      const supportHeb = this.isBrowserSupportHeb();
+      if (!lang && this.preferHeb) lang = 'he';
+      if (lang !== 'en' && lang !== 'he') lang = 'en';
+      // this.canShowToggleLangButton = supportHeb || lang === 'he';
+      this.setLang(lang);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  setLang(lang: string) {
-    this.lang = lang;
-    // this.setCountry('IL', 'Israel');
+  toggleLang() {
+    const lang = this.lang === 'en' ? 'he' : 'en';
+    try {
+      localStorage.setItem('lang', lang);
+      location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
+  private setLang(lang: string) {
+    this.lang = lang;
     try {
       const html = document.getElementsByTagName('html')[0];
       const body = document.getElementsByTagName('body')[0];

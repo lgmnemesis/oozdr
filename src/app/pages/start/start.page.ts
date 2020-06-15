@@ -181,6 +181,10 @@ export class StartPage implements OnInit, OnDestroy {
     }
   }
 
+  toggleLang() {
+    this.localeService.toggleLang();
+  }
+
   runAnimation(entry: IntersectionObserverEntry, className: string, observer: IntersectionObserver) {
     entry.target.classList.toggle(className);
     entry.target.classList.remove('hide');
