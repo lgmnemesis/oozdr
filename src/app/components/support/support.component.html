@@ -30,7 +30,7 @@
   <div class="sec-divider"></div>
   <div class="sec-divider sm-hide"></div>
 
-  <ion-row class="ion-justify-content-center ion-align-items-center">
+  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!localeService.isRightToLeft">
     <ion-col size="12" size-lg="6" push-lg="6">
       <div class="col-container c-align-start">
         <p class="medium-text color-secondary">{{ dictSupportTxt.section2_title }}</p>
@@ -40,6 +40,23 @@
       </div>
     </ion-col>
     <ion-col size="12" size-lg="6" pull-lg="6">
+      <div class="col-container c-align-end">
+        <div class="img-container">
+          <img src="../../assets/images/support_2.png" alt="Wait for a match" crossorigin="anonymous">
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="localeService.isRightToLeft">
+    <ion-col size="12" size-lg="6" pull-lg="6">
+      <div class="col-container c-align-start">
+        <p class="medium-text color-secondary">{{ dictSupportTxt.section2_title }}</p>
+        <p class="title-text ion-text-wrap p-params">
+          {{ dictSupportTxt.section2_1 }}
+        </p>
+      </div>
+    </ion-col>
+    <ion-col size="12" size-lg="6" push-lg="6">
       <div class="col-container c-align-end">
         <div class="img-container">
           <img src="../../assets/images/support_2.png" alt="Wait for a match" crossorigin="anonymous">

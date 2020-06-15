@@ -85,6 +85,7 @@
   .how-title {
     position: relative !important;
     left: 0 !important;
+    right: 0 !important;
   }
 }
 
@@ -123,9 +124,16 @@ ion-content {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
   margin: auto;
   width: 100px;
+}
+
+.pos-ltr {
+  left: 0;
+}
+
+.pos-rtl {
+  right: 0;
 }
 
 .header-bt {
@@ -270,10 +278,18 @@ ion-content {
   font-size: 50px;
   font-weight: 600;
   top: 0;
-  left: -25%;
-  right: 0;
   text-align: center;
   width: 100%;
+}
+
+.how-title-ltr {
+  left: -25%;
+  right: 0;  
+}
+
+.how-title-rtl {
+  right: -25%;
+  left: 0;  
 }
 
 .how-title-row {

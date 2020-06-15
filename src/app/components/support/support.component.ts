@@ -15,7 +15,7 @@ export class SupportComponent implements OnInit {
   dictSupportTxt = this.dictionary.supportTxt;
 
   constructor(private cd: ChangeDetectorRef,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   ngOnInit() {}
 

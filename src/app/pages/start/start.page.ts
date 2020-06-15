@@ -39,7 +39,7 @@ export class StartPage implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
     private alertsService: AlertsService,
     public welcomeService: WelcomeService,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     this._installAsAppState = this.sharedStoreService.installAsAppState$.subscribe((state) => {
@@ -152,11 +152,11 @@ export class StartPage implements OnInit, OnDestroy {
             const id = entry.target.id;
             let className = '';
             if (id === 'scroll1' || id === 'scroll5') {
-              className = 'slideInLeftTint';
+              className = this.localeService.isRightToLeft ? 'slideInRightTint' : 'slideInLeftTint';
             } else if (id === 'scroll2' || id === 'scroll4' || id === 'scroll6') {
               className = "fadeInUpTint";
             } else if (id === 'scroll3') {
-              className = "slideInRightTint";
+              className = this.localeService.isRightToLeft ? 'slideInLeftTint' : 'slideInRightTint';
             }
             
             if (delay > 0) {
