@@ -55,7 +55,7 @@
         <ion-input 
           type="email"
           inputmode="email"
-          [placeholder]="dictManage.input_2_2" 
+          [placeholder]="dictManage.input_3_1" 
           maxLength="100" 
           debounce="300"
           [disabled]="!canEdit"
@@ -75,7 +75,7 @@
 
       </ion-item>
       <p class="p-error" [class.p-error-active]="isEmailError">{{ emailError }}</p>
-      <p class="smallest-text p-sub-text" *ngIf="canEdit">{{ dictManage.input_3_1 }}</p>
+      <p class="smallest-text p-sub-text" *ngIf="canEdit">{{ dictManage.input_3_2 }}</p>
     </ion-col>
   </ion-row>
 
