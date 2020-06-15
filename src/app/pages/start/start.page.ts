@@ -9,6 +9,7 @@ import { SiteFooterModalComponent } from 'src/app/components/site-footer-modal/s
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-start',
@@ -26,6 +27,8 @@ export class StartPage implements OnInit, OnDestroy {
   isSiteMenuActive = false;
   canShowInstallApp = false;
   observer: IntersectionObserver;
+  dictionary = this.localeService.dictionary;
+  dictStart = this.dictionary.startPage;
 
   constructor(private modalCtrl: ModalController,
     public sharedStoreService: SharedStoreService,
@@ -35,7 +38,8 @@ export class StartPage implements OnInit, OnDestroy {
     private popoverCtrl: PopoverController,
     private analyticsService: AnalyticsService,
     private alertsService: AlertsService,
-    public welcomeService: WelcomeService) { }
+    public welcomeService: WelcomeService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this._installAsAppState = this.sharedStoreService.installAsAppState$.subscribe((state) => {

@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-site-footer',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class SiteFooterComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  dictionary = this.localeService.dictionary;
+  dictFooter = this.dictionary.siteFooterComponent;
+
+  constructor(private router: Router,
+    private localeService: LocaleService) { }
 
   ngOnInit() {}
 

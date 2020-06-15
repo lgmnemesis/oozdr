@@ -12,7 +12,7 @@ import { User } from 'firebase';
 import { InviteFriendsModalComponent } from './components/invite-friends-modal/invite-friends-modal.component';
 import { AnalyticsService } from './services/analytics.service';
 import { AlertsService } from './services/alerts.service';
-import { Meta } from '@angular/platform-browser';
+import { LocaleService } from './services/locale.service';
 
 @Component({
   selector: 'app-root',
@@ -29,11 +29,11 @@ export class AppComponent {
   user: User;
   loadingApp = true;
   canShowInstallApp = false;
+  dictionary = this.localeService.dictionary;
+  dictApp = this.dictionary.appComponent;
 
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
     private sharedService: SharedService,
     public sharedStoreService: SharedStoreService,
     private swUpdate: SwUpdate,
@@ -45,7 +45,9 @@ export class AppComponent {
     private alertsService: AlertsService,
     private alertCtrl: AlertController,
     private cd: ChangeDetectorRef,
+    private localeService: LocaleService
   ) {
+    this.setDefaultLang();
     this.addAsApp();
     this.authService.init();
     this.initializeApp();
@@ -56,6 +58,10 @@ export class AppComponent {
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  setDefaultLang() {
+    this.localeService.setDefaultLang();
   }
 
   initializeApp() {
