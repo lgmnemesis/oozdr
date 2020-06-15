@@ -4,6 +4,7 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { Connection, Profile } from 'src/app/interfaces/profile';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
+import { LocaleService } from 'src/app/services/locale.service';
 
 export class Q {
   name = '';
@@ -26,7 +27,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.canEdit = !(s && s.connection && s.connection.isClosureMatched);
     this.reset();
     if (s && s.state === 'add_closure') {
-      this.saveConnectionButtonText = 'Add Closure';
+      this.saveConnectionButtonText = this.dictManage.saveConnectionButtonText_2;
     } else if (s && s.state === 'edit' || s.state === 'edit_closure') {
       this.setForEdit(s);
     }
@@ -40,6 +41,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
 
   Q = new Q();
 
+  dictionary = this.localeService.dictionary;
+  dictManage = this.dictionary.manageConnectionComponent;
   canEdit = true;
   internalContact = null;
   isNameError = false;
@@ -51,7 +54,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   emailError = 'no errors';
   closureError = 'no errors';
   showWelcomeMessage = false;
-  saveConnectionButtonText = 'Add Beat';
+  saveConnectionButtonText = this.dictManage.saveConnectionButtonText_1;
   profile: Profile;
   isValidForm = true;
   selectedContactNameValue = -1;
@@ -67,18 +70,12 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     cssClass: 'manage-connection-select-option'
   };
 
-  customSelectText = [
-    'Hey... Just wondering :)',
-    'Hey... After all.. Still thinking about you!',
-    'Did it finally... Couldn\'t help it',
-    'What do you think about a little chat?',
-    'Isn\'t it a pity? to throw it all away?',
-    'Passion is momentary, love is enduring'
-  ];
+  customSelectText = this.dictManage.customSelectText;
 
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
-    private sharedStoreService: SharedStoreService) { }
+    private sharedStoreService: SharedStoreService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this.getProfile();
@@ -101,7 +98,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.phoneError = 'no errors';
     this.isPhoneError = false;
     this.showWelcomeMessage = false;
-    this.saveConnectionButtonText = 'Add Beat';
+    this.saveConnectionButtonText = this.dictManage.saveConnectionButtonText_1;
   }
 
   async getProfile() {
@@ -117,7 +114,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     if (this.Q.welcomeMessage) {
       this.showWelcomeMessage = true;
     }
-    this.saveConnectionButtonText = connectionState.state === 'edit_closure' ? 'Save Closure' : 'Save Beat';
+    this.saveConnectionButtonText = 
+    connectionState.state === 'edit_closure' ? this.dictManage.saveConnectionButtonText_3: this.dictManage.saveConnectionButtonText_4;
   }
 
   setContacts(contacts: any[]) {
@@ -181,13 +179,13 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isNameError = false;
     const name = this.Q.name.trim();
     if (!name) {
-      this.nameError = 'Please Enter a Valid Name';
+      this.nameError = this.dictManage.nameError_1;
       this.isNameError = true;      
     } else if (!name.match(/^[\u0590-\u05FF\w ]+$/)) {
-      this.nameError = 'Only Letters please';
+      this.nameError = this.dictManage.nameError_2;
       this.isNameError = true;
     } else if (name.length < 2) {
-      this.nameError = 'Sorry, name is too short';
+      this.nameError = this.dictManage.nameError_3;
       this.isNameError = true;
     }
     return !this.isNameError;
@@ -198,7 +196,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.isEmailError = false;
     const email = this.Q.email.trim();
     if (email && !email.match(this.sharedService.mailformat)) {
-      this.emailError = 'Invalid email address';
+      this.emailError = this.dictManage.emailError;
       this.isEmailError = true;
     }
     return !this.isEmailError;
@@ -210,7 +208,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     if (!isClosure) return true;
     const message = this.Q.welcomeMessage ? this.Q.welcomeMessage.trim() : '';
     this.isClosureError = message.length === 0;
-    if (this.isClosureError) this.closureError = 'Write It Down';
+    if (this.isClosureError) this.closureError = this.dictManage.closureError;
     return !this.isClosureError;
   }
 
@@ -351,8 +349,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     const isValidClosure = this.isValidClosure();
 
     if (!isValidNumber || isUsingOwnNuber) {
-      this.phoneError = !this.Q.phoneNumber  ? 'Enter Connection\'s Mobile Number' : 
-      isUsingOwnNuber ? 'Can\'t use your own mumber' : 'Invalid Number';
+      this.phoneError = !this.Q.phoneNumber  ? this.dictManage.phoneError_1: 
+      isUsingOwnNuber ? this.dictManage.phoneError_2 : this.dictManage.phoneError_3;
       this.isPhoneError = true;
     }
 
@@ -363,7 +361,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       const connections = await this.sharedStoreService.getConnections();
       const connectionExists = connections.find((c) => c.basicInfo.mobile === this.Q.phoneNumber);
       if (connectionExists) {
-        this.phoneError = `Number belongs to ${connectionExists.basicInfo.name}`;
+        this.phoneError = `${this.dictManage.phoneError_4} ${connectionExists.basicInfo.name}`;
         this.isPhoneError = true;
         this.isValidForm = false;
       }
@@ -376,11 +374,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   sendToastMessage(connection: Connection) {
     const name = connection.basicInfo.name;
     const cName = name.charAt(0).toUpperCase() + name.slice(1);
-    let header = `${cName} is a new beat. Sounds great!`;
-    let content = `If ${cName} adds you to their beats, it's a groove! and we'll update both of you immediately. Let's make some music together!`;
+    let header = `${cName} ${this.dictManage.toastHeader_1}`;
+    let content = `${this.dictManage.toastContent_1_1} ${cName} ${this.dictManage.toastContent_1_2}`;
     if (connection.isClosure) {
-      header = `${cName} is a new closure for you.`;
-      content = `If ${cName} is looking for you, we'll send them your closure message and update you immediately.`;
+      header = `${cName} ${this.dictManage.toastHeader_1}`;
+      content = `${this.dictManage.toastContent_1_1} ${cName} ${this.dictManage.toastContent_2}`;
     }
     const message: ToastMessage = {
       header: header,
@@ -390,7 +388,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       isVisible: true,
       duration: -1,
       dismissButton: true,
-      dismissButtonText: 'got it',
+      dismissButtonText: this.dictManage.toastDismissButtonText_1,
       persistOnDismiss: true
     }
     try {
@@ -398,7 +396,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
       if (isPers) {
         message.duration = 5000;
         message.dismissButton = true;
-        message.dismissButtonText = 'Ok';
+        message.dismissButtonText = this.dictManage.toastDismissButtonText_2;
         message.persistOnDismiss = false;
       }
     } catch (error) {

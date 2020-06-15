@@ -11,7 +11,7 @@
       <p>{{ dictWelcome.input_1 }}</p>
       <ion-item lines="none" class="item-input">
         <ion-input #nameinput
-          placeholder="Your Name" 
+          [placeholder]="dictWelcome.input_1_1" 
           maxLength="20" 
           debounce="300" 
           [value]="welcomeService?.basicInfo?.name" 
@@ -49,7 +49,7 @@
         <ion-input 
           type="email" 
           inputmode="email" 
-          placeholder="Your Email Address"
+          [placeholder]="dictWelcome.input_3_1"
           debounce="300" 
           [value]="welcomeService?.basicInfo?.email" 
           (ionChange)="setEmail($event)">

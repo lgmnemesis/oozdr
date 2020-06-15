@@ -52,7 +52,7 @@
         <ion-input 
           type="number" 
           inputmode="number" 
-          placeholder="Verification Code"
+          [placeholder]="dictPhone.verifyCodePlaceholder"
           debounce="300"
           maxlength="20"
           [value]="verificationCode" 

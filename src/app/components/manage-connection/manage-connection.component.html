@@ -2,10 +2,10 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <p class="basic-text">Name</p>
+      <p class="basic-text">{{ dictManage.input_1 }}</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
-          placeholder="Connection Name" 
+          [placeholder]="dictManage.input_1_1" 
           maxLength="20" 
           debounce="300"
           [disabled]="!canEdit"
@@ -28,7 +28,7 @@
     </ion-col>
     
     <ion-col size="auto">
-      <p class="basic-text">Mobile Number</p>
+      <p class="basic-text">{{ dictManage.input_2 }}</p>
       <input id="tel-input"
         [disabled]="connectionState?.state === 'edit' || connectionState?.state === 'edit_closure'"
         type="tel" ng2TelInput
@@ -50,12 +50,12 @@
     </ion-col>
 
     <ion-col size="auto" *ngIf="canEdit || (!canEdit && Q?.email)">
-      <p class="basic-text">Email (Optional)</p>
+      <p class="basic-text">{{ dictManage.input_3 }}</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
           type="email"
           inputmode="email"
-          placeholder="Connection Email" 
+          [placeholder]="dictManage.input_2_2" 
           maxLength="100" 
           debounce="300"
           [disabled]="!canEdit"
@@ -75,9 +75,7 @@
 
       </ion-item>
       <p class="p-error" [class.p-error-active]="isEmailError">{{ emailError }}</p>
-      <p class="smallest-text p-sub-text" *ngIf="canEdit">
-        We will send an invitation email stating that someone is looking for them(without revealing who it is from)
-      </p>
+      <p class="smallest-text p-sub-text" *ngIf="canEdit">{{ dictManage.input_3_1 }}</p>
     </ion-col>
   </ion-row>
 
@@ -92,10 +90,10 @@
               [checked]="showWelcomeMessage" 
               (ionChange)="toggleWelcomeMessage($event)">
             </ion-toggle>
-            <ion-label class="basic-text ion-text-wrap">Welcome Message</ion-label>
+            <ion-label class="basic-text ion-text-wrap">{{ dictManage.input_4 }}</ion-label>
           </ion-item>
-          <p class="smallest-text p-sub-text">Show them you care. write them something inviting.</p>
-          <p class="smallest-text p-sub-text">(You can change it later)</p>
+          <p class="smallest-text p-sub-text">{{ dictManage.input_4_1 }}</p>
+          <p class="smallest-text p-sub-text">{{ dictManage.input_4_2 }}</p>
         </ion-list>
       </ion-col>
     </ion-row>
@@ -103,9 +101,9 @@
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size="auto" *ngIf="showWelcomeMessage">
         <ion-item class="item-select" lines="none">
-          <ion-label color="success" class="basic-text">Suggested messages</ion-label>
+          <ion-label color="success" class="basic-text">{{ dictManage.input_4_3 }}</ion-label>
           <ion-select
-            mode="ios" multiple="true" cancel-text="Cancel" ok-text="Ok" selected-text=" " 
+            mode="ios" multiple="true" [cancel-text]="dictManage.cancelBtn" [ok-text]="dictManage.okText" selected-text=" " 
             [interfaceOptions]="customSelectOptions"
             (ionChange)="selectedMessages($event)">
             <ion-select-option 
@@ -118,7 +116,7 @@
             color="dark"
             rows="6" 
             spellcheck="true"
-            placeholder="Don't say it unless you mean it"
+            [placeholder]="dictManage.input_4_4"
             [autoGrow]="true"
             [value]="Q?.welcomeMessage"
             (ionChange)="setWelcomeMessage($event)">
@@ -132,14 +130,14 @@
     class="ion-justify-content-center ion-align-items-center">
     <ion-col size="12">
       <ion-item lines="none">
-        <ion-label class="basic-text ion-text-wrap ion-text-center">Closure Message</ion-label>
+        <ion-label class="basic-text ion-text-wrap ion-text-center">{{ dictManage.input_5 }}</ion-label>
       </ion-item>
       <ion-item lines="none">
         <ion-textarea 
           color="dark"
           rows="10" 
           spellcheck="true"
-          placeholder="Write down the things you wish you could say to your ex..."
+          [placeholder]="dictManage.input_5_1"
           [autoGrow]="true"
           [value]="Q?.welcomeMessage"
           (ionChange)="setWelcomeMessage($event)">
@@ -151,16 +149,13 @@
 
   <ion-row class="padding-top ion-justify-content-center ion-align-items-center" *ngIf="canEdit">
     <ion-col size="auto" class="col-txt">
-      <p class="small-text p-note">
-        Don't worry, we are not doing anything yet.
-        They will be notified ONLY if they are looking for you too.
-      </p>
+      <p class="small-text p-note">{{ dictManage.input_6 }}</p>
     </ion-col>
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="canEdit">
     <ion-col size="auto">
-      <ion-button class="basic-text ion-text-capitalize" fill="outline" color="secondary" (click)="close()">Cancel</ion-button>
+      <ion-button class="basic-text ion-text-capitalize" fill="outline" color="secondary" (click)="close()">{{ dictManage.cancelBtn }}</ion-button>
     </ion-col>
     <ion-col size="auto">
       <ion-button [color]="isValidForm ? 'primary' : 'danger'"
@@ -176,8 +171,8 @@
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12" *ngIf="connectionState?.connection?.otherParty?.message">
           <p class="message-display-title">
-            {{ connectionState?.connection?.basicInfo?.name }}'s
-            {{ connectionState?.connection?.otherParty?.isClosure ? 'Closure' : 'Welcome' }}  Message
+            {{ connectionState?.connection?.basicInfo?.name }}{{ dictManage.suffixName }}
+            {{ connectionState?.connection?.otherParty?.isClosure ? dictManage.text_1 : dictManage.text_2 }}
           </p>
           <div class="message-display">
             <p>{{ connectionState?.connection?.otherParty?.message }}</p>
@@ -187,7 +182,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <p class="message-display-title basic-text">Your Closure Message</p>
+          <p class="message-display-title basic-text">{{ dictManage.text_3 }}</p>
           <div class="message-display">
             <p>{{ connectionState?.connection?.basicInfo?.welcome_msg }}</p>
           </div>
@@ -198,7 +193,7 @@
     <ng-container *ngIf="!connectionState?.connection?.isClosure">
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <p class="message-display-title">{{ connectionState?.connection?.basicInfo?.name }}'s Closure Message</p>
+          <p class="message-display-title">{{ connectionState?.connection?.basicInfo?.name }}{{ dictManage.text_4 }}</p>
           <div class="message-display">
             <p>{{ connectionState?.connection?.otherParty?.message }}</p>
           </div>
@@ -207,7 +202,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="connectionState?.connection?.basicInfo?.welcome_msg">
         <ion-col size="12">
-          <p class="message-display-title">Your Welcome Message</p>
+          <p class="message-display-title">{{ dictManage.text_5 }}</p>
           <div class="message-display">
             <p>{{ connectionState?.connection?.basicInfo?.welcome_msg }}</p>
           </div>
@@ -217,7 +212,7 @@
 
     <ion-row class="ion-justify-content-center ion-align-items-center closure-btn">
       <ion-col size="auto">
-        <ion-button class="basic-text ion-text-capitalize" color="secondary" (click)="close()">Close</ion-button>
+        <ion-button class="basic-text ion-text-capitalize" color="secondary" (click)="close()">{{ dictManage.closeBtn }}</ion-button>
       </ion-col>
     </ion-row>
     

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { ModalController, AlertController } from '@ionic/angular';
 import { ContactPickerApiService } from 'src/app/services/contact-picker-api.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-manage-connection-modal',
@@ -17,23 +18,26 @@ export class ManageConnectionModalComponent implements OnInit {
   showHelpLock = false;
   canEdit = true;
   canShowHelp = false;
+  dictionary = this.localeService.dictionary;
+  dictManage = this.dictionary.manageConnectionModalComponent;
 
   constructor(private modalCtrl: ModalController,
     public contactPickerApiService: ContactPickerApiService,
     private cd: ChangeDetectorRef,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     const state = this.connectionsState && this.connectionsState.state ? this.connectionsState.state : null;
     const connection = this.connectionsState ? this.connectionsState.connection : null;
     if (state) {
-      if (state === 'add') this.title = 'Make Beat';
-      if (state === 'edit') this.title = 'Edit Beat';
-      if (state === 'add_closure') this.title = 'Add Closure';
-      if (state === 'edit_closure') this.title = 'Edit Closure';
+      if (state === 'add') this.title = this.dictManage.title_1;
+      if (state === 'edit') this.title = this.dictManage.title_2;
+      if (state === 'add_closure') this.title = this.dictManage.title_3;
+      if (state === 'edit_closure') this.title = this.dictManage.title_4;
 
       if (state === 'edit_closure' && connection && connection.isClosureMatched)  {
-        this.title = 'Closure';
+        this.title = this.dictManage.title_5;
         this.canEdit = false;
       }
 
@@ -55,20 +59,13 @@ export class ManageConnectionModalComponent implements OnInit {
     this.showHelpLock = true;
 
     const alert = await this.alertCtrl.create({
-      header: `Adding Closure`,
-      message:
-`
-Writing a closure message can benefit you as well as your EX...
-It's meant to allow you to accept what has happened, say goodbye, and move on.
-
-<span>Just like Beats, your closure will be matched and shown only if the other person is looking for you too (whether it is to reconnect or to give you their own closure message).</span>
-
-`,
+      header: this.dictManage.helpHeader,
+      message: this.dictManage.helpMessage,
       mode: 'ios',
       cssClass: 'manage-connection-help',
       buttons: [
         {
-          text: 'Got It',
+          text: this.dictManage.textBtn,
           handler: () => {
             this.showHelpLock = false;
           }

@@ -68,6 +68,7 @@ export const DictionaryEnglish = {
     term_s2: 'Terms',
     continue_btn: 'Continue',
     verifyCode: 'Enter Your Verification Code',
+    verifyCodePlaceholder: 'Verification Code',
     verify_btn: 'Verify',
     phoneError_1: 'Please Enter Your Mobile Number',
     phoneError_2: 'Invalid Number',
@@ -80,11 +81,13 @@ export const DictionaryEnglish = {
   welcomeInfoComponent: {
     title: 'Personal Details',
     input_1: 'Name',
+    input_1_1: 'Your Name',
     input_2: 'Gender',
     input_2_1: 'Male',
     input_2_2: 'Female',
     input_2_3: 'Other',
     input_3: 'Email',
+    input_3_3: 'Your Email Address',
     input_4: 'Birthday',
     input_4_1: 'Select Date',
     input_5: 'Select Photo',
@@ -139,7 +142,74 @@ export const DictionaryEnglish = {
     foundMessage_2: 'You can always make more beats.',
   },
   manageConnectionComponent: {
+    input_1: 'Name',
+    input_1_1: 'Connection Name',
+    input_2: 'Mobile Number',
+    input_2_2: 'Connection Email',
+    input_3: 'Email (Optional)',
+    input_3_1: 'We will send an invitation email stating that someone is looking for them(without revealing who it is from)',
+    input_4: 'Welcome Message',
+    input_4_1: 'Show them you care. write them something inviting.',
+    input_4_2: '(You can change it later)',
+    input_4_3: 'Suggested messages',
+    input_4_4: 'Don\'t say it unless you mean it',
+    input_5: 'Closure Message',
+    input_5_1: 'Write down the things you wish you could say to your ex...',
+    input_6: 'Don\'t worry, we are not doing anything yet. They will be notified ONLY if they are looking for you too.',
+    cancelBtn: 'Cancel',
+    okText: 'Ok',
+    suffixName: '\'s',
+    text_1: 'Closure Message',
+    text_2: 'Welcome Message',
+    text_3: 'Your Closure Message',
+    text_4: '\'s Closure Message',
+    text_5: 'Your Welcome Message',
+    closeBtn: '',
+    saveConnectionButtonText_1: 'Add Beat',
+    saveConnectionButtonText_2: 'Add Closure',
+    saveConnectionButtonText_3: 'Save Closure',
+    saveConnectionButtonText_4: 'Save Beat',
+    customSelectText: [
+      'Hey... Just wondering :)',
+      'Hey... After all.. Still thinking about you!',
+      'Did it finally... Couldn\'t help it',
+      'What do you think about a little chat?',
+      'Isn\'t it a pity? to throw it all away?',
+      'Passion is momentary, love is enduring'
+    ],
+    nameError_1: 'Please Enter a Valid Name',
+    nameError_2: 'Only Letters please',
+    nameError_3: 'Sorry, name is too short',
+    emailError: 'Invalid email address',
+    closureError: 'Write It Down',
+    phoneError_1: 'Enter Connection\'s Mobile Number',
+    phoneError_2: 'Can\'t use your own mumber',
+    phoneError_3: 'Invalid Number',
+    phoneError_4: 'Number belongs to',
+    toastHeader_1: 'is a new beat. Sounds great!',
+    toastContent_1_1: 'If',
+    toastContent_1_2: 'adds you to their beats, it\'s a groove! and we\'ll update both of you immediately. Let\'s make some music together!',
+    toastHeader_2: 'is a new closure for you.',
+    toastContent_2: 'is looking for you, we\'ll send them your closure message and update you immediately.',
+    toastDismissButtonText_1: 'got it',
+    toastDismissButtonText_2: 'Ok'
+  },
+  manageConnectionModalComponent: {
+    title_1: 'Make Beat',
+    title_2: 'Edit Beat',
+    title_3: 'Add Closure',
+    title_4: 'Edit Closure',
+    title_5: 'Closure',
+    helpHeader: 'Adding Closure',
+    helpMessage:
+`
+Writing a closure message can benefit you as well as your EX...
+It's meant to allow you to accept what has happened, say goodbye, and move on.
 
+<span>Just like Beats, your closure will be matched and shown only if the other person is looking for you too (whether it is to reconnect or to give you their own closure message).</span>
+
+`,
+    textBtn: 'Got It'
   },
   matchePage: {
     blockHeader: 'You will no longer be able to send or recieve messages from',
@@ -155,6 +225,7 @@ export const DictionaryEnglish = {
     noMatches_2: 'When a beat is matched, it will appear here, and you will be notified.'
   },
   chatInputViewComponent: {
+    placeholder: 'Say something...',
     message: 'Ctrl + Enter for next line.'
   }
 }
