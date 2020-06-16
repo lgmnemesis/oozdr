@@ -27,8 +27,8 @@
       <p class="p-error" [class.p-error-active]="isNameError">{{ nameError }}</p>
     </ion-col>
     
-    <ion-col size="auto">
-      <p class="basic-text">{{ dictManage.input_2 }}</p>
+    <ion-col size="auto" class="direction-ltr">
+      <p class="basic-text" [class.direction-rtl]="localeService.isRightToLeft">{{ dictManage.input_2 }}</p>
       <input id="tel-input"
         [disabled]="connectionState?.state === 'edit' || connectionState?.state === 'edit_closure'"
         type="tel" ng2TelInput

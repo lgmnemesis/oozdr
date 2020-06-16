@@ -37,6 +37,9 @@ export class SettingsPage implements OnInit, OnDestroy {
   unsubscribeMarker = false;
   dictionary = this.localeService.dictionary;
   dictSettings = this.dictionary.settingsPage;
+  selectedLangEN = '';
+  selectedLangHE = '';
+  selectedLang = this.localeService.lang;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -47,7 +50,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     public fcmService: FcmService,
     private modalCtrl: ModalController,
     private analyticsService: AnalyticsService,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -69,10 +72,51 @@ export class SettingsPage implements OnInit, OnDestroy {
     });
 
     this.setProfile();
+    this.setLocalLang();
+
+    this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictSettings = this.dictionary.settingsPage;
+        this.markForCheck();
+      }
+    })
   }
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  toggleLang() {
+    if (this.selectedLang === 'en') {
+      this.selectedLang = 'he';
+    } else {
+      this.selectedLang = 'en';
+    }
+    this.setLocalLang();
+    this.markForCheck();
+  }
+
+  setLocalLang() {
+    console.log('2');
+    if (this.selectedLang === 'he') {
+      this.selectedLangEN = this.dictSettings.selectedLangEN_1;
+      this.selectedLangHE = this.dictSettings.selectedLangHE_1;
+    } else {
+      this.selectedLangEN = this.dictSettings.selectedLangEN_2;
+      this.selectedLangHE = this.dictSettings.selectedLangHE_2;
+    }
+  }
+
+  setAppLang(event) {
+    event.stopPropagation();
+    console.log('1');
+    if (this.selectedLang !== this.localeService.lang) {
+      this.localeService.toggleLang();
+      this.selectedLang = this.localeService.lang;
+      this.setLocalLang();
+      this.markForCheck();
+    }
   }
 
   async setProfile() {

@@ -4,7 +4,7 @@
       <ion-button class="bt-logo" shape="round" fill="clear" (click)="goBack()" *ngIf="!useBackIcon">
         <img src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
       </ion-button>
-      <ion-back-button color="dark" icon="arrow-back-outline" text="" defaultHref="start" *ngIf="useBackIcon">
+      <ion-back-button color="dark" [icon]="localeService.backArrow" text="" defaultHref="start" *ngIf="useBackIcon">
       </ion-back-button>
     </ion-buttons>
     <ion-title class="basic-text" *ngIf="useBackIcon">Terms of Service</ion-title>
@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content appScrollbarTheme>
-  <div class="content">
+  <div class="content direction-ltr">
     <h2><strong>Terms and Conditions</strong></h2>
 
     <p>Welcome to Oozdr!</p>

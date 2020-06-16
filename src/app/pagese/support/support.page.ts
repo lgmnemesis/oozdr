@@ -17,7 +17,7 @@ export class SupportPage implements OnInit {
 
   constructor(private sharedService: SharedService,
     private navCtrl: NavController,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     if (this.sharedService.currentUrlPath !== 'support') {

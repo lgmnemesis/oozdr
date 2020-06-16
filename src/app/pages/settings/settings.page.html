@@ -69,6 +69,20 @@
         </ion-col>
       </ion-row>
 
+      <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="localeService.canShowToggleLangButton">
+        <ion-col size="12">
+          <ion-item button lines="none" (click)="toggleLang()">
+            <ion-label> 
+              <p class="basic-text bold-text">{{ dictSettings.lang_1_en }} {{ selectedLangEN }}</p>
+              <p class="smaller-text">{{ dictSettings.lang_1_he }} {{ selectedLangHE }}</p>
+            </ion-label>
+            <ion-button slot="end" class="set-app-lang" (click)="setAppLang($event)" *ngIf="localeService.lang !== selectedLang">
+              {{ selectedLang === 'en' ? dictSettings.lang_2_en : dictSettings.lang_2_he }}
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
       <ion-row *ngIf="!isVisibleSplitPane"
         class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">

@@ -68,6 +68,10 @@ export class SharedStoreService {
   installAsAppStateSubject: BehaviorSubject<{isInstalled: boolean, canInstall: boolean, canShowInMenu: boolean}> = 
     new BehaviorSubject({isInstalled: false, canInstall: false, canShowInMenu:false});
   installAsAppState$ = this.installAsAppStateSubject.asObservable();
+  
+  _markForCheckApp: Subscription;
+  markForCheckAppSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  markForCheckApp$ = this.markForCheckAppSubject.asObservable();
 
   constructor(private databaseService: DatabaseService) { }
 
@@ -93,6 +97,7 @@ export class SharedStoreService {
     this.toastNotificationsSubject.next(null);
     this.alertsSubject.next(null);
     this.loadingAppSubject.next(false);
+    this.markForCheckAppSubject.next(false);
   }
 
   unsubscribe() {

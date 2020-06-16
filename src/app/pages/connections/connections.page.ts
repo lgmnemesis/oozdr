@@ -17,6 +17,7 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   _isVisibleSplitPane: Subscription;
   connectionsState: ConnectionsState;
   _connectionsState: Subscription;
+  _markForCheckApp: Subscription;
   animateHeart = false;
 
   constructor(private sharedStoreService: SharedStoreService,
@@ -42,7 +43,6 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.sharedService.setDefaultPhoneCountryCode().then(() => {
       this.localeService.updateCanShowToggleLangButton();
     });
-    
   }
 
   markForCheck() {

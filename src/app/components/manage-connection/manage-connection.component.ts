@@ -75,7 +75,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
     private sharedStoreService: SharedStoreService,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     this.getProfile();

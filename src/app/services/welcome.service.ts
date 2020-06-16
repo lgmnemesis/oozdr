@@ -33,6 +33,7 @@ export class WelcomeService {
   dictWelcomeService = this.dictionary.welcomeService;
   defProfilePhotoText = this.dictWelcomeService.defProfilePhotoText;
   profilePhotoText = this.defProfilePhotoText;
+  subProfileLock = false;
 
   constructor(private authService: AuthService,
     private sharedService: SharedService,
@@ -48,7 +49,6 @@ export class WelcomeService {
           this.resetStore();
         }
       });
-      this.subscribeToProfile();
     }
 
   private getInfoFromStore(): BasicInfo {
@@ -308,6 +308,8 @@ export class WelcomeService {
   }
 
   subscribeToProfile() {
+    if (this.subProfileLock) return;
+    this.subProfileLock = true;
     this.sharedStoreService.profile$.subscribe((profile: Profile) => {
       if (profile) {
         if (profile.basicInfo && profile.basicInfo.name) {

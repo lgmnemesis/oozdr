@@ -229,7 +229,7 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     option_1: 'חסימה'
   },
   matchesComponent: {
-    noMatches_1: 'No Matches Yet.',
+    noMatches_1: 'אין התאמות בינתיים.',
     noMatches_2: 'When a beat is matched, it will appear here, and you will be notified.'
   },
   chatInputViewComponent: {
@@ -261,7 +261,15 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     item_9: 'מחיקת חשבון',
     unBlockHeader: 'לבטל חסימה',
     unBlockButtonText: 'לבטל חסימה',
-    unblockButtonCancel: 'ביטול'
+    unblockButtonCancel: 'ביטול',
+    lang_1_en: 'Language: ',
+    lang_1_he: 'שפה: ',
+    selectedLangEN_1: 'Hebrew',
+    selectedLangHE_1: 'עברית',
+    selectedLangEN_2: 'English',
+    selectedLangHE_2: 'אנגלית',
+    lang_2_en: 'Activate',
+    lang_2_he: 'החל שינוי'
   },
   socialShareComponent: {
     copied: 'הועתק',

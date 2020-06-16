@@ -261,7 +261,15 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     item_9: 'Delete Account',
     unBlockHeader: 'Unblock',
     unBlockButtonText: 'Unblock',
-    unblockButtonCancel: 'cancel'
+    unblockButtonCancel: 'cancel',
+    lang_1_en: 'Language: ',
+    lang_1_he: 'שפה: ',
+    selectedLangEN_1: 'Hebrew',
+    selectedLangHE_1: 'עברית',
+    selectedLangEN_2: 'English',
+    selectedLangHE_2: 'אנגלית',
+    lang_2_en: 'Activate',
+    lang_2_he: 'החל שינוי'
   },
   socialShareComponent: {
     copied: 'Copied',

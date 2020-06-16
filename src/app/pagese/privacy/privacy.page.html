@@ -4,7 +4,7 @@
       <ion-button class="bt-logo" shape="round" fill="clear" (click)="goBack()" *ngIf="!useBackIcon">
         <img src="../../../assets/images/reconnect-logo.png" alt="logo image" crossorigin="anonymous">
       </ion-button>
-      <ion-back-button color="dark" icon="arrow-back-outline" text="" defaultHref="start" *ngIf="useBackIcon">
+      <ion-back-button color="dark" [icon]="localeService.backArrow" text="" defaultHref="start" *ngIf="useBackIcon">
       </ion-back-button>
     </ion-buttons>
     <ion-title class="basic-text" *ngIf="useBackIcon">Privacy Policy</ion-title>
@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content appScrollbarTheme>
-  <div class="content">
+  <div class="content direction-ltr">
     <h1>Privacy Policy for Oozdr</h1>
 
     <p>At Oozdr, accessible from oozdr.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Oozdr and how we use it.</p>

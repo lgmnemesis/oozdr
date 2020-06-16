@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { NavController } from '@ionic/angular';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-terms',
@@ -13,7 +14,8 @@ export class TermsPage implements OnInit {
   useBackIcon = true;
 
   constructor(private sharedService: SharedService,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController,
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     if (this.sharedService.currentUrlPath !== 'terms') {

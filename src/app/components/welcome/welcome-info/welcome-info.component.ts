@@ -1,8 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
 import { Profile } from 'src/app/interfaces/profile';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { LocaleService } from 'src/app/services/locale.service';
+import { Subscription } from 'rxjs';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
 
 @Component({
   selector: 'app-welcome-info',
@@ -10,7 +12,7 @@ import { LocaleService } from 'src/app/services/locale.service';
   styleUrls: ['./welcome-info.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WelcomeInfoComponent implements OnInit {
+export class WelcomeInfoComponent implements OnInit, OnDestroy {
 
   @Input() isNext = false;
   @Input() isBack = false;
@@ -29,11 +31,13 @@ export class WelcomeInfoComponent implements OnInit {
   cropImgMode = false;
   dictionary = this.localeService.dictionary;
   dictWelcome = this.dictionary.welcomeInfoComponent;
+  _markForCheckApp: Subscription;
 
   constructor(public welcomeService: WelcomeService,
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService,
+    private sharedStoreService: SharedStoreService) { }
 
   ngOnInit() {
     if (!this.sharedService.isMobileApp()) {
@@ -43,6 +47,12 @@ export class WelcomeInfoComponent implements OnInit {
       };
     }
     this.setProfile();
+
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      this.dictionary = this.localeService.dictionary;
+      this.dictWelcome = this.dictionary.welcomeInfoComponent;
+      this.markForCheck();
+    });
   }
 
   markForCheck() {
@@ -150,6 +160,10 @@ export class WelcomeInfoComponent implements OnInit {
       this.nextEvent.next(true);
     }
     this.markForCheck();
+  }
+
+  ngOnDestroy() {
+    if (this._markForCheckApp) this._markForCheckApp.unsubscribe();
   }
 
 }

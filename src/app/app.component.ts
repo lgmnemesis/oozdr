@@ -1,7 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Platform, ModalController, MenuController, AlertController } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
 import { AuthService } from './services/auth.service';
@@ -45,7 +43,7 @@ export class AppComponent {
     private alertsService: AlertsService,
     private alertCtrl: AlertController,
     private cd: ChangeDetectorRef,
-    private localeService: LocaleService
+    public localeService: LocaleService
   ) {
     this.setDefaultLang();
     this.addAsApp();
@@ -62,6 +60,14 @@ export class AppComponent {
 
   setDefaultLang() {
     this.localeService.setDefaultLang();
+    this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictApp = this.dictionary.appComponent;
+        this.markForCheck();
+      }
+    })
+    this.markForCheck();
   }
 
   initializeApp() {
@@ -109,6 +115,7 @@ export class AppComponent {
 
   subscribeToLoadingAppEvents() {
     this.sharedStoreService.loadingApp$.subscribe((isLoading) => {
+      console.log('moshe app isLoading:', isLoading);
       setTimeout(() => {
         this.loadingApp = isLoading;
         this.markForCheck();
@@ -143,6 +150,7 @@ export class AppComponent {
   subscribeToUser() {
     this.authService.user$.subscribe((user) => {
       this.user = user;
+      this.markForCheck();
     })
   }
 

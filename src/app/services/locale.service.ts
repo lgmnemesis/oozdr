@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DictionaryEnglish } from '../../locales/dictionary_english';
 import { DictionaryHebrew } from '../../locales/dictionary_hebrew';
 import { SharedService } from './shared.service';
+import { SharedStoreService } from './shared-store.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class LocaleService {
   canShowToggleLangButton = false;
   preferHeb = false;
 
-  constructor(private sharedService: SharedService) {
+  constructor(private sharedService: SharedService,
+    private sharedStoreService: SharedStoreService) {
   }
 
   updateCanShowToggleLangButton() {
@@ -63,7 +65,7 @@ export class LocaleService {
     const lang = this.lang === 'en' ? 'he' : 'en';
     try {
       localStorage.setItem('lang', lang);
-      location.reload();
+      this.setLang(lang);
     } catch (error) {
       console.error(error);
     }
@@ -89,6 +91,7 @@ export class LocaleService {
 
     this.dictionary = this.isRightToLeft ? DictionaryHebrew : DictionaryEnglish;
     this.dir = this.isRightToLeft ? 'rtl' : 'ltr';
-    this.backArrow = this.isRightToLeft ? 'arrow-forward-outline' : this.backArrow;
+    this.backArrow = this.isRightToLeft ? 'arrow-forward-outline' : 'arrow-back-outline';
+    this.sharedStoreService.markForCheckAppSubject.next(true);
    }
 }

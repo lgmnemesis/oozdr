@@ -16,6 +16,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   isMobile = false;
   isVisibleSplitPane = false;
   _isVisibleSplitPane: Subscription;
+  _markForCheckApp: Subscription;
   isProfileChanged = false;
   firstTime = true;
   saveButtonAction: {save: boolean, cancel: boolean} = {save: false, cancel: false};
@@ -36,6 +37,12 @@ export class ProfilePage implements OnInit, OnDestroy {
     });
 
     this.isMobile = this.sharedService.isMobileApp();
+
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      this.dictionary = this.localeService.dictionary;
+      this.dictProfile = this.dictionary.profilePage;
+      this.markForCheck();
+    });
   }
 
   markForCheck() {
@@ -74,6 +81,9 @@ export class ProfilePage implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this._isVisibleSplitPane) {
       this._isVisibleSplitPane.unsubscribe();
+    }
+    if (this._markForCheckApp) {
+      this._markForCheckApp.unsubscribe();
     }
   }
 

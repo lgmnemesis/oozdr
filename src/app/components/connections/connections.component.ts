@@ -39,6 +39,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   _connectionsState: Subscription;
   _connections: Subscription;
   _profile: Subscription;
+  _markForCheckApp: Subscription;
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
@@ -92,6 +93,14 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
   
     this.fcmAction();
     this.matchNotifStorageIndicator = this.sharedService.matchNotifStorageIndicatorPreffix + `_${user.uid}`;
+
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictConnections = this.dictionary.connectionsComponent;
+        this.markForCheck();
+      }
+    })
   }
 
   markForCheck() {
@@ -202,6 +211,9 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
     }
     if (this._profile) {
       this._profile.unsubscribe();
+    }
+    if (this._markForCheckApp) {
+      this._markForCheckApp.unsubscribe();
     }
   }
 

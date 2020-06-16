@@ -22,6 +22,7 @@ export class StartPage implements OnInit, OnDestroy {
   private isSignInButtonActive = false;
   _user: Subscription;
   _installAsAppState: Subscription;
+  _markForCheckApp: Subscription;
   canShowPage = false;
   showMobileStartPage = false;
   isSiteMenuActive = false;
@@ -51,6 +52,14 @@ export class StartPage implements OnInit, OnDestroy {
     })
 
     this.navigateAccordingly();
+
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictStart = this.dictionary.startPage;
+        this.markForCheck();
+      }
+    })
   }
 
   markForCheck() {
@@ -65,6 +74,7 @@ export class StartPage implements OnInit, OnDestroy {
     this._user = this.authService.user$.subscribe(user => {
       this.canShowPage = false;
       if (user) {
+        this.welcomeService.subscribeToProfile();
         this.canShowPage = false;
         try {
           this.modalCtrl.dismiss().catch(error => {});
@@ -201,6 +211,9 @@ export class StartPage implements OnInit, OnDestroy {
     }
     if (this._installAsAppState) {
       this._installAsAppState.unsubscribe();
+    }
+    if (this._markForCheckApp) {
+      this._markForCheckApp.unsubscribe();
     }
     this.unobserveScrollAnimation();
   }
