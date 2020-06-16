@@ -67,6 +67,8 @@
           displayFormat="MM DD YY" 
           min="1900" max="2007"
           [placeholder]="dictWelcome.input_4_1"
+          [cancelText]="dictWelcome.dateTimeCancel"
+          [doneText]="dictWelcome.dateTimeDone"
           [value]="welcomeService?.basicInfo?.birthday"
           [pickerOptions]="customPickerOptions"
           (ionChange)="setBirthday($event)">

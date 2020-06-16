@@ -90,6 +90,8 @@ export const DictionaryEnglish = {
     input_3_1: 'Your Email Address',
     input_4: 'Birthday',
     input_4_1: 'Select Date',
+    dateTimeCancel: 'Cancel',
+    dateTimeDone: 'Done',
     input_5: 'Select Photo',
     input_5_error: 'Invalid photo',
     nextStep: 'Continue',

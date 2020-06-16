@@ -115,7 +115,6 @@ export class AppComponent {
 
   subscribeToLoadingAppEvents() {
     this.sharedStoreService.loadingApp$.subscribe((isLoading) => {
-      console.log('moshe app isLoading:', isLoading);
       setTimeout(() => {
         this.loadingApp = isLoading;
         this.markForCheck();

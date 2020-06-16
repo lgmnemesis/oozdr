@@ -49,6 +49,15 @@ export class WelcomeService {
           this.resetStore();
         }
       });
+
+      this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+        if (mark) {
+          this.dictionary = this.localeService.dictionary;
+          this.dictWelcomeService = this.dictionary.welcomeService;
+          this.defProfilePhotoText = this.dictWelcomeService.defProfilePhotoText;
+          this.profilePhotoText = this.defProfilePhotoText;
+        }
+      });
     }
 
   private getInfoFromStore(): BasicInfo {

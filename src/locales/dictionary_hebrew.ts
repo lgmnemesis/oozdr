@@ -19,13 +19,13 @@ export const DictionaryHebrew = {
   },
   supportTxt: {
     how_title: 'איך זה עובד?',
-    section1_title: 'הוספת ביט',
-    section1_1: 'ממלאים שם ומספר הנייד של האדם איתו רוצים לחדש קשר',
-    section1_2: 'האדם, בשלב זה, לא יהיה מודע לכך',
-    section2_title: 'Wait for It',
-    section2_1: 'This is the hard part. waiting... If at any time, the person you are looking for is looking for you too, we will match you up.',
-    section3_title: 'You Have a Match',
-    section3_1: 'After we find your match, we will send each of you an invitation to start chatting and re-establish your lost connection.'
+    section1_title: 'מוסיפים ביט',
+    section1_1: 'ממלאים את השם ומספר הנייד של מי שאיתו מקווים לחדש את קשר.',
+    section1_2: 'בשלב זה, הצד השני לא יהיה מודע לכך שאתם מעוניינים לחדש את הקשר... אלא אם נוצר מאצ\'.',
+    section2_title: 'מחכים למאצ\'',
+    section2_1: 'זה הזמן "להחזיק אצבעות". במידה גם הצד השני מחפש או יחפש אתכם, בכל זמן שהוא, יווצר המאצ\' המיוחל.',
+    section3_title: 'נמצא המאצ\'',
+    section3_1: 'מייד ברגע שמצאנו לכם את המאצ\', וודאנו שאכן שני הצדדים מעוניינים בכך, נשלח לשניכם הזמנה לצאט ולחידוש הקשר!'
   },
   startPage: {
     title_1: 'בחזרה לאקס...',
@@ -35,7 +35,7 @@ export const DictionaryHebrew = {
     join_us_btn: 'הצטרפו וגלו',
     title_1_sm: 'בחזרה לאקס...',
     title_2_sm: '',
-    install_app: 'Get the app. Install instantly, find what you need faster, anytime.',
+    install_app: 'התקינו את האפליקציה, לגישה קלה ונוחה, מכל מקום.',
     install_app_btn: 'INSTALL APP',
     title_1_as_app: 'בחזרה',
     title_2_as_app: 'לאקס...',
@@ -61,18 +61,18 @@ export const DictionaryHebrew = {
     col_2_2: 'תמיכה'
   },
   phoneLoginComponent: {
-    verifyAccount: 'Please Sign in again to verify your account',
-    title: 'מספר הנייד שלך',
-    explanation_1: 'We will send a text message with your verification code. Message and data rate may apply. The verified phone number will be used to login.',
-    term_s1: 'By continuing, you agree to our ',
-    term_s2: 'Terms',
+    verifyAccount: 'נא להתחבר שוב כדי לאמת את החשבון',
+    title: 'הכנס/י את מספר הנייד שלך',
+    explanation_1: 'תשלח הודעת טקסט עם קוד אימות זמני. ייתכן שיחולו תעריפי הודעה ונתונים. הטלפון המאומת ישמש אותך להתחברויות הבאות.',
+    term_s1: 'לחיצה על "המשך" מהווה את הסכמתך ',
+    term_s2: 'לתנאים שלנו',
     continue_btn: 'המשך',
-    verifyCode: 'הכנסו קוד אימות',
+    verifyCode: 'הזן/י את הקוד שנשלח',
     verifyCodePlaceholder: 'קוד אימות זמני',
-    verify_btn: 'Verify',
-    phoneError_1: 'בבקשה מלאו מספר נייד',
+    verify_btn: 'כניסה',
+    phoneError_1: 'יש למלא מספר נייד',
     phoneError_2: 'מספר שגוי',
-    verificationError_1: 'בבקשה הכנסו קוד אימות',
+    verificationError_1: 'נא להכניס קוד אימות',
     verificationError_2: 'הקוד שהוכנס שגוי'
   },
   welcomeContainerComponent: {
@@ -90,6 +90,8 @@ export const DictionaryHebrew = {
     input_3_1: 'כתובת האימייל שלך',
     input_4: 'תאריך לידה',
     input_4_1: 'בחרו תאריך',
+    dateTimeCancel: 'ביטול',
+    dateTimeDone: 'אישור',
     input_5: 'בחרו תמונה',
     input_5_error: 'תמונה לא חוקית',
     nextStep: 'המשך',
@@ -107,8 +109,8 @@ export const DictionaryHebrew = {
   },
   alertsService: {
     addAsAppAlert: {
-      title: 'Oozdr - התקנו את האפליקציה',
-      content: 'התקנה מהירה וקלה.',
+      title: 'Oozdr - התקינו את האפליקציה',
+      content: 'לגישה קלה ונוחה, מכל מקום.',
       dismissText: 'לא כרגע',
       okText: 'התקן'
     },
