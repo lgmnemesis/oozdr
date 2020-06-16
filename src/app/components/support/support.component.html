@@ -2,14 +2,14 @@
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto">
-      <p class="biggest-title color-dark">{{ dictSupport.how_title }}</p>
+      <p class="how-title color-dark">{{ dictSupport.how_title }}</p>
     </ion-col>
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="12" size-lg="6">
       <div class="col-container c-align-end">
-        <p class="medium-text color-secondary">{{ dictSupportTxt.section1_title }}</p>
+        <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictSupportTxt.section1_title }}</p>
         <p class="title-text ion-text-wrap p-params">
           {{ dictSupportTxt.section1_1 }}
         </p>
@@ -33,7 +33,7 @@
   <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!localeService.isRightToLeft">
     <ion-col size="12" size-lg="6" push-lg="6">
       <div class="col-container c-align-start">
-        <p class="medium-text color-secondary">{{ dictSupportTxt.section2_title }}</p>
+        <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictSupportTxt.section2_title }}</p>
         <p class="title-text ion-text-wrap p-params">
           {{ dictSupportTxt.section2_1 }}
         </p>
@@ -50,7 +50,7 @@
   <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="localeService.isRightToLeft">
     <ion-col size="12" size-lg="6" pull-lg="6">
       <div class="col-container c-align-start">
-        <p class="medium-text color-secondary">{{ dictSupportTxt.section2_title }}</p>
+        <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictSupportTxt.section2_title }}</p>
         <p class="title-text ion-text-wrap p-params">
           {{ dictSupportTxt.section2_1 }}
         </p>
@@ -71,7 +71,7 @@
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="12" size-lg="6">
       <div class="col-container c-align-end">
-        <p class="medium-text color-secondary">{{ dictSupportTxt.section3_title }}</p>
+        <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictSupportTxt.section3_title }}</p>
         <p class="title-text ion-text-wrap p-params">
           {{ dictSupportTxt.section3_1 }}
         </p>
