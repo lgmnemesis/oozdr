@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { SharedService } from 'src/app/services/shared.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-connections-page',
@@ -20,7 +21,8 @@ export class ConnectionsPage implements OnInit, OnDestroy {
 
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private sharedService: SharedService) { }
+    private sharedService: SharedService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -37,7 +39,9 @@ export class ConnectionsPage implements OnInit, OnDestroy {
     this.sharedStoreService.connectionsStateSubject.next({state: 'view'});
     this.sharedStoreService.activeMenuSubject.next('connections');
 
-    this.sharedService.setDefaultPhoneCountryCode();
+    this.sharedService.setDefaultPhoneCountryCode().then(() => {
+      this.localeService.updateCanShowToggleLangButton();
+    });
     
   }
 

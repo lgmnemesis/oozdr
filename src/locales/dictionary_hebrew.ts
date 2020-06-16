@@ -40,7 +40,7 @@ export const DictionaryHebrew = {
     title_1_as_app: 'בחזרה',
     title_2_as_app: 'לאקס...',
     title_3_as_app: '',
-    get_started: 'תהליך הרשמה',
+    get_started: 'בוא/י נתחיל',
     title_1_delete: '“The story of life is quicker than the wink of an eye,',
     title_2_delete: 'the story of love is hello and goodbye... until we meet again”',
     title_3_delete: '― Jimi Hendrix',

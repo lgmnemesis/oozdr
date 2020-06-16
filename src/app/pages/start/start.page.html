@@ -181,6 +181,11 @@
 </ion-content>
 
 <ion-content class="mobile-start-content ion-no-padding" *ngIf="canShowPage && showMobileStartPage && !sharedStoreService?.userDeleted">
+  <div class="lang-as-app" *ngIf="localeService.canShowToggleLangButton">
+    <ion-button color="minor" fill="clear" shape="round" class="bt-round" (click)="toggleLang()">
+      <ion-label class="small-text">{{ localeService.lang === 'en' ? 'עב' : 'EN' }}</ion-label>
+    </ion-button>
+  </div>
 
   <div class="r-logo-mobile">
     <img src="../../../assets/images/oozdr-logo-name-white.png" alt="logo image" crossorigin="anonymous">
@@ -191,7 +196,7 @@
     <p class="p-title color-minor">{{ dictStart.title_3_as_app }}</p>
     
     <div class="top-bt-c">
-      <ion-button size="large" shape="round" (click)="welcomeService?.gotoWelcome()">
+      <ion-button class="mobile-welcome-bt" size="large" shape="round" (click)="welcomeService?.gotoWelcome()">
         <ion-label class="basic-text ion-text-uppercase">{{ dictStart.get_started }}</ion-label>
       </ion-button>
       <p class="basic-text color-minor">

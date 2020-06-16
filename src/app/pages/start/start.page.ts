@@ -81,7 +81,10 @@ export class StartPage implements OnInit, OnDestroy {
             this.observeAndTriggerScrollAnimation();
           }, 0);
           this.sharedStoreService.loadingAppSubject.next(false);
-          this.sharedService.setDefaultPhoneCountryCode();
+          this.sharedService.setDefaultPhoneCountryCode().then(() => {
+            this.localeService.updateCanShowToggleLangButton();
+            this.markForCheck();
+          });
         }
       }
       this.markForCheck();

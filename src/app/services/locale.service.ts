@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DictionaryEnglish } from '../../locales/dictionary_english';
 import { DictionaryHebrew } from '../../locales/dictionary_hebrew';
+import { SharedService } from './shared.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,14 @@ export class LocaleService {
   isRightToLeft = false;
   dictionary = DictionaryEnglish;
   backArrow = 'arrow-back-outline';
-  canShowToggleLangButton = true;
+  canShowToggleLangButton = false;
   preferHeb = false;
 
-  constructor() {
+  constructor(private sharedService: SharedService) {
+  }
+
+  updateCanShowToggleLangButton() {
+    this.getCurrentLang();
   }
 
   isBrowserSupportHeb(): boolean {
@@ -32,15 +37,26 @@ export class LocaleService {
 
   setDefaultLang() {
     try {
+      const lang = this.getCurrentLang();
+      if (lang) this.setLang(lang);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private getCurrentLang(): string {
+    try {
       let lang = localStorage.getItem('lang');
       const supportHeb = this.isBrowserSupportHeb();
       if (!lang && this.preferHeb) lang = 'he';
       if (lang !== 'en' && lang !== 'he') lang = 'en';
-      // this.canShowToggleLangButton = supportHeb || lang === 'he';
-      this.setLang(lang);
+      const isIL = this.sharedService.getDefaultPhoneCountryCode() === 'IL';
+      this.canShowToggleLangButton = supportHeb || lang === 'he' || isIL;
+      return lang;
     } catch (error) {
       console.error(error);
     }
+    return null;
   }
 
   toggleLang() {

@@ -48,23 +48,22 @@ export class SharedService {
     return environment.clientVersion;
   }
 
-  async setDefaultPhoneCountryCode() {
-    const storeKey = this.countryCodeStoreKeyName;
-    if (this.defaultPhoneCountryCode) {
-      return;
-    }
+  getDefaultPhoneCountryCode() {
+    if (this.defaultPhoneCountryCode) return this.defaultPhoneCountryCode;
     
-    // First, Check if exists in local storage and get it
     try {
-      const storeValue = localStorage.getItem(storeKey);
-      if (storeValue) {
-        this.defaultPhoneCountryCode = storeValue;
-        return;
-      }
+      const storeValue = localStorage.getItem(this.countryCodeStoreKeyName);
+      if (storeValue) this.defaultPhoneCountryCode = storeValue;
     } catch (error) {
       console.error(error);
     }
+    return this.defaultPhoneCountryCode;
+  }
 
+  async setDefaultPhoneCountryCode() {
+    const code = this.getDefaultPhoneCountryCode();
+    if (code) return;
+    
     const json:any = await this.httpClient.request('GET', this.ipInfoUrl, {responseType:'json'}).toPromise()
       .catch(error => { 
         console.error(error);
@@ -75,7 +74,7 @@ export class SharedService {
       if (json && json.country) {
         const country = json.country;
         this.defaultPhoneCountryCode = country;
-        localStorage.setItem(storeKey, country);
+        localStorage.setItem(this.countryCodeStoreKeyName, country);
       }
     } catch (error) {
       console.error(error);
