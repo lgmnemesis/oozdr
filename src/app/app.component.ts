@@ -118,7 +118,7 @@ export class AppComponent {
       setTimeout(() => {
         this.loadingApp = isLoading;
         this.markForCheck();
-      }, 800);
+      }, 100);
     })
   }
 

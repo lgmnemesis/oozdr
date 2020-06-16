@@ -30,6 +30,7 @@ export class StartPage implements OnInit, OnDestroy {
   observer: IntersectionObserver;
   dictionary = this.localeService.dictionary;
   dictStart = this.dictionary.startPage;
+  isRightToLeft = this.localeService.isRightToLeft;
 
   constructor(private modalCtrl: ModalController,
     public sharedStoreService: SharedStoreService,
@@ -57,6 +58,13 @@ export class StartPage implements OnInit, OnDestroy {
       if (mark) {
         this.dictionary = this.localeService.dictionary;
         this.dictStart = this.dictionary.startPage;
+        this.isRightToLeft = this.localeService.isRightToLeft;
+        if (this.canShowPage) {
+          this.unobserveScrollAnimation();
+          setTimeout(() => {
+            this.observeAndTriggerScrollAnimation();
+          }, 0);
+        }
         this.markForCheck();
       }
     })
@@ -165,11 +173,11 @@ export class StartPage implements OnInit, OnDestroy {
             const id = entry.target.id;
             let className = '';
             if (id === 'scroll1' || id === 'scroll5') {
-              className = this.localeService.isRightToLeft ? 'slideInRightTint' : 'slideInLeftTint';
+              className = this.isRightToLeft ? 'slideInRightTint' : 'slideInLeftTint';
             } else if (id === 'scroll2' || id === 'scroll4' || id === 'scroll6') {
               className = "fadeInUpTint";
             } else if (id === 'scroll3') {
-              className = this.localeService.isRightToLeft ? 'slideInLeftTint' : 'slideInRightTint';
+              className = this.isRightToLeft ? 'slideInLeftTint' : 'slideInRightTint';
             }
             
             if (delay > 0) {

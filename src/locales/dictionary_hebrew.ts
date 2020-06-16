@@ -36,7 +36,7 @@ export const DictionaryHebrew = {
     title_1_sm: 'בחזרה לאקס...',
     title_2_sm: '',
     install_app: 'התקינו את האפליקציה, לגישה קלה ונוחה, מכל מקום.',
-    install_app_btn: 'INSTALL APP',
+    install_app_btn: 'התקנה',
     title_1_as_app: 'בחזרה',
     title_2_as_app: 'לאקס...',
     title_3_as_app: '',

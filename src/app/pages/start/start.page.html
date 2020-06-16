@@ -4,12 +4,12 @@
   <div class="parallax-header header-container border-bottom">
     <div class="header-bt-container">
       <div class="r-logo">
-        <img [class.pos-ltr]="!localeService?.isRightToLeft" [class.pos-rtl]="localeService?.isRightToLeft"
+        <img [class.pos-ltr]="!isRightToLeft" [class.pos-rtl]="isRightToLeft"
           src="../../../assets/images/oozdr-logo-name.png" alt="logo image" crossorigin="anonymous">
       </div>
       <div class="header-bt" 
-        [class.header-bt-end]="!localeService?.isRightToLeft"
-        [class.header-bt-start]="localeService?.isRightToLeft">
+        [class.header-bt-end]="!isRightToLeft"
+        [class.header-bt-start]="isRightToLeft">
         <ion-button color="dark" fill="clear" shape="round" class="sm-login-bt" (click)="signIn()">
           <ion-label class="basic-text ion-text-capitalize sm-hide">{{ dictionary.global.log_in }}</ion-label>
           <ion-icon class="sm-show" size="large" name="log-in-outline"></ion-icon>
@@ -34,7 +34,7 @@
 
       <div class="top-s">
 
-        <div class="top-s-center sm-hide" [class.top-s-center-rtl]="localeService.isRightToLeft">
+        <div class="top-s-center sm-hide" [class.top-s-center-rtl]="isRightToLeft">
           <h1 class="p-title">{{ dictStart.title_1 }}</h1>
           <p class="p-sub-title">{{ dictStart.sub_title_1 }}</p>
           <p class="p-sub-title">{{ dictStart.sub_title_2 }}</p>
@@ -47,8 +47,8 @@
         </div>
 
         <div class="top-s-center sm-show"
-          [class.top-s-center-rtl]="localeService.isRightToLeft"
-          [class.top-s-center-ltr]="!localeService.isRightToLeft">
+          [class.top-s-center-rtl]="isRightToLeft"
+          [class.top-s-center-ltr]="!isRightToLeft">
           <h1 class="p-title">{{ dictStart.title_1_sm }}</h1>
           <p class="p-title extra-space">{{ dictStart.title_2_sm }}</p>
           <p class="p-sub-title">{{ dictStart.sub_title_1 }}</p>
@@ -89,13 +89,13 @@
 
         <ion-row class="how-title-row ion-justify-content-center ion-align-items-center">
           <p class="how-title color-dark"
-            [class.how-title-ltr]="!localeService.isRightToLeft"
-            [class.how-title-rtl]="localeService.isRightToLeft">
+            [class.how-title-ltr]="!isRightToLeft"
+            [class.how-title-rtl]="isRightToLeft">
             {{ dictionary.supportTxt.how_title }}
           </p>
           <ion-col size="12" size-lg="6" id="scroll1" class="scroll-animation animated hide">
             <div class="col-container c-align-end">
-              <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictionary.supportTxt.section1_title }}</p>
+              <p class="medium-text color-secondary" [class.m-t-rtl]="isRightToLeft">{{ dictionary.supportTxt.section1_title }}</p>
               <p class="title-text ion-text-wrap p-params">
                 {{ dictionary.supportTxt.section1_1 }}
               </p>
@@ -116,10 +116,10 @@
         <div class="sec-divider"></div>
         <div class="sec-divider sm-hide"></div>
 
-        <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!localeService.isRightToLeft">
+        <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="!isRightToLeft">
           <ion-col size="12" size-lg="6" push-lg="6" id="scroll3" class="scroll-animation animated hide">
             <div class="col-container c-align-start">
-              <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictionary.supportTxt.section2_title }}</p>
+              <p class="medium-text color-secondary" [class.m-t-rtl]="isRightToLeft">{{ dictionary.supportTxt.section2_title }}</p>
               <p class="title-text ion-text-wrap p-params">
                 {{ dictionary.supportTxt.section2_1 }}
               </p>
@@ -133,10 +133,10 @@
             </div>
           </ion-col>
         </ion-row>
-        <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="localeService.isRightToLeft">
+        <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="isRightToLeft">
           <ion-col size="12" size-lg="6" pull-lg="6" id="scroll3" class="scroll-animation animated hide">
             <div class="col-container c-align-start">
-              <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictionary.supportTxt.section2_title }}</p>
+              <p class="medium-text color-secondary" [class.m-t-rtl]="isRightToLeft">{{ dictionary.supportTxt.section2_title }}</p>
               <p class="title-text ion-text-wrap p-params">
                 {{ dictionary.supportTxt.section2_1 }}
               </p>
@@ -157,7 +157,7 @@
         <ion-row class="ion-justify-content-center ion-align-items-center">
           <ion-col size="12" size-lg="6" id="scroll5" class="scroll-animation animated hide">
             <div class="col-container c-align-end">
-              <p class="medium-text color-secondary" [class.m-t-rtl]="localeService.isRightToLeft">{{ dictionary.supportTxt.section3_title }}</p>
+              <p class="medium-text color-secondary" [class.m-t-rtl]="isRightToLeft">{{ dictionary.supportTxt.section3_title }}</p>
               <p class="title-text ion-text-wrap p-params">
                 {{ dictionary.supportTxt.section3_1 }}
               </p>
