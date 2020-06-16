@@ -21,14 +21,14 @@
     </ng-container>
 
     <ng-container *ngIf="connection?.isClosureMatched">
-      <p class="ion-text-wrap p-s-theme">Congratulations! You've Got Closure.</p>
+      <p class="ion-text-wrap p-s-theme">{{ dictConnection.closure_1 }}</p>
       <p class="ion-text-wrap p-s-theme">
         <span class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</span>
-        {{ connection?.isClosure ? 'got your closure message!' : 'wrote you a closure message.' }}
+        {{ connection?.isClosure ? dictConnection.closure_2_1 : dictConnection.closure_2_2 }}
       </p>
       <p class="ion-text-wrap p-s-theme">
-        {{ connection?.isClosure && connection?.otherParty?.isClosure ? 'They have also wrote you a closure message.' 
-        : !connection?.otherParty?.isClosure && connection?.otherParty?.message ? 'They were looking to reconnect and wrote you a welcome message.' : !connection?.otherParty?.isClosure ? 'They were looking to reconnect.' : ''}}
+        {{ connection?.isClosure && connection?.otherParty?.isClosure ? dictConnection.closure_3_1
+        : !connection?.otherParty?.isClosure && connection?.otherParty?.message ? dictConnection.closure_3_2 : !connection?.otherParty?.isClosure ? dictConnection.closure_3_3 : ''}}
       </p>
       <p class="p-s-icon">
         <ion-icon size="large" color="minor" name="checkmark-done-outline"></ion-icon>
@@ -36,13 +36,13 @@
     </ng-container>
 
     <ng-container *ngIf="connection?.isNewMatch">
-      <p class="ion-text-wrap p-s-theme">Congratulations! it's a match.</p>
+      <p class="ion-text-wrap p-s-theme">{{ dictConnection.match_1 }}</p>
       <p class="ion-text-wrap p-s-theme">
         <span class="ion-text-capitalize">{{ connection?.basicInfo?.name }}</span>
-        was looking for you as well!
+        {{ dictConnection.match_2 }}
       </p>
-      <p class="ion-text-wrap p-s-theme">Go ahead and reconnect.</p>
-      <p class="ion-text-wrap p-s-theme">Start chatting.</p>
+      <p class="ion-text-wrap p-s-theme">{{ dictConnection.match_3 }}</p>
+      <p class="ion-text-wrap p-s-theme">{{ dictConnection.match_4 }}</p>
       <p class="p-s-icon">
         <ion-icon size="large" color="minor" name="bonfire-outline"></ion-icon>
       </p>
@@ -51,7 +51,7 @@
 
   <ion-item lines="none" *ngIf="!connection?.isMatched">
     <ion-label color="minor" class="small-text ion-text-wrap">
-      {{ connection?.isClosure ? 'Closure' : 'Beat' }} from {{ connection?.createdAt?.toDate() | date }}
+      {{ connection?.isClosure ? dictConnection.closure_from : dictConnection.beat_from }} {{ connection?.createdAt?.toDate() | date }}
     </ion-label>
     <ion-button fill="clear" (click)="presentDisconnectConfirm()" color="minor" slot="end">
       <ion-icon name="heart-dislike-outline"></ion-icon>

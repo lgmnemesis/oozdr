@@ -62,6 +62,11 @@ const routes: Routes = [
     loadChildren: () => import('./pagese/support/support.module').then( m => m.SupportPageModule),
     canActivate: [NoGuard]
   },
+  {
+    path: 'unsubscribe/:id',
+    loadChildren: () => import('./pages/unsubscribe/unsubscribe.module').then( m => m.UnsubscribePageModule),
+    canActivate: [NoGuard]
+  },
   // Default redirect route rule if non of the above matches
   { path: '**', redirectTo: 'start', pathMatch: 'full' }
 ];

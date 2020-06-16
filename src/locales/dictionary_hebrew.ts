@@ -18,7 +18,7 @@ export const DictionaryHebrew = {
     menu_2_2: 'התאמות'
   },
   supportTxt: {
-    how_title: 'איך זה עובד',
+    how_title: 'איך זה עובד?',
     section1_title: 'הוספת ביט',
     section1_1: 'ממלאים שם ומספר הנייד של האדם איתו רוצים לחדש קשר',
     section1_2: 'האדם, בשלב זה, לא יהיה מודע לכך',
@@ -40,7 +40,7 @@ export const DictionaryHebrew = {
     title_1_as_app: 'בחזרה',
     title_2_as_app: 'לאקס...',
     title_3_as_app: '',
-    get_started: 'בוא/י נתחיל',
+    get_started: 'בואו נתחיל',
     title_1_delete: '“The story of life is quicker than the wink of an eye,',
     title_2_delete: 'the story of love is hello and goodbye... until we meet again”',
     title_3_delete: '― Jimi Hendrix',
@@ -66,13 +66,13 @@ export const DictionaryHebrew = {
     explanation_1: 'We will send a text message with your verification code. Message and data rate may apply. The verified phone number will be used to login.',
     term_s1: 'By continuing, you agree to our ',
     term_s2: 'Terms',
-    continue_btn: 'המשך/י',
-    verifyCode: 'הכנס/י קוד אימות',
+    continue_btn: 'המשך',
+    verifyCode: 'הכנסו קוד אימות',
     verifyCodePlaceholder: 'קוד אימות זמני',
     verify_btn: 'Verify',
-    phoneError_1: 'בבקשה מלא/י מספר נייד',
+    phoneError_1: 'בבקשה מלאו מספר נייד',
     phoneError_2: 'מספר שגוי',
-    verificationError_1: 'בבקשה הכנס/י קוד אימות',
+    verificationError_1: 'בבקשה הכנסו קוד אימות',
     verificationError_2: 'הקוד שהוכנס שגוי'
   },
   welcomeContainerComponent: {
@@ -89,10 +89,10 @@ export const DictionaryHebrew = {
     input_3: 'אימייל',
     input_3_1: 'כתובת האימייל שלך',
     input_4: 'תאריך לידה',
-    input_4_1: 'בחר/י תאריך',
-    input_5: 'בחר/י תמונה',
+    input_4_1: 'בחרו תאריך',
+    input_5: 'בחרו תמונה',
     input_5_error: 'תמונה לא חוקית',
-    nextStep: 'המשך/י',
+    nextStep: 'המשך',
     profilePhoto: 'תמונה פרופיל',
   },
   welcomeService: {
@@ -107,7 +107,7 @@ export const DictionaryHebrew = {
   },
   alertsService: {
     addAsAppAlert: {
-      title: 'Oozdr - התקו את האפליקציה',
+      title: 'Oozdr - התקנו את האפליקציה',
       content: 'התקנה מהירה וקלה.',
       dismissText: 'לא כרגע',
       okText: 'התקן'
@@ -122,7 +122,7 @@ export const DictionaryHebrew = {
       title: '',
       content: '',
       dismissText: '',
-      okText: 'Dismiss'
+      okText: 'ביטול'
     },
     reloadingVersionMessage: 'טוען גרסה חדשה...',
     pwaAppInstalled: 'OOZDR - גרסה חדשה נטענה'
@@ -137,15 +137,15 @@ export const DictionaryHebrew = {
   },
   connectionsComponent: {
     enableNotifications_1: 'אפשר קבלת התראות',
-    enableNotifications_2: 'קבל/י התראה ברגע שקוראת התאמה',
+    enableNotifications_2: 'קבלו התראה ברגע שקוראת התאמה',
     enableNotifications_3: 'תמיד אפשר לשנות את הבחירה, תחת פרופיל -> הגדרות',
     enableNotifications_cancel: 'לא עכשיו',
     enableNotifications_accept: 'אפשר',
     initialMessage_1: 'Start by making \'Beats\'',
     initialMessage_2: '\'Beats\' are connections to people, loved ones, soulmate you are looking to reconnect...',
-    initialMessage_3: 'אל תפספס/י אף ביט',
-    initialMessage_4: 'אם מי תרצה/י לחדש קשר?',
-    initialMessage_5: 'צור/י ביט',
+    initialMessage_3: 'אל תפספסו אף ביט',
+    initialMessage_4: 'אם מי תרצו לחדש קשר?',
+    initialMessage_5: 'צורו ביט',
     foundMessage_1: 'נראה שמצאת את מה שחיפשת עד כה!',
     foundMessage_2: 'תמיד אפשר ליצור ביט נוסף.',
   },
@@ -219,6 +219,20 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
 `,
     textBtn: 'הבנתי'
   },
+  connectionComponent: {
+    closure_1: 'Congratulations! You\'ve Got Closure.',
+    closure_2_1: 'got your closure message!',
+    closure_2_2: 'wrote you a closure message.',
+    closure_3_1: 'They have also wrote you a closure message.',
+    closure_3_2: 'They were looking to reconnect and wrote you a welcome message.',
+    closure_3_3: 'They were looking to reconnect.',
+    match_1: 'Congratulations! it\'s a match.',
+    match_2: 'was looking for you as well!',
+    match_3: 'Go ahead and reconnect.',
+    match_4: 'Start chatting.',
+    closure_from: 'סגירת מעגל',
+    beat_from: 'ביט'
+  },
   matchePage: {
     blockHeader: 'You will no longer be able to send or recieve messages from',
     blockMessage: 'Blocked matches can be unblocked at any time (under settings)',
@@ -282,7 +296,7 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
   inviteFriendsComponent: {
     text_1: 'עזרו לחבר להתחבר מחדש',
     text_2: 'Invite a friend, who would like to re-connect with someone and would benefit from using \'oozdr\'',
-    text_3: 'את מי תרצה/י להזמין?'
+    text_3: 'את מי תרצו להזמין?'
   },
   supportPage: {
     title: 'תמיכה'

@@ -1,0 +1,17 @@
+<ion-content [scrollEvents]="true" appScrollbarTheme appParallaxHeader>
+
+  <div class="parallax-header header-container border-bottom">
+    <div class="header-bt-container">
+      <div class="r-logo">
+        <img src="../../../assets/images/oozdr-logo-name.png" alt="logo image" crossorigin="anonymous">
+        <div class="r-logo-btn" (click)="goHome()"></div>
+      </div>
+  </div>
+
+  <div class="main-content">
+    <div class="main" *ngIf="canShow">
+      <ion-icon size="large" color="secondary" name="checkmark-outline"></ion-icon>
+      <p class="title">Unsubscribed</p>
+    </div>
+  </div>
+</div>

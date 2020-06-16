@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { AnalyticsService } from 'src/app/services/analytics.service';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-connection',
@@ -24,11 +25,14 @@ export class ConnectionComponent implements OnInit {
 
   connection: Connection = null;
   inDisconnectProcess = false;
+  dictionary = this.localeService.dictionary;
+  dictConnection = this.dictionary.connectionComponent;
 
   constructor(private sharedStoreService: SharedStoreService,
     private alertCtrl: AlertController,
     private connectionsService: ConnectionsService,
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private localeService: LocaleService) { }
 
   ngOnInit() {}
 

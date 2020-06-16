@@ -219,6 +219,20 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
 `,
     textBtn: 'Got It'
   },
+  connectionComponent: {
+    closure_1: 'Congratulations! You\'ve Got Closure.',
+    closure_2_1: 'got your closure message!',
+    closure_2_2: 'wrote you a closure message.',
+    closure_3_1: 'They have also wrote you a closure message.',
+    closure_3_2: 'They were looking to reconnect and wrote you a welcome message.',
+    closure_3_3: 'They were looking to reconnect.',
+    match_1: 'Congratulations! it\'s a match.',
+    match_2: 'was looking for you as well!',
+    match_3: 'Go ahead and reconnect.',
+    match_4: 'Start chatting.',
+    closure_from: 'Closure from',
+    beat_from: 'Beat from'
+  },
   matchePage: {
     blockHeader: 'You will no longer be able to send or recieve messages from',
     blockMessage: 'Blocked matches can be unblocked at any time (under settings)',
