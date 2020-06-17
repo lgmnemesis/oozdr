@@ -111,20 +111,15 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.isVerifyButtonDisabled = true;
     this.sharedStoreService.loadingAppSubject.next(true);
     try {
-      console.log('moshe1');
       const confirm = await this.confirmationResult.confirm(this.verificationCode);
-      console.log('moshe1.5');
       this.analyticsService.loginEvent(confirm);
       if (this.reauthenticate) {
-        console.log('moshe2');
         this.processDone.next({userCredential: confirm});
       } else {
-        console.log('moshe3');
         const info = this.welcomeService.basicInfo;
         info.mobile = this.phoneNumber.line;
         const isNewUser = confirm.additionalUserInfo.isNewUser;
         if (isNewUser) {
-          console.log('moshe4');
           const profile: Profile = {
             user_id: confirm.user.uid,
             basicInfo: info,
@@ -136,13 +131,10 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
           }
           await this.welcomeService.registerAndUpdate(profile);
         } else {
-          console.log('moshe5');
           this.processDone.next({disableBackButton: true});
         }
-        console.log('moshe6');
       }
     } catch (error) {
-      console.log('moshe7');
       this.isVerificationError = true;
       this.verificationError = this.dictPhone.verificationError_2;
       this.isVerifyButtonDisabled = false;

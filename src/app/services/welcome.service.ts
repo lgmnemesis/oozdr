@@ -321,41 +321,29 @@ export class WelcomeService {
   }
 
   private subscribeToProfile() {
-    console.log('moshe p1');
     if (this.subProfileLock) return;
-    console.log('moshe p2');
     this.subProfileLock = true;
     this.sharedStoreService.profile$.subscribe((profile: Profile) => {
-      console.log('moshe p3');
       if (profile) {
-        console.log('moshe p5');
         if (profile.basicInfo && profile.basicInfo.name) {
-          console.log('moshe p5');
           if (!this.goHomeOnceLock)  {
-            console.log('moshe p6');
             this.goHomeOnceLock = true;
             this.gotoHome();
           }
         } else {
-          console.log('moshe p7');
           // if there is info object, fill it, update and go home
           const info = this.basicInfo;
           if (info && info.name && info.mobile) {
-            console.log('moshe p8');
             const profileJ: Profile = JSON.parse(JSON.stringify(profile));
             profileJ.basicInfo = info;
             this.sharedStoreService.updateProfile(profile).catch(error => console.error(error));
             this.gotoHome();
           } else {
-            console.log('moshe p9');
             this.sharedStoreService.needToFinishInfoRegistration = true;
             this.gotoWelcome();
           }
         }
-        console.log('moshe p10');
       }
-      console.log('moshe p11');
     });
-    console.log('moshe p2');
   }
 }
