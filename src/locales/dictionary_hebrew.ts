@@ -24,7 +24,7 @@ export const DictionaryHebrew = {
     section1_2: 'בשלב זה, הצד השני לא יהיה מודע לכך שאתם מעוניינים לחדש את הקשר... אלא אם נוצר מאצ\'.',
     section2_title: 'מחכים למאצ\'',
     section2_1: 'זה הזמן "להחזיק אצבעות". במידה גם הצד השני מחפש או יחפש אתכם, בכל זמן שהוא, יווצר המאצ\' המיוחל.',
-    section3_title: 'נמצא המאצ\'',
+    section3_title: 'יש לנו מאצ\'',
     section3_1: 'מייד ברגע שמצאנו לכם את המאצ\', וודאנו שאכן שני הצדדים מעוניינים בכך, נשלח לשניכם הזמנה לצאט ולחידוש הקשר!'
   },
   startPage: {
@@ -322,10 +322,10 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
   },
   whyOozdrComponent: {
     title: 'למה OOZDR?',
-    text_1: 'There are plenty of \'Reasons\' why you are not reconnecting with someone you lost touch with.',
-    text_2: 'What if they don\'t want to reconnect? Maybe they already moved on?',
-    text_3: 'What if it\'s not the right time to reach out?',
-    text_4: 'What if they DO want to reconnect but are not sure how? or just afraid to do so?',
-    text_5: '\'Oozdr\' takes all these unanswered questions out of the way'
+    text_1: 'כלכך הרבה סיבות ותירוצים שונים מדוע לא לחדש קשר עם מישהו יקר שניתקתם קשר בעבר',
+    text_2: 'אולי הם לא רוצים בקשר? אולי הם כבר \'המשיכו הלאה\'?',
+    text_3: 'מה אם זה לא הזמן המתאים כרגע לנסות?',
+    text_4: 'ואולי הם כן רוצים לחדש את הקשר, רק לא בטוחים מה הדרך הנכונה, או פשוט פוחדים לעשות את הצעד הראשון?',
+    text_5: '\'OOZDR\' כאן כדי לענות על כל השאלות אחת ולתמיד.'
   }
 }
