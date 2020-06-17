@@ -124,7 +124,7 @@ export const DictionaryHebrew = {
       title: '',
       content: '',
       dismissText: '',
-      okText: 'ביטול'
+      okText: 'הבנתי'
     },
     reloadingVersionMessage: 'טוען גרסה חדשה...',
     pwaAppInstalled: 'OOZDR - גרסה חדשה נטענה'
@@ -157,7 +157,7 @@ export const DictionaryHebrew = {
     input_2: 'מספר נייד',
     input_3: 'אימייל (לא חובה)',
     input_3_1: 'כתובת אימייל',
-    input_3_2: 'נשלח הזמנה ונציין שמישהו מחפש אותם ומעוניין לחדש קשר. כמובן מבלי לחשוף ממי.',
+    input_3_2: 'נשלח הזמנה ונציין שמישהו מחפש אותם. כמובן מבלי לחשוף ממי.',
     input_4: 'הודעת פתיחה',
     input_4_1: 'תראה/י להם שאכפת לך. כיתבו הודעה מזמינה',
     input_4_2: '(ניתן לשינוי אחר כך)',
@@ -175,7 +175,7 @@ export const DictionaryHebrew = {
     text_3: 'הודעת סגירת המעגל שלך',
     text_4: 'הודעת סגירת המעגל של ',
     text_5: 'הודעת הפתיחה שלך',
-    closeBtn: '',
+    closeBtn: 'סגור',
     saveConnectionButtonText_1: 'הוספה',
     saveConnectionButtonText_2: 'הוספה',
     saveConnectionButtonText_3: 'שמירה',
@@ -226,7 +226,7 @@ export const DictionaryHebrew = {
     closure_1: 'מזל טוב! קיבלת סגירת מעגל',
     closure_2_1: 'קיבלו את הודעת סגירת המעגל שלך.',
     closure_2_2: 'כתב/ה לך הודעת סגירת מעגל משלו\ה',
-    closure_3_1: 'קיבלת מהם גם הודעת סגירת מעגל.',
+    closure_3_1: 'קיבלת מהם גם כן הודעת סגירת מעגל.',
     closure_3_2: 'הם דווקא רצו לחדש את הקשר ושלחו לך הודעת פתיחה.',
     closure_3_3: 'הם דווקא רצו לחדש את הקשר.',
     match_1: 'מזל טוב! יש לך מאצ\'',

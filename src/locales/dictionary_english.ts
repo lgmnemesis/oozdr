@@ -175,7 +175,7 @@ export const DictionaryEnglish = {
     text_3: 'Your Closure Message',
     text_4: '\'s Closure Message',
     text_5: 'Your Welcome Message',
-    closeBtn: '',
+    closeBtn: 'Close',
     saveConnectionButtonText_1: 'Add Beat',
     saveConnectionButtonText_2: 'Add Closure',
     saveConnectionButtonText_3: 'Save Closure',

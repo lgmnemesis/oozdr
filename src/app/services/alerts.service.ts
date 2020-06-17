@@ -113,7 +113,7 @@ export class AlertsService {
       title: fcmMessage.title,
       content: fcmMessage.content,
       dismissText: this.dictAlertService.FcmMessage.dismissText,
-      okText: this.dictAlertService.FcmMessage.dismissText,
+      okText: this.dictAlertService.FcmMessage.okText,
       color: 'success',
       action: {
         actionName: 'fcm',
