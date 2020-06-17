@@ -89,10 +89,10 @@ export const DictionaryHebrew = {
     input_3: 'אימייל',
     input_3_1: 'כתובת האימייל שלך',
     input_4: 'תאריך לידה',
-    input_4_1: 'בחרו תאריך',
+    input_4_1: 'בחר\י תאריך',
     dateTimeCancel: 'ביטול',
     dateTimeDone: 'אישור',
-    input_5: 'בחרו תמונה',
+    input_5: 'בחר\י תמונה',
     input_5_error: 'תמונה לא חוקית',
     nextStep: 'המשך',
     profilePhoto: 'תמונה פרופיל',
@@ -103,7 +103,7 @@ export const DictionaryHebrew = {
     nameError_2: 'רק אותיות בבקשה',
     nameError_3: 'שם קצר מדי',
     genderError: 'יש לבחור מגדר',
-    emailError_1: 'חסר אימייל',
+    emailError_1: 'יש להזין כתובת אימייל',
     emailError_2: 'כתובת לא חוקית',
     birthdayError: 'יש למלא תאריך לידה'
   },
@@ -132,7 +132,7 @@ export const DictionaryHebrew = {
   authService: {
     logoutConfirmMessage: 'לצאת מהחשבון?',
     logoutConfirmButton: 'לצאת',
-    deleteAcountConfirmMessage: 'פעולה זאת תמחוק את חשבונך וכל המידע שבו. האם למחוק?',
+    deleteAcountConfirmMessage: 'פעולה זאת תמחוק את חשבונך וכל המידע שבו. האם להמשיך בפעולה ולמחוק?',
     deleteAcountConfirmButton: 'מחיקה',
     cancelBtn: 'ביטול',
     deleteActionMessage: 'מוחק חשבון...'

@@ -24,7 +24,11 @@ export class TermsPage implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.back();
+    if (this.useBackIcon) {
+      this.navCtrl.back();
+    } else {
+      this.navCtrl.navigateBack('/');
+    }
   }
 
 }
