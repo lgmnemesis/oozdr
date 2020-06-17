@@ -180,12 +180,12 @@ export const DictionaryHebrew = {
     saveConnectionButtonText_3: 'שמירה',
     saveConnectionButtonText_4: 'שמירה',
     customSelectText: [
-      'Hey... Just wondering :)',
-      'Hey... After all.. Still thinking about you!',
-      'Did it finally... Couldn\'t help it',
-      'What do you think about a little chat?',
-      'Isn\'t it a pity? to throw it all away?',
-      'Passion is momentary, love is enduring'
+      'היי... רק תוהה :)',
+      'היי... אחרי כל הזמן שעבר... עדיין חושב עליך',
+      'עשיתי את זה... לא יכולתי להתאפק יותר',
+      'מה לגבי שיחה קצרה?',
+      'כמה חבל, לזרוק את הכל',
+      'יש רק שני זמנים שאני רוצה להיות איתך, עכשיו ותמיד',
     ],
     nameError_1: 'שם לא חוקי',
     nameError_2: 'רק אותיות בבקשה',
@@ -213,10 +213,10 @@ export const DictionaryHebrew = {
     helpHeader: 'סגירת מעגל',
     helpMessage:
 `
-Writing a closure message can benefit you as well as your EX...
-It's meant to allow you to accept what has happened, say goodbye, and move on.
+שליחת הודעת סגירת מעגל יכולה לעזור גם לך וגם לצד המקבל.
+ההודעה נועדה לאפשר לקבל את כל מה שקרה בינכם, לומר שלום ולהמשיך הלאה בצורה קלה יותר.
 
-<span>Just like Beats, your closure will be matched and shown only if the other person is looking for you too (whether it is to reconnect or to give you their own closure message).</span>
+<span>בדיוק כמו \'ביט\', סגירת המעגל תשלח רק במידה וכאשר הצד השני מחפש אתכם (מחפש ללחדש את הקשר או מחפש כדי לתת גם לכם הודעת סגירת מעגל משלו).  </span>
 
 `,
     textBtn: 'הבנתי'
