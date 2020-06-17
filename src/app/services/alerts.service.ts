@@ -23,7 +23,14 @@ export class AlertsService {
     private loadingCtrl: LoadingController,
     private sharedService: SharedService,
     private analyticsService: AnalyticsService,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService) {
+      this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+        if (mark) {
+          this.dictionary = this.localeService.dictionary;
+          this.dictAlertService = this.dictionary.alertsService;
+        }
+      });
+     }
 
   getAlertsAsObservable(): Observable<Alert[]> {
     return this.sharedStoreService.alerts$;
