@@ -19,7 +19,7 @@ export class SocialShareComponent implements OnInit {
   share = {
     url: this.sharedService.dynamicLinkInvitationUrl,
     title: this.dictSocial.share.title,
-    text: this.dictSocial.share.title
+    text: this.dictSocial.share.text
   }
 
   copyToClipboard = (str: string) => {

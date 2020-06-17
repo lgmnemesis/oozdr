@@ -301,7 +301,7 @@ export const DictionaryHebrew = {
   },
   inviteFriendsComponent: {
     text_1: 'עזרו לחבר להתחבר מחדש',
-    text_2: 'הזמן/י חבר שאתה חושב שיוכל להעזר בנו.',
+    text_2: 'הזמנו חבר שאתם חושבים שיוכל להעזר בנו.',
     text_3: 'את מי תרצו להזמין?'
   },
   supportPage: {
