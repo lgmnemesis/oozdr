@@ -127,7 +127,7 @@ export const DictionaryHebrew = {
       okText: 'הבנתי'
     },
     reloadingVersionMessage: 'טוען גרסה חדשה...',
-    pwaAppInstalled: 'OOZDR - גרסה חדשה נטענה'
+    pwaAppInstalled: 'OOZDR - הותקנה בהצלחה'
   },
   authService: {
     logoutConfirmMessage: 'האם לצאת מהחשבון?',
