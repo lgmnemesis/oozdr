@@ -1,7 +1,9 @@
 @import '../../styles/fonts-text';
 
 .text-area {
-  border-top: 1px solid var(--ion-color-light-shade);
+  border: 1px solid var(--ion-color-light);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 ion-textarea {

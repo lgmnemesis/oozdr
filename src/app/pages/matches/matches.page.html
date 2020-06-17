@@ -1,15 +1,13 @@
-<ion-header class="ion-no-border" *ngIf="!isMobile || isInsideChat">
+<ion-header class="ion-no-border" *ngIf="isInsideChat">
   <ion-toolbar [class.border-buttom]="isInsideChat" [class.chat-container]="isInsideChat">
 
-    <ng-container *ngIf="!isVisibleSplitPane">
-      <ion-buttons slot="start" *ngIf="isInsideChat">
-        <ion-button fill="clear" (click)="goBack()">
-          <ion-icon slot="icon-only" [name]="localeService.backArrow"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ng-container>
+    <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon slot="icon-only" [name]="localeService.backArrow"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
-    <ion-item lines="none" class="top-item" *ngIf="isInsideChat">
+    <ion-item lines="none" detail="false" class="top-item">
       <ion-avatar (click)="openDetails($event)" slot="start">
         <img [src]="connection?.basicInfo?.profile_img_url || defaultProfileImg" alt="profile image" crossorigin="anonymous">
       </ion-avatar>
