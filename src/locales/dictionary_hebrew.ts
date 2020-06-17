@@ -116,7 +116,7 @@ export const DictionaryHebrew = {
     },
     newVersionAlert: {
       title: 'קיימת גרסה חדשה',
-      content: 'האם לטעון גרסה חדשה?',
+      content: 'האם לטעון את הגרסה?',
       dismissText: 'לא כרגע',
       okText: 'טען'
     },
