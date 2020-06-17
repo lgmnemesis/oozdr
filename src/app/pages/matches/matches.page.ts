@@ -46,7 +46,7 @@ export class MatchesPage implements OnInit, OnDestroy {
     private popoverCtrl: PopoverController,
     private alertCtrl: AlertController,
     private analyticsService: AnalyticsService,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   async ngOnInit() {
     this.user = await this.authService.getUser();

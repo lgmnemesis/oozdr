@@ -2,7 +2,7 @@
 
   <ion-toolbar class="parallax-header second-toolbar" [class.large-header]="isVisibleSplitPane">
     <ion-buttons slot="start" *ngIf="!isVisibleSplitPane">
-      <ion-back-button color="dark" text="" (click)="goBack()"></ion-back-button>
+      <ion-back-button color="dark" text="" [icon]="localeService.backArrow" (click)="goBack()"></ion-back-button>
       <ion-icon name="settings-outline"></ion-icon>
     </ion-buttons>
 

@@ -16,7 +16,7 @@ export class ContactPage implements OnInit {
 
   constructor(private sharedService: SharedService,
     private navCtrl: NavController,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     if (this.sharedService.currentUrlPath !== 'contact') {

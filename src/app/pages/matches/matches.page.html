@@ -4,7 +4,7 @@
     <ng-container *ngIf="!isVisibleSplitPane">
       <ion-buttons slot="start" *ngIf="isInsideChat">
         <ion-button fill="clear" (click)="goBack()">
-          <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+          <ion-icon slot="icon-only" [name]="localeService.backArrow"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ng-container>

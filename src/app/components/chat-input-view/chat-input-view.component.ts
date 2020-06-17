@@ -1,8 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConnectionsService } from 'src/app/services/connections.service';
 import { Match } from 'src/app/interfaces/profile';
 import { LocaleService } from 'src/app/services/locale.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat-input-view',
@@ -10,7 +12,7 @@ import { LocaleService } from 'src/app/services/locale.service';
   styleUrls: ['./chat-input-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatInputViewComponent implements OnInit {
+export class ChatInputViewComponent implements OnInit, OnDestroy {
 
   @ViewChild('inputbar') inputBar: ElementRef;
 
@@ -37,13 +39,23 @@ export class ChatInputViewComponent implements OnInit {
   activeInputCounter = 1;
   dictionary = this.localeService.dictionary;
   dictChat = this.dictionary.chatInputViewComponent;
+  _markForCheckApp: Subscription;
 
   constructor(private cd: ChangeDetectorRef,
     public sharedService: SharedService,
     private connectionsService: ConnectionsService,
-    private localeService: LocaleService) { }
+    public localeService: LocaleService,
+    private sharedStoreService: SharedStoreService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictChat = this.dictionary.chatInputViewComponent;
+        this.markForCheck();
+      }
+    });
+  }
 
   markForCheck() {
     this.cd.markForCheck();
@@ -88,7 +100,7 @@ export class ChatInputViewComponent implements OnInit {
     const el = this.inputBar.nativeElement.querySelector('textarea');
     if (el) {
       el.focus();
-      el.setAttribute('dir', 'auto');
+      el.setAttribute('dir', this.localeService.isRightToLeft ? 'rtl' : 'auto');
       return true;
     }
     return false;
@@ -172,4 +184,7 @@ export class ChatInputViewComponent implements OnInit {
     this.markForCheck();
   }
 
+  ngOnDestroy() {
+    if (this._markForCheckApp) this._markForCheckApp.unsubscribe();
+  }
 }

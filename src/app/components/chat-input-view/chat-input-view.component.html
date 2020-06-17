@@ -20,7 +20,7 @@
       <ion-icon slot="icon-only" name="happy-outline"></ion-icon>
     </ion-button>
     <ion-button slot="end" fill="clear" [disabled]="inputDisabled" (click)="sendMessage()">
-      <ion-icon slot="icon-only" name="send"></ion-icon>
+      <ion-icon slot="icon-only" [name]="localeService.isRightToLeft ? 'return-down-back-outline' : 'send'"></ion-icon>
     </ion-button>
   </ion-item>
 </div>

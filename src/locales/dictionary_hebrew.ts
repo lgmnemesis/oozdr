@@ -61,7 +61,7 @@ export const DictionaryHebrew = {
     col_2_2: 'תמיכה'
   },
   phoneLoginComponent: {
-    verifyAccount: 'נא להתחבר שוב כדי לאמת את החשבון',
+    verifyAccount: 'יש לאמת חשבון',
     title: 'הכנס/י את מספר הנייד שלך',
     explanation_1: 'תשלח הודעת טקסט עם קוד אימות זמני. ייתכן שיחולו תעריפי הודעה ונתונים. הטלפון המאומת ישמש אותך להתחברויות הבאות.',
     term_s1: 'לחיצה על "המשך" מהווה את הסכמתך ',
@@ -246,7 +246,7 @@ export const DictionaryHebrew = {
     confirmCancel: 'ביטול',
   },
   matchOptionsComponent: {
-    option_1: 'חסימה'
+    option_1: 'חסום את '
   },
   matchesComponent: {
     noMatches_1: 'אין התאמות בינתיים.',
