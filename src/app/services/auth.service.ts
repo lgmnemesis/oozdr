@@ -42,6 +42,13 @@ export class AuthService {
         this.signOutInternal();
       }
     });
+
+    this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeServoce.dictionary;
+        this.dictAuth = this.dictionary.authService;
+      }
+    });
   }
 
   private subscribeUser() {

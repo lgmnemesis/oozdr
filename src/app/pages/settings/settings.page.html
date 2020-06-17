@@ -72,9 +72,13 @@
       <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="localeService.canShowToggleLangButton">
         <ion-col size="12">
           <ion-item button lines="none" (click)="toggleLang()">
-            <ion-label> 
+            <ion-label *ngIf="!localeService.isRightToLeft">
               <p class="basic-text bold-text">{{ dictSettings.lang_1_en }} {{ selectedLangEN }}</p>
               <p class="smaller-text">{{ dictSettings.lang_1_he }} {{ selectedLangHE }}</p>
+            </ion-label>
+            <ion-label *ngIf="localeService.isRightToLeft">
+              <p class="basic-text bold-text">{{ dictSettings.lang_1_he }} {{ selectedLangHE }}</p>
+              <p class="smaller-text">{{ dictSettings.lang_1_en }} {{ selectedLangEN }}</p>
             </ion-label>
             <ion-button slot="end" class="set-app-lang" (click)="setAppLang($event)" *ngIf="localeService.lang !== selectedLang">
               {{ selectedLang === 'en' ? dictSettings.lang_2_en : dictSettings.lang_2_he }}

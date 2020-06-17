@@ -73,17 +73,17 @@ export class ConnectionComponent implements OnInit {
     this.inDisconnectProcess = true;
 
     const alert = await this.alertCtrl.create({
-      header: `Are you sure you want to disconnect from ${this.connection.basicInfo.name}?`,
+      header: `${this.dictConnection.disconnect} ${this.connection.basicInfo.name}?`,
       mode: 'ios',
       buttons: [
         {
-          text: 'Cancel',
+          text: this.dictConnection.disconnectCancel,
           role: 'cancel',
           handler: () => {
             this.inDisconnectProcess = false;
           }
         }, {
-          text: 'Disconnect',
+          text: this.dictConnection.disconnectAprove,
           handler: () => {
             this.disconnect();
             this.inDisconnectProcess = false;

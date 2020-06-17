@@ -12,7 +12,7 @@ export const DictionaryHebrew = {
     menu_1_1: 'פרופיל',
     menu_1_2: 'הגדרות',
     menu_1_3: 'התקנת אפליקציה',
-    menu_1_4: 'שתפו מכרים',
+    menu_1_4: 'שתפו חברים',
     menu_1_5: 'יציאה',
     menu_2_1: 'ביטים',
     menu_2_2: 'התאמות'
@@ -89,10 +89,10 @@ export const DictionaryHebrew = {
     input_3: 'אימייל',
     input_3_1: 'כתובת האימייל שלך',
     input_4: 'תאריך לידה',
-    input_4_1: 'בחר\י תאריך',
+    input_4_1: 'בחר/י תאריך',
     dateTimeCancel: 'ביטול',
     dateTimeDone: 'אישור',
-    input_5: 'בחר\י תמונה',
+    input_5: 'בחר/י תמונה',
     input_5_error: 'תמונה לא חוקית',
     nextStep: 'המשך',
     profilePhoto: 'תמונה פרופיל',
@@ -130,8 +130,8 @@ export const DictionaryHebrew = {
     pwaAppInstalled: 'OOZDR - גרסה חדשה נטענה'
   },
   authService: {
-    logoutConfirmMessage: 'לצאת מהחשבון?',
-    logoutConfirmButton: 'לצאת',
+    logoutConfirmMessage: 'האם לצאת מהחשבון?',
+    logoutConfirmButton: 'יציאה',
     deleteAcountConfirmMessage: 'פעולה זאת תמחוק את חשבונך וכל המידע שבו. האם להמשיך בפעולה ולמחוק?',
     deleteAcountConfirmButton: 'מחיקה',
     cancelBtn: 'ביטול',
@@ -157,22 +157,23 @@ export const DictionaryHebrew = {
     input_2: 'מספר נייד',
     input_3: 'אימייל (לא חובה)',
     input_3_1: 'כתובת אימייל',
-    input_3_2: 'נשלח הזמנה ונציין שמישהוא מחפש אותם ומעוניין לחדש קשר. כמובן מבלי לחשוף ממי.',
+    input_3_2: 'נשלח הזמנה ונציין שמישהו מחפש אותם ומעוניין לחדש קשר. כמובן מבלי לחשוף ממי.',
     input_4: 'הודעת פתיחה',
-    input_4_1: 'תראה\י להם שאכפת לך. כיתבו הודעה מזמינה',
+    input_4_1: 'תראה/י להם שאכפת לך. כיתבו הודעה מזמינה',
     input_4_2: '(ניתן לשינוי אחר כך)',
     input_4_3: 'הודעות פתיחה אפשריות',
     input_4_4: 'קצר וקולע? ארוך ו... לעניין',
     input_5: 'הודעת סגירת מעגל',
-    input_5_1: 'כיתבו את כל הדברים שרציתם לומר להם',
+    input_5_1: 'יש דברים שרציתי לומר...',
     input_6: 'אל דאגה, אנחנו לא עושים שום דבר כרגע. הם יקבלו הודעה רק במידה וגם הם מחפשים אותך.',
+    selectionHeader: 'סמן בחירה אחת או יותר',
     cancelBtn: 'ביטול',
     okText: 'אוקי',
     suffixName: '\'s',
-    text_1: 'הודעת סגירת מעגל',
-    text_2: 'הודעת פתיחה',
+    text_1: 'הודעת סגירת המעגל של ',
+    text_2: 'הודעת הפתיחה של ',
     text_3: 'הודעת סגירת המעגל שלך',
-    text_4: '\'s Closure Message',
+    text_4: 'הודעת סגירת המעגל של ',
     text_5: 'הודעת הפתיחה שלך',
     closeBtn: '',
     saveConnectionButtonText_1: 'הוספה',
@@ -191,7 +192,7 @@ export const DictionaryHebrew = {
     nameError_2: 'רק אותיות בבקשה',
     nameError_3: 'שם קצר מדי',
     emailError: 'כתובת לא חוקית',
-    closureError: 'לא כתבת כלום',
+    closureError: 'שום כלום?',
     phoneError_1: 'מספר הנייד חסר',
     phoneError_2: 'זה מספר הנייד שלך',
     phoneError_3: 'מספר שגוי',
@@ -200,7 +201,7 @@ export const DictionaryHebrew = {
     toastContent_1_1: 'במידה ו',
     toastContent_1_2: 'מוסיף אותך לביטים שלהם, זה גרוב! ואנחנו נעדכן את שניכם מייד.',
     toastHeader_2: 'הוא סגירת מעגל חדשה בשבילך.',
-    toastContent_2: 'מחפש\ת אותך, נשלח להם את הודעת סגירת המעגל שלך ונעדכן אותך מייד.',
+    toastContent_2: 'מחפש/ת אותך, נשלח להם את הודעת סגירת המעגל שלך ונעדכן אותך מייד.',
     toastDismissButtonText_1: 'הבנתי',
     toastDismissButtonText_2: 'אוקי'
   },
@@ -216,7 +217,7 @@ export const DictionaryHebrew = {
 שליחת הודעת סגירת מעגל יכולה לעזור גם לך וגם לצד המקבל.
 ההודעה נועדה לאפשר לקבל את כל מה שקרה בינכם, לומר שלום ולהמשיך הלאה בצורה קלה יותר.
 
-<span>בדיוק כמו \'ביט\', סגירת המעגל תשלח רק במידה וכאשר הצד השני מחפש אתכם (מחפש ללחדש את הקשר או מחפש כדי לתת גם לכם הודעת סגירת מעגל משלו).  </span>
+<span>בדיוק כמו \'ביט\', סגירת המעגל תשלח רק במידה וכאשר הצד השני מחפש אתכם (מחפש לחדש את הקשר או מחפש כדי לתת גם לכם הודעת סגירת מעגל משלו).  </span>
 
 `,
     textBtn: 'הבנתי'
@@ -224,19 +225,22 @@ export const DictionaryHebrew = {
   connectionComponent: {
     closure_1: 'מזל טוב! קיבלת סגירת מעגל',
     closure_2_1: 'קיבלו את הודעת סגירת המעגל שלך.',
-    closure_2_2: 'כתב\ה לך הודעת סגירת מעגל משלו\ה',
+    closure_2_2: 'כתב/ה לך הודעת סגירת מעגל משלו\ה',
     closure_3_1: 'קיבלת מהם גם הודעת סגירת מעגל.',
     closure_3_2: 'הם דווקא רצו לחדש את הקשר ושלחו לך הודעת פתיחה.',
     closure_3_3: 'הם דווקא רצו לחדש את הקשר.',
     match_1: 'מזל טוב! יש לך מאצ\'',
-    match_2: 'חיפש\ה אותך גם כן!',
+    match_2: 'חיפש/ה אותך גם כן!',
     match_3: 'קדימה, זה הזמן לחדש את הקשר',
     match_4: 'התחילו בצ\'אט',
     closure_from: 'סגירת מעגל',
-    beat_from: 'ביט'
+    beat_from: 'ביט',
+    disconnect: 'האם להתנתק מ',
+    disconnectCancel: 'ביטול',
+    disconnectAprove: 'התנתק'
   },
   matchePage: {
-    blockHeader: 'לא תוכל\י יותר לשלוח ואו לקבל הודעות מ',
+    blockHeader: 'לא תוכל/י יותר לשלוח ואו לקבל הודעות מ',
     blockMessage: 'מאצ\'ים חסומים ניתנים לשיחרור בכל זמן (תחת הגדרות)',
     blockButtonText: 'חסימה',
     confirmCancel: 'ביטול',
@@ -249,7 +253,7 @@ export const DictionaryHebrew = {
     noMatches_2: 'כשביט הופך למאצ\' הוא יופיע כאן ותשלח התראה'
   },
   chatInputViewComponent: {
-    placeholder: 'תגיד\י משהו...',
+    placeholder: 'תגיד/י משהו...',
     message: 'Ctrl + Enter שורה חדשה'
   },
   profilePage: {
@@ -264,7 +268,7 @@ export const DictionaryHebrew = {
     item_1_2: 'כדי לדעת מתי נוצר מאצ\' חדש',
     item_2: 'מאצ\'ים חסומים',
     item_2_1: 'אין',
-    item_3: 'הזמן\י חברים',
+    item_3: 'הזמן/י חברים',
     item_4: 'אודות',
     item_4_1: 'גרסה:',
     item_5: 'Terms of Service',
@@ -297,7 +301,7 @@ export const DictionaryHebrew = {
   },
   inviteFriendsComponent: {
     text_1: 'עזרו לחבר להתחבר מחדש',
-    text_2: 'הזמן\י חבר שאתה חושב שיוכל להעזר בנו.',
+    text_2: 'הזמן/י חבר שאתה חושב שיוכל להעזר בנו.',
     text_3: 'את מי תרצו להזמין?'
   },
   supportPage: {
@@ -326,6 +330,6 @@ export const DictionaryHebrew = {
     text_2: 'אולי הם לא רוצים בקשר? אולי הם כבר \'המשיכו הלאה\'?',
     text_3: 'מה אם זה לא הזמן המתאים כרגע לנסות?',
     text_4: 'ואולי הם כן רוצים לחדש את הקשר, רק לא בטוחים מה הדרך הנכונה, או פשוט פוחדים לעשות את הצעד הראשון?',
-    text_5: '\'OOZDR\' כאן כדי לענות על כל השאלות אחת ולתמיד.'
+    text_5: '\'OOZDR\' כאן כדי לענות על כל השאלות האלה אחת ולתמיד.'
   }
 }

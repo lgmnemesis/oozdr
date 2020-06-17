@@ -11,6 +11,7 @@ import { InviteFriendsModalComponent } from './components/invite-friends-modal/i
 import { AnalyticsService } from './services/analytics.service';
 import { AlertsService } from './services/alerts.service';
 import { LocaleService } from './services/locale.service';
+import { WelcomeService } from './services/welcome.service';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +44,8 @@ export class AppComponent {
     private alertsService: AlertsService,
     private alertCtrl: AlertController,
     private cd: ChangeDetectorRef,
-    public localeService: LocaleService
+    public localeService: LocaleService,
+    private welcomeService: WelcomeService
   ) {
     this.setDefaultLang();
     this.addAsApp();
@@ -52,6 +54,7 @@ export class AppComponent {
     this.subscribeToSplitPaneEvents();
     this.subscribeToActiveMenu();
     this.subscribeToUser();
+    this.initWelcomeService();
   }
 
   markForCheck() {
@@ -182,6 +185,10 @@ export class AppComponent {
         this.analyticsService.pageViewEvent();
       }
     });
+  }
+
+  initWelcomeService() {
+    this.welcomeService.init();
   }
 
   ionSplitPaneOutputEvent(event) {

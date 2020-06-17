@@ -40,25 +40,29 @@ export class WelcomeService {
     private sharedStoreService: SharedStoreService,
     private fileStorageService: FileStorageService,
     private navCtrl: NavController,
-    private localeService: LocaleService) { 
-      this.authService.signingOut$.subscribe((isSigningOut) => {
-        if (isSigningOut) {
-          this.sharedStoreService.needToFinishInfoRegistration = false;
-          this.goHomeOnceLock = false;
-          this.resetParams();
-          this.resetStore();
-        }
-      });
+    private localeService: LocaleService) { }
 
-      this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
-        if (mark) {
-          this.dictionary = this.localeService.dictionary;
-          this.dictWelcomeService = this.dictionary.welcomeService;
-          this.defProfilePhotoText = this.dictWelcomeService.defProfilePhotoText;
-          this.profilePhotoText = this.defProfilePhotoText;
-        }
-      });
-    }
+  init() {
+    this.authService.signingOut$.subscribe((isSigningOut) => {
+      if (isSigningOut) {
+        this.sharedStoreService.needToFinishInfoRegistration = false;
+        this.goHomeOnceLock = false;
+        this.resetParams();
+        this.resetStore();
+      }
+    });
+
+    this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictWelcomeService = this.dictionary.welcomeService;
+        this.defProfilePhotoText = this.dictWelcomeService.defProfilePhotoText;
+        this.profilePhotoText = this.defProfilePhotoText;
+      }
+    });
+
+    this.subscribeToProfile();
+  }
 
   private getInfoFromStore(): BasicInfo {
     if (!this.useLocalStorage) {
@@ -316,30 +320,42 @@ export class WelcomeService {
     });
   }
 
-  subscribeToProfile() {
+  private subscribeToProfile() {
+    console.log('moshe p1');
     if (this.subProfileLock) return;
+    console.log('moshe p2');
     this.subProfileLock = true;
     this.sharedStoreService.profile$.subscribe((profile: Profile) => {
+      console.log('moshe p3');
       if (profile) {
+        console.log('moshe p5');
         if (profile.basicInfo && profile.basicInfo.name) {
+          console.log('moshe p5');
           if (!this.goHomeOnceLock)  {
+            console.log('moshe p6');
             this.goHomeOnceLock = true;
             this.gotoHome();
           }
         } else {
+          console.log('moshe p7');
           // if there is info object, fill it, update and go home
           const info = this.basicInfo;
           if (info && info.name && info.mobile) {
+            console.log('moshe p8');
             const profileJ: Profile = JSON.parse(JSON.stringify(profile));
             profileJ.basicInfo = info;
             this.sharedStoreService.updateProfile(profile).catch(error => console.error(error));
             this.gotoHome();
           } else {
+            console.log('moshe p9');
             this.sharedStoreService.needToFinishInfoRegistration = true;
             this.gotoWelcome();
           }
         }
+        console.log('moshe p10');
       }
+      console.log('moshe p11');
     });
+    console.log('moshe p2');
   }
 }

@@ -82,7 +82,6 @@ export class StartPage implements OnInit, OnDestroy {
     this._user = this.authService.user$.subscribe(user => {
       this.canShowPage = false;
       if (user) {
-        this.welcomeService.subscribeToProfile();
         this.canShowPage = false;
         try {
           this.modalCtrl.dismiss().catch(error => {});

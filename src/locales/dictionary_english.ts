@@ -166,6 +166,7 @@ export const DictionaryEnglish = {
     input_5: 'Closure Message',
     input_5_1: 'Write down the things you wish you could say to your ex...',
     input_6: 'Don\'t worry, we are not doing anything yet. They will be notified ONLY if they are looking for you too.',
+    selectionHeader: 'Select one or more',
     cancelBtn: 'Cancel',
     okText: 'Ok',
     suffixName: '\'s',
@@ -233,7 +234,10 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     match_3: 'Go ahead and reconnect.',
     match_4: 'Start chatting.',
     closure_from: 'Closure from',
-    beat_from: 'Beat from'
+    beat_from: 'Beat from',
+    disconnect: 'Are you sure you want to disconnect from',
+    disconnectCancel: 'Cancel',
+    disconnectAprove: 'Disconnect'
   },
   matchePage: {
     blockHeader: 'You will no longer be able to send or recieve messages from',

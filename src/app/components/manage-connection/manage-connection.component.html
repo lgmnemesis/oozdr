@@ -103,7 +103,7 @@
         <ion-item class="item-select" lines="none">
           <ion-label color="success" class="basic-text">{{ dictManage.input_4_3 }}</ion-label>
           <ion-select
-            mode="ios" multiple="true" [cancel-text]="dictManage.cancelBtn" [ok-text]="dictManage.okText" selected-text=" " 
+            mode="ios" multiple="true" [cancelText]="dictManage.cancelBtn" [okText]="dictManage.okText" selected-text=" " 
             [interfaceOptions]="customSelectOptions"
             (ionChange)="selectedMessages($event)">
             <ion-select-option 
@@ -170,9 +170,13 @@
     <ng-container *ngIf="connectionState?.connection?.isClosure">
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12" *ngIf="connectionState?.connection?.otherParty?.message">
-          <p class="message-display-title">
+          <p class="message-display-title" *ngIf="!localeService.isRightToLeft">
             {{ connectionState?.connection?.basicInfo?.name }}{{ dictManage.suffixName }}
             {{ connectionState?.connection?.otherParty?.isClosure ? dictManage.text_1 : dictManage.text_2 }}
+          </p>
+          <p class="message-display-title" *ngIf="localeService.isRightToLeft">
+            {{ connectionState?.connection?.otherParty?.isClosure ? dictManage.text_1 : dictManage.text_2 }}
+            {{ connectionState?.connection?.basicInfo?.name }}
           </p>
           <div class="message-display">
             <p>{{ connectionState?.connection?.otherParty?.message }}</p>
@@ -193,7 +197,12 @@
     <ng-container *ngIf="!connectionState?.connection?.isClosure">
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <p class="message-display-title">{{ connectionState?.connection?.basicInfo?.name }}{{ dictManage.text_4 }}</p>
+          <p class="message-display-title" *ngIf="!localeService.isRightToLeft">
+            {{ connectionState?.connection?.basicInfo?.name }}{{ dictManage.text_4 }}
+          </p>
+          <p class="message-display-title" *ngIf="localeService.isRightToLeft">
+            {{ dictManage.text_4 }}{{ connectionState?.connection?.basicInfo?.name }}
+          </p>
           <div class="message-display">
             <p>{{ connectionState?.connection?.otherParty?.message }}</p>
           </div>

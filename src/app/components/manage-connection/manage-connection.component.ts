@@ -66,7 +66,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   connectionState: ConnectionsState;
 
   customSelectOptions: any = {
-    header: 'Select one or more',
+    header: this.dictManage.selectionHeader,
     cssClass: 'manage-connection-select-option'
   };
 
@@ -377,7 +377,7 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     let header = `${cName} ${this.dictManage.toastHeader_1}`;
     let content = `${this.dictManage.toastContent_1_1} ${cName} ${this.dictManage.toastContent_1_2}`;
     if (connection.isClosure) {
-      header = `${cName} ${this.dictManage.toastHeader_1}`;
+      header = `${cName} ${this.dictManage.toastHeader_2}`;
       content = `${this.dictManage.toastContent_1_1} ${cName} ${this.dictManage.toastContent_2}`;
     }
     const message: ToastMessage = {
