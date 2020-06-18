@@ -70,5 +70,6 @@ for file in "${files[@]}"; do
 
 done
 
+echo $project > ~/.project_name
 echo ""
 echo "Project is set to ${project}"
