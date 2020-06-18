@@ -1,3 +1,4 @@
+// app file
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Platform, ModalController, MenuController, AlertController } from '@ionic/angular';
 import { SharedService } from './services/shared.service';
