@@ -1,0 +1,7 @@
+<!-- provisioning file -->
+<ion-app>
+
+   <!-- the main content -->
+  <ion-router-outlet id="main" [swipeGesture]="false"></ion-router-outlet>
+
+</ion-app>
