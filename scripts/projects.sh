@@ -16,6 +16,7 @@ opt1="$1"
 projects=(app provisioning)
 files=(app.module.ts app.component.ts app.component.html app.component.scss app-routing.module.ts)
 filesPreffixDir='src/app'
+projectFilesPreffixDir='src/projects'
 
 if [ "${opt1}" == '-help' ] ||  [ "${opt1}" == '' ] ; then
   helper
@@ -40,7 +41,7 @@ for file in "${files[@]}"; do
     exit 1
   fi
   header=`echo $fileProj|cut -f2 -d' '`
-  pFile="${filesPreffixDir}/${file}-${header}"
+  pFile="${projectFilesPreffixDir}/${header}/${file}"
 
   if [ -f "${pFile}" ] ; then
     good='1'
@@ -64,7 +65,7 @@ for file in "${files[@]}"; do
     fi
   fi
 
-  sFile="${filesPreffixDir}/${file}-${project}"
+  sFile="${projectFilesPreffixDir}/${project}/${file}"
   echo "Copying ${sFile} to ${filesPreffixDir}/${file}"
   cp -f ${sFile} ${filesPreffixDir}/${file}
 

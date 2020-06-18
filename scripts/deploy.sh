@@ -2,7 +2,7 @@
 
 helper() {
   echo
-  echo "$0 production|staging|f|a [-d|-b|-v|-disable]"
+  echo "$0 production|staging|provisioning|f|a [-d|-b|-v|-disable]"
   echo "   f: ${deployFunctions}"
   echo "   a: build with stats flag (--stats-json)"
   echo "      and run: webpack-bundle-analyzer"
@@ -26,6 +26,7 @@ buildProd="ionic build --prod -- --aot"
 buildStaging="ionic build --prod --aot --configuration=staging -- --output-path=staging"
 buildWithStats="${buildProd} --stats-json"
 deployProduction="firebase deploy --only hosting:production"
+deployProvisioning="firebase deploy --only hosting:provisioning"
 # deployProduction="firebase deploy --only hosting"
 deployStaging="firebase deploy --only hosting:staging"
 deployFunctions="firebase deploy --only functions"
@@ -80,6 +81,13 @@ elif [ "${deploy}" == 'staging' ] ; then
   ${buildStaging} && 
   ${stagingAfterScript} enable ${stagingAfterScriptOptions} && 
   ${deployStaging}
+elif [ "${deploy}" == 'provisioning' ] ; then
+  echo "For provisioning site"
+  rm -f ${statsFile}
+  echo "
+    ${buildProd} && ${deployProvisioning}
+  "
+  ${buildProd} && ${deployProvisioning}
 elif [ "${deploy}" == 'f' ] ; then
   echo "Deploying functions only"
   echo "${deployFunctions}"
