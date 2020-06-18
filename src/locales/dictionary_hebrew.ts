@@ -15,7 +15,7 @@ export const DictionaryHebrew = {
     menu_1_4: 'שתפו חברים',
     menu_1_5: 'יציאה',
     menu_2_1: 'ביטים',
-    menu_2_2: 'התאמות'
+    menu_2_2: 'מאצ\'ים'
   },
   supportTxt: {
     how_title: 'איך זה עובד?',
@@ -249,7 +249,7 @@ export const DictionaryHebrew = {
     option_1: 'חסום את '
   },
   matchesComponent: {
-    noMatches_1: 'אין התאמות בינתיים.',
+    noMatches_1: 'אין מאצ\'ים בינתיים.',
     noMatches_2: 'כשביט הופך למאצ\' הוא יופיע כאן ותשלח התראה'
   },
   chatInputViewComponent: {
