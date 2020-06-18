@@ -1,7 +1,99 @@
-<!-- provisioning file -->
+<!-- app file -->
 <ion-app>
 
-   <!-- the main content -->
-  <ion-router-outlet id="main" [swipeGesture]="false"></ion-router-outlet>
+  <div class="loading-state animated"
+    [class.show]="loadingApp" 
+    [class.fadeOut]="!loadingApp">
+    <ng-container *ngIf="loadingApp">
+      <div class="show-logo animated fadeIn delay-500ms"></div>
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </ng-container>
+  </div>
+
+  <ion-split-pane when="md" contentId="main" 
+    [disabled]="!useSplitPane" 
+    (ionSplitPaneVisible)="ionSplitPaneOutputEvent($event)"> 
+    <!--  our side menu  -->
+    <ion-menu contentId="main" [disabled]="!user" (ionDidOpen)="menuOpen()">
+      <ion-header class="ion-no-border">
+        <ion-toolbar>
+          <app-top-menu [visible]="isVisibleSplitPane" [isLarge]="false" [showChat]="false"></app-top-menu>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content appScrollbarTheme>
+        <app-alerts [isVisible]="true" *ngIf="isVisibleSplitPane"></app-alerts>
+
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
+          <ion-item 
+            [class.item-active]="activeMenu === 'connections'"
+            button detail lines="none" 
+            [detailIcon]="localeService.isRightToLeft ? 'chevron-back' : 'chevron-forward'" 
+            (click)="connectionsClicked()">
+            <ion-icon class="hide" slot="start" size="small" color="tertiary" name="fitness-outline"></ion-icon>
+            <ion-label class="basic-text bold-text">{{ dictApp.menu_2_1 }}</ion-label>
+          </ion-item>
+        </ng-container>
+        
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
+          <ion-item button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
+            (click)="toggleMatches()">
+            <ion-icon 
+              slot="start" size="small"
+              [name]="sharedStoreService?.isMatchesOpen ? 'chevron-down-outline' : 
+              localeService.isRightToLeft ? 'chevron-back-outline' : 'chevron-forward-outline'">
+            </ion-icon>
+            <ion-label class="basic-text bold-text">{{ dictApp.menu_2_2 }}</ion-label>
+          </ion-item>
+
+          <ng-container *ngIf="sharedStoreService?.isMatchesOpen">
+            <app-matches [nobox]="true" (matchClicked)="matchClicked()"></app-matches>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'profile'">
+          <ion-item [class.item-active]="activeMenu === 'profile'"
+            lines="none" detail button
+            [detailIcon]="localeService.isRightToLeft ? 'chevron-back' : 'chevron-forward'"
+            (click)="profileClicked()">
+            <ion-icon slot="start" size="small" color="tertiary" name="person-outline"></ion-icon>
+            <ion-label class="basic-text bold-text">{{ dictApp.menu_1_1 }}</ion-label>
+          </ion-item>
+          <ion-item [class.item-active]="activeMenu === 'settings'"
+            lines="none" detail button 
+            [detailIcon]="localeService.isRightToLeft ? 'chevron-back' : 'chevron-forward'"
+            (click)="settingsClicked()">
+            <ion-icon slot="start" size="small" color="main" name="settings-outline"></ion-icon>
+            <ion-label class="basic-text bold-text">{{ dictApp.menu_1_2 }}</ion-label>
+          </ion-item>
+          <ion-item *ngIf="canShowInstallApp"
+            lines="none" button (click)="installAsApp()">
+            <ion-icon slot="start" size="small" color="warning" name="phone-portrait-outline"></ion-icon>
+            <ion-label class="basic-text">{{ dictApp.menu_1_3 }}</ion-label>
+          </ion-item>
+          <ion-item
+            lines="none" button (click)="inviteFriends()">
+            <ion-icon slot="start" size="small" color="success" name="people-outline"></ion-icon>
+            <ion-label class="basic-text">{{ dictApp.menu_1_4 }}</ion-label>
+          </ion-item>
+          <ion-item
+            lines="none" button (click)="logoutClicked()">
+            <ion-icon slot="start" size="small" name="log-out-outline"></ion-icon>
+            <ion-label>
+              <p class="smaller-text">{{ dictApp.menu_1_5 }}</p>
+              <p class="small-text color-medium-t">{{ profile?.basicInfo?.email }}</p>
+            </ion-label>
+          </ion-item>
+        </ng-container>
+      </ion-content>
+    </ion-menu>
+
+    <!-- the main content -->
+    <ion-router-outlet id="main" [swipeGesture]="false"></ion-router-outlet>
+  </ion-split-pane>
 
 </ion-app>

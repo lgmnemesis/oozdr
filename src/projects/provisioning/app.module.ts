@@ -15,6 +15,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
     AngularFireAuthModule,
     AngularFireStorageModule,
+    HttpClientModule
   ],
   providers: [
     StatusBar,

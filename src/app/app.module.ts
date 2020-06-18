@@ -1,4 +1,4 @@
-// provisioning file
+// app file
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -15,7 +15,13 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { TopMenuModule } from './components/top-menu/top-menu.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MatchesModule } from './components/matches/matches.module';
+import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
+import { InviteFriendsModalModule } from './components/invite-friends-modal/invite-friends-modal.module';
+import { AlertsModule } from './components/alerts/alerts.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +35,13 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFirestoreModule.enablePersistence({synchronizeTabs: true}),
     AngularFireAuthModule,
     AngularFireStorageModule,
-    HttpClientModule
+    AngularFireAnalyticsModule,
+    TopMenuModule,
+    HttpClientModule,
+    MatchesModule,
+    ScrollbarThemeModule,
+    InviteFriendsModalModule,
+    AlertsModule
   ],
   providers: [
     StatusBar,

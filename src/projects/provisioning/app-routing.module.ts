@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'start', pathMatch: 'full' },
+  { path: '', redirectTo: 'prov-start', pathMatch: 'full' },
   {
-    path: 'start',
-    loadChildren: () => import('./pages/start/start.module').then( m => m.StartPageModule)
+    path: 'prov-start',
+    loadChildren: () => import('./provisioning/pages/prov-start/prov-start.module').then( m => m.ProvStartPageModule)
   },
   // Default redirect route rule if non of the above matches
-  { path: '**', redirectTo: 'start', pathMatch: 'full' }
+  { path: '**', redirectTo: 'prov-start', pathMatch: 'full' }
 ];
 
 @NgModule({

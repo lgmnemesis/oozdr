@@ -3,7 +3,6 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
 import { Platform } from '@ionic/angular';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,6 @@ export class AppComponent {
     private platform: Platform,
     private sharedService: SharedService,
     private swUpdate: SwUpdate,
-    private router: Router,
     private cd: ChangeDetectorRef,
   ) {
     this.initializeApp();
