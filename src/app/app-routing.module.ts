@@ -44,12 +44,12 @@ const routes: Routes = [
   },
   {
     path: 'terms',
-    loadChildren: () => import('./pagese/terms/terms.module').then( m => m.TermsPageModule),
+    loadChildren: () => import('./pages/terms/terms.module').then( m => m.TermsPageModule),
     canActivate: [NoGuard]
   },
   {
     path: 'privacy',
-    loadChildren: () => import('./pagese/privacy/privacy.module').then( m => m.PrivacyPageModule),
+    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule),
     canActivate: [NoGuard]
   },
   {
@@ -59,7 +59,7 @@ const routes: Routes = [
   },
   {
     path: 'support',
-    loadChildren: () => import('./pagese/support/support.module').then( m => m.SupportPageModule),
+    loadChildren: () => import('./pages/support/support.module').then( m => m.SupportPageModule),
     canActivate: [NoGuard]
   },
   {

@@ -292,7 +292,7 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     lang_2_he: 'החל שינוי'
   },
   socialShareComponent: {
-    copied: 'Copied',
+    copied: 'Link copied',
     invite: 'Invite',
     share: {
       title: 'App recommendation for you',
