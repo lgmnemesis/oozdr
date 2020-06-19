@@ -97,4 +97,8 @@ export class AnalyticsService {
   addAsAppDismissedEvent() {
     this.sendEvent('dismissed_as_app');
   }
+
+  ipInfoErrorEvent(error: string) {
+    this.sendEvent('ipinfo_error', {msg: error});
+  }
 }

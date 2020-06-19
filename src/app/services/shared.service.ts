@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Platform, ToastController, LoadingController } from '@ionic/angular';
 import { IonToastMessage } from '../interfaces/toast-message';
+import { AnalyticsService } from './analytics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,8 @@ export class SharedService {
   constructor(private httpClient: HttpClient,
     private platform: Platform,
     private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private analyticsService: AnalyticsService) { }
 
   showInfo() {
     console.log(`Client Version: ${this.getClientVersion()}`);
@@ -68,6 +70,7 @@ export class SharedService {
       .catch(error => { 
         console.error(error);
         this.defaultPhoneCountryCode = this.INITIAL_PHONE_COUNTRY_CODE;
+        this.analyticsService.ipInfoErrorEvent(JSON.stringify(error));
       });
 
     try {
