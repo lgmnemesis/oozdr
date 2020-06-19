@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
 import { MenuController } from '@ionic/angular';
+import { LocaleService } from 'src/app/services/locale.service';
 
 @Component({
   selector: 'app-top-menu',
@@ -35,6 +36,7 @@ export class TopMenuComponent implements OnInit, OnDestroy {
 
   _activeMenu: Subscription;
   _newMatchesIndicator: Subscription;
+  _markForCheckApp: Subscription;
 
   activeMenu: string;
   isVisible = false;
@@ -46,7 +48,8 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     public sharedStoreService: SharedStoreService,
     public sharedService: SharedService,
     private router: Router,
-    private menuCtrl: MenuController) { }
+    private menuCtrl: MenuController,
+    public localeService: LocaleService) { }
 
   ngOnInit() {
     this._activeMenu = this.sharedStoreService.activeMenu$.subscribe((active) => {
@@ -67,6 +70,12 @@ export class TopMenuComponent implements OnInit, OnDestroy {
     });
 
     this.isMobile = this.sharedService.isMobileApp();
+
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.markForCheck();
+      }
+    });
   }
 
   markForCheck() {
@@ -103,5 +112,6 @@ export class TopMenuComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this._activeMenu) this._activeMenu.unsubscribe();
     if (this._newMatchesIndicator) this._newMatchesIndicator.unsubscribe();
+    if (this._markForCheckApp) this._markForCheckApp.unsubscribe();
   }
 }

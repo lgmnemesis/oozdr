@@ -18,7 +18,7 @@
     [disabled]="!useSplitPane" 
     (ionSplitPaneVisible)="ionSplitPaneOutputEvent($event)"> 
     <!--  our side menu  -->
-    <ion-menu contentId="main" [disabled]="!user" (ionDidOpen)="menuOpen()">
+    <ion-menu [side]="localeService.isRightToLeft ? 'end' : 'start'" contentId="main" [disabled]="!user" (ionDidOpen)="menuOpen()">
       <ion-header class="ion-no-border">
         <ion-toolbar>
           <app-top-menu [visible]="isVisibleSplitPane" [isLarge]="false" [showChat]="false"></app-top-menu>
@@ -40,7 +40,7 @@
         </ng-container>
         
         <ng-container *ngIf="sharedStoreService?.activeTopMenu === 'connections' || sharedStoreService?.activeTopMenu === 'matches'">
-          <ion-item button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
+          <ion-item [detail]="false" button [lines]="sharedStoreService?.isMatchesOpen ? 'inset' : 'none'"
             (click)="toggleMatches()">
             <ion-icon 
               slot="start" size="small"
@@ -71,17 +71,17 @@
             <ion-label class="basic-text bold-text">{{ dictApp.menu_1_2 }}</ion-label>
           </ion-item>
           <ion-item *ngIf="canShowInstallApp"
-            lines="none" button (click)="installAsApp()">
+            lines="none" [detail]="false" button (click)="installAsApp()">
             <ion-icon slot="start" size="small" color="warning" name="phone-portrait-outline"></ion-icon>
             <ion-label class="basic-text">{{ dictApp.menu_1_3 }}</ion-label>
           </ion-item>
           <ion-item
-            lines="none" button (click)="inviteFriends()">
+            lines="none" [detail]="false" button (click)="inviteFriends()">
             <ion-icon slot="start" size="small" color="success" name="people-outline"></ion-icon>
             <ion-label class="basic-text">{{ dictApp.menu_1_4 }}</ion-label>
           </ion-item>
           <ion-item
-            lines="none" button (click)="logoutClicked()">
+            lines="none" [detail]="false" button (click)="logoutClicked()">
             <ion-icon slot="start" size="small" name="log-out-outline"></ion-icon>
             <ion-label>
               <p class="smaller-text">{{ dictApp.menu_1_5 }}</p>

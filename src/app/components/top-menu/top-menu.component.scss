@@ -38,6 +38,13 @@ ion-item {
   z-index: 2;
   top: 0;
   bottom: 0;
-  left: 2px;
   margin: auto;
+}
+
+.swipe-icon-ltr {
+  left: 2px;
+}
+
+.swipe-icon-rtl {
+  right: 2px;
 }

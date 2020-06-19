@@ -42,7 +42,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <ion-item button lines="none" [disabled]="blockedMachesCount === 0" (click)="toggleBlockedMatches()">
+          <ion-item [detail]="false" button lines="none" [disabled]="blockedMachesCount === 0" (click)="toggleBlockedMatches()">
             <ion-label> 
               <p class="basic-text bold-text">{{ dictSettings.item_2 }}</p>
               <p class="smaller-text">{{ blockedMachesCount > 0 ? blockedMachesCount : dictSettings.item_2_1 }}</p>
@@ -71,7 +71,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center" *ngIf="localeService.canShowToggleLangButton">
         <ion-col size="12">
-          <ion-item button lines="none" (click)="toggleLang()">
+          <ion-item [detail]="false" button lines="none" (click)="toggleLang()">
             <ion-label *ngIf="!localeService.isRightToLeft">
               <p class="basic-text bold-text">{{ dictSettings.lang_1_en }} {{ selectedLangEN }}</p>
               <p class="smaller-text">{{ dictSettings.lang_1_he }} {{ selectedLangHE }}</p>
@@ -112,7 +112,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <ion-item button lines="none" (click)="goto('terms')">
+          <ion-item [detail]="false" button lines="none" (click)="goto('terms')">
             <ion-label> 
               <p class="basic-text bold-text">{{ dictSettings.item_5 }}</p>
               <p class="smaller-text">{{ dictSettings.item_5_1 }}</p>
@@ -123,7 +123,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <ion-item button lines="none" (click)="goto('privacy')">
+          <ion-item [detail]="false" button lines="none" (click)="goto('privacy')">
             <ion-label> 
               <p class="basic-text bold-text">{{ dictSettings.item_6 }}</p>
               <p class="smaller-text">{{ dictSettings.item_6_1 }}</p>
@@ -134,7 +134,7 @@
 
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
-          <ion-item button lines="none" (click)="goto('support')">
+          <ion-item [detail]="false" button lines="none" (click)="goto('support')">
             <ion-label> 
               <p class="basic-text bold-text">{{ dictSettings.item_7 }}</p>
               <p class="smaller-text">{{ dictSettings.item_7_1 }}</p>
