@@ -54,10 +54,6 @@ export class AnalyticsService {
     this.sendEvent('site_menu', { clicked: 1 });
   }
 
-  matchViewedEvent(matchId: string, userId: string) {
-    this.sendEvent('match_viewed', { match_id: matchId, user_id: userId});
-  }
-
   addBeatFromFirstCardButtonEvent() {
     this.sendEvent('add_beat_card_btn', { clicked: 1 });
   }
@@ -86,6 +82,10 @@ export class AnalyticsService {
     this.sendEvent('beat_removed', { clicked: 1 });
   }
 
+  matchViewedEvent(matchId: string, userId: string) {
+    this.sendEvent('match_viewed', { match_id: matchId, user_id: userId});
+  }
+  
   matchBlockedEvent() {
     this.sendEvent('match_blocked', { clicked: 1 });
   }
