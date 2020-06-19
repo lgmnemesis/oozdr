@@ -4,6 +4,7 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { SharedService } from 'src/app/services/shared.service';
 import { LocaleService } from 'src/app/services/locale.service';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-connections-page',
@@ -23,7 +24,8 @@ export class ConnectionsPage implements OnInit, OnDestroy {
   constructor(private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.sharedStoreService.useSplitPaneSubject.next(true);
@@ -51,10 +53,12 @@ export class ConnectionsPage implements OnInit, OnDestroy {
 
   addConnectionButton() {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
+    this.analyticsService.addBeatButtonEvent();
   }
 
   addClosureButton() {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add_closure'});
+    this.analyticsService.addClosureButtonEvent();
   }
 
   gotConnectionsEvent(event) {

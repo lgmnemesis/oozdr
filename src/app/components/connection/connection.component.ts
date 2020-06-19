@@ -62,7 +62,11 @@ export class ConnectionComponent implements OnInit, OnDestroy {
     this.sharedStoreService.removeConnection(this.connection)
       .catch(error => console.error(error));
     this.dismissToast();
-    this.analyticsService.disconnectEvent();
+    if (this.connection.isClosure) {
+      this.analyticsService.closureRemovedEvent();
+    } else {
+      this.analyticsService.beatRemovedEvent();
+    }
   }
 
   edit(fromContent = false) {

@@ -5,6 +5,7 @@ import { Connection, Profile } from 'src/app/interfaces/profile';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { ConnectionsState } from 'src/app/interfaces/connections-state';
 import { LocaleService } from 'src/app/services/locale.service';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 export class Q {
   name = '';
@@ -75,7 +76,8 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
     private sharedStoreService: SharedStoreService,
-    public localeService: LocaleService) { }
+    public localeService: LocaleService,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.getProfile();
@@ -333,6 +335,11 @@ export class ManageConnectionComponent implements OnInit, OnDestroy {
     this.sharedStoreService.addConnection(connection)
     .then(() => {
       this.sendToastMessage(connection);
+      if (connection.isClosure) {
+        this.analyticsService.closureAddedEvent();
+      } else {
+        this.analyticsService.beatAddedEvent();
+      }
     })
     .catch(error => console.error(error));
     this.close('added');

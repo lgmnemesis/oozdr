@@ -171,7 +171,7 @@ export class ConnectionsComponent implements OnInit, OnDestroy {
 
   addConnectionButton() {
     this.sharedStoreService.connectionsStateSubject.next({state: 'add'});
-    this.analyticsService.addConnectionEvent();
+    this.analyticsService.addBeatFromFirstCardButtonEvent();
   }
 
   manageConnections(state: ConnectionsState) {

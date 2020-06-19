@@ -58,12 +58,32 @@ export class AnalyticsService {
     this.sendEvent('match_viewed', { match_id: matchId, user_id: userId});
   }
 
-  addConnectionEvent() {
-    this.sendEvent('add_connection', { clicked: 1 });
+  addBeatFromFirstCardButtonEvent() {
+    this.sendEvent('add_beat_card_btn', { clicked: 1 });
   }
 
-  disconnectEvent() {
-    this.sendEvent('disconnect', { clicked: 1 });
+  addBeatButtonEvent() {
+    this.sendEvent('add_beat_btn', { clicked: 1 });
+  }
+
+  addClosureButtonEvent() {
+    this.sendEvent('add_closure_btn', { clicked: 1 });
+  }
+
+  beatAddedEvent() {
+    this.sendEvent('beat_added', { clicked: 1 });
+  }
+
+  closureAddedEvent() {
+    this.sendEvent('closure_added', { clicked: 1 });
+  }
+
+  closureRemovedEvent() {
+    this.sendEvent('closure_removed', { clicked: 1 });
+  }
+
+  beatRemovedEvent() {
+    this.sendEvent('beat_removed', { clicked: 1 });
   }
 
   matchBlockedEvent() {
