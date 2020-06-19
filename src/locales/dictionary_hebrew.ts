@@ -95,7 +95,7 @@ export const DictionaryHebrew = {
     input_5: 'בחר/י תמונה',
     input_5_error: 'תמונה לא חוקית',
     nextStep: 'המשך',
-    profilePhoto: 'תמונה פרופיל',
+    profilePhoto: 'תמונת פרופיל',
   },
   welcomeService: {
     defProfilePhotoText: 'תמונת פרופיל (לא חובה)',

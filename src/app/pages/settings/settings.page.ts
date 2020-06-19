@@ -98,7 +98,6 @@ export class SettingsPage implements OnInit, OnDestroy {
   }
 
   setLocalLang() {
-    console.log('2');
     if (this.selectedLang === 'he') {
       this.selectedLangEN = this.dictSettings.selectedLangEN_1;
       this.selectedLangHE = this.dictSettings.selectedLangHE_1;
@@ -110,7 +109,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   setAppLang(event) {
     event.stopPropagation();
-    console.log('1');
     if (this.selectedLang !== this.localeService.lang) {
       this.localeService.toggleLang();
       this.selectedLang = this.localeService.lang;

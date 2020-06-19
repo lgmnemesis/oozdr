@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Connection } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AlertController } from '@ionic/angular';
@@ -6,6 +6,7 @@ import { ConnectionsService } from 'src/app/services/connections.service';
 import { ToastMessage } from 'src/app/interfaces/toast-message';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { LocaleService } from 'src/app/services/locale.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-connection',
@@ -13,7 +14,7 @@ import { LocaleService } from 'src/app/services/locale.service';
   styleUrls: ['./connection.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConnectionComponent implements OnInit {
+export class ConnectionComponent implements OnInit, OnDestroy {
 
   @Input() 
   set connectionInput(c: Connection) {
@@ -23,6 +24,7 @@ export class ConnectionComponent implements OnInit {
     }
   };
 
+  _markForCheckApp: Subscription;
   connection: Connection = null;
   inDisconnectProcess = false;
   dictionary = this.localeService.dictionary;
@@ -32,9 +34,22 @@ export class ConnectionComponent implements OnInit {
     private alertCtrl: AlertController,
     private connectionsService: ConnectionsService,
     private analyticsService: AnalyticsService,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService,
+    private cd: ChangeDetectorRef) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictConnection = this.dictionary.connectionComponent;
+        this.markForCheck();
+      }
+    })
+  }
+
+  markForCheck() {
+    this.cd.markForCheck();
+  }
 
   cardClicked() {
     if (this.connection.isNewMatch) {
@@ -93,5 +108,9 @@ export class ConnectionComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  ngOnDestroy() {
+    if (this._markForCheckApp) this._markForCheckApp.unsubscribe();
   }
 }

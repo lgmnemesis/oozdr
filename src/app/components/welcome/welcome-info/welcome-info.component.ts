@@ -51,6 +51,11 @@ export class WelcomeInfoComponent implements OnInit, OnDestroy {
     this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
       this.dictionary = this.localeService.dictionary;
       this.dictWelcome = this.dictionary.welcomeInfoComponent;
+      if (this.profile) {
+        setTimeout(() => { // welcomeService also change it in its subscription
+          this.welcomeService.profilePhotoText = this.dictWelcome.profilePhoto;
+        }, 0);
+      }
       this.markForCheck();
     });
   }
