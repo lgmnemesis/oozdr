@@ -50,7 +50,9 @@ export const DictionaryEnglish = {
       c3: 'Reach Out',
       c4: 'Feel',
       c5: 'Touch'
-    }
+    },
+    socialShareTitle: 'Invite your friends to join',
+    socialShareContent: 'Speard the word, help us and help your friends to reconnect again.'
   },
   siteFooterComponent: {
     col_1_title: 'Legal',

@@ -10,6 +10,7 @@ import { ScrollbarThemeModule } from 'src/app/directives/scrollbar-theme.directi
 import { ParallaxHeaderModule } from 'src/app/directives/parallax-header.directive';
 import { SiteFooterModule } from 'src/app/components/site-footer/site-footer.module';
 import { WhyOozdrModule } from 'src/app/components/why-oozdr/why-oozdr.module';
+import { SocialShareModule } from 'src/app/components/social-share/social-share.module';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { WhyOozdrModule } from 'src/app/components/why-oozdr/why-oozdr.module';
     ScrollbarThemeModule,
     ParallaxHeaderModule,
     WhyOozdrModule,
-    SiteFooterModule
+    SiteFooterModule,
+    SocialShareModule
   ],
   declarations: [StartPage]
 })

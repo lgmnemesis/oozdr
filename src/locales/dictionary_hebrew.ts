@@ -50,7 +50,9 @@ export const DictionaryHebrew = {
       c3: 'להושיט יד',
       c4: 'להרגיש',
       c5: 'סגירת מעגל'
-    }
+    },
+    socialShareTitle: 'הזמינו חברים להצטרף',
+    socialShareContent: 'עזרו לנו ועזרו לחבריכם להתחבר בחזרה'
   },
   siteFooterComponent: {
     col_1_title: ' ',

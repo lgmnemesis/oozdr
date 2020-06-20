@@ -3,12 +3,37 @@
 }
 
 .bt-share {
-  width: 60px;
-  height: 60px;
   border-radius: 50%;
   background: var(--ion-color-light);
   --padding-start: 0;
   --padding-end: 0;
+}
+
+.bt-large {
+  width: 60px;
+  height: 60px;
+}
+
+.bt-large ion-icon {
+  font-size: 30px;
+}
+
+.bt-medium {
+  width: 40px;
+  height: 40px;
+}
+
+.bt-medium ion-icon {
+  font-size: 20px;
+}
+
+.bt-small {
+  width: 30px;
+  height: 30px;
+}
+
+.bt-small ion-icon {
+  font-size: 15px;
 }
 
 .bt-nav-share ion-icon {

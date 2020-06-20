@@ -183,6 +183,17 @@
         <div class="sec-divider sm-hide"></div>
         <app-why-oozdr></app-why-oozdr>
         <div class="sec-divider sm-hide"></div>
+
+        <ion-row class="ion-justify-content-center ion-align-items-start">
+          <ion-col size="auto" class="ion-text-center">
+            <div class="col-container">
+              <p class="medium-text color-secondary ion-text-wrap">{{ dictStart.socialShareTitle }}</p>
+              <p class="title-text color-dark ion-text-wrap">{{ dictStart.socialShareContent }}</p>
+              <app-social-share [size]="'bt-medium'"></app-social-share>
+            </div>
+          </ion-col>
+        </ion-row>
+        <div class="sec-divider"></div>
       </ion-grid>
     </div>
 

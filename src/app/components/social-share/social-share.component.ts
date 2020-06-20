@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { LocaleService } from 'src/app/services/locale.service';
+import { SharedStoreService } from 'src/app/services/shared-store.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-social-share',
@@ -9,8 +11,11 @@ import { LocaleService } from 'src/app/services/locale.service';
   styleUrls: ['./social-share.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SocialShareComponent implements OnInit {
+export class SocialShareComponent implements OnInit, OnDestroy {
 
+  @Input() size: 'bt-large' | 'bt-medium' | 'bt-small'  = 'bt-large';
+
+  btShareClass = 'bt-share';
   navigatorShareSupport = false;
   copyiedToClipboard = false;
   dictionary = this.localeService.dictionary;
@@ -21,6 +26,8 @@ export class SocialShareComponent implements OnInit {
     title: this.dictSocial.share.title,
     text: this.dictSocial.share.text
   }
+
+  _markForCheckApp: Subscription;
 
   copyToClipboard = (str: string) => {
     const el = document.createElement('textarea');
@@ -45,11 +52,27 @@ export class SocialShareComponent implements OnInit {
   constructor(private sharedService: SharedService,
     private cd: ChangeDetectorRef,
     private analyticsService: AnalyticsService,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService,
+    private sharedStoreService: SharedStoreService) { }
 
   ngOnInit() {
     const nav: any = navigator;
     this.navigatorShareSupport = nav.share;
+    this.btShareClass = `${this.btShareClass} ${this.size}`;
+
+    this._markForCheckApp = this.sharedStoreService.markForCheckApp$.subscribe((mark) => {
+      if (mark) {
+        this.dictionary = this.localeService.dictionary;
+        this.dictSocial = this.dictionary.socialShareComponent;
+      
+        this.share = {
+          url: this.sharedService.dynamicLinkInvitationUrl,
+          title: this.dictSocial.share.title,
+          text: this.dictSocial.share.text
+        }
+        this.markForCheck();
+      }
+    });
   }
 
   markForCheck() {
@@ -108,4 +131,7 @@ export class SocialShareComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    if (this._markForCheckApp) this._markForCheckApp.unsubscribe();
+  }
 }
