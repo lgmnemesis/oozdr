@@ -16,20 +16,9 @@
         </ion-textarea>
         <p class="basic-text p-text s-margin p-stars ion-text-wrap">How would you rate your experience?</p>
         <div class="stars">
-          <ion-button color="success" fill="clear" shape="round" (click)="starClick(1)">
-            <ion-icon slot="icon-only" [name]="starSelected >= 1 ? 'star' : 'star-outline'"></ion-icon>
-          </ion-button>
-          <ion-button color="success" fill="clear" shape="round" (click)="starClick(2)">
-            <ion-icon slot="icon-only" [name]="starSelected >= 2 ? 'star' : 'star-outline'"></ion-icon>
-          </ion-button>
-          <ion-button color="success" fill="clear" shape="round" (click)="starClick(3)">
-            <ion-icon slot="icon-only" [name]="starSelected >= 3 ? 'star' : 'star-outline'"></ion-icon>
-          </ion-button>
-          <ion-button color="success" fill="clear" shape="round" (click)="starClick(4)">
-            <ion-icon slot="icon-only" [name]="starSelected >= 4 ? 'star' : 'star-outline'"></ion-icon>
-          </ion-button>
-          <ion-button color="success" fill="clear" shape="round" (click)="starClick(5)">
-            <ion-icon slot="icon-only" [name]="starSelected >= 5 ? 'star' : 'star-outline'"></ion-icon>
+          <ion-button *ngFor="let star of [1, 2, 3, 4, 5]"
+            color="danger" fill="clear" shape="round" (click)="starClick(star)">
+            <ion-icon slot="icon-only" [name]="starSelected >= star ? 'heart' : 'heart-outline'"></ion-icon>
           </ion-button>
         </div>
         <div class="l-space"></div>
