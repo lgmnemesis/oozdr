@@ -292,7 +292,7 @@ export const DictionaryHebrew = {
     lang_2_he: 'החל שינוי'
   },
   socialShareComponent: {
-    copied: ' קישור הועתק',
+    copied: 'קישור הועתק',
     invite: 'הזמן/י',
     share: {
       title: 'אפליקציה מומלצת בשבילך',

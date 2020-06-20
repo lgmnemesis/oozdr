@@ -18,7 +18,7 @@
     [disabled]="!useSplitPane" 
     (ionSplitPaneVisible)="ionSplitPaneOutputEvent($event)"> 
     <!--  our side menu  -->
-    <ion-menu [side]="localeService.isRightToLeft ? 'end' : 'start'" contentId="main" [disabled]="!user" (ionDidOpen)="menuOpen()">
+    <ion-menu contentId="main" [disabled]="!user" (ionDidOpen)="menuOpen()">
       <ion-header class="ion-no-border">
         <ion-toolbar>
           <app-top-menu [visible]="isVisibleSplitPane" [isLarge]="false" [showChat]="false"></app-top-menu>

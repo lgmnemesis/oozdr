@@ -1,8 +1,6 @@
 <div id="top-menu" [class.border-top]="isMobile || !isVisible" [class.border-bottom]="!isMobile || !showChat">
   <ion-button *ngIf="showSwipeIndication && !sharedStoreService?.menuWasOpenOnce"
-    class="swipe-icon animated animate__bounceInRight" 
-    [class.swipe-icon-rtl]="localeService.isRightToLeft"
-    [class.swipe-icon-ltr]="!localeService.isRightToLeft"
+    class="swipe-icon swipe-icon-ltr animated animate__bounceInRight"
     fill="clear" (click)="openSideMenu()"> 
     <ion-icon color="tertiary" size="small" name="swap-horizontal-outline">
   </ion-icon>
