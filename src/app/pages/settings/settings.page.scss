@@ -36,9 +36,12 @@ ion-item {
 }
 
 .bt-theme {
-  min-width: 200px;
   height: 40px;
   text-transform: capitalize;
+}
+
+.bt-min-width {
+  min-width: 200px;
 }
 
 .item-invite {

@@ -99,6 +99,18 @@
         </ion-col>
       </ion-row>
 
+      <ion-row *ngIf="!isVisibleSplitPane"
+      class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12">
+        <ion-item lines="none" class="item-invite">
+          <ion-button class="bt-theme" fill="clear" (click)="feedback()">
+            <ion-icon name="star-outline"></ion-icon>
+            <ion-label class="basic-text padding-x">{{ dictSettings.menu_feedback }}</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="12">
           <ion-item lines="none">
@@ -153,7 +165,7 @@
         class="ion-justify-content-center ion-align-items-center">
         <ion-col size="auto">
           <ion-item lines="none">
-            <ion-button class="bt-theme" (click)="logout()">
+            <ion-button class="bt-theme bt-min-width" (click)="logout()">
               <ion-icon slot="start" name="log-out-outline" color="minor"></ion-icon>
               <ion-label class="basic-text">{{ dictSettings.item_8 }}</ion-label>
             </ion-button>
@@ -164,7 +176,7 @@
       <ion-row class="ion-justify-content-center ion-align-items-center">
         <ion-col size="auto">
           <ion-item lines="none">
-            <ion-button class="bt-theme" color="danger" (click)="deleteAccount()">
+            <ion-button class="bt-theme bt-min-width" color="danger" (click)="deleteAccount()">
               <ion-icon slot="start" name="trash-outline" color="minor"></ion-icon>
               <ion-label class="basic-text">{{ dictSettings.item_9 }}</ion-label>
             </ion-button>

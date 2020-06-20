@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border" *ngIf="showFeedback">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button disabled="true" class="hide">
+        <ion-icon name="minor" slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="dark" shape="round" (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="showFeedback">
+  <app-feedback (feedbackEvent)="gotEvent($event)"></app-feedback>
+</ion-content>
+
+<ng-container *ngIf="showThankYouMessage">
+  <div class="mark-container animated fadeIn">
+    <ion-icon color="success" name="checkmark-outline"></ion-icon>
+    <p class="biggest-title">{{ localeService.dictionary.feedbackModalComponent.thanks }}</p>
+  </div>
+</ng-container>

@@ -1,0 +1,59 @@
+<ion-grid *ngIf="!showInviteFriendsMessage">
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <p class="larger-text p-text s-margin color-secondary ion-text-wrap">We’re excited to hear from you!</p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <div class="q-div">
+        <ion-textarea 
+          [placeholder]="'Let us know what we can do better...'"
+          rows="5"
+          spellcheck="true"
+          autoGrow="true"
+          (ionChange)="setMessage($event)">
+        </ion-textarea>
+        <p class="basic-text p-text s-margin p-stars ion-text-wrap">How would you rate your experience?</p>
+        <div class="stars">
+          <ion-button color="success" fill="clear" shape="round" (click)="starClick(1)">
+            <ion-icon slot="icon-only" [name]="starSelected >= 1 ? 'star' : 'star-outline'"></ion-icon>
+          </ion-button>
+          <ion-button color="success" fill="clear" shape="round" (click)="starClick(2)">
+            <ion-icon slot="icon-only" [name]="starSelected >= 2 ? 'star' : 'star-outline'"></ion-icon>
+          </ion-button>
+          <ion-button color="success" fill="clear" shape="round" (click)="starClick(3)">
+            <ion-icon slot="icon-only" [name]="starSelected >= 3 ? 'star' : 'star-outline'"></ion-icon>
+          </ion-button>
+          <ion-button color="success" fill="clear" shape="round" (click)="starClick(4)">
+            <ion-icon slot="icon-only" [name]="starSelected >= 4 ? 'star' : 'star-outline'"></ion-icon>
+          </ion-button>
+          <ion-button color="success" fill="clear" shape="round" (click)="starClick(5)">
+            <ion-icon slot="icon-only" [name]="starSelected >= 5 ? 'star' : 'star-outline'"></ion-icon>
+          </ion-button>
+        </div>
+        <div class="l-space"></div>
+
+        <div class="center-div">
+          <ion-button [disabled]="!canSendMessage" (click)="sendMessage()">
+            <ion-label>Send feedback</ion-label>
+          </ion-button>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-grid *ngIf="showInviteFriendsMessage">
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <p class="larger-text p-text color-secondary ion-text-wrap">We’re so glad you’re happy!</p>
+      <p class="basic-text p-text color-secondary ion-text-wrap">It’d really help us out if you’d tell your friends about us</p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-col size="auto">
+      <app-social-share (clickedEvent)="socialShareClicked()"></app-social-share>        
+    </ion-col>
+  </ion-row>
+</ion-grid>

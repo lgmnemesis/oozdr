@@ -1,0 +1,72 @@
+@import '../../styles/fonts-text';
+
+@media only screen and (max-width: $SMALL_WINDOW_WIDTH) {
+  .q-div {
+    width: 100% !important;
+  }
+
+  .q-div ion-textarea{
+    width: 290px !important;
+  }
+}
+
+.q-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+  padding: 0 10px;
+}
+
+.q-div ion-textarea {
+  @extend .basic-text;
+  border: 1px solid var(--ion-color-light-shade);
+  border-radius: 10px;
+  --padding-start: 20px;
+  --padding-end: 10px;
+  margin: 20px 0;
+  width: 400px;
+}
+
+.center-div {
+  width: 100%;
+  text-align: center;
+}
+
+.center-div ion-button {
+  --padding-start: 25px;
+  --padding-end: 25px;
+}
+
+.p-text {
+  padding: 0 20px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.s-margin {
+  margin: 5px 0;
+}
+
+.stars {
+  position: relative;
+  text-align: center;
+}
+
+.p-stars {
+  margin-bottom: 0;
+}
+
+.stars ion-button {
+  width: 40px;
+  height: 40px;
+  --padding-bottom: 0;
+  --padding-top: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.l-space {
+  padding: 10px 0;
+}

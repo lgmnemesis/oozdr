@@ -18,6 +18,7 @@ import { MatchesModule } from './components/matches/matches.module';
 import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
 import { InviteFriendsModalModule } from './components/invite-friends-modal/invite-friends-modal.module';
 import { AlertsModule } from './components/alerts/alerts.module';
+import { FeedbackModalModule } from './components/feedback-modal/feedback-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,8 @@ import { AlertsModule } from './components/alerts/alerts.module';
     MatchesModule,
     ScrollbarThemeModule,
     InviteFriendsModalModule,
-    AlertsModule
+    AlertsModule,
+    FeedbackModalModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

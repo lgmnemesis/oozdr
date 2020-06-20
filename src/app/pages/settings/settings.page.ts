@@ -10,6 +10,7 @@ import { FcmService } from 'src/app/services/fcm.service';
 import { InviteFriendsModalComponent } from 'src/app/components/invite-friends-modal/invite-friends-modal.component';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { LocaleService } from 'src/app/services/locale.service';
+import { FeedbackModalComponent } from 'src/app/components/feedback-modal/feedback-modal.component';
 
 @Component({
   selector: 'app-settings',
@@ -159,12 +160,17 @@ export class SettingsPage implements OnInit, OnDestroy {
 
   inviteFriends() {
     this.sharedStoreService.isModalOpen = true;
-    this.presentModal();
+    this.presentModal(InviteFriendsModalComponent);
   }
 
-  async presentModal() {
+  feedback() {
+    this.sharedStoreService.isModalOpen = true;
+    this.presentModal(FeedbackModalComponent);
+  }
+
+  async presentModal(component: any) {
     const modal = await this.modalCtrl.create({
-      component: InviteFriendsModalComponent,
+      component: component,
       cssClass: 'present-modal-properties'
     });
 

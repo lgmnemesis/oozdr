@@ -13,6 +13,7 @@ export const DictionaryEnglish = {
     menu_1_2: 'Settings',
     menu_1_3: 'Install App',
     menu_1_4: 'Invite Your Friends',
+    menu_feedback: 'Feedback',
     menu_1_5: 'Log Out',
     menu_2_1: 'Beats',
     menu_2_2: 'Matches'
@@ -271,6 +272,7 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     item_2: 'Blocked Matches',
     item_2_1: 'None',
     item_3: 'Invite Your Friends',
+    menu_feedback: 'Feedback',
     item_4: 'About',
     item_4_1: 'Version:',
     item_5: 'Terms of Service',
@@ -333,5 +335,8 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
     text_3: 'What if it\'s not the right time to reach out?',
     text_4: 'What if they DO want to reconnect but are not sure how? or just afraid to do so?',
     text_5: '\'Oozdr\' takes all these unanswered questions out of the way'
+  },
+  feedbackModalComponent: {
+    thanks: 'Thank You.'
   }
 }

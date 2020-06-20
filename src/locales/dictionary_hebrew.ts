@@ -13,6 +13,7 @@ export const DictionaryHebrew = {
     menu_1_2: 'הגדרות',
     menu_1_3: 'התקנת אפליקציה',
     menu_1_4: 'שתפו חברים',
+    menu_feedback: 'פידבק',
     menu_1_5: 'יציאה',
     menu_2_1: 'ביטים',
     menu_2_2: 'מאצ\'ים'
@@ -271,6 +272,7 @@ export const DictionaryHebrew = {
     item_2: 'מאצ\'ים חסומים',
     item_2_1: 'אין',
     item_3: 'הזמן/י חברים',
+    menu_feedback: 'פידבק',
     item_4: 'אודות',
     item_4_1: 'גרסה:',
     item_5: 'Terms of Service',
@@ -303,7 +305,7 @@ export const DictionaryHebrew = {
   },
   inviteFriendsComponent: {
     text_1: 'עזרו לחבר להתחבר מחדש',
-    text_2: 'הזמנו חבר שאתם חושבים שיוכל להעזר בנו.',
+    text_2: 'הזמינו חבר שאתם חושבים שיוכל להעזר בנו.',
     text_3: 'את מי תרצו להזמין?'
   },
   supportPage: {
@@ -333,5 +335,8 @@ export const DictionaryHebrew = {
     text_3: 'מה אם זה לא הזמן המתאים כרגע לנסות?',
     text_4: 'ואולי הם כן רוצים לחדש את הקשר, רק לא בטוחים מה הדרך הנכונה, או פשוט פוחדים לעשות את הצעד הראשון?',
     text_5: '\'OOZDR\' כאן כדי לענות על כל השאלות האלה אחת ולתמיד.'
+  },
+  feedbackModalComponent: {
+    thanks: 'תודה רבה.'
   }
 }

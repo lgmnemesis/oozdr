@@ -81,6 +81,11 @@
             <ion-label class="basic-text">{{ dictApp.menu_1_4 }}</ion-label>
           </ion-item>
           <ion-item
+            lines="none" [detail]="false" button (click)="feedbackClicked()">
+            <ion-icon slot="start" size="small" color="secondary" name="star-outline"></ion-icon>
+            <ion-label class="basic-text">{{ dictApp.menu_feedback }}</ion-label>
+          </ion-item>
+          <ion-item
             lines="none" [detail]="false" button (click)="logoutClicked()">
             <ion-icon slot="start" size="small" name="log-out-outline"></ion-icon>
             <ion-label>

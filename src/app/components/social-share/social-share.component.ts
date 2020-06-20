@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { SharedService } from 'src/app/services/shared.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { LocaleService } from 'src/app/services/locale.service';
@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class SocialShareComponent implements OnInit, OnDestroy {
 
   @Input() size: 'bt-large' | 'bt-medium' | 'bt-small'  = 'bt-large';
+  @Output() clickedEvent = new EventEmitter();
 
   btShareClass = 'bt-share';
   navigatorShareSupport = false;
@@ -86,6 +87,7 @@ export class SocialShareComponent implements OnInit, OnDestroy {
     const url = `${base_url}text=${encodedDescription}${encodedUrl}`;
     this.analyticsService.socialShareEvent('whatsapp');
     this.sharedService.openNewWindow(url);
+    this.clicked();
   }
 
   shareOnFacebook() {
@@ -94,6 +96,7 @@ export class SocialShareComponent implements OnInit, OnDestroy {
     const url = `${base_url}u=${encodedUrl}`;
     this.analyticsService.socialShareEvent('facebook');
     this.sharedService.openNewWindow(url, 800);
+    this.clicked();
   }
 
   shareOnTwitter() {
@@ -104,6 +107,7 @@ export class SocialShareComponent implements OnInit, OnDestroy {
     const url = `${base_url}url=${encodedUrl}&text=${encodedText}${encodedUrl}`;
     this.analyticsService.socialShareEvent('twitter');
     this.sharedService.openNewWindow(url);
+    this.clicked();
   }
 
   shareWithMail() {
@@ -111,6 +115,7 @@ export class SocialShareComponent implements OnInit, OnDestroy {
     const url = `mailto:?subject=${this.share.title}&body=${body}`;
     this.analyticsService.socialShareEvent('email');
     this.sharedService.openNewWindow(url);
+    this.clicked();
   }
   
   copyLink() {
@@ -118,17 +123,23 @@ export class SocialShareComponent implements OnInit, OnDestroy {
     this.copyiedToClipboard = true;
     setTimeout(() => {
       this.copyiedToClipboard = false;
+      this.clicked();
       this.markForCheck();
     }, 1600);
   }
 
   async navigatorShare() {
+    this.clicked();
     const nav: any = navigator;
     try {
       await nav.share(this.share);
     } catch (error) {
       console.error('Could not share!', error);
     }
+  }
+
+  clicked() {
+    this.clickedEvent.next(true);
   }
 
   ngOnDestroy() {
