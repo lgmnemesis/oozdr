@@ -149,6 +149,11 @@ export class StartPage implements OnInit, OnDestroy {
     return await modal.present();
   }
 
+  gotoWelcome() {
+    this.welcomeService.gotoWelcome();
+    this.analyticsService.joinUsButtonEvent();
+  }
+
   installAsApp() {
     this.alertsService.promptForPwaInstallation();
   }

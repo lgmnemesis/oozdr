@@ -40,7 +40,7 @@
           <p class="p-sub-title">{{ dictStart.sub_title_2 }}</p>
           <p class="p-sub-title">{{ dictStart.sub_title_3 }}</p>
           <div class="top-bt-c">
-            <ion-button shape="round" (click)="welcomeService?.gotoWelcome()">
+            <ion-button shape="round" (click)="gotoWelcome()">
               <ion-label class="basic-text">{{ dictStart.join_us_btn }}</ion-label>
             </ion-button>
           </div>
@@ -55,7 +55,7 @@
           <p class="p-sub-title">{{ dictStart.sub_title_2 }}</p>
           <p class="p-sub-title">{{ dictStart.sub_title_3 }}</p>
           <div class="top-bt-c">
-            <ion-button shape="round" (click)="welcomeService?.gotoWelcome()">
+            <ion-button shape="round" (click)="gotoWelcome()">
               <ion-label class="basic-text">{{ dictStart.join_us_btn }}</ion-label>
             </ion-button>
           </div>
@@ -206,7 +206,7 @@
     <p class="p-title color-minor">{{ dictStart.title_3_as_app }}</p>
     
     <div class="top-bt-c">
-      <ion-button class="mobile-welcome-bt" size="large" shape="round" (click)="welcomeService?.gotoWelcome()">
+      <ion-button class="mobile-welcome-bt" size="large" shape="round" (click)="gotoWelcome()">
         <ion-label class="basic-text ion-text-uppercase">{{ dictStart.get_started }}</ion-label>
       </ion-button>
       <p class="basic-text color-minor">

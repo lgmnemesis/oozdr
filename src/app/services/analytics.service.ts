@@ -121,4 +121,8 @@ export class AnalyticsService {
   ipInfoErrorEvent(error: string) {
     this.sendEvent('ipinfo_error', {msg: error});
   }
+
+  joinUsButtonEvent() {
+    this.sendEvent('join_us_btn', { clicked: 1 });
+  }
 }
