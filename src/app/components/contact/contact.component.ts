@@ -6,6 +6,7 @@ import { IonToastMessage } from 'src/app/interfaces/toast-message';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { LocaleService } from 'src/app/services/locale.service';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-contact',
@@ -25,7 +26,8 @@ export class ContactComponent implements OnInit {
     private sharedService: SharedService,
     private sharedStoreService: SharedStoreService,
     private cd: ChangeDetectorRef,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
     this.createFeedback();
@@ -75,6 +77,7 @@ export class ContactComponent implements OnInit {
       }
       this.createFeedback();
       this.sharedService.presentToast(toast);
+      this.analyticsService.sendFeedbackEvent();
     }
     this.sending = false;
     this.markForCheck();

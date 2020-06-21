@@ -125,4 +125,8 @@ export class AnalyticsService {
   joinUsButtonEvent() {
     this.sendEvent('join_us_btn', { clicked: 1 });
   }
+
+  sendFeedbackEvent(stars = 0) {
+    this.sendEvent('feedback', { stars: stars });
+  }
 }

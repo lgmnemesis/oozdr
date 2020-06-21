@@ -338,5 +338,13 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
   },
   feedbackModalComponent: {
     thanks: 'Thank You.'
+  },
+  feedbackComponent: {
+    title: 'We’re excited to hear from you!',
+    q_1: 'How can we do better?',
+    q_2: 'How would you rate your experience?',
+    sendBtn: 'Send feedback',
+    thanks: 'Thank you for that!',
+    invite: 'It’d really help us out if you’d tell your friends about us'
   }
 }

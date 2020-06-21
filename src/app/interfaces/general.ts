@@ -14,6 +14,7 @@ export interface Feedback {
   name: string;
   email: string;
   message: string;
+  stars?: number;
 }
 
 export interface Alert {
