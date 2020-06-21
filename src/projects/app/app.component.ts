@@ -13,6 +13,7 @@ import { AnalyticsService } from './services/analytics.service';
 import { AlertsService } from './services/alerts.service';
 import { LocaleService } from './services/locale.service';
 import { WelcomeService } from './services/welcome.service';
+import { FeedbackModalComponent } from './components/feedback-modal/feedback-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -237,12 +238,17 @@ export class AppComponent {
 
   inviteFriends() {
     this.sharedStoreService.isModalOpen = true;
-    this.presentModal();
+    this.presentModal(InviteFriendsModalComponent);
   }
 
-  async presentModal() {
+  feedbackClicked() {
+    this.sharedStoreService.isModalOpen = true;
+    this.presentModal(FeedbackModalComponent);
+  }
+
+  async presentModal(component: any) {
     const modal = await this.modalCtrl.create({
-      component: InviteFriendsModalComponent,
+      component: component,
       cssClass: 'present-modal-properties'
     });
     modal.onDidDismiss().then(() => {

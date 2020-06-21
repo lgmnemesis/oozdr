@@ -2,11 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -22,6 +18,7 @@ import { MatchesModule } from './components/matches/matches.module';
 import { ScrollbarThemeModule } from './directives/scrollbar-theme.directive';
 import { InviteFriendsModalModule } from './components/invite-friends-modal/invite-friends-modal.module';
 import { AlertsModule } from './components/alerts/alerts.module';
+import { FeedbackModalModule } from './components/feedback-modal/feedback-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,11 +38,10 @@ import { AlertsModule } from './components/alerts/alerts.module';
     MatchesModule,
     ScrollbarThemeModule,
     InviteFriendsModalModule,
-    AlertsModule
+    AlertsModule,
+    FeedbackModalModule
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

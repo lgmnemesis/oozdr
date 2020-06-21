@@ -1,0 +1,43 @@
+<ion-header>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="margin-top-header">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <ion-input
+          autocomplete="email"
+          placeholder="Email"
+          type="email"
+          name="email" 
+          id="email-id"
+          autocomplete="email"
+          debounce="100"
+          [autofocus]="true"
+          (ionChange)="inputId($event)">
+        </ion-input>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-input
+          placeholder="Password"
+          type="password"
+          name="password" 
+          id="password-id"
+          autocomplete="password"
+          debounce="100"
+          (ionChange)="inputPassword($event)">
+        </ion-input>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button
+          color="primary"
+          fill="solid"
+          shape="round"
+          (keypress)="signIn()"
+          (click)="signIn()">
+          <ion-label class="content-text">Enter</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
