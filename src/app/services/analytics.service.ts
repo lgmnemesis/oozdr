@@ -134,6 +134,10 @@ export class AnalyticsService {
     this.sendEvent('reg_backto_start', { clicked: 1 });
   }
 
+  regBackToInfo() {
+    this.sendEvent('reg_backto_info', { clicked: 1 });
+  }
+
   regFinishStep() {
     this.sendEvent('reg_finish_step', { clicked: 1 });
   }

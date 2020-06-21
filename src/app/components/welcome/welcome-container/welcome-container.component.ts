@@ -48,7 +48,10 @@ export class WelcomeContainerComponent implements OnInit {
     if (this.step < 1) {
       // goto start
       this.welcomeService.backStep();
+      this.analyticsService.regBackToStart();
       this.gotoStart();
+    } else {
+      this.analyticsService.regBackToInfo();
     }
     this.welcomeService.isDisableNextButton = false;
     this.markForCheck();
@@ -68,7 +71,6 @@ export class WelcomeContainerComponent implements OnInit {
   }
 
   gotoStart() {
-    this.analyticsService.regBackToStart();
     this.navCtrl.navigateRoot('/start')
     .catch((error) => {
       console.error(error);
