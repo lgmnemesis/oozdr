@@ -8,28 +8,28 @@ service cloud.firestore {
     }
     
     match /profiles/{userId} {
-    	allow read: if isProfileOwner(userId);
+    	allow read: if isProfileOwner(userId) || isAdmin();
     	allow create: if canCreateProfileDoc(userId) && isValidProfile();
     	allow update: if isProfileOwner(userId) && isValidProfile();
     	allow delete: if false; // TODO: delete user data from functions, when user is deleted
     }
     
     match /connections/{connectionId} {
-    	allow read: if isOwner();
+    	allow read: if isOwner() || isAdmin();
     	allow create: if isSignedIn() && isValidForConnectionCreateDoc();
     	allow update: if isOwner() && isValidForConnectionUpdateDoc();
     	allow delete: if isOwner();
     }
     
     match /matches/{matchId} {
-    	allow read: if canReadChat();
+    	allow read: if canReadChat() || isAdmin();
     	allow create: if false;
     	allow update: if canUpdateChat();
     	allow delete: if false;
     }
     
     match /feedbacks/form_feedbacks {
-    	allow read: if false;
+    	allow read: if false || isAdmin();
     	allow create: if false;
     	allow update: if canUpdateFeedback();
     	allow delete: if false;
@@ -38,6 +38,10 @@ service cloud.firestore {
     
     // Functions Section
     
+    function isAdmin() {
+      return request.auth.uid == '1BNI43bMo8Zt6WWYgOVR6lSPQKB2';
+    }
+
     function canCreateProfileDoc(userId) {
     	return isSignedIn() && request.auth.uid == userId;
     }
