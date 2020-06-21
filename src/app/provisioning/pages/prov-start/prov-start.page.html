@@ -5,5 +5,55 @@
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="auto">
+        <div class="col-container">
+          <p>Timestamp</p>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <div class="col-container">
+          <p>User Name</p>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <div class="col-container">
+          <p>Connections</p>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <div class="col-img"></div>
+      </ion-col>
+    </ion-row>
 
+    <ion-row class="ion-justify-content-center ion-align-items-center" *ngFor="let data of usersData">
+      <ion-col size="auto">
+        <div class="col-container">
+          <p>{{ data?.profile?.timestamp | date }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <div class="col-container">
+          <p>{{ data?.profile?.basicInfo.name }}</p>
+          <p>{{ data?.profile?.basicInfo.gender }}</p>
+          <p>{{ data?.profile?.basicInfo.mobile }}</p>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <div class="col-container">
+          <p>{{ data?.connectionsData?.connections?.length }} connections</p>
+          <ng-container *ngFor="let connection of data?.connectionsData?.connections">
+            <p>{{ connection?.basicInfo?.name }}</p>
+          </ng-container>
+        </div>
+      </ion-col>
+      <ion-col size="auto">
+        <div class="col-img">
+          <img *ngIf="data?.profile.basicInfo?.profile_img_url"
+            [src]="data?.profile.basicInfo?.profile_img_url" alt="profile image" crossorigin="anonymous">
+          </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
