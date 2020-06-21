@@ -60,8 +60,11 @@ export class ProvStoreService {
                 }
               });
               newData.connectionsData._connections = _connetions;
+            } else {
+              data.profile = profile;
             }
           });
+          this.usersDataUpdatedSubject.next(true);
         }
       });
     }
