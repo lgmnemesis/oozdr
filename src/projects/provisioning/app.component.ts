@@ -3,6 +3,7 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
 import { Platform } from '@ionic/angular';
 import { SharedService } from './services/shared.service';
 import { SwUpdate } from '@angular/service-worker';
+import { ProvAuthService } from './provisioning/services/prov-auth.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,9 @@ export class AppComponent {
     private sharedService: SharedService,
     private swUpdate: SwUpdate,
     private cd: ChangeDetectorRef,
+    private provAuthService: ProvAuthService
   ) {
+    this.provAuthService.init();
     this.initializeApp();
   }
 
