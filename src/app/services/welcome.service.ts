@@ -173,14 +173,15 @@ export class WelcomeService {
   }
 
   isValidBirthday(): boolean {
-    this.birthdayError = 'no errors';
-    this.isBirthdayError = false;
-    const birthday = this.basicInfo.birthday.trim();
-    if (!birthday) {
-      this.birthdayError = this.dictWelcomeService.birthdayError;
-      this.isBirthdayError = true;   
-    }
-    return !this.isBirthdayError;
+    // this.birthdayError = 'no errors';
+    // this.isBirthdayError = false;
+    // const birthday = this.basicInfo.birthday.trim();
+    // if (!birthday) {
+    //   this.birthdayError = this.dictWelcomeService.birthdayError;
+    //   this.isBirthdayError = true;   
+    // }
+    // return !this.isBirthdayError;
+    return true; // removed date picker for now - do we realy need bearthday?
   }
 
   isValidatedForm(): boolean {

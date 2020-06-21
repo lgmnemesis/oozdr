@@ -11,16 +11,37 @@
       <p>{{ dictWelcome.input_1 }}</p>
       <ion-item lines="none" class="item-input">
         <ion-input #nameinput
-          [placeholder]="dictWelcome.input_1_1" 
-          maxLength="20" 
-          debounce="300" 
-          [value]="welcomeService?.basicInfo?.name" 
+          autocomplete="name"
+          maxLength="20"
+          debounce="300"
+          [placeholder]="dictWelcome.input_1_1"
+          [value]="welcomeService?.basicInfo?.name"
           (ionChange)="setName($event)">
           <ion-icon name="person-outline"></ion-icon>
         </ion-input>
       </ion-item>
       <p class="p-error" [class.p-error-active]="welcomeService?.isNameError">{{ welcomeService?.nameError }}</p>
     </ion-col>
+
+    <ion-col size="auto">
+      <p>{{ dictWelcome.input_3 }}</p>
+      <ion-item lines="none" class="item-input">
+        <ion-input 
+          autocomplete="email"
+          type="email"
+          inputmode="email"
+          debounce="300"
+          [placeholder]="dictWelcome.input_3_1"
+          [value]="welcomeService?.basicInfo?.email" 
+          (ionChange)="setEmail($event)">
+          <ion-icon name="mail-outline"></ion-icon>
+        </ion-input>
+      </ion-item>
+      <p class="p-error"[class.p-error-active]="welcomeService?.isEmailError">{{ welcomeService?.emailError }}</p>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center ion-align-items-center">
 
     <ion-col size="auto">
       <p>{{ dictWelcome.input_2 }}</p>
@@ -40,26 +61,8 @@
       </ion-item>
       <p class="p-error"[class.p-error-active]="welcomeService?.isGenderError">{{ welcomeService?.genderError }}</p>
     </ion-col>
-  </ion-row>
 
-  <ion-row class="ion-justify-content-center ion-align-items-center">
-    <ion-col size="auto">
-      <p>{{ dictWelcome.input_3 }}</p>
-      <ion-item lines="none" class="item-input">
-        <ion-input 
-          type="email" 
-          inputmode="email" 
-          [placeholder]="dictWelcome.input_3_1"
-          debounce="300" 
-          [value]="welcomeService?.basicInfo?.email" 
-          (ionChange)="setEmail($event)">
-          <ion-icon name="mail-outline"></ion-icon>
-        </ion-input>
-      </ion-item>
-      <p class="p-error"[class.p-error-active]="welcomeService?.isEmailError">{{ welcomeService?.emailError }}</p>
-    </ion-col>
-
-    <ion-col size="auto">
+    <!-- <ion-col size="auto">
       <p>{{ dictWelcome.input_4 }}</p>
       <ion-item lines="none" class="item-input">
         <ion-icon size="small" name="calendar-outline"></ion-icon>
@@ -75,7 +78,7 @@
         </ion-datetime>
       </ion-item>
       <p class="p-error" [class.p-error-active]="welcomeService?.isBirthdayError">{{ welcomeService?.birthdayError }}</p>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
 
   <ion-row class="ion-justify-content-center ion-align-items-center">

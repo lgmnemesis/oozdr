@@ -10,6 +10,7 @@
   <ion-row class="ion-justify-content-center ion-align-items-center">
     <ion-col size="auto" class="direction-ltr">
       <input id="tel-input"
+        autocomplete="tel"
         type="tel" ng2TelInput
         [disabled]="isContinueButtonDisabled"
         [ng2TelInputOptions]="{initialCountry: countryCode, utilsScript: '../../../assets/js/intl-tel-input/utils.js'}"
@@ -52,9 +53,9 @@
         <ion-input 
           type="number" 
           inputmode="number" 
-          [placeholder]="dictPhone.verifyCodePlaceholder"
           debounce="300"
           maxlength="20"
+          [placeholder]="dictPhone.verifyCodePlaceholder"
           [value]="verificationCode" 
           (ionChange)="setVerificationInput($event)">
           <ion-icon name="keypad-outline"></ion-icon>
