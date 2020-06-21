@@ -60,6 +60,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   sendLoginCode() {
+    this.analyticsService.regPhoneEntered();
     this.isContinueButtonDisabled = true;
     this.phoneError = 'no errors';
     this.isPhoneError = false;
@@ -67,6 +68,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       this.phoneError = !this.phoneNumber.line  ? this.dictPhone.phoneError_1 : this.dictPhone.phoneError_2;
       this.isPhoneError = true;
       this.isContinueButtonDisabled = false;
+      this.analyticsService.regPhoneError();
       this.markForCheck();
       return;
     }
@@ -96,6 +98,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   async verifyLoginCode() {
+    this.analyticsService.regVerifyLoginCode();
     this.isVerificationError = false;
     this.verificationError = 'no errors';
     if (!this.confirmationResult) {

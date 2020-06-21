@@ -340,7 +340,7 @@ export const DictionaryHebrew = {
     thanks: 'תודה רבה.'
   },
   feedbackComponent: {
-    title: 'אנחנו שמחים לשמוע ממך!',
+    title: 'שמחים לשמוע ממך!',
     q_1: 'איך לדעתך אנחנו יכולים להשתפר?',
     q_2: 'מה מידת שביעות הרצון שלך?',
     sendBtn: 'שלח/י פידבק',

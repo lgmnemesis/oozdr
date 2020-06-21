@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { LocaleService } from 'src/app/services/locale.service';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-welcome-container',
@@ -26,7 +27,8 @@ export class WelcomeContainerComponent implements OnInit {
     public sharedStoreService: SharedStoreService,
     private authService: AuthService,
     private welcomeService: WelcomeService,
-    private localeService: LocaleService) { }
+    private localeService: LocaleService,
+    private analyticsService: AnalyticsService) { }
 
   ngOnInit() {
   }
@@ -61,10 +63,12 @@ export class WelcomeContainerComponent implements OnInit {
     this.step++;
     this.isBack = false;
     this.isNext = true;
+    this.analyticsService.regNextToMobileReg();
     this.markForCheck();
   }
 
   gotoStart() {
+    this.analyticsService.regBackToStart();
     this.navCtrl.navigateRoot('/start')
     .catch((error) => {
       console.error(error);
@@ -72,6 +76,7 @@ export class WelcomeContainerComponent implements OnInit {
   }
 
   async finishInfoRegistration() {
+    this.analyticsService.regFinishStep();
     const info = this.welcomeService.basicInfo;
     const user = await this.authService.getUser();
     if (user) {

@@ -126,6 +126,30 @@ export class AnalyticsService {
     this.sendEvent('join_us_btn', { clicked: 1 });
   }
 
+  regNextToMobileReg() {
+    this.sendEvent('reg_mobile', { clicked: 1 });
+  }
+
+  regBackToStart() {
+    this.sendEvent('reg_backto_start', { clicked: 1 });
+  }
+
+  regFinishStep() {
+    this.sendEvent('reg_finish_step', { clicked: 1 });
+  }
+
+  regPhoneEntered() {
+    this.sendEvent('reg_phone_submited', { clicked: 1 });
+  }
+
+  regPhoneError() {
+    this.sendEvent('reg_phone_error', { clicked: 1 });
+  }
+
+  regVerifyLoginCode() {
+    this.sendEvent('reg_verify_code', { clicked: 1 });
+  }
+
   sendFeedbackEvent(stars = 0) {
     this.sendEvent('feedback', { stars: stars });
   }
