@@ -107,6 +107,13 @@ export class WelcomeService {
   }
 
   resetParams() {
+    this.resetErrors();
+    this.isDisableNextButton = false;
+    this.profilePhotoText = this.defProfilePhotoText;
+    this.goHomeOnceLock = false;
+  }
+  
+  resetErrors() {
     this.nameError = 'no errors';
     this.isNameError = false;
     this.genderError = 'no errors';
@@ -115,11 +122,8 @@ export class WelcomeService {
     this.isEmailError = false;
     this.birthdayError = 'no errors';
     this.isBirthdayError = false;
-    this.isDisableNextButton = false;
-    this.profilePhotoText = this.defProfilePhotoText;
-    this.goHomeOnceLock = false;
   }
-  
+
   resetStore() {
     this.basicInfo = null;
     this.infoStore = null;

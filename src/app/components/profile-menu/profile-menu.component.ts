@@ -46,6 +46,8 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
       this.profile = profile;
       this.markForCheck();
     });
+
+    this.welcomeService.resetErrors();
   }
 
   markForCheck() {
@@ -63,6 +65,7 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
 
   resetProfileChanges() {
     this.welcomeService.basicInfo = JSON.parse(JSON.stringify(this.profile.basicInfo));
+    this.welcomeService.resetErrors();
     this.profile = JSON.parse(JSON.stringify(this.profile));
     this.isChangedEvent.next(false);
     this.markForCheck();
