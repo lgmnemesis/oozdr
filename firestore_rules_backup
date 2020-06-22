@@ -76,7 +76,9 @@ service cloud.firestore {
     }
 
     function isValidProfile() {
-      return isValid() && incomingData().fcmTokens.size() <= 5;
+      return isValid() 
+      	&& incomingData().basicInfo.mobile == request.auth.token.phone_number
+      	&& incomingData().fcmTokens.size() <= 5;
     }
 
     function isValidChat() {
