@@ -69,6 +69,11 @@ export class ProfileMenuComponent implements OnInit, OnDestroy {
   }
 
   async saveProfile() {
+    const name = this.welcomeService.basicInfo.name;
+    if (!name || name.trim() === '') {
+      this.welcomeService.basicInfo.name = this.profile.basicInfo.name;
+    }
+    
     if (this.welcomeService.basicInfo.profile_img_url) {
       const uploadDir = `${this.sharedService.uploadProfileImgDir}/${this.profile.user_id}`;
       await this.welcomeService.nextStep();
