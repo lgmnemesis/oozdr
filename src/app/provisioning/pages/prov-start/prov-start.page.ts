@@ -20,13 +20,24 @@ export class ProvStartPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.provStoreService.registerAllUsersRelatedData(100);
     this._usersData = this.provStoreService.usersData$.subscribe((data) => {
-      this.usersData = data;
-      this.markForCheck();
+      if (data) {
+        console.log('moshe display update');
+        this.usersData = this.sortedData(data);
+        this.markForCheck();
+      }
     })
   }
 
   markForCheck() {
     this.cd.markForCheck();
+  }
+
+  sortedData(data: UserData[]) {
+    return data.sort((a, b) => (a.profile.timestamp > b.profile.timestamp) ? -1 : 1);
+  }
+
+  trackById(i, message) {
+    return message.id;
   }
 
   ngOnDestroy() {

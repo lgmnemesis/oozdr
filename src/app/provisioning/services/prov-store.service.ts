@@ -3,6 +3,7 @@ import { ProvDatabaseService } from './prov-database.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { Profile } from 'src/app/interfaces/profile';
 import { UserData } from '../interfaces/general';
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +29,13 @@ export class ProvStoreService {
 
   registerAllUsersRelatedData(batch = 100) {
     if (!this._usersDataUpdate || this._usersDataUpdate.closed) {
-      this.usersDataUpdate$.subscribe((updated) => {
+      this.usersDataUpdate$.pipe(debounceTime(1000)).subscribe((updated) => {
         if (updated) {
-          const data = [];
+          const data: UserData[] = [];
           for (const v of this.usersData.values()) {
             data.push(v);
           }
+          console.log('moshe: got update');
           this.usersDataSubject.next(data);
         }
       });
@@ -51,7 +53,9 @@ export class ProvStoreService {
           profiles.forEach(profile => {
             const data = this.usersData.get(profile.user_id);
             if (!data) {
-              this.usersData.set(profile.user_id, {profile: profile, connectionsData: {_connections: null, connections: null}});
+              this.usersData.set(profile.user_id, 
+                {id: profile.user_id, profile: profile, connectionsData: {_connections: null, connections: null}}
+              );
               const newData = this.usersData.get(profile.user_id);
               const _connetions = this.provDatabaseService.getConnectionsAsObservable(profile.user_id).subscribe((connections) => {
                 if (connections) {

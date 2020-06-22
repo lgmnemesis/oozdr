@@ -27,7 +27,7 @@
       </ion-col>
     </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-align-items-center" *ngFor="let data of usersData">
+    <ion-row class="ion-justify-content-center ion-align-items-center" *ngFor="let data of usersData; trackBy: trackById">
       <ion-col size="auto">
         <div class="col-container">
           <p>{{ data?.profile?.timestamp | date }}</p>
@@ -43,7 +43,7 @@
       <ion-col size="auto">
         <div class="col-container">
           <p>{{ data?.connectionsData?.connections?.length }} connections</p>
-          <ng-container *ngFor="let connection of data?.connectionsData?.connections">
+          <ng-container *ngFor="let connection of data?.connectionsData?.connections; trackBy: trackById">
             <p>{{ connection?.basicInfo?.name }}</p>
           </ng-container>
         </div>
