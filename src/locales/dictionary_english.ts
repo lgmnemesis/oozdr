@@ -147,7 +147,7 @@ export const DictionaryEnglish = {
     enableNotifications_cancel: 'Not Now',
     enableNotifications_accept: 'Enable',
     initialMessage_1: 'Start by making \'Beats\'',
-    initialMessage_2: '\'Beats\' are connections to people, loved ones, soulmate you are looking to reconnect...',
+    initialMessage_2: '\'Beats\' are connections to people, loved ones, Ex lover, soulmate you are looking to reconnect...',
     initialMessage_3: 'Don\'t miss a beat!',
     initialMessage_4: 'Who do you want to reconnect with?',
     initialMessage_5: 'Make a Beat',
@@ -223,7 +223,7 @@ It's meant to allow you to accept what has happened, say goodbye, and move on.
 <span>Just like Beats, your closure will be matched and shown only if the other person is looking for you too (whether it is to reconnect or to give you their own closure message).</span>
 
 `,
-    textBtn: 'Got It'
+    textBtn: 'Got it'
   },
   connectionComponent: {
     closure_1: 'Congratulations! You\'ve Got Closure.',

@@ -147,7 +147,7 @@ export const DictionaryHebrew = {
     enableNotifications_cancel: 'לא עכשיו',
     enableNotifications_accept: 'אפשר',
     initialMessage_1: 'התחילו ביצירת ביט',
-    initialMessage_2: '\'ביט\' הוא קריאה בסתר לאדם אהוב, חבר, שאתם מחפשים להתחבר ',
+    initialMessage_2: '\'ביט\' הוא קריאה בסתר לאדם אהוב, אקס, חבר, שאתם מחפשים להתחבר ',
     initialMessage_3: 'אל תפספסו אף ביט',
     initialMessage_4: 'אם מי תרצו לחדש קשר?',
     initialMessage_5: 'צורו ביט',
