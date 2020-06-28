@@ -21,7 +21,6 @@ export class ProvStartPage implements OnInit, OnDestroy {
     this.provStoreService.registerAllUsersRelatedData(100);
     this._usersData = this.provStoreService.usersData$.subscribe((data) => {
       if (data) {
-        console.log('moshe display update');
         this.usersData = this.sortedData(data);
         this.markForCheck();
       }

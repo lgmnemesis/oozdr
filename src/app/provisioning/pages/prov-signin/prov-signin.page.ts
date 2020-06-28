@@ -1,21 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { ProvAuthService } from '../../services/prov-auth.service';
 import { NavController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-prov-signin',
   templateUrl: './prov-signin.page.html',
   styleUrls: ['./prov-signin.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProvSigninPage implements OnInit {
+export class ProvSigninPage implements OnInit, OnDestroy {
 
   email = '';
   password = '';
+  _user: Subscription;
+  canShow = false;
 
   constructor(private provAuthService: ProvAuthService,
-    private navCtrl: NavController) { }
+    private navCtrl: NavController,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this._user = this.provAuthService.user$.subscribe((user) => {
+      if (user) {
+        this.gotoHome();
+      } else if (user === null) {
+        this.canShow = true;
+        this.markForCheck();
+      }
+    })
+  }
+
+  markForCheck() {
+    this.cd.markForCheck();
   }
 
   inputId(event) {
@@ -30,7 +47,7 @@ export class ProvSigninPage implements OnInit {
     try {
       const credential = await this.provAuthService.afAuth.signInWithEmailAndPassword(this.email, this.password);
       if (credential) {
-        this.gotoHome();
+        // this.gotoHome(); // dont need to do anything here
       }
     } catch (error) {
       console.error(error);
@@ -42,5 +59,9 @@ export class ProvSigninPage implements OnInit {
     .catch((error) => {
       console.error(error);
     });
+  }
+
+  ngOnDestroy() {
+    if (this._user) this._user.unsubscribe();
   }
 }
