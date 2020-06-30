@@ -33,7 +33,7 @@ export const DictionaryEnglish = {
     sub_title_1: 'Have you ever thought about your soulmate? your Ex? the love of your life?',
     sub_title_2: 'Maybe they\'re thinking about you as well?',
     sub_title_3: 'Maybe they\'re looking for you too!',
-    join_us_btn: 'Join us and find out',
+    join_us_btn: 'Get started, It\'s FREE!',
     title_1_sm: 'Reconnect with',
     title_2_sm: 'Your EX...',
     install_app: 'Get the app. Install instantly, find what you need faster, anytime.',
