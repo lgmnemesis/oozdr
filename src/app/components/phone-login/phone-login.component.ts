@@ -10,6 +10,8 @@ import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { LocaleService } from 'src/app/services/locale.service';
 
+declare var console: any;
+
 export class PhoneNumber {
   country: string;
   line: string;  
@@ -76,6 +78,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.afAuth.signInWithPhoneNumber(this.phoneNumber.line, this.appVerifier)
       .then(result => {
         this.confirmationResult = result;
+        this.setOTP();
         this.markForCheck();
       })
       .catch(error => { 
@@ -85,6 +88,32 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
         this.isContinueButtonDisabled = false;
         this.markForCheck();
       });
+  }
+
+  async setOTP() {
+    console.log('moshe1');
+    try {
+      console.re.log('moshe1');
+      if ('OTPCredential' in window) {
+        console.re.log('moshe good');
+        const nav: any = navigator;
+        const content = await nav.credentials.get({
+          otp: {
+            transport:['sms']
+          }
+        });
+        console.re.log('moshe content');
+        const jcont = 'json: ' + JSON.stringify(content);
+        console.re.log(jcont);
+      } else {
+        console.re.log('moshe not in window');
+      }
+    } catch (error) {
+     console.error(error);
+     const er = 'moshe error: ' + JSON.stringify(error);
+     console.re.log(er);
+    }
+    console.log('moshe end');
   }
 
   async initRecaptcha() {

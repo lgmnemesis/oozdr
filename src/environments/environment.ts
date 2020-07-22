@@ -2,9 +2,21 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false,
-  firebaseConfig: {
+function getFirebaseConfig() {
+  return {
+    apiKey: "AIzaSyBIc6xJd9MopPMgCATSHz4VLAUIsIyJae0",
+    authDomain: "reconnect-i.firebaseapp.com",
+    databaseURL: "http://localhost:4000/firestore",
+    projectId: "reconnect-i",
+    storageBucket: "reconnect-i.appspot.com",
+    messagingSenderId: "15338544369",
+    appId: "1:15338544369:web:870238a038bbc520561d50",
+    measurementId: "G-XPLGQ5LX96"
+  }
+}
+
+function getEmulatorConfig() {
+  return {
     apiKey: "AIzaSyBIc6xJd9MopPMgCATSHz4VLAUIsIyJae0",
     authDomain: "reconnect-i.firebaseapp.com",
     databaseURL: "https://reconnect-i.firebaseio.com",
@@ -13,9 +25,27 @@ export const environment = {
     messagingSenderId: "15338544369",
     appId: "1:15338544369:web:870238a038bbc520561d50",
     measurementId: "G-XPLGQ5LX96"
+  }
+}
+
+export const environment = {
+  production: false,
+  get firebaseConfig() {
+    return getConfig();
   },
-  clientVersion: '2.0.116'
+  clientVersion: '2.0.117'
 };
+
+function isEmulator(): boolean {
+  return false;
+}
+
+function getConfig() {
+  if (isEmulator()) {
+    return getEmulatorConfig();
+  }
+  return getFirebaseConfig();
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

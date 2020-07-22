@@ -10,7 +10,8 @@
     <ion-col size="auto">
       <p>{{ dictWelcome.input_1 }}</p>
       <ion-item lines="none" class="item-input">
-        <ion-input #nameinput
+        <ion-input
+          name="name"
           autocomplete="name"
           maxLength="20"
           debounce="300"
@@ -27,6 +28,7 @@
       <p>{{ dictWelcome.input_3 }}</p>
       <ion-item lines="none" class="item-input">
         <ion-input 
+          name="email"
           autocomplete="email"
           type="email"
           inputmode="email"

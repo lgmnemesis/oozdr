@@ -97,11 +97,15 @@ export class ChatInputViewComponent implements OnInit, OnDestroy {
     if (!this.inputBar || !this.inputBar.nativeElement) {
       return false;
     }
-    const el = this.inputBar.nativeElement.querySelector('textarea');
-    if (el) {
-      el.focus();
-      el.setAttribute('dir', this.localeService.isRightToLeft ? 'rtl' : 'auto');
-      return true;
+    try {
+      const el = this.inputBar.nativeElement.querySelector('textarea');
+      if (el) {
+        el.focus();
+        el.setAttribute('dir', this.localeService.isRightToLeft ? 'rtl' : 'auto');
+        return true;
+      }
+    } catch (error) {
+      console.error(error);
     }
     return false;
   }
