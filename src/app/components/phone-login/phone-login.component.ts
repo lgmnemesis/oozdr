@@ -3,14 +3,11 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { SharedService } from 'src/app/services/shared.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { WelcomeService } from 'src/app/services/welcome.service';
 import { Profile } from 'src/app/interfaces/profile';
 import { SharedStoreService } from 'src/app/services/shared-store.service';
 import { AnalyticsService } from 'src/app/services/analytics.service';
 import { LocaleService } from 'src/app/services/locale.service';
-
-declare var console: any;
 
 export class PhoneNumber {
   country: string;
@@ -47,7 +44,6 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   constructor(private afAuth: AngularFireAuth,
     private cd: ChangeDetectorRef,
     private sharedService: SharedService,
-    private authService: AuthService,
     private welcomeService: WelcomeService,
     private sharedStoreService: SharedStoreService,
     private analyticsService: AnalyticsService,
@@ -61,7 +57,7 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
-  sendLoginCode() {
+  async sendLoginCode() {
     this.analyticsService.regPhoneEntered();
     this.isContinueButtonDisabled = true;
     this.phoneError = 'no errors';
@@ -75,10 +71,11 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
       return;
     }
 
+    await this.setOTP();
     this.afAuth.signInWithPhoneNumber(this.phoneNumber.line, this.appVerifier)
       .then(result => {
         this.confirmationResult = result;
-        this.setOTP();
+        // this.setOTP();
         this.markForCheck();
       })
       .catch(error => { 
@@ -91,29 +88,18 @@ export class PhoneLoginComponent implements OnInit, OnDestroy {
   }
 
   async setOTP() {
-    console.log('moshe1');
     try {
-      console.re.log('moshe1');
       if ('OTPCredential' in window) {
-        console.re.log('moshe good');
         const nav: any = navigator;
         const content = await nav.credentials.get({
           otp: {
             transport:['sms']
           }
         });
-        console.re.log('moshe content');
-        const jcont = 'json: ' + JSON.stringify(content);
-        console.re.log(jcont);
-      } else {
-        console.re.log('moshe not in window');
       }
     } catch (error) {
      console.error(error);
-     const er = 'moshe error: ' + JSON.stringify(error);
-     console.re.log(er);
     }
-    console.log('moshe end');
   }
 
   async initRecaptcha() {
