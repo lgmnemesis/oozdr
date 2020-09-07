@@ -33,7 +33,7 @@ export const environment = {
   get firebaseConfig() {
     return getConfig();
   },
-  clientVersion: '2.0.124'
+  clientVersion: '2.0.125'
 };
 
 function isEmulator(): boolean {
