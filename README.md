@@ -2,9 +2,9 @@
 
 ## Reconnect with your EX... :)
 
-Have you ever thought about your soulmate? your Ex? the love of your life?
-Maybe they\'re thinking about you as well?
-Maybe they\'re looking for you too!
+<p>Have you ever thought about your soulmate? your Ex? the love of your life?</p>
+<p>Maybe they're thinking about you as well?</p>
+<p>Maybe they're looking for you too!</p>
 
 - Website: [oozdr.com](https://oozdr.com/)
 
